@@ -3,7 +3,7 @@ import cors from "cors"
 import dotenv from "dotenv"
 import db from "./config/db.ts"
 import logger from "./utils/logger.ts"
-import healthRoutes from "./routes/health.routes.ts";
+import routes from "./routes/index.ts"
 
 
 
@@ -19,8 +19,8 @@ app.use(cors())
 app.use(express.json())
 
 
-// test route
-app.use("/api", healthRoutes);
+// Routes
+app.use("/api", routes)
 
 
 

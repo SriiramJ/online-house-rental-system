@@ -5,3 +5,12 @@
 2025-12-15 16:49:45 [INFO]: MySQL database connected
 2025-12-15 16:49:45 [INFO]: Server running on port 5000
 2025-12-15 16:49:51 [INFO]: Health check API called
+2025-12-18 16:35:58 [INFO]: Server running on port 5000
+2025-12-18 16:35:58 [INFO]: MySQL database connected
+2025-12-18 16:38:55 [INFO]: Register attempt for email: sriram@test.com
+2025-12-18 16:38:55 [INFO]: Fetching user by email: sriram@test.com
+2025-12-18 16:38:55 [INFO]: Creating user: sriram@test.com
+2025-12-18 16:38:55 [INFO]: User registered successfully: sriram@test.com
+2025-12-18 16:41:17 [INFO]: Login attempt for email: sriram@test.com
+2025-12-18 16:41:17 [INFO]: Fetching user by email: sriram@test.com
+2025-12-18 16:41:18 [INFO]: Login successful for userId: 4
