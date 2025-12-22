@@ -43,7 +43,7 @@ export class PropertyDetails implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit() {
     const id = this.route.snapshot.params['id'];
@@ -136,6 +136,87 @@ export class PropertyDetails implements OnInit {
           city: 'Westfield',
           state: 'NJ',
           zipCode: '07090'
+        }
+      },
+      {
+        id: 4,
+        title: 'Luxury Condo with City View',
+        location: 'Uptown, Premium Area',
+        rent: 4200,
+        bedrooms: 3,
+        bathrooms: 2,
+        area: 1800,
+        type: 'Condo',
+        description: 'Stunning luxury condo with panoramic city views.',
+        images: [
+          'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800'
+        ],
+        amenities: ['Parking', 'Gym', 'Pool'],
+        available: false,
+        owner: {
+          name: 'Jennifer Martinez',
+          phone: '+1 (555) 234-5678',
+          email: 'jennifer.martinez@email.com'
+        },
+        address: {
+          street: '999 Skyline Blvd',
+          city: 'New York',
+          state: 'NY',
+          zipCode: '10065'
+        }
+      },
+      {
+        id: 5,
+        title: 'Charming Garden Apartment',
+        location: 'Garden District, Residential',
+        rent: 2200,
+        bedrooms: 2,
+        bathrooms: 1,
+        area: 950,
+        type: 'Apartment',
+        description: 'Lovely garden apartment with patio.',
+        images: [
+          'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800'
+        ],
+        amenities: ['Garden', 'Pet-friendly'],
+        available: true,
+        owner: {
+          name: 'Robert Taylor',
+          phone: '+1 (555) 345-6789',
+          email: 'robert.taylor@email.com'
+        },
+        address: {
+          street: '567 Garden Lane',
+          city: 'Brooklyn',
+          state: 'NY',
+          zipCode: '11215'
+        }
+      },
+      {
+        id: 6,
+        title: 'Modern Loft Space',
+        location: 'Arts District',
+        rent: 2800,
+        bedrooms: 1,
+        bathrooms: 1,
+        area: 1100,
+        type: 'Apartment',
+        description: 'Trendy modern loft with exposed brick.',
+        images: [
+          'https://images.unsplash.com/photo-1484154218962-a197022b5858?w=800'
+        ],
+        amenities: ['High Ceilings', 'Exposed Brick'],
+        available: true,
+        owner: {
+          name: 'Emily Rodriguez',
+          phone: '+1 (555) 456-7891',
+          email: 'emily.rodriguez@email.com'
+        },
+        address: {
+          street: '234 Art Street',
+          city: 'Brooklyn',
+          state: 'NY',
+          zipCode: '11211'
         }
       }
     ];
