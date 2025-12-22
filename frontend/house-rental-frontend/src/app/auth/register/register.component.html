@@ -1,0 +1,140 @@
+<div class="auth-container">
+  <div class="auth-header">
+    <div class="logo">
+      <span class="logo-icon">🏢</span>
+      <span class="logo-text">RentEase</span>
+    </div>
+    <h2>Create your account</h2>
+    <p>
+      Already have an account?
+      <a routerLink="/auth/login">Sign in</a>
+    </p>
+  </div>
+
+  <div class="auth-form">
+    <form [formGroup]="registerForm" (ngSubmit)="handleSubmit()">
+      <!-- Role Selection -->
+      <div class="role-section">
+        <label>I am a</label>
+        <div class="role-selection">
+          <button
+            type="button"
+            (click)="setRole('tenant')"
+            [class.active]="role === 'tenant'"
+            class="role-btn"
+          >
+            <span class="role-icon">👤</span>
+            <div class="role-title">Tenant</div>
+            <div class="role-desc">Looking for property</div>
+          </button>
+          <button
+            type="button"
+            (click)="setRole('owner')"
+            [class.active]="role === 'owner'"
+            class="role-btn"
+          >
+            <span class="role-icon">🏢</span>
+            <div class="role-title">Owner</div>
+            <div class="role-desc">Have properties</div>
+          </button>
+        </div>
+      </div>
+
+      <!-- Name -->
+      <div class="form-group">
+        <label for="name">Full Name *</label>
+        <div class="input-group">
+          <span class="input-icon">👤</span>
+          <input
+            type="text"
+            id="name"
+            formControlName="name"
+            placeholder="John Doe"
+          />
+        </div>
+        <div *ngIf="name?.invalid && name?.touched" class="error-text">
+          <span *ngIf="name?.errors?.['required']">Name is required</span>
+          <span *ngIf="name?.errors?.['minlength']">Name must be at least 2 characters</span>
+        </div>
+      </div>
+
+      <!-- Email -->
+      <div class="form-group">
+        <label for="email">Email Address *</label>
+        <div class="input-group">
+          <span class="input-icon">📧</span>
+          <input
+            type="email"
+            id="email"
+            formControlName="email"
+            placeholder="john@example.com"
+          />
+        </div>
+        <div *ngIf="email?.invalid && email?.touched" class="error-text">
+          <span *ngIf="email?.errors?.['required']">Email is required</span>
+          <span *ngIf="email?.errors?.['email']">Please enter a valid email address</span>
+          <span *ngIf="email?.errors?.['userExists']">An account with this email already exists</span>
+        </div>
+      </div>
+
+      <!-- Phone -->
+      <div class="form-group">
+        <label for="phone">Phone Number *</label>
+        <div class="input-group">
+          <span class="input-icon">📞</span>
+          <input
+            type="tel"
+            id="phone"
+            formControlName="phone"
+            placeholder="+1 (555) 123-4567"
+          />
+        </div>
+        <div *ngIf="phone?.invalid && phone?.touched" class="error-text">
+          <span *ngIf="phone?.errors?.['required']">Phone number is required</span>
+          <span *ngIf="phone?.errors?.['pattern']">Please enter a valid phone number</span>
+        </div>
+      </div>
+
+      <!-- Password -->
+      <div class="form-group">
+        <label for="password">Password *</label>
+        <div class="input-group">
+          <span class="input-icon">🔒</span>
+          <input
+            type="password"
+            id="password"
+            formControlName="password"
+            placeholder="••••••••"
+          />
+        </div>
+        <div *ngIf="password?.invalid && password?.touched" class="error-text">
+          <span *ngIf="password?.errors?.['required']">Password is required</span>
+          <span *ngIf="password?.errors?.['minlength']">Password must be at least 6 characters</span>
+        </div>
+      </div>
+
+      <!-- Confirm Password -->
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password *</label>
+        <div class="input-group">
+          <span class="input-icon">🔒</span>
+          <input
+            type="password"
+            id="confirmPassword"
+            formControlName="confirmPassword"
+            placeholder="••••••••"
+          />
+        </div>
+        <div *ngIf="confirmPassword?.invalid && confirmPassword?.touched" class="error-text">
+          <span *ngIf="confirmPassword?.errors?.['required']">Please confirm your password</span>
+          <span *ngIf="confirmPassword?.errors?.['mismatch']">Passwords do not match</span>
+        </div>
+      </div>
+
+      <button type="submit" [disabled]="loading || registerForm.invalid" class="submit-btn">
+        <div *ngIf="loading" class="spinner"></div>
+        {{ loading ? 'Creating Account...' : 'Create Account' }}
+      </button>
+    </form>
+  </div>
+</div>
