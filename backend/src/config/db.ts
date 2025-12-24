@@ -9,14 +9,14 @@ const dbPassword = process.env.DB_PASSWORD;
 const dbName = process.env.DB_NAME;
 const dbPort = Number(process.env.DB_PORT);
 
-if (!dbHost || !dbUser || !dbPassword || !dbName || !dbPort) {
+if (!dbHost || !dbUser || !dbName || !dbPort) {
   throw new Error('Missing environment variables');
 }
 
 const db = mysql.createPool({
   host: dbHost,
   user: dbUser,
-  password: dbPassword,
+  password: dbPassword || '',
   database: dbName,
   port: dbPort,
   waitForConnections: true,
