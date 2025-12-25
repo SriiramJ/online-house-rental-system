@@ -14,3 +14,94 @@
 2025-12-18 16:41:17 [INFO]: Login attempt for email: sriram@test.com
 2025-12-18 16:41:17 [INFO]: Fetching user by email: sriram@test.com
 2025-12-18 16:41:18 [INFO]: Login successful for userId: 4
+2025-12-23 00:11:42 [ERROR]: Server startup failed: Access denied for user 'root'@'localhost' (using password: YES)
+2025-12-23 00:11:42 [ERROR]: MySQL connection failed: Access denied for user 'root'@'localhost' (using password: YES)
+2025-12-23 00:16:20 [ERROR]: Server startup failed: Access denied for user 'root'@'localhost' (using password: YES)
+2025-12-23 00:16:20 [ERROR]: MySQL connection failed: Access denied for user 'root'@'localhost' (using password: YES)
+2025-12-23 14:53:04 [ERROR]: MySQL connection failed: Access denied for user 'root'@'localhost' (using password: YES)
+2025-12-23 14:53:04 [ERROR]: Server startup failed: Access denied for user 'root'@'localhost' (using password: YES)
+2025-12-23 15:32:40 [ERROR]: MySQL connection failed: Access denied for user 'root'@'localhost' (using password: YES)
+2025-12-23 15:32:40 [ERROR]: Server startup failed: Access denied for user 'root'@'localhost' (using password: YES)
+2025-12-23 15:56:31 [ERROR]: MySQL connection failed: Access denied for user 'udaygundu'@'localhost' (using password: NO)
+2025-12-23 15:56:31 [ERROR]: Server startup failed: Access denied for user 'udaygundu'@'localhost' (using password: NO)
+2025-12-23 15:56:31 [ERROR]: MySQL connection failed: Access denied for user 'udaygundu'@'localhost' (using password: NO)
+2025-12-23 15:56:31 [ERROR]: Server startup failed: Access denied for user 'udaygundu'@'localhost' (using password: NO)
+2025-12-23 15:56:35 [ERROR]: MySQL connection failed: Access denied for user 'udaygundu'@'localhost' (using password: NO)
+2025-12-23 15:56:35 [ERROR]: Server startup failed: Access denied for user 'udaygundu'@'localhost' (using password: NO)
+2025-12-23 15:56:35 [ERROR]: MySQL connection failed: Access denied for user 'udaygundu'@'localhost' (using password: NO)
+2025-12-23 15:56:35 [ERROR]: Server startup failed: Access denied for user 'udaygundu'@'localhost' (using password: NO)
+2025-12-23 15:57:23 [ERROR]: MySQL connection failed: Access denied for user 'udaygundu'@'localhost' (using password: NO)
+2025-12-23 15:57:23 [ERROR]: Server startup failed: Access denied for user 'udaygundu'@'localhost' (using password: NO)
+2025-12-24 22:50:20 [ERROR]: Server startup failed: Access denied for user 'udaygundu'@'localhost' (using password: NO)
+2025-12-24 22:50:20 [ERROR]: MySQL connection failed: Access denied for user 'udaygundu'@'localhost' (using password: NO)
+2025-12-24 23:12:11 [ERROR]: Server startup failed: Access denied for user 'udaygundu'@'localhost' (using password: NO)
+2025-12-24 23:12:11 [ERROR]: MySQL connection failed: Access denied for user 'udaygundu'@'localhost' (using password: NO)
+2025-12-24 23:13:44 [INFO]: Register attempt for email: udaygundu17@gmail.com
+2025-12-24 23:13:44 [INFO]: Fetching user by email: udaygundu17@gmail.com
+2025-12-24 23:13:44 [ERROR]: Register failed: Access denied for user 'udaygundu'@'localhost' (using password: NO)
+2025-12-24 23:16:10 [INFO]: Register attempt for email: udaygundu17@gmail.com
+2025-12-24 23:16:10 [INFO]: Fetching user by email: udaygundu17@gmail.com
+2025-12-24 23:16:10 [ERROR]: Register failed: Access denied for user 'udaygundu'@'localhost' (using password: NO)
+2025-12-24 23:18:10 [INFO]: Register attempt for email: test@example.com
+2025-12-24 23:18:10 [INFO]: Fetching user by email: test@example.com
+2025-12-24 23:18:10 [ERROR]: Register failed: Access denied for user 'udaygundu'@'localhost' (using password: NO)
+2025-12-24 23:41:13 [ERROR]: MySQL connection failed: 
+2025-12-24 23:41:13 [ERROR]: MySQL connection failed: 
+2025-12-24 23:41:13 [ERROR]: Server startup failed: 
+2025-12-24 23:41:13 [ERROR]: Server startup failed: 
+2025-12-24 23:58:14 [ERROR]: Server startup failed: Access denied for user 'root'@'localhost' (using password: YES)
+2025-12-24 23:58:14 [ERROR]: MySQL connection failed: Access denied for user 'root'@'localhost' (using password: YES)
+2025-12-24 23:59:15 [ERROR]: Server startup failed: Access denied for user 'root'@'localhost' (using password: NO)
+2025-12-24 23:59:15 [ERROR]: MySQL connection failed: Access denied for user 'root'@'localhost' (using password: NO)
+2025-12-25 00:01:08 [INFO]: Server running on port 3001
+2025-12-25 00:01:08 [INFO]: MySQL database connected
+2025-12-25 00:03:41 [INFO]: Server running on port 3001
+2025-12-25 00:03:41 [INFO]: MySQL database connected
+2025-12-25 00:04:59 [INFO]: Register attempt for email: udaygundu17@gmail.com
+2025-12-25 00:04:59 [INFO]: Fetching user by email: udaygundu17@gmail.com
+2025-12-25 00:04:59 [ERROR]: Register failed: Access denied for user 'root'@'localhost' (using password: YES)
+2025-12-25 00:05:35 [INFO]: Register attempt for email: udaygundu17@gmail.com
+2025-12-25 00:05:35 [INFO]: Fetching user by email: udaygundu17@gmail.com
+2025-12-25 00:05:35 [ERROR]: Register failed: Access denied for user 'root'@'localhost' (using password: YES)
+2025-12-25 00:07:23 [INFO]: Register attempt for email: test@example.com
+2025-12-25 00:07:23 [INFO]: Fetching user by email: test@example.com
+2025-12-25 00:07:23 [ERROR]: Register failed: Access denied for user 'root'@'localhost' (using password: YES)
+2025-12-25 00:09:15 [INFO]: Register attempt for email: test@example.com
+2025-12-25 00:09:15 [INFO]: Fetching user by email: test@example.com
+2025-12-25 00:09:15 [ERROR]: Register failed: Access denied for user 'root'@'localhost' (using password: YES)
+2025-12-25 00:09:29 [INFO]: Register attempt for email: newtest@example.com
+2025-12-25 00:09:29 [INFO]: Fetching user by email: newtest@example.com
+2025-12-25 00:09:29 [ERROR]: Register failed: Access denied for user 'root'@'localhost' (using password: YES)
+2025-12-25 00:10:30 [INFO]: Register attempt for email: test@example.com
+2025-12-25 00:10:30 [INFO]: Fetching user by email: test@example.com
+2025-12-25 00:10:30 [ERROR]: Register failed: Access denied for user 'root'@'localhost' (using password: YES)
+2025-12-25 00:10:40 [INFO]: MySQL database connected
+2025-12-25 00:10:40 [INFO]: Server running on port 3001
+2025-12-25 00:10:40 [INFO]: MySQL database connected
+2025-12-25 00:10:40 [INFO]: Server running on port 3001
+2025-12-25 00:10:48 [INFO]: Registration request received: {"name":"Test User","email":"test2@example.com","password":"password123","role":"TENANT"}
+2025-12-25 00:10:48 [INFO]: Register attempt for email: test2@example.com
+2025-12-25 00:10:48 [INFO]: Fetching user by email: test2@example.com
+2025-12-25 00:10:48 [INFO]: Creating user: test2@example.com
+2025-12-25 00:10:48 [INFO]: User registered successfully: test2@example.com
+2025-12-25 00:11:06 [INFO]: Login attempt for email: test2@example.com
+2025-12-25 00:11:06 [INFO]: Fetching user by email: test2@example.com
+2025-12-25 00:11:06 [INFO]: Login successful for userId: 1
+2025-12-25 00:11:36 [INFO]: Registration request received: {"name":"Uday Gundu","email":"udaygundu17@gmail.com","phone":"9014152131","password":"123456","role":"TENANT"}
+2025-12-25 00:11:36 [INFO]: Register attempt for email: udaygundu17@gmail.com
+2025-12-25 00:11:36 [INFO]: Fetching user by email: udaygundu17@gmail.com
+2025-12-25 00:11:36 [INFO]: Creating user: udaygundu17@gmail.com
+2025-12-25 00:11:36 [INFO]: User registered successfully: udaygundu17@gmail.com
+2025-12-25 00:16:26 [INFO]: Login attempt for email: udaygundu17@gmail.com
+2025-12-25 00:16:26 [INFO]: Fetching user by email: udaygundu17@gmail.com
+2025-12-25 00:16:26 [INFO]: Login successful for userId: 2
+2025-12-25 00:23:14 [INFO]: Registration request received: {"name":"Uday ","email":"udaygundu980@gmail.com","phone":"1234567890","password":"123456","role":"TENANT"}
+2025-12-25 00:23:14 [INFO]: Register attempt for email: udaygundu980@gmail.com
+2025-12-25 00:23:14 [INFO]: Fetching user by email: udaygundu980@gmail.com
+2025-12-25 00:23:14 [INFO]: Creating user: udaygundu980@gmail.com
+2025-12-25 00:23:14 [INFO]: User registered successfully: udaygundu980@gmail.com
+2025-12-25 00:23:25 [INFO]: Login attempt for email: udaygundu980@gmail.com
+2025-12-25 00:23:25 [INFO]: Fetching user by email: udaygundu980@gmail.com
+2025-12-25 00:23:25 [INFO]: Login successful for userId: 6
+2025-12-25 09:54:11 [INFO]: MySQL database connected
+2025-12-25 09:54:11 [INFO]: Server running on port 3001
