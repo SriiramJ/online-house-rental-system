@@ -24,7 +24,15 @@ const db = mysql.createPool({
   queueLimit: 0,
 });
 
+// Test connection
 db.getConnection()
-.then(()=> logger.info("MySQL database connected"))
-.catch((err)=> logger.error(`MySQL connection failed: ${err.message}`))
+.then((connection) => {
+  logger.info("MySQL database connected successfully");
+  connection.release();
+})
+.catch((err) => {
+  logger.error(`MySQL connection failed: ${err.message}`);
+  logger.error(`Connection details: host=${dbHost}, user=${dbUser}, database=${dbName}, port=${dbPort}`);
+})
+
 export default db

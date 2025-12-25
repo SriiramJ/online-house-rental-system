@@ -37,3 +37,6 @@
 2025-12-25 00:09:15 [ERROR]: Register failed: Access denied for user 'root'@'localhost' (using password: YES)
 2025-12-25 00:09:29 [ERROR]: Register failed: Access denied for user 'root'@'localhost' (using password: YES)
 2025-12-25 00:10:30 [ERROR]: Register failed: Access denied for user 'root'@'localhost' (using password: YES)
+2025-12-25 14:47:56 [ERROR]: MySQL connection failed: Access denied for user 'root'@'localhost' (using password: NO)
+2025-12-25 14:47:56 [ERROR]: Connection details: host=127.0.0.1, user=root, database=house_rental_db, port=3306
+2025-12-25 14:47:56 [ERROR]: Server startup failed: Access denied for user 'root'@'localhost' (using password: NO)

@@ -105,3 +105,20 @@
 2025-12-25 00:23:25 [INFO]: Login successful for userId: 6
 2025-12-25 09:54:11 [INFO]: MySQL database connected
 2025-12-25 09:54:11 [INFO]: Server running on port 3001
+2025-12-25 14:36:30 [INFO]: MySQL database connected
+2025-12-25 14:36:30 [INFO]: Server running on port 5000
+2025-12-25 14:47:56 [ERROR]: MySQL connection failed: Access denied for user 'root'@'localhost' (using password: NO)
+2025-12-25 14:47:56 [ERROR]: Connection details: host=127.0.0.1, user=root, database=house_rental_db, port=3306
+2025-12-25 14:47:56 [ERROR]: Server startup failed: Access denied for user 'root'@'localhost' (using password: NO)
+2025-12-25 14:55:34 [INFO]: MySQL database connected successfully
+2025-12-25 14:55:34 [INFO]: Server running on port 3001
+2025-12-25 14:56:19 [INFO]: MySQL database connected successfully
+2025-12-25 14:56:19 [INFO]: Server running on port 3001
+2025-12-25 14:57:58 [INFO]: Registration request received: {"name":"Sriram J","email":"Sriram2005j@gmail.com","phone":"+919025581587","password":"123456","role":"TENANT"}
+2025-12-25 14:57:58 [INFO]: Register attempt for email: Sriram2005j@gmail.com
+2025-12-25 14:57:58 [INFO]: Fetching user by email: Sriram2005j@gmail.com
+2025-12-25 14:57:58 [INFO]: Creating user: Sriram2005j@gmail.com
+2025-12-25 14:57:58 [INFO]: User registered successfully: Sriram2005j@gmail.com
+2025-12-25 14:58:05 [INFO]: Login attempt for email: Sriram2005j@gmail.com
+2025-12-25 14:58:05 [INFO]: Fetching user by email: Sriram2005j@gmail.com
+2025-12-25 14:58:05 [INFO]: Login successful for userId: 5
