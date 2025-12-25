@@ -122,3 +122,8 @@
 2025-12-25 14:58:05 [INFO]: Login attempt for email: Sriram2005j@gmail.com
 2025-12-25 14:58:05 [INFO]: Fetching user by email: Sriram2005j@gmail.com
 2025-12-25 14:58:05 [INFO]: Login successful for userId: 5
+2025-12-25 15:46:44 [INFO]: MySQL database connected successfully
+2025-12-25 15:46:44 [INFO]: Server running on port 3001
+2025-12-25 15:47:05 [INFO]: Login attempt for email: Sriram2005j@gmail.com
+2025-12-25 15:47:05 [INFO]: Fetching user by email: Sriram2005j@gmail.com
+2025-12-25 15:47:05 [INFO]: Login successful for userId: 5
