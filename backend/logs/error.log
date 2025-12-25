@@ -40,3 +40,20 @@
 2025-12-25 14:47:56 [ERROR]: MySQL connection failed: Access denied for user 'root'@'localhost' (using password: NO)
 2025-12-25 14:47:56 [ERROR]: Connection details: host=127.0.0.1, user=root, database=house_rental_db, port=3306
 2025-12-25 14:47:56 [ERROR]: Server startup failed: Access denied for user 'root'@'localhost' (using password: NO)
+2025-12-25 17:32:43 [ERROR]: MySQL connection failed: Unknown database 'house_rental_db'
+2025-12-25 17:32:43 [ERROR]: Connection details: host=127.0.0.1, user=root, database=house_rental_db, port=3306
+2025-12-25 17:32:43 [ERROR]: Server startup failed: Unknown database 'house_rental_db'
+2025-12-25 18:14:02 [ERROR]: Register failed: Table 'house_rental_db.users' doesn't exist
+2025-12-25 18:14:02 [ERROR]: Full error: Table 'house_rental_db.users' doesn't exist
+2025-12-25 20:24:40 [ERROR]: Failed to add property: Table 'house_rental_db.properties' doesn't exist
+2025-12-25 20:24:44 [ERROR]: Failed to add property: Table 'house_rental_db.properties' doesn't exist
+2025-12-25 20:28:02 [ERROR]: Failed to add property: Unknown column 'rent' in 'field list'
+2025-12-25 20:33:18 [ERROR]: ADD PROPERTY ERROR: Column 'owner_id' cannot be null
+2025-12-25 20:44:51 [ERROR]: Column 'owner_id' cannot be null
+2025-12-25 20:44:56 [ERROR]: Column 'owner_id' cannot be null
+2025-12-25 21:12:51 [ERROR]: Unexpected token 'P', "Parking,Lift" is not valid JSON
+2025-12-25 21:13:19 [ERROR]: Unexpected token 'P', "Parking,Lift" is not valid JSON
+2025-12-25 21:22:03 [ERROR]: Unexpected token 'P', "Parking,Lift" is not valid JSON
+2025-12-25 21:23:24 [ERROR]: Unexpected token 'P', "Parking,Lift" is not valid JSON
+2025-12-25 21:24:09 [ERROR]: Unexpected token 'P', "Parking,Lift" is not valid JSON
+2025-12-25 21:24:58 [ERROR]: Unexpected token 'P', "Parking,Lift" is not valid JSON
