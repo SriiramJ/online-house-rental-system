@@ -11,27 +11,32 @@
         </p>
       </div>
       
-      <div class="footer-section">
+      <!-- For Tenants - Show when not logged in or logged in as tenant -->
+      <div class="footer-section" *ngIf="!authService.isAuthenticated() || authService.isTenant()">
         <h4>For Tenants</h4>
         <ul class="footer-list">
           <li><button (click)="navigateToProperties()" class="footer-link">Browse Properties</button></li>
-          <li><button (click)="navigateToRegister()" class="footer-link">Sign Up</button></li>
+          <li *ngIf="!authService.isAuthenticated()"><button (click)="navigateToRegister()" class="footer-link">Sign Up</button></li>
+          <li *ngIf="authService.isTenant()"><button (click)="navigateToDashboard()" class="footer-link">Dashboard</button></li>
         </ul>
       </div>
       
-      <div class="footer-section">
+      <!-- For Owners - Show when not logged in or logged in as owner -->
+      <div class="footer-section" *ngIf="!authService.isAuthenticated() || authService.isOwner()">
         <h4>For Owners</h4>
         <ul class="footer-list">
-          <li><button (click)="navigateToRegister()" class="footer-link">List Property</button></li>
-          <li><button (click)="navigateToLogin()" class="footer-link">Owner Login</button></li>
+          <li *ngIf="!authService.isAuthenticated()"><button (click)="navigateToRegister()" class="footer-link">List Property</button></li>
+          <li *ngIf="!authService.isAuthenticated()"><button (click)="navigateToLogin()" class="footer-link">Owner Login</button></li>
+          <li *ngIf="authService.isOwner()"><button (click)="navigateToAddProperty()" class="footer-link">Add Property</button></li>
+          <li *ngIf="authService.isOwner()"><button (click)="navigateToDashboard()" class="footer-link">Dashboard</button></li>
         </ul>
       </div>
       
       <div class="footer-section">
         <h4>Support</h4>
         <ul class="footer-list">
-          <li><a href="#" class="footer-link">Help Center</a></li>
-          <li><a href="#" class="footer-link">Contact Us</a></li>
+          <li><button (click)="navigateToHelpCenter()" class="footer-link">Help Center</button></li>
+          <li><button (click)="navigateToContact()" class="footer-link">Contact Us</button></li>
         </ul>
       </div>
     </div>

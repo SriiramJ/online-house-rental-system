@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../button/button.component';
 import { UserService, User } from '../../core/services/user.service';
 import { AuthStateService } from '../../core/services/auth-state.service';
+import { AuthService } from '../../core/services/auth.service';
 import { filter, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { LucideAngularModule, Building2, User as UserIcon, ChevronDown } from 'lucide-angular';
@@ -31,6 +32,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     private router: Router,
     private userService: UserService,
     private authState: AuthStateService,
+    private authService: AuthService,
     private cdr: ChangeDetectorRef
   ) {}
 
@@ -114,20 +116,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   logout() {
     this.showUserMenu = false;
-    this.userService.logout().subscribe({
-      next: () => {
-        this.currentUser = null;
-        this.userService.clearCurrentUser();
-        this.authState.clearToken();
-        this.router.navigate(['/']);
-      },
-      error: (error) => {
-        console.error('Logout error:', error);
-        this.currentUser = null;
-        this.userService.clearCurrentUser();
-        this.authState.clearToken();
-        this.router.navigate(['/']);
-      }
-    });
+    this.authService.logout();
+    this.currentUser = null;
+    this.userService.clearCurrentUser();
+    this.authState.clearToken();
+    this.router.navigate(['/']);
   }
 }

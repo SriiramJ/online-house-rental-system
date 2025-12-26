@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 type ButtonVariant = 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link';
-type ButtonSize = 'default' | 'sm' | 'lg' | 'icon';
+type ButtonSize = 'default' | 'sm' | 'lg' | 'xl' | 'icon';
 
 @Component({
   selector: 'app-button',
@@ -106,6 +106,11 @@ type ButtonSize = 'default' | 'sm' | 'lg' | 'icon';
     .btn-lg {
       height: 2.5rem;
       padding: 0.625rem 1.5rem;
+    }
+    .btn-xl {
+      height: 3rem;
+      padding: 0.75rem 2rem;
+      font-size: 1rem;
     }
     .btn-icon {
       height: 2.25rem;

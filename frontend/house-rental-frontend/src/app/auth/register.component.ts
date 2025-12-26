@@ -7,7 +7,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
-import { ApiService } from '../services/api.service';
+import { AuthService } from '../core/services/auth.service';
+import { ToastService } from '../core/services/toast.service';
 
 @Component({
   selector: 'app-register',
@@ -65,11 +66,6 @@ import { ApiService } from '../services/api.service';
               Create Account
             </button>
           </form>
-          
-          <div *ngIf="message" class="message" [ngClass]="messageClass">
-            <mat-icon>{{messageClass === 'success' ? 'check_circle' : 'error'}}</mat-icon>
-            {{ message }}
-          </div>
           
           <div class="login-link">
             Already have an account? 
@@ -164,26 +160,21 @@ export class RegisterComponent {
     name: '',
     email: '',
     phone: '',
-    role: 'TENANT',
+    role: 'TENANT' as 'TENANT' | 'OWNER',
     password: ''
   };
   
-  message = '';
-  messageClass = '';
   hidePassword = true;
 
-  constructor(private apiService: ApiService) {}
+  constructor(private authService: AuthService, private toast: ToastService) {}
 
   onRegister() {
-    this.apiService.register(this.userData).subscribe({
+    this.authService.register(this.userData).subscribe({
       next: (response) => {
-        this.message = 'Account created successfully!';
-        this.messageClass = 'success';
         console.log('Register response:', response);
       },
       error: (error) => {
-        this.message = error.error?.message || 'Registration failed. Please try again.';
-        this.messageClass = 'error';
+        this.toast.error('Registration failed', error.error?.message || 'Please check your information and try again.');
         console.error('Register error:', error);
       }
     });

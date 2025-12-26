@@ -1,7 +1,7 @@
 .property-details-container {
   min-height: 100vh;
   background: #f9fafb;
-  padding-top: 70px; // Account for fixed navbar
+  padding-top: 70px;
 }
 
 .error-state {
@@ -9,6 +9,7 @@
   justify-content: center;
   align-items: center;
   min-height: 60vh;
+  padding: 2rem;
 }
 
 .error-content {
@@ -17,9 +18,10 @@
 }
 
 .error-icon {
-  font-size: 3rem;
-  margin-bottom: 1rem;
-  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 1rem;
+  color: #ef4444;
 }
 
 .error-content h3 {
@@ -45,35 +47,39 @@
 }
 
 .back-btn {
-  padding: 0.75rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
   background: white;
-  color: #374151;
-  border: 1px solid #d1d5db;
+  border: 1px solid #e5e7eb;
   border-radius: 0.5rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
+  color: #374151;
   font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
 
   &:hover {
     background: #f9fafb;
-    transform: translateY(-1px);
+    border-color: #d1d5db;
   }
 }
 
-.property-header {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3rem;
-  margin-bottom: 3rem;
-  background: white;
-  border-radius: 1rem;
-  overflow: hidden;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+.back-icon {
+  width: 16px;
+  height: 16px;
 }
 
-.property-image {
+.property-images {
+  margin-bottom: 2rem;
+}
+
+.main-image {
   position: relative;
   height: 400px;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 
   img {
     width: 100%;
@@ -84,10 +90,10 @@
 
 .availability-badge {
   position: absolute;
-  top: 1.5rem;
-  right: 1.5rem;
+  top: 1rem;
+  right: 1rem;
   padding: 0.5rem 1rem;
-  border-radius: 1rem;
+  border-radius: 2rem;
   font-size: 0.875rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -104,11 +110,63 @@
   }
 }
 
-.property-info {
-  padding: 2rem;
+.image-nav {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+}
+
+.nav-btn {
+  width: 40px;
+  height: 40px;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: background 0.2s;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.7);
+  }
+}
+
+.image-indicators {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.5rem;
+}
+
+.indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: background 0.2s;
+
+  &.active {
+    background: white;
+  }
+}
+
+.property-info {
+  display: grid;
+  grid-template-columns: 1fr 350px;
+  gap: 3rem;
+}
+
+.property-header {
+  margin-bottom: 2rem;
 }
 
 .property-title {
@@ -116,42 +174,20 @@
   font-weight: 700;
   color: #111827;
   margin-bottom: 1rem;
-  line-height: 1.2;
 }
 
 .property-location {
-  color: #6b7280;
-  font-size: 1.125rem;
-  margin-bottom: 2rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  color: #6b7280;
+  font-size: 1rem;
+  margin-bottom: 1rem;
 }
 
 .location-icon {
-  font-size: 1.125rem;
-}
-
-.property-specs {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin-bottom: 2rem;
-}
-
-.spec-item {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: #f3f4f6;
-  padding: 0.75rem 1rem;
-  border-radius: 0.5rem;
-  font-weight: 500;
-  color: #374151;
-}
-
-.spec-icon {
-  font-size: 1.125rem;
+  width: 20px;
+  height: 20px;
 }
 
 .property-price {
@@ -166,31 +202,46 @@
   color: #667eea;
 }
 
-.price-period {
+.period {
   font-size: 1.125rem;
   color: #6b7280;
   font-weight: 500;
 }
 
-.property-content {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 3rem;
-}
-
-.content-main {
+.property-stats {
+  display: flex;
+  gap: 2rem;
+  padding: 1.5rem;
   background: white;
   border-radius: 1rem;
-  padding: 2rem;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  margin-bottom: 2rem;
 }
 
-.section {
-  margin-bottom: 2.5rem;
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
 
-  &:last-child {
-    margin-bottom: 0;
-  }
+.stat-icon {
+  width: 24px;
+  height: 24px;
+  color: #667eea;
+  margin-bottom: 0.5rem;
+}
+
+.stat-value {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 0.25rem;
+}
+
+.stat-label {
+  font-size: 0.875rem;
+  color: #6b7280;
 }
 
 .section-title {
@@ -201,118 +252,191 @@
 }
 
 .property-description {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  margin-bottom: 2rem;
+}
+
+.description-text {
   color: #374151;
   line-height: 1.6;
-  font-size: 1rem;
+  margin: 0;
+}
+
+.property-amenities {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  margin-bottom: 2rem;
 }
 
 .amenities-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 0.75rem;
+  gap: 1rem;
 }
 
 .amenity-item {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.75rem;
   padding: 0.75rem;
   background: #f9fafb;
   border-radius: 0.5rem;
-  font-weight: 500;
-  color: #374151;
 }
 
 .amenity-icon {
+  width: 20px;
+  height: 20px;
   color: #10b981;
-  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.amenity-name {
+  color: #374151;
+  font-weight: 500;
+}
+
+.property-features {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
 
 .features-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  display: flex;
+  flex-direction: column;
   gap: 1rem;
 }
 
-.feature-item {
+.feature-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
-  background: #f9fafb;
-  border-radius: 0.5rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #f3f4f6;
+
+  &:last-child {
+    border-bottom: none;
+  }
 }
 
 .feature-label {
-  font-weight: 500;
   color: #6b7280;
+  font-weight: 500;
 }
 
 .feature-value {
+  color: #111827;
   font-weight: 600;
-  color: #374151;
 
   &.available {
     color: #10b981;
   }
 }
 
-.content-sidebar {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+.booking-sidebar {
+  position: sticky;
+  top: 2rem;
+  height: fit-content;
 }
 
-.contact-card {
+.booking-card {
   background: white;
   border-radius: 1rem;
-  padding: 2rem;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  position: sticky;
-  top: 90px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
 }
 
-.card-title {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #111827;
-  margin-bottom: 0.5rem;
+.booking-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid #f3f4f6;
 }
 
-.card-description {
+.rent-info {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.rent-amount {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #667eea;
+}
+
+.rent-period {
+  font-size: 1rem;
   color: #6b7280;
-  margin-bottom: 1.5rem;
-  line-height: 1.5;
 }
 
-.contact-actions {
+.booking-details {
+  padding: 1.5rem;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.detail-label {
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+.detail-value {
+  color: #111827;
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.booking-actions {
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-  margin-bottom: 2rem;
+}
+
+.booking-note {
+  padding: 1rem 1.5rem;
+  background: #f9fafb;
+}
+
+.note-text {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin: 0;
+  text-align: center;
 }
 
 .btn {
   padding: 0.75rem 1.5rem;
   border-radius: 0.5rem;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.2s;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 0.5rem;
   font-size: 0.875rem;
   border: none;
-
-  &:hover:not(:disabled) {
-    transform: translateY(-1px);
-  }
 
   &:disabled {
     opacity: 0.5;
     cursor: not-allowed;
-    transform: none;
   }
 }
 
@@ -321,6 +445,7 @@
   color: white;
 
   &:hover:not(:disabled) {
+    transform: translateY(-1px);
     box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
   }
 }
@@ -336,63 +461,39 @@
   }
 }
 
-.contact-info {
-  border-top: 1px solid #e5e7eb;
-  padding-top: 1.5rem;
+.btn-full {
+  width: 100%;
 }
 
-.info-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.75rem 0;
-  border-bottom: 1px solid #f3f4f6;
-
-  &:last-child {
-    border-bottom: none;
-  }
-}
-
-.info-label {
-  font-weight: 500;
-  color: #6b7280;
-  font-size: 0.875rem;
-}
-
-.info-value {
-  font-weight: 600;
-  color: #374151;
-  font-size: 0.875rem;
+.btn-icon {
+  width: 16px;
+  height: 16px;
 }
 
 // Responsive Design
-@media (max-width: 1024px) {
-  .property-content {
+@media (max-width: 768px) {
+  .property-info {
     grid-template-columns: 1fr;
     gap: 2rem;
   }
 
-  .contact-card {
-    position: static;
-  }
-}
-
-@media (max-width: 768px) {
-  .property-details {
-    padding: 1rem 0.5rem;
+  .property-stats {
+    flex-direction: column;
+    gap: 1rem;
   }
 
-  .property-header {
+  .stat-item {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+  }
+
+  .amenities-grid {
     grid-template-columns: 1fr;
-    gap: 0;
   }
 
-  .property-image {
-    height: 300px;
-  }
-
-  .property-info {
-    padding: 1.5rem;
+  .main-image {
+    height: 250px;
   }
 
   .property-title {
@@ -401,37 +502,5 @@
 
   .price {
     font-size: 2rem;
-  }
-
-  .property-specs {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .content-main {
-    padding: 1.5rem;
-  }
-
-  .contact-card {
-    padding: 1.5rem;
-  }
-
-  .amenities-grid,
-  .features-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 640px) {
-  .property-header {
-    margin-bottom: 2rem;
-  }
-
-  .section-title {
-    font-size: 1.25rem;
-  }
-
-  .contact-actions {
-    gap: 0.5rem;
   }
 }

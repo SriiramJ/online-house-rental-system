@@ -43,7 +43,9 @@ export class PropertyService {
   }
 
   getProperty(id: number): Observable<{property: Property, message: string}> {
-    return this.http.get<{property: Property, message: string}>(`${this.apiUrl}/${id}`)
+    const url = `${this.apiUrl}/${id}?t=${Date.now()}`;
+    
+    return this.http.get<{property: Property, message: string}>(url)
       .pipe(
         catchError((error: HttpErrorResponse) => {
           console.error('API Error:', error);

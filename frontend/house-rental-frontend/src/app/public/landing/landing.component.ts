@@ -5,6 +5,7 @@ import { ButtonComponent } from '../../shared/button/button.component';
 import { NavbarComponent } from '../../shared/navbar/navbar.component';
 import { FooterComponent } from '../../shared/footer/footer.component';
 import { PropertyService, Property } from '../../core/services/property.service';
+import { AuthStateService } from '../../core/services/auth-state.service';
 import { LucideAngularModule, Search, Home, Users } from 'lucide-angular';
 
 @Component({
@@ -18,6 +19,7 @@ export class LandingComponent implements OnInit {
   featuredProperties: Property[] = [];
   loading = false;
   error = '';
+  isLoggedIn = false;
 
   // Lucide icons
   readonly Search = Search;
@@ -27,10 +29,12 @@ export class LandingComponent implements OnInit {
   constructor(
     private router: Router,
     private propertyService: PropertyService,
+    private authState: AuthStateService,
     private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
+    this.isLoggedIn = !!this.authState.getToken();
     this.loadFeaturedProperties();
   }
 

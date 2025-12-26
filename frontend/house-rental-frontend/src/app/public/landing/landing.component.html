@@ -12,13 +12,24 @@
           The complete platform for tenants to discover their dream rental and owners to manage properties efficiently.
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <app-button variant="outline" size="lg" (onClick)="browseProperties()">
-            <lucide-icon [img]="Search" class="w-5 h-5"></lucide-icon>
-            Browse Properties
-          </app-button>
-          <app-button variant="default" size="lg" (onClick)="register()">
-            Get Started Free
-          </app-button>
+          <!-- Logged in user -->
+          <div *ngIf="isLoggedIn" class="flex justify-center">
+            <app-button variant="secondary" size="xl" (onClick)="browseProperties()">
+              <lucide-icon [img]="Search" class="w-6 h-6"></lucide-icon>
+              Browse Properties
+            </app-button>
+          </div>
+          
+          <!-- Not logged in -->
+          <ng-container *ngIf="!isLoggedIn">
+            <app-button variant="outline" size="lg" (onClick)="browseProperties()">
+              <lucide-icon [img]="Search" class="w-5 h-5"></lucide-icon>
+              Browse Properties
+            </app-button>
+            <app-button variant="default" size="lg" (onClick)="register()">
+              Get Started Free
+            </app-button>
+          </ng-container>
         </div>
       </div>
     </div>

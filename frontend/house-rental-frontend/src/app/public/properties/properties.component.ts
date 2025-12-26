@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { PropertyService, Property } from '../../core/services/property.service';
+import { ToastService } from '../../core/services/toast.service';
 import { LoaderComponent } from '../../shared/components/loader/loader.component';
 import { EmptyStateComponent } from '../../shared/components/empty-state/empty-state.component';
 import { NavbarComponent } from '../../shared/navbar/navbar.component';
@@ -58,7 +59,8 @@ export class PropertiesComponent implements OnInit {
   constructor(
     private propertyService: PropertyService,
     private router: Router,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private toast: ToastService
   ) {}
 
   ngOnInit() {
@@ -95,6 +97,7 @@ export class PropertiesComponent implements OnInit {
       error: (error) => {
         console.error('Error loading properties:', error);
         this.error = 'Failed to load properties';
+        this.toast.error('Failed to load properties', 'Please check your connection and try again.');
         this.loading = false;
         this.cdr.detectChanges();
       }
@@ -138,6 +141,7 @@ export class PropertiesComponent implements OnInit {
     this.location = '';
     this.showFilters = false;
     this.filteredProperties = [...this.properties];
+    this.toast.info('Filters cleared', 'Showing all available properties');
   }
 
   viewProperty(propertyId: number) {

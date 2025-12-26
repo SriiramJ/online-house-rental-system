@@ -273,3 +273,32 @@
 2025-12-26 15:03:49 [INFO]: Login attempt for email: Sriram2005j@test.com
 2025-12-26 15:03:49 [INFO]: Fetching user by email: Sriram2005j@test.com
 2025-12-26 15:03:49 [INFO]: Login successful for userId: 6
+2025-12-26 16:56:52 [INFO]: Server running on port 3001
+2025-12-26 16:56:52 [INFO]: MySQL database connected successfully
+2025-12-26 16:57:07 [INFO]: Login attempt for email: Sriram2005j@test.com
+2025-12-26 16:57:07 [INFO]: Fetching user by email: Sriram2005j@test.com
+2025-12-26 16:57:07 [INFO]: Login successful for userId: 6
+2025-12-26 17:19:24 [INFO]: User 6 logged out
+2025-12-26 17:19:34 [INFO]: Login attempt for email: tenant@demo.com
+2025-12-26 17:19:34 [INFO]: Fetching user by email: tenant@demo.com
+2025-12-26 17:19:34 [WARN]: User not found: tenant@demo.com
+2025-12-26 17:19:34 [ERROR]: Login failed: User not found
+2025-12-26 17:19:50 [INFO]: Login attempt for email: Sriram2005j@test.com
+2025-12-26 17:19:50 [INFO]: Fetching user by email: Sriram2005j@test.com
+2025-12-26 17:19:51 [INFO]: Login successful for userId: 6
+2025-12-26 17:25:07 [INFO]: User 6 logged out
+2025-12-26 17:25:11 [INFO]: Login attempt for email: Sriram2005j@test.com
+2025-12-26 17:25:11 [INFO]: Fetching user by email: Sriram2005j@test.com
+2025-12-26 17:25:11 [INFO]: Login successful for userId: 6
+2025-12-26 17:27:26 [INFO]: Login attempt for email: Sriram2005j@test.com
+2025-12-26 17:27:26 [INFO]: Fetching user by email: Sriram2005j@test.com
+2025-12-26 17:27:26 [INFO]: Login successful for userId: 6
+2025-12-26 17:34:32 [INFO]: Login attempt for email: Sriram2005j@test.com
+2025-12-26 17:34:32 [INFO]: Fetching user by email: Sriram2005j@test.com
+2025-12-26 17:34:32 [INFO]: Login successful for userId: 6
+2025-12-26 18:07:22 [INFO]: Login attempt for email: Sriram2005j@test.com
+2025-12-26 18:07:22 [INFO]: Fetching user by email: Sriram2005j@test.com
+2025-12-26 18:07:22 [INFO]: Login successful for userId: 6
+2025-12-26 18:12:19 [INFO]: Login attempt for email: Sriram2005j@test.com
+2025-12-26 18:12:19 [INFO]: Fetching user by email: Sriram2005j@test.com
+2025-12-26 18:12:19 [INFO]: Login successful for userId: 6
