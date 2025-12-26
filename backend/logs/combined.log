@@ -127,3 +127,149 @@
 2025-12-25 15:47:05 [INFO]: Login attempt for email: Sriram2005j@gmail.com
 2025-12-25 15:47:05 [INFO]: Fetching user by email: Sriram2005j@gmail.com
 2025-12-25 15:47:05 [INFO]: Login successful for userId: 5
+2025-12-25 18:17:23 [INFO]: MySQL database connected successfully
+2025-12-25 18:17:23 [INFO]: Server running on port 3001
+2025-12-25 20:40:20 [INFO]: Server running on port 3001
+2025-12-25 20:40:20 [INFO]: MySQL database connected successfully
+2025-12-25 20:40:45 [INFO]: Login attempt for email: Sriram2005j@gmail.com
+2025-12-25 20:40:45 [INFO]: Fetching user by email: Sriram2005j@gmail.com
+2025-12-25 20:40:46 [INFO]: Login successful for userId: 5
+2025-12-25 20:42:40 [INFO]: Login attempt for email: Sriram2005j@gmail.com
+2025-12-25 20:42:40 [INFO]: Fetching user by email: Sriram2005j@gmail.com
+2025-12-25 20:42:41 [INFO]: Login successful for userId: 5
+2025-12-25 21:03:37 [INFO]: Login attempt for email: Sriram2005j@gmail.com
+2025-12-25 21:03:37 [INFO]: Fetching user by email: Sriram2005j@gmail.com
+2025-12-25 21:03:38 [INFO]: Login successful for userId: 5
+2025-12-26 00:38:04 [INFO]: Login attempt for email: Sriram2005j@gmail.com
+2025-12-26 00:38:04 [INFO]: Fetching user by email: Sriram2005j@gmail.com
+2025-12-26 00:38:04 [INFO]: Login successful for userId: 5
+2025-12-26 00:38:54 [INFO]: Login attempt for email: Sriram2005j@gmail.com
+2025-12-26 00:38:54 [INFO]: Fetching user by email: Sriram2005j@gmail.com
+2025-12-26 00:38:55 [INFO]: Login successful for userId: 5
+2025-12-26 00:40:48 [INFO]: Login attempt for email: Sriram2005j@gmail.com
+2025-12-26 00:40:48 [INFO]: Fetching user by email: Sriram2005j@gmail.com
+2025-12-26 00:40:48 [INFO]: Login successful for userId: 5
+2025-12-26 00:42:47 [INFO]: Login attempt for email: Sriram2005j@gmail.com
+2025-12-26 00:42:47 [INFO]: Fetching user by email: Sriram2005j@gmail.com
+2025-12-26 00:42:47 [INFO]: Login successful for userId: 5
+2025-12-26 00:46:28 [INFO]: Login attempt for email: Sriram2005j@gmail.com
+2025-12-26 00:46:28 [INFO]: Fetching user by email: Sriram2005j@gmail.com
+2025-12-26 00:46:28 [INFO]: Login successful for userId: 5
+2025-12-26 00:46:36 [INFO]: Login attempt for email: Sriram2005j@gmail.com
+2025-12-26 00:46:36 [INFO]: Fetching user by email: Sriram2005j@gmail.com
+2025-12-26 00:46:36 [INFO]: Login successful for userId: 5
+2025-12-26 00:46:42 [INFO]: Login attempt for email: Sriram2005j@gmail.com
+2025-12-26 00:46:42 [INFO]: Fetching user by email: Sriram2005j@gmail.com
+2025-12-26 00:46:42 [INFO]: Login successful for userId: 5
+2025-12-26 00:50:08 [INFO]: MySQL database connected successfully
+2025-12-26 00:50:08 [INFO]: Server running on port 3001
+2025-12-26 00:50:13 [INFO]: Server running on port 3001
+2025-12-26 00:50:13 [INFO]: MySQL database connected successfully
+2025-12-26 00:50:16 [INFO]: MySQL database connected successfully
+2025-12-26 00:50:16 [INFO]: Server running on port 3001
+2025-12-26 00:50:23 [INFO]: MySQL database connected successfully
+2025-12-26 00:50:23 [INFO]: Server running on port 3001
+2025-12-26 00:56:26 [INFO]: Login attempt for email: Sriram2005j@gmail.com
+2025-12-26 00:56:26 [INFO]: Fetching user by email: Sriram2005j@gmail.com
+2025-12-26 00:56:26 [INFO]: Login successful for userId: 5
+2025-12-26 00:57:58 [INFO]: Login attempt for email: Sriram2005j@gmail.com
+2025-12-26 00:57:58 [INFO]: Fetching user by email: Sriram2005j@gmail.com
+2025-12-26 00:57:58 [INFO]: Login successful for userId: 5
+2025-12-26 00:58:02 [INFO]: Login attempt for email: owner@demo.com
+2025-12-26 00:58:02 [INFO]: Fetching user by email: owner@demo.com
+2025-12-26 00:58:02 [WARN]: User not found: owner@demo.com
+2025-12-26 00:58:02 [ERROR]: Login failed: User not found
+2025-12-26 00:58:51 [INFO]: Login attempt for email: owner@demo.com
+2025-12-26 00:58:51 [INFO]: Fetching user by email: owner@demo.com
+2025-12-26 00:58:51 [WARN]: User not found: owner@demo.com
+2025-12-26 00:58:51 [ERROR]: Login failed: User not found
+2025-12-26 00:59:36 [INFO]: Server running on port 3001
+2025-12-26 00:59:36 [INFO]: MySQL database connected successfully
+2025-12-26 00:59:46 [INFO]: Login attempt for email: Sriram2005j@gmail.com
+2025-12-26 00:59:46 [INFO]: Fetching user by email: Sriram2005j@gmail.com
+2025-12-26 00:59:46 [INFO]: Login successful for userId: 5
+2025-12-26 01:00:31 [INFO]: Login attempt for email: Sriram2005j@gmail.com
+2025-12-26 01:00:31 [INFO]: Fetching user by email: Sriram2005j@gmail.com
+2025-12-26 01:00:31 [INFO]: Login successful for userId: 5
+2025-12-26 01:00:56 [INFO]: Registration request received: {"name":"Sriram J","email":"Sriram2005j@test.com","phone":"+919025581587","password":"123456","role":"TENANT"}
+2025-12-26 01:00:56 [INFO]: Register attempt for email: Sriram2005j@test.com
+2025-12-26 01:00:56 [INFO]: Fetching user by email: Sriram2005j@test.com
+2025-12-26 01:00:56 [INFO]: Creating user: Sriram2005j@test.com
+2025-12-26 01:00:56 [INFO]: User registered successfully: Sriram2005j@test.com
+2025-12-26 01:01:04 [INFO]: Login attempt for email: Sriram2005j@test.com
+2025-12-26 01:01:04 [INFO]: Fetching user by email: Sriram2005j@test.com
+2025-12-26 01:01:04 [INFO]: Login successful for userId: 6
+2025-12-26 01:01:53 [INFO]: Login attempt for email: Sriram2005j@test.com
+2025-12-26 01:01:53 [INFO]: Fetching user by email: Sriram2005j@test.com
+2025-12-26 01:01:54 [INFO]: Login successful for userId: 6
+2025-12-26 01:04:06 [INFO]: Server running on port 3001
+2025-12-26 01:04:06 [INFO]: MySQL database connected successfully
+2025-12-26 01:04:11 [INFO]: Server running on port 3001
+2025-12-26 01:04:11 [INFO]: MySQL database connected successfully
+2025-12-26 01:05:55 [INFO]: User 6 logged out
+2025-12-26 01:06:00 [INFO]: Login attempt for email: Sriram2005j@test.com
+2025-12-26 01:06:00 [INFO]: Fetching user by email: Sriram2005j@test.com
+2025-12-26 01:06:01 [INFO]: Login successful for userId: 6
+2025-12-26 01:12:02 [INFO]: MySQL database connected successfully
+2025-12-26 01:12:02 [INFO]: Server running on port 3001
+2025-12-26 12:15:32 [INFO]: Login attempt for email: Sriram2005j@test.com
+2025-12-26 12:15:32 [INFO]: Fetching user by email: Sriram2005j@test.com
+2025-12-26 12:15:32 [INFO]: Login successful for userId: 6
+2025-12-26 13:10:13 [INFO]: Server running on port 3001
+2025-12-26 13:10:13 [INFO]: MySQL database connected successfully
+2025-12-26 13:10:18 [INFO]: MySQL database connected successfully
+2025-12-26 13:10:18 [INFO]: Server running on port 3001
+2025-12-26 13:10:27 [INFO]: MySQL database connected successfully
+2025-12-26 13:10:27 [INFO]: Server running on port 3001
+2025-12-26 13:10:36 [INFO]: MySQL database connected successfully
+2025-12-26 13:10:36 [INFO]: Server running on port 3001
+2025-12-26 13:10:40 [INFO]: Server running on port 3001
+2025-12-26 13:10:40 [INFO]: MySQL database connected successfully
+2025-12-26 13:10:45 [INFO]: MySQL database connected successfully
+2025-12-26 13:10:45 [INFO]: Server running on port 3001
+2025-12-26 13:12:29 [INFO]: Server running on port 3001
+2025-12-26 13:12:29 [INFO]: MySQL database connected successfully
+2025-12-26 13:12:39 [INFO]: MySQL database connected successfully
+2025-12-26 13:12:39 [INFO]: Server running on port 3001
+2025-12-26 13:16:38 [INFO]: MySQL database connected successfully
+2025-12-26 13:16:38 [INFO]: Server running on port 3001
+2025-12-26 13:16:44 [INFO]: MySQL database connected successfully
+2025-12-26 13:16:44 [INFO]: Server running on port 3001
+2025-12-26 13:16:49 [INFO]: MySQL database connected successfully
+2025-12-26 13:16:49 [INFO]: Server running on port 3001
+2025-12-26 13:16:53 [INFO]: MySQL database connected successfully
+2025-12-26 13:16:53 [INFO]: Server running on port 3001
+2025-12-26 13:35:13 [INFO]: Registration request received: {"name":"Sriram","email":"sriram@gmail.com","password":"123456","role":"owner","phone":"9876543210"}
+2025-12-26 13:35:13 [INFO]: Register attempt for email: sriram@gmail.com
+2025-12-26 13:35:13 [INFO]: Fetching user by email: sriram@gmail.com
+2025-12-26 13:35:13 [INFO]: Creating user: sriram@gmail.com
+2025-12-26 13:35:13 [INFO]: User registered successfully: sriram@gmail.com
+2025-12-26 13:36:27 [INFO]: Login attempt for email: sriram@gmail.com
+2025-12-26 13:36:27 [INFO]: Fetching user by email: sriram@gmail.com
+2025-12-26 13:36:27 [INFO]: Login successful for userId: 7
+2025-12-26 13:55:32 [ERROR]: Error fetching property: Property not found
+2025-12-26 13:55:32 [ERROR]: Error in getPropertyById: Property not found
+2025-12-26 13:57:04 [ERROR]: Error creating property: propertyData.amenities.join is not a function
+2025-12-26 13:57:04 [ERROR]: Error in createProperty: Failed to create property
+2025-12-26 13:57:18 [ERROR]: Error creating property: Unknown column 'is_available' in 'field list'
+2025-12-26 13:57:18 [ERROR]: Error in createProperty: Failed to create property
+2025-12-26 13:57:20 [ERROR]: Error creating property: Unknown column 'is_available' in 'field list'
+2025-12-26 13:57:20 [ERROR]: Error in createProperty: Failed to create property
+2025-12-26 13:58:02 [INFO]: Server running on port 3001
+2025-12-26 13:58:02 [INFO]: MySQL database connected successfully
+2025-12-26 13:58:09 [INFO]: Server running on port 3001
+2025-12-26 13:58:09 [INFO]: MySQL database connected successfully
+2025-12-26 13:58:26 [INFO]: Server running on port 3001
+2025-12-26 13:58:26 [INFO]: MySQL database connected successfully
+2025-12-26 13:59:19 [INFO]: Property created successfully by user 7
+2025-12-26 14:00:43 [WARN]: Authorization header missing
+2025-12-26 14:23:25 [INFO]: MySQL database connected successfully
+2025-12-26 14:23:25 [INFO]: Server running on port 3001
+2025-12-26 14:28:04 [INFO]: MySQL database connected successfully
+2025-12-26 14:28:04 [INFO]: Server running on port 3001
+2025-12-26 14:28:10 [INFO]: MySQL database connected successfully
+2025-12-26 14:28:10 [INFO]: Server running on port 3001
+2025-12-26 15:00:31 [INFO]: User 6 logged out
+2025-12-26 15:03:49 [INFO]: Login attempt for email: Sriram2005j@test.com
+2025-12-26 15:03:49 [INFO]: Fetching user by email: Sriram2005j@test.com
+2025-12-26 15:03:49 [INFO]: Login successful for userId: 6

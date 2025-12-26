@@ -1,0 +1,59 @@
+<nav class="navbar">
+  <div class="navbar-container">
+    <div class="navbar-brand" routerLink="/">
+      <lucide-icon [img]="Building2" class="brand-icon"></lucide-icon>
+      <span class="brand-text">RentEase</span>
+    </div>
+    
+    <div class="navbar-menu">
+      <!-- Landing Page Navigation -->
+      <ng-container *ngIf="isLoggedIn && currentRoute === '/'">
+        <app-button variant="ghost" (onClick)="browseProperties()">
+          Browse Properties
+        </app-button>
+        <app-button variant="default" (onClick)="goToDashboard()">
+          Dashboard
+        </app-button>
+      </ng-container>
+
+      <!-- Properties Page Navigation -->
+      <ng-container *ngIf="isLoggedIn && currentRoute === '/properties'">
+        <app-button variant="default" (onClick)="goToDashboard()">
+          Dashboard
+        </app-button>
+      </ng-container>
+
+      <!-- Dashboard and other authenticated pages -->
+      <ng-container *ngIf="isLoggedIn && currentUser">
+        <div class="user-profile" (click)="toggleUserMenu()">
+          <lucide-icon [img]="UserIcon" class="user-avatar"></lucide-icon>
+          <span class="user-name">{{ currentUser.name }}</span>
+          <lucide-icon [img]="ChevronDown" class="dropdown-arrow"></lucide-icon>
+          
+          <div class="user-dropdown" [class.active]="showUserMenu">
+            <div class="user-info">
+              <div class="name">{{ currentUser.name }}</div>
+              <div class="email">{{ currentUser.email }}</div>
+            </div>
+            <button class="logout-btn" (click)="logout()">
+              Logout
+            </button>
+          </div>
+        </div>
+      </ng-container>
+
+      <!-- Not logged in -->
+      <ng-container *ngIf="!isLoggedIn">
+        <app-button variant="ghost" (onClick)="browseProperties()">
+          Browse Properties
+        </app-button>
+        <app-button variant="ghost" (onClick)="login()">
+          Login
+        </app-button>
+        <app-button variant="default" (onClick)="register()">
+          Get Started
+        </app-button>
+      </ng-container>
+    </div>
+  </div>
+</nav>

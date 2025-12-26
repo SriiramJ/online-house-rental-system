@@ -1,0 +1,163 @@
+<app-navbar></app-navbar>
+
+<div class="property-details-container">
+  <!-- Loading State -->
+  <app-loader 
+    *ngIf="loading" 
+    message="Loading property details..."
+  ></app-loader>
+
+  <!-- Error State -->
+  <div *ngIf="error && !loading" class="error-state">
+    <div class="error-content">
+      <span class="error-icon">⚠️</span>
+      <h3>Something went wrong</h3>
+      <p>{{ error }}</p>
+      <button (click)="goBack()" class="btn btn-primary">Back to Properties</button>
+    </div>
+  </div>
+
+  <!-- Property Details -->
+  <div *ngIf="property && !loading && !error" class="property-details">
+    <!-- Back Button -->
+    <div class="back-section">
+      <button (click)="goBack()" class="back-btn">
+        ← Back to Properties
+      </button>
+    </div>
+
+    <!-- Property Header -->
+    <div class="property-header">
+      <div class="property-image">
+        <img [src]="property.image" [alt]="property.title" />
+        <div class="availability-badge" [class.available]="property.is_available">
+          {{ property.is_available ? 'Available' : 'Unavailable' }}
+        </div>
+      </div>
+
+      <div class="property-info">
+        <h1 class="property-title">{{ property.title }}</h1>
+        <p class="property-location">
+          <span class="location-icon">📍</span>
+          {{ property.location }}
+        </p>
+        
+        <div class="property-specs">
+          <div class="spec-item">
+            <span class="spec-icon">🛏️</span>
+            <span>{{ property.bedrooms }} Bedroom{{ property.bedrooms !== 1 ? 's' : '' }}</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-icon">🛁</span>
+            <span>{{ property.bathrooms }} Bathroom{{ property.bathrooms !== 1 ? 's' : '' }}</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-icon">🏠</span>
+            <span>{{ property.property_type }}</span>
+          </div>
+        </div>
+
+        <div class="property-price">
+          <span class="price">${{ property.rent }}</span>
+          <span class="price-period">/month</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Property Content -->
+    <div class="property-content">
+      <div class="content-main">
+        <!-- Description -->
+        <div class="section">
+          <h2 class="section-title">Description</h2>
+          <p class="property-description">
+            {{ property.description || 'Beautiful property with modern amenities and great location.' }}
+          </p>
+        </div>
+
+        <!-- Amenities -->
+        <div class="section" *ngIf="property.amenities && property.amenities.length">
+          <h2 class="section-title">Amenities</h2>
+          <div class="amenities-grid">
+            <div 
+              *ngFor="let amenity of property.amenities" 
+              class="amenity-item"
+            >
+              <span class="amenity-icon">✓</span>
+              <span>{{ amenity }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Property Features -->
+        <div class="section">
+          <h2 class="section-title">Property Features</h2>
+          <div class="features-grid">
+            <div class="feature-item">
+              <span class="feature-label">Bedrooms</span>
+              <span class="feature-value">{{ property.bedrooms }}</span>
+            </div>
+            <div class="feature-item">
+              <span class="feature-label">Bathrooms</span>
+              <span class="feature-value">{{ property.bathrooms }}</span>
+            </div>
+            <div class="feature-item">
+              <span class="feature-label">Property Type</span>
+              <span class="feature-value">{{ property.property_type }}</span>
+            </div>
+            <div class="feature-item">
+              <span class="feature-label">Availability</span>
+              <span class="feature-value" [class.available]="property.is_available">
+                {{ property.is_available ? 'Available Now' : 'Not Available' }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="content-sidebar">
+        <div class="contact-card">
+          <h3 class="card-title">Interested in this property?</h3>
+          <p class="card-description">
+            Contact us to schedule a viewing or get more information.
+          </p>
+          
+          <div class="contact-actions">
+            <button 
+              (click)="contactOwner()" 
+              class="btn btn-outline"
+              [disabled]="!property.is_available"
+            >
+              Contact Owner
+            </button>
+            <button 
+              (click)="bookProperty()" 
+              class="btn btn-primary"
+              [disabled]="!property.is_available"
+            >
+              Book Now
+            </button>
+          </div>
+
+          <div class="contact-info">
+            <div class="info-item">
+              <span class="info-label">Monthly Rent</span>
+              <span class="info-value">${{ property.rent }}</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Security Deposit</span>
+              <span class="info-value">${{ property.rent }}</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Lease Term</span>
+              <span class="info-value">12 months minimum</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>
