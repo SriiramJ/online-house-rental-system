@@ -2,13 +2,32 @@ import { Component } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../core/services/auth.service';
+import { NavbarComponent } from '../navbar/navbar.component';
+import { FooterComponent } from '../footer/footer.component';
 
 @Component({
   selector: 'app-layout',
   standalone: true,
-  imports: [CommonModule, RouterOutlet],
-  templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.scss']
+  imports: [CommonModule, RouterOutlet, NavbarComponent, FooterComponent],
+  template: `
+    <div class="layout-container">
+      <app-navbar></app-navbar>
+      <main class="main-content">
+        <router-outlet></router-outlet>
+      </main>
+      <app-footer></app-footer>
+    </div>
+  `,
+  styles: [`
+    .layout-container {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .main-content {
+      flex: 1;
+    }
+  `]
 })
 export class LayoutComponent {
   mobileMenuOpen = false;

@@ -40,3 +40,13 @@
 2025-12-25 14:47:56 [ERROR]: MySQL connection failed: Access denied for user 'root'@'localhost' (using password: NO)
 2025-12-25 14:47:56 [ERROR]: Connection details: host=127.0.0.1, user=root, database=house_rental_db, port=3306
 2025-12-25 14:47:56 [ERROR]: Server startup failed: Access denied for user 'root'@'localhost' (using password: NO)
+2025-12-26 00:58:02 [ERROR]: Login failed: User not found
+2025-12-26 00:58:51 [ERROR]: Login failed: User not found
+2025-12-26 13:55:32 [ERROR]: Error fetching property: Property not found
+2025-12-26 13:55:32 [ERROR]: Error in getPropertyById: Property not found
+2025-12-26 13:57:04 [ERROR]: Error creating property: propertyData.amenities.join is not a function
+2025-12-26 13:57:04 [ERROR]: Error in createProperty: Failed to create property
+2025-12-26 13:57:18 [ERROR]: Error creating property: Unknown column 'is_available' in 'field list'
+2025-12-26 13:57:18 [ERROR]: Error in createProperty: Failed to create property
+2025-12-26 13:57:20 [ERROR]: Error creating property: Unknown column 'is_available' in 'field list'
+2025-12-26 13:57:20 [ERROR]: Error in createProperty: Failed to create property

@@ -81,44 +81,40 @@
   <!-- Footer -->
   <footer class="footer" *ngIf="!isLoggedIn">
     <div class="footer-container">
-      <div class="footer-content">
-        <div class="footer-brand">
-          <span class="footer-logo-icon">🏢</span>
-          <span class="footer-logo-text">RentEase</span>
-          <p class="footer-description">
+      <div class="grid md:grid-cols-4 gap-8">
+        <div>
+          <div class="flex items-center gap-2 mb-4">
+            <span class="text-lg text-indigo-400">🏢</span>
+            <span class="text-white">RentEase</span>
+          </div>
+          <p class="text-sm">
             The complete rental management platform for modern living.
           </p>
         </div>
-
-        <div class="footer-links">
-          <div class="footer-section">
-            <h4 class="footer-title">For Tenants</h4>
-            <ul class="footer-list">
-              <li><button class="footer-btn footer-link" (click)="navigateToProperties()">Browse Properties</button></li>
-              <li><button class="footer-btn footer-link" (click)="navigateToRegister()">Sign Up</button></li>
-            </ul>
-          </div>
-
-          <div class="footer-section">
-            <h4 class="footer-title">For Owners</h4>
-            <ul class="footer-list">
-              <li><button class="footer-btn footer-link" (click)="navigateToRegister()">List Property</button></li>
-              <li><button class="footer-btn footer-link" (click)="navigateToLogin()">Owner Login</button></li>
-            </ul>
-          </div>
-
-          <div class="footer-section">
-            <h4 class="footer-title">Support</h4>
-            <ul class="footer-list">
-              <li><a href="#" class="footer-link">Help Center</a></li>
-              <li><a href="#" class="footer-link">Contact Us</a></li>
-            </ul>
-          </div>
+        <div>
+          <h4 class="text-white mb-4">For Tenants</h4>
+          <ul class="space-y-2 text-sm">
+            <li><button class="hover:text-white" (click)="navigateToProperties()">Browse Properties</button></li>
+            <li><button class="hover:text-white" (click)="navigateToRegister()">Sign Up</button></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-white mb-4">For Owners</h4>
+          <ul class="space-y-2 text-sm">
+            <li><button class="hover:text-white" (click)="navigateToRegister()">List Property</button></li>
+            <li><button class="hover:text-white" (click)="navigateToLogin()">Owner Login</button></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-white mb-4">Support</h4>
+          <ul class="space-y-2 text-sm">
+            <li><a href="#" class="hover:text-white">Help Center</a></li>
+            <li><a href="#" class="hover:text-white">Contact Us</a></li>
+          </ul>
         </div>
       </div>
-
-      <div class="footer-bottom">
-        <p class="copyright">© 2025 RentEase. All rights reserved.</p>
+      <div class="border-t border-gray-800 mt-8 pt-8 text-center text-sm">
+        © 2025 RentEase. All rights reserved.
       </div>
     </div>
   </footer>
