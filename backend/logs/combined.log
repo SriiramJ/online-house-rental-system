@@ -308,3 +308,45 @@
 2025-12-26 19:39:50 [INFO]: Login attempt for email: Sriram2005j@test.com
 2025-12-26 19:39:50 [INFO]: Fetching user by email: Sriram2005j@test.com
 2025-12-26 19:39:50 [INFO]: Login successful for userId: 6
+2025-12-27 17:42:52 [INFO]: Server running on port 3001
+2025-12-27 17:42:52 [INFO]: MySQL database connected successfully
+2025-12-27 17:51:18 [INFO]: Server running on port 3001
+2025-12-27 17:51:18 [INFO]: MySQL database connected successfully
+2025-12-27 17:51:27 [INFO]: MySQL database connected successfully
+2025-12-27 17:51:27 [INFO]: Server running on port 3001
+2025-12-27 17:51:42 [INFO]: Server running on port 3001
+2025-12-27 17:51:42 [INFO]: MySQL database connected successfully
+2025-12-27 17:51:48 [INFO]: MySQL database connected successfully
+2025-12-27 17:51:49 [INFO]: Server running on port 3001
+2025-12-27 17:51:58 [INFO]: Login attempt for email: Sriram2005j@test.com
+2025-12-27 17:51:58 [INFO]: Fetching user by email: Sriram2005j@test.com
+2025-12-27 17:51:58 [INFO]: Login successful for userId: 6
+2025-12-27 17:57:08 [INFO]: MySQL database connected successfully
+2025-12-27 17:57:08 [INFO]: Server running on port 3001
+2025-12-27 17:57:25 [INFO]: Server running on port 3001
+2025-12-27 17:57:25 [INFO]: MySQL database connected successfully
+2025-12-27 17:57:33 [INFO]: Server running on port 3001
+2025-12-27 17:57:33 [INFO]: MySQL database connected successfully
+2025-12-27 17:57:43 [INFO]: MySQL database connected successfully
+2025-12-27 17:57:43 [INFO]: Server running on port 3001
+2025-12-27 17:58:33 [INFO]: MySQL database connected successfully
+2025-12-27 17:58:33 [INFO]: Server running on port 3001
+2025-12-27 17:59:29 [INFO]: Server running on port 3001
+2025-12-27 17:59:29 [INFO]: MySQL database connected successfully
+2025-12-27 18:06:56 [INFO]: MySQL database connected successfully
+2025-12-27 18:06:56 [INFO]: Server running on port 3001
+2025-12-27 18:07:37 [INFO]: MySQL database connected successfully
+2025-12-27 18:07:37 [INFO]: Server running on port 3001
+2025-12-27 18:11:41 [INFO]: Login attempt for email: Sriram2005j@test.com
+2025-12-27 18:11:41 [INFO]: Fetching user by email: Sriram2005j@test.com
+2025-12-27 18:11:41 [INFO]: Login successful for userId: 6
+2025-12-27 18:14:32 [INFO]: Registration request received: {"name":"sriram","email":"sriram1@test.com","phone":"9025581587","password":"123456","role":"OWNER"}
+2025-12-27 18:14:32 [INFO]: Register attempt for email: sriram1@test.com
+2025-12-27 18:14:32 [INFO]: Fetching user by email: sriram1@test.com
+2025-12-27 18:14:33 [INFO]: Creating user: sriram1@test.com
+2025-12-27 18:14:33 [INFO]: User registered successfully: sriram1@test.com
+2025-12-27 18:14:38 [INFO]: Login attempt for email: sriram1@test.com
+2025-12-27 18:14:38 [INFO]: Fetching user by email: sriram1@test.com
+2025-12-27 18:14:38 [INFO]: Login successful for userId: 8
+2025-12-27 23:46:04 [ERROR]: Error creating property: Unknown column 'property_type' in 'field list'
+2025-12-27 23:46:04 [ERROR]: Error in createProperty: Failed to create property

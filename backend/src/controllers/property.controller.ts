@@ -9,12 +9,29 @@ export const createProperty = async (req: Request, res: Response) => {
     const user = (req as any).user;
     const propertyData = req.body;
 
-    // Validate required fields
-    const { title, rent, location } = propertyData;
-    if (!title || !rent || !location) {
-      return res.status(400).json({
-        message: "Missing required fields: title, rent, location"
-      });
+    // Validate required fields to match frontend form
+    const { title, description, rent, location, bedrooms, bathrooms, area } = propertyData;
+    
+    if (!title?.trim()) {
+      return res.status(400).json({ message: "Title is required" });
+    }
+    if (!description?.trim()) {
+      return res.status(400).json({ message: "Description is required" });
+    }
+    if (!rent || parseFloat(rent) <= 0) {
+      return res.status(400).json({ message: "Valid rent amount is required" });
+    }
+    if (!location?.trim()) {
+      return res.status(400).json({ message: "Location is required" });
+    }
+    if (!bedrooms || parseInt(bedrooms) <= 0) {
+      return res.status(400).json({ message: "Number of bedrooms is required" });
+    }
+    if (!bathrooms || parseInt(bathrooms) <= 0) {
+      return res.status(400).json({ message: "Number of bathrooms is required" });
+    }
+    if (!area || parseFloat(area) <= 0) {
+      return res.status(400).json({ message: "Property area is required" });
     }
 
     const property = await propertyService.createProperty(user.userId, propertyData);

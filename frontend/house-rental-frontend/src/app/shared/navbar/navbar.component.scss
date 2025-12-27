@@ -188,6 +188,18 @@
 .user-info .email {
   font-size: 0.875rem;
   color: #6b7280;
+  margin-bottom: 0.25rem;
+}
+
+.user-info .role {
+  font-size: 0.75rem;
+  color: #667eea;
+  font-weight: 500;
+  text-transform: uppercase;
+  background: rgba(102, 126, 234, 0.1);
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  display: inline-block;
 }
 
 .logout-btn {

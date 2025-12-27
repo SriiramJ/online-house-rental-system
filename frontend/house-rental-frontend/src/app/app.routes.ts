@@ -1,7 +1,11 @@
 import { Routes } from '@angular/router';
 
 import { BookingRequest } from './bookings/booking-request/booking-request';
-import { OwnerDashboard } from './owner/owner-dashboard/owner-dashboard';
+import { OwnerDashboardComponent } from './owner/owner-dashboard/owner-dashboard.component';
+import { AddPropertyComponent } from './owner/add-property/add-property.component';
+import { MyPropertiesComponent } from './owner/owner/my-properties/my-properties.component';
+import { BookingRequestsComponent } from './owner/owner/booking-requests/booking-requests.component';
+import { MyTenantsComponent } from './owner/owner/my-tenants/my-tenants.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { LandingComponent } from './public/landing/landing.component';
@@ -24,13 +28,17 @@ export const routes: Routes = [
   { path: 'property-details/:id', component: PropertyDetailsComponent },
   { path: 'help-center', component: HelpCenterComponent },
   { path: 'contact', component: ContactComponent },
-  { path: 'dashboard', component: DashboardComponent },
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+  { path: 'owner/dashboard', component: OwnerDashboardComponent, canActivate: [OwnerGuard] },
+  { path: 'owner/add-property', component: AddPropertyComponent, canActivate: [OwnerGuard] },
+  { path: 'owner/properties', component: MyPropertiesComponent, canActivate: [OwnerGuard] },
+  { path: 'owner/booking-requests', component: BookingRequestsComponent, canActivate: [OwnerGuard] },
+  { path: 'owner/tenants', component: MyTenantsComponent, canActivate: [OwnerGuard] },
   {
     path: '',
     component: LayoutComponent,
     children: [
       { path: 'properties/:id/book', component: BookingRequest, canActivate: [AuthGuard] },
-      { path: 'owner/dashboard', component: OwnerDashboard, canActivate: [OwnerGuard] },
     ]
   },
 ];

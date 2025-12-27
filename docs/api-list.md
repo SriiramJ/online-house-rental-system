@@ -18,7 +18,7 @@
 - [ ] Update profile
 
 ### 3) Properties
-- [ ] Create property (Owner)
+- [x] Create property (Owner) - POST /api/properties
 - [ ] List/Search properties
 - [ ] Get property by id
 - [ ] Update property (Owner)

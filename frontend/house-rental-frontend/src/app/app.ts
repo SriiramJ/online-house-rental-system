@@ -20,7 +20,7 @@ export class App implements OnInit {
   ngOnInit() {
     // Test toast
     setTimeout(() => {
-      this.toastService.success('Welcome to RentEase!', 'Toast notifications are now working perfectly.');
+      this.toastService.success('Welcome to RentEase!', 'Perfect place to find your dream home and rent it out.');
     }, 1000);
   }
 }

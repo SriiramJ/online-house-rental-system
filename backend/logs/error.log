@@ -51,3 +51,5 @@
 2025-12-26 13:57:20 [ERROR]: Error creating property: Unknown column 'is_available' in 'field list'
 2025-12-26 13:57:20 [ERROR]: Error in createProperty: Failed to create property
 2025-12-26 17:19:34 [ERROR]: Login failed: User not found
+2025-12-27 23:46:04 [ERROR]: Error creating property: Unknown column 'property_type' in 'field list'
+2025-12-27 23:46:04 [ERROR]: Error in createProperty: Failed to create property

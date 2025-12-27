@@ -40,6 +40,15 @@ export class AuthService {
         if (response.success && response.data) {
           this.setSession(response.data.user, response.data.token);
           this.toast.success('Welcome back!', `Hello ${response.data.user.name}, you're successfully logged in.`);
+          
+          // Redirect based on role
+          setTimeout(() => {
+            if (response.data!.user.role === 'OWNER') {
+              window.location.href = '/owner/dashboard';
+            } else {
+              window.location.href = '/dashboard';
+            }
+          }, 1000);
         }
       })
     );

@@ -14,37 +14,31 @@ export class PropertyService {
         ? propertyData.photos.join(', ') 
         : null;
 
-      // Try with is_available first, fallback without it
-      let query = `INSERT INTO properties (owner_id, title, description, rent, location, amenities, photos, is_available) 
-                   VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
-      let values = [
+      // Map frontend field names to database fields
+      const query = `INSERT INTO properties (
+        owner_id, title, description, rent, location, 
+        property_type, bedrooms, bathrooms, area_sqft,
+        amenities, photos, is_available
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+      
+      const values = [
         ownerId,
         propertyData.title,
-        propertyData.description || null,
-        propertyData.rent,
+        propertyData.description,
+        parseFloat(propertyData.rent as any),
         propertyData.location,
+        propertyData.property_type || 'Apartment',
+        parseInt(propertyData.bedrooms as any) || 1,
+        parseFloat(propertyData.bathrooms as any) || 1,
+        parseFloat(propertyData.area_sqft || propertyData.area as any) || null,
         amenitiesText,
         photosText,
-        true
+        propertyData.available !== undefined ? propertyData.available : true
       ];
 
-      try {
-        const [result] = await connection.execute(query, values);
-        const insertId = (result as any).insertId;
-        return await this.getPropertyById(insertId);
-      } catch (columnError: any) {
-        if (columnError.message.includes('is_available')) {
-          // Fallback without is_available column
-          query = `INSERT INTO properties (owner_id, title, description, rent, location, amenities, photos) 
-                   VALUES (?, ?, ?, ?, ?, ?, ?)`;
-          values = values.slice(0, -1); // Remove is_available value
-          
-          const [result] = await connection.execute(query, values);
-          const insertId = (result as any).insertId;
-          return await this.getPropertyById(insertId);
-        }
-        throw columnError;
-      }
+      const [result] = await connection.execute(query, values);
+      const insertId = (result as any).insertId;
+      return await this.getPropertyById(insertId);
     } catch (error: any) {
       logger.error(`Error creating property: ${error.message}`);
       throw new Error("Failed to create property");
@@ -104,6 +98,31 @@ export class PropertyService {
     }
   }
 
+  async getOwnerProperties(ownerId: number): Promise<Property[]> {
+    const connection = await db.getConnection();
+    
+    try {
+      const [rows] = await connection.execute(
+        `SELECT p.*, u.name as owner_name,
+         (SELECT COUNT(*) FROM bookings b WHERE b.property_id = p.id AND b.status = 'Pending') as pending_requests,
+         (SELECT COUNT(*) FROM tenants t WHERE t.property_id = p.id AND t.status = 'Active') as active_tenants
+         FROM properties p 
+         JOIN users u ON p.owner_id = u.id 
+         WHERE p.owner_id = ?
+         ORDER BY p.created_at DESC`,
+        [ownerId]
+      );
+
+      const properties = rows as any[];
+      return properties.map(this.formatProperty);
+    } catch (error: any) {
+      logger.error(`Error fetching owner properties: ${error.message}`);
+      return [];
+    } finally {
+      connection.release();
+    }
+  }
+
   private formatProperty(row: any): Property {
     return {
       id: row.id,
@@ -112,9 +131,10 @@ export class PropertyService {
       description: row.description,
       rent: parseFloat(row.rent),
       location: row.location,
-      bedrooms: 1, // Default value since not in schema
-      bathrooms: 1, // Default value since not in schema
-      property_type: 'APARTMENT', // Default value since not in schema
+      bedrooms: row.bedrooms || 1,
+      bathrooms: row.bathrooms || 1,
+      property_type: row.property_type || 'Apartment',
+      area_sqft: row.area_sqft,
       amenities: row.amenities ? row.amenities.split(', ').filter(Boolean) : [],
       photos: row.photos ? row.photos.split(', ').filter(Boolean) : [],
       is_available: row.is_available !== undefined ? Boolean(row.is_available) : true,

@@ -1,9 +1,7 @@
-import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef, HostListener, ElementRef } from '@angular/core';
 import { Router, RouterModule, NavigationEnd } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../button/button.component';
-import { UserService, User } from '../../core/services/user.service';
-import { AuthStateService } from '../../core/services/auth-state.service';
 import { AuthService } from '../../core/services/auth.service';
 import { filter, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
@@ -17,11 +15,8 @@ import { LucideAngularModule, Building2, User as UserIcon, ChevronDown } from 'l
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit, OnDestroy {
-  isLoggedIn = false;
-  currentUser: User | null = null;
-  currentRoute = '';
-  showUserMenu = false;
   private destroy$ = new Subject<void>();
+  showUserMenu = false;
 
   // Lucide icons
   readonly Building2 = Building2;
@@ -30,22 +25,14 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
-    private userService: UserService,
-    private authState: AuthStateService,
-    private authService: AuthService,
-    private cdr: ChangeDetectorRef
+    public authService: AuthService,
+    private cdr: ChangeDetectorRef,
+    private elementRef: ElementRef
   ) {}
 
   ngOnInit() {
     this.trackRoute();
-    this.subscribeToAuthState();
-    
-    // Force check auth state on init
-    const token = this.authState.getToken();
-    if (token) {
-      this.isLoggedIn = true;
-      this.loadCurrentUser();
-    }
+    this.subscribeToAuthChanges();
   }
 
   ngOnDestroy() {
@@ -53,45 +40,35 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  subscribeToAuthState() {
-    this.authState.isLoggedIn$
+  subscribeToAuthChanges() {
+    this.authService.currentUser$
       .pipe(takeUntil(this.destroy$))
-      .subscribe(isLoggedIn => {
-        console.log('Auth state changed:', isLoggedIn);
-        this.isLoggedIn = isLoggedIn;
-        if (isLoggedIn) {
-          this.loadCurrentUser();
-        } else {
-          this.currentUser = null;
-        }
+      .subscribe(() => {
         this.cdr.detectChanges();
       });
-  }
-
-  loadCurrentUser() {
-    console.log('Loading current user...');
-    this.userService.getCurrentUser().subscribe({
-      next: (response) => {
-        console.log('User loaded:', response);
-        this.currentUser = response.data;
-        this.userService.setCurrentUser(response.data);
-        this.cdr.detectChanges();
-      },
-      error: (error) => {
-        console.error('Failed to load user:', error);
-        this.authState.clearToken();
-        this.cdr.detectChanges();
-      }
-    });
   }
 
   trackRoute() {
-    this.currentRoute = this.router.url;
     this.router.events
-      .pipe(filter(event => event instanceof NavigationEnd))
-      .subscribe((event: NavigationEnd) => {
-        this.currentRoute = event.url;
+      .pipe(
+        filter(event => event instanceof NavigationEnd),
+        takeUntil(this.destroy$)
+      )
+      .subscribe(() => {
+        this.cdr.detectChanges();
       });
+  }
+
+  isOnDashboardPage(): boolean {
+    const url = this.router.url;
+    return url === '/dashboard' || url === '/owner/dashboard';
+  }
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: Event) {
+    if (!this.elementRef.nativeElement.contains(event.target)) {
+      this.showUserMenu = false;
+    }
   }
 
   toggleUserMenu() {
@@ -103,7 +80,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   goToDashboard() {
-    this.router.navigate(['/dashboard']);
+    if (this.authService.isOwner()) {
+      this.router.navigate(['/owner/dashboard']);
+    } else {
+      this.router.navigate(['/dashboard']);
+    }
   }
 
   login() {
@@ -117,9 +98,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
   logout() {
     this.showUserMenu = false;
     this.authService.logout();
-    this.currentUser = null;
-    this.userService.clearCurrentUser();
-    this.authState.clearToken();
     this.router.navigate(['/']);
   }
 }

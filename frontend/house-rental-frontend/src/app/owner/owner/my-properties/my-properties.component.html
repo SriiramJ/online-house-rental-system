@@ -1,0 +1,147 @@
+<app-navbar></app-navbar>
+
+<div class="min-h-screen bg-gray-50 pt-20 pb-8">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="mb-8 flex items-center justify-between">
+      <div>
+        <button 
+          (click)="goToDashboard()" 
+          class="flex items-center gap-2 text-gray-600 hover:text-gray-800 mb-4 transition-colors bg-transparent border-none cursor-pointer p-0 outline-none"
+        >
+          <lucide-icon [img]="ArrowLeft" class="w-4 h-4"></lucide-icon>
+          Back to Dashboard
+        </button>
+        <h1 class="text-3xl font-bold text-gray-900 mb-2">My Properties</h1>
+        <p class="text-gray-600">Manage your rental properties</p>
+      </div>
+      <button 
+        routerLink="/owner/add-property"
+        class="btn-base btn-default btn-default-size"
+      >
+        <lucide-icon [img]="Plus" class="w-5 h-5"></lucide-icon>
+        Add Property
+      </button>
+    </div>
+
+    <!-- Stats -->
+    <div class="grid md:grid-cols-3 gap-6 mb-8">
+      <div class="bg-white rounded-lg shadow-sm p-6">
+        <div class="text-gray-600 mb-2">Total Properties</div>
+        <div class="text-3xl font-bold text-gray-900">{{properties.length}}</div>
+      </div>
+      <div class="bg-white rounded-lg shadow-sm p-6">
+        <div class="text-gray-600 mb-2">Available</div>
+        <div class="text-3xl font-bold text-green-600">{{getAvailableCount()}}</div>
+      </div>
+      <div class="bg-white rounded-lg shadow-sm p-6">
+        <div class="text-gray-600 mb-2">Occupied</div>
+        <div class="text-3xl font-bold text-amber-600">{{getOccupiedCount()}}</div>
+      </div>
+    </div>
+
+    <!-- Properties List -->
+    <div *ngIf="properties.length > 0" class="bg-white rounded-lg shadow-sm overflow-hidden">
+      <div class="overflow-x-auto">
+        <table class="w-full">
+          <thead class="bg-gray-50 border-b border-gray-200">
+            <tr>
+              <th class="px-6 py-4 text-left text-sm font-medium text-gray-600">Property</th>
+              <th class="px-6 py-4 text-left text-sm font-medium text-gray-600">Location</th>
+              <th class="px-6 py-4 text-left text-sm font-medium text-gray-600">Details</th>
+              <th class="px-6 py-4 text-left text-sm font-medium text-gray-600">Rent</th>
+              <th class="px-6 py-4 text-left text-sm font-medium text-gray-600">Status</th>
+              <th class="px-6 py-4 text-right text-sm font-medium text-gray-600">Actions</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-200">
+            <tr *ngFor="let property of properties" class="hover:bg-gray-50">
+              <td class="px-6 py-4">
+                <div class="flex items-center gap-4">
+                  <img [src]="property.image" [alt]="property.title" class="w-16 h-16 rounded-lg object-cover">
+                  <div>
+                    <div class="font-medium text-gray-900">{{property.title}}</div>
+                    <div class="text-sm text-gray-500">{{property.description?.slice(0, 40)}}...</div>
+                  </div>
+                </div>
+              </td>
+              <td class="px-6 py-4">
+                <div class="flex items-center gap-2 text-gray-600">
+                  <lucide-icon [img]="MapPin" class="w-4 h-4"></lucide-icon>
+                  <span class="text-sm">{{property.location}}</span>
+                </div>
+              </td>
+              <td class="px-6 py-4">
+                <div class="flex flex-col gap-1 text-sm text-gray-600">
+                  <div class="flex items-center gap-1">
+                    <lucide-icon [img]="Bed" class="w-4 h-4"></lucide-icon>
+                    <span>{{property.bedrooms}} bed</span>
+                  </div>
+                  <div class="flex items-center gap-1">
+                    <lucide-icon [img]="Bath" class="w-4 h-4"></lucide-icon>
+                    <span>{{property.bathrooms}} bath</span>
+                  </div>
+                  <div class="flex items-center gap-1" *ngIf="property.area">
+                    <lucide-icon [img]="Maximize" class="w-4 h-4"></lucide-icon>
+                    <span>{{property.area}} sqft</span>
+                  </div>
+                </div>
+              </td>
+              <td class="px-6 py-4">
+                <div class="font-medium text-indigo-600">${{property.rent}}/mo</div>
+              </td>
+              <td class="px-6 py-4">
+                <span *ngIf="property.status === 'Available'" class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium">
+                  Available
+                </span>
+                <span *ngIf="property.status === 'Rented'" class="px-3 py-1 bg-amber-100 text-amber-700 rounded-full text-sm font-medium">
+                  Occupied
+                </span>
+              </td>
+              <td class="px-6 py-4">
+                <div class="flex items-center justify-end gap-2">
+                  <button class="action-btn edit-btn" title="Edit">
+                    <lucide-icon [img]="Edit" class="w-4 h-4"></lucide-icon>
+                  </button>
+                  <button (click)="handleDeleteClick(property)" class="action-btn delete-btn" title="Delete">
+                    <lucide-icon [img]="Trash2" class="w-4 h-4"></lucide-icon>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="properties.length === 0" class="text-center py-12 bg-white rounded-lg">
+      <lucide-icon [img]="HomeIcon" class="w-16 h-16 text-gray-400 mx-auto mb-4"></lucide-icon>
+      <h3 class="text-xl font-medium text-gray-900 mb-2">No properties yet</h3>
+      <p class="text-gray-600 mb-6">Start by adding your first property</p>
+      <button routerLink="/owner/add-property" class="btn-base btn-default btn-default-size">
+        <lucide-icon [img]="Plus" class="w-5 h-5"></lucide-icon>
+        Add Property
+      </button>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>
+
+<!-- Delete Confirmation Modal -->
+<div *ngIf="showDeleteModal && propertyToDelete" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+  <div class="bg-white rounded-lg max-w-md w-full p-6">
+    <h2 class="text-2xl font-bold text-gray-900 mb-4">Delete Property</h2>
+    <p class="text-gray-600 mb-6">
+      Are you sure you want to delete "{{propertyToDelete.title}}"? This action cannot be undone.
+    </p>
+    <div class="flex gap-3">
+      <button (click)="cancelDelete()" class="flex-1 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
+        Cancel
+      </button>
+      <button (click)="confirmDelete()" class="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">
+        Delete
+      </button>
+    </div>
+  </div>
+</div>
