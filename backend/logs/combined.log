@@ -350,3 +350,62 @@
 2025-12-27 18:14:38 [INFO]: Login successful for userId: 8
 2025-12-27 23:46:04 [ERROR]: Error creating property: Unknown column 'property_type' in 'field list'
 2025-12-27 23:46:04 [ERROR]: Error in createProperty: Failed to create property
+2025-12-28 15:04:30 [ERROR]: Server startup failed: Access denied for user 'root'@'localhost' (using password: NO)
+2025-12-28 15:04:30 [ERROR]: MySQL connection failed: Access denied for user 'root'@'localhost' (using password: NO)
+2025-12-28 15:04:30 [ERROR]: Connection details: host=localhost, user=root, database=house_rental_db, port=3306
+2025-12-28 15:12:50 [INFO]: MySQL database connected successfully
+2025-12-28 15:12:50 [INFO]: Server running on port 3001
+2025-12-28 15:13:48 [INFO]: Registration request received: {"name":"Uday Gundu","email":"udaygundu17@gmail.com","phone":"9014152131","password":"123456","role":"OWNER"}
+2025-12-28 15:13:48 [INFO]: Register attempt for email: udaygundu17@gmail.com
+2025-12-28 15:13:48 [INFO]: Fetching user by email: udaygundu17@gmail.com
+2025-12-28 15:13:48 [INFO]: Creating user: udaygundu17@gmail.com
+2025-12-28 15:13:48 [INFO]: User registered successfully: udaygundu17@gmail.com
+2025-12-28 15:13:59 [INFO]: Login attempt for email: udaygundu17@gmail.com
+2025-12-28 15:13:59 [INFO]: Fetching user by email: udaygundu17@gmail.com
+2025-12-28 15:13:59 [INFO]: Login successful for userId: 4
+2025-12-28 15:16:48 [INFO]: Registration request received: {"name":"tenant","email":"tenant@test.com","phone":"9014152131","password":"123456","role":"TENANT"}
+2025-12-28 15:16:48 [INFO]: Register attempt for email: tenant@test.com
+2025-12-28 15:16:48 [INFO]: Fetching user by email: tenant@test.com
+2025-12-28 15:16:48 [WARN]: Email already exists: tenant@test.com
+2025-12-28 15:16:48 [ERROR]: Register failed: Email already registered
+2025-12-28 15:16:48 [ERROR]: Full error: Email already registered
+2025-12-28 15:17:07 [INFO]: Registration request received: {"name":"tenant","email":"udaygundu17@gmail.com","phone":"9014152131","password":"123456","role":"TENANT"}
+2025-12-28 15:17:07 [INFO]: Register attempt for email: udaygundu17@gmail.com
+2025-12-28 15:17:07 [INFO]: Fetching user by email: udaygundu17@gmail.com
+2025-12-28 15:17:07 [WARN]: Email already exists: udaygundu17@gmail.com
+2025-12-28 15:17:07 [ERROR]: Register failed: Email already registered
+2025-12-28 15:17:07 [ERROR]: Full error: Email already registered
+2025-12-28 15:19:28 [INFO]: Registration request received: {"name":"Uday Gundu","email":"sriram@gmail.com","phone":"9014152131","password":"123456","role":"TENANT"}
+2025-12-28 15:19:28 [INFO]: Register attempt for email: sriram@gmail.com
+2025-12-28 15:19:28 [INFO]: Fetching user by email: sriram@gmail.com
+2025-12-28 15:19:28 [INFO]: Creating user: sriram@gmail.com
+2025-12-28 15:19:28 [INFO]: User registered successfully: sriram@gmail.com
+2025-12-28 15:19:59 [INFO]: Login attempt for email: sriram@gmail.com
+2025-12-28 15:19:59 [INFO]: Fetching user by email: sriram@gmail.com
+2025-12-28 15:19:59 [INFO]: Login successful for userId: 5
+2025-12-28 15:20:41 [INFO]: Login attempt for email: udaygundu17@gmail.com
+2025-12-28 15:20:41 [INFO]: Fetching user by email: udaygundu17@gmail.com
+2025-12-28 15:20:41 [INFO]: Login successful for userId: 4
+2025-12-28 16:23:25 [INFO]: MySQL database connected successfully
+2025-12-28 16:23:25 [INFO]: Server running on port 3001
+2025-12-28 16:40:08 [ERROR]: Error creating property: Unknown column 'property_type' in 'field list'
+2025-12-28 16:40:08 [ERROR]: Error in createProperty: Failed to create property
+2025-12-28 16:43:54 [ERROR]: Error creating property: Unknown column 'property_type' in 'field list'
+2025-12-28 16:43:54 [ERROR]: Error in createProperty: Failed to create property
+2025-12-28 17:01:40 [INFO]: MySQL database connected successfully
+2025-12-28 17:01:40 [INFO]: Server running on port 3001
+2025-12-28 17:03:03 [INFO]: Property created successfully by user 4
+2025-12-28 17:05:13 [INFO]: Login attempt for email: sriram@gmail.com
+2025-12-28 17:05:13 [INFO]: Fetching user by email: sriram@gmail.com
+2025-12-28 17:05:13 [INFO]: Login successful for userId: 5
+2025-12-28 17:05:37 [INFO]: Login attempt for email: udaygundu17@gmail.com
+2025-12-28 17:05:37 [INFO]: Fetching user by email: udaygundu17@gmail.com
+2025-12-28 17:05:37 [INFO]: Login successful for userId: 4
+2025-12-28 17:49:19 [INFO]: Login attempt for email: udaygundu17@gmail.com
+2025-12-28 17:49:19 [INFO]: Fetching user by email: udaygundu17@gmail.com
+2025-12-28 17:49:19 [INFO]: Login successful for userId: 4
+2025-12-28 17:56:07 [INFO]: Property created successfully by user 4
+2025-12-28 18:28:44 [INFO]: MySQL database connected successfully
+2025-12-28 18:28:44 [INFO]: Server running on port 3001
+2025-12-28 20:09:54 [INFO]: Server running on port 3001
+2025-12-28 20:09:54 [INFO]: MySQL database connected successfully

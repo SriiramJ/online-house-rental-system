@@ -27,13 +27,13 @@ export class PropertyService {
         propertyData.description,
         parseFloat(propertyData.rent as any),
         propertyData.location,
-        propertyData.property_type || 'Apartment',
+        propertyData.property_type || propertyData.propertyType || 'Apartment',
         parseInt(propertyData.bedrooms as any) || 1,
         parseFloat(propertyData.bathrooms as any) || 1,
-        parseFloat(propertyData.area_sqft || propertyData.area as any) || null,
+        parseInt(propertyData.area_sqft || propertyData.area as any) || null,
         amenitiesText,
         photosText,
-        propertyData.available !== undefined ? propertyData.available : true
+        propertyData.is_available !== undefined ? propertyData.is_available : (propertyData.available !== undefined ? propertyData.available : true)
       ];
 
       const [result] = await connection.execute(query, values);
@@ -136,7 +136,7 @@ export class PropertyService {
       property_type: row.property_type || 'Apartment',
       area_sqft: row.area_sqft,
       amenities: row.amenities ? row.amenities.split(', ').filter(Boolean) : [],
-      photos: row.photos ? row.photos.split(', ').filter(Boolean) : [],
+      photos: row.photos ? row.photos.split(', ').filter(Boolean) : ['https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=400'],
       is_available: row.is_available !== undefined ? Boolean(row.is_available) : true,
       created_at: row.created_at
     };

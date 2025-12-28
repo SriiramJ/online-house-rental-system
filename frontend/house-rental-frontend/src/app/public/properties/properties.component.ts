@@ -70,6 +70,8 @@ export class PropertiesComponent implements OnInit {
   loadProperties() {
     this.loading = true;
     this.error = '';
+    this.properties = []; // Clear existing data
+    this.filteredProperties = []; // Clear filtered data
     this.cdr.detectChanges();
     
     // Timeout fallback
@@ -82,14 +84,33 @@ export class PropertiesComponent implements OnInit {
     
     this.propertyService.getProperties().subscribe({
       next: (response) => {
-        this.properties = response.properties.map(property => ({
-          ...property,
-          image: property.photos && property.photos.length > 0 
-            ? property.photos[0] 
-            : 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=400',
-          type: property.property_type,
-          available: property.is_available
-        }));
+        console.log('Raw properties response:', response);
+        this.properties = response.properties.map(property => {
+          console.log('Processing property:', property.title, 'Photos:', property.photos);
+          
+          // Get the first photo from the photos array
+          let imageUrl = 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=400'; // default
+          
+          if (property.photos && Array.isArray(property.photos) && property.photos.length > 0) {
+            imageUrl = property.photos[0];
+          } else if (property.photos && typeof property.photos === 'string' && property.photos.trim()) {
+            // Handle case where photos is a comma-separated string
+            const photoUrls = property.photos.split(',').map((url: string) => url.trim()).filter((url: string) => url);
+            if (photoUrls.length > 0) {
+              imageUrl = photoUrls[0];
+            }
+          }
+          
+          console.log('Final image URL for', property.title, ':', imageUrl);
+          
+          return {
+            ...property,
+            image: imageUrl,
+            type: property.property_type,
+            available: property.is_available
+          };
+        });
+        console.log('Processed properties:', this.properties);
         this.filteredProperties = [...this.properties];
         this.loading = false;
         this.cdr.detectChanges();

@@ -25,7 +25,9 @@ export interface CreatePropertyRequest {
   area?: number | string;
   area_sqft?: number;
   property_type?: string;
+  propertyType?: string; // Frontend field name
   amenities?: string[];
   photos?: string[];
   available?: boolean;
+  is_available?: boolean; // Database field name
 }

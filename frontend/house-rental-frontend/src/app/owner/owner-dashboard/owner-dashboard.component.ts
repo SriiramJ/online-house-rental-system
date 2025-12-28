@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { NavbarComponent } from '../../shared/navbar/navbar.component';
@@ -496,12 +496,17 @@ export class OwnerDashboardComponent implements OnInit {
     private ownerService: OwnerService,
     private router: Router,
     private toast: ToastService,
-    private authService: AuthService
+    private authService: AuthService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
     this.loadDashboardData();
     this.setSidebarInitialState();
+  }
+
+  ionViewWillEnter() {
+    this.loadDashboardData();
   }
 
   setSidebarInitialState() {
@@ -518,10 +523,23 @@ export class OwnerDashboardComponent implements OnInit {
       next: (response) => {
         this.dashboardData = response.data;
         this.loading = false;
+        this.cdr.markForCheck();
       },
       error: (error) => {
-        this.toast.error('Failed to load dashboard', 'Please try again later');
+        console.error('Dashboard error:', error);
+        // Initialize with default values if API fails
+        this.dashboardData = {
+          stats: {
+            totalProperties: 0,
+            pendingRequests: 0,
+            activeTenants: 0,
+            monthlyRevenue: 0
+          },
+          recentBookings: [],
+          recentTenants: []
+        };
         this.loading = false;
+        this.cdr.markForCheck();
       }
     });
   }

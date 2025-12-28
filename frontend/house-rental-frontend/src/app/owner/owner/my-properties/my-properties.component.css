@@ -1,3 +1,39 @@
+/* Page Layout */
+.page-wrapper {
+  min-height: calc(100vh - 140px);
+}
+
+/* Dashboard Layout */
+.dashboard-container {
+  display: flex;
+  min-height: 100%;
+  background: #f9fafb;
+  padding-top: 70px;
+  position: relative;
+}
+
+.main-content {
+  flex: 1;
+  margin-left: 0;
+  transition: margin-left 0.3s ease;
+}
+
+.main-content.sidebar-open {
+  margin-left: 280px;
+}
+
+@media (max-width: 767px) {
+  .main-content.sidebar-open {
+    margin-left: 0;
+  }
+}
+
+.content-wrapper {
+  padding: 2rem;
+  max-width: 80rem;
+  margin: 0 auto;
+}
+
 /* Action Button Styles */
 .action-btn {
   display: inline-flex;

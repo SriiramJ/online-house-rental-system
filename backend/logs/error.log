@@ -53,3 +53,14 @@
 2025-12-26 17:19:34 [ERROR]: Login failed: User not found
 2025-12-27 23:46:04 [ERROR]: Error creating property: Unknown column 'property_type' in 'field list'
 2025-12-27 23:46:04 [ERROR]: Error in createProperty: Failed to create property
+2025-12-28 15:04:30 [ERROR]: Server startup failed: Access denied for user 'root'@'localhost' (using password: NO)
+2025-12-28 15:04:30 [ERROR]: MySQL connection failed: Access denied for user 'root'@'localhost' (using password: NO)
+2025-12-28 15:04:30 [ERROR]: Connection details: host=localhost, user=root, database=house_rental_db, port=3306
+2025-12-28 15:16:48 [ERROR]: Register failed: Email already registered
+2025-12-28 15:16:48 [ERROR]: Full error: Email already registered
+2025-12-28 15:17:07 [ERROR]: Register failed: Email already registered
+2025-12-28 15:17:07 [ERROR]: Full error: Email already registered
+2025-12-28 16:40:08 [ERROR]: Error creating property: Unknown column 'property_type' in 'field list'
+2025-12-28 16:40:08 [ERROR]: Error in createProperty: Failed to create property
+2025-12-28 16:43:54 [ERROR]: Error creating property: Unknown column 'property_type' in 'field list'
+2025-12-28 16:43:54 [ERROR]: Error in createProperty: Failed to create property

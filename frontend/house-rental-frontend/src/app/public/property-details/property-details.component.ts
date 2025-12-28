@@ -77,9 +77,7 @@ export class PropertyDetailsComponent implements OnInit {
       next: (response: {property: Property, message: string}) => {
         this.property = {
           ...response.property,
-          image: response.property.photos && response.property.photos.length > 0 
-            ? response.property.photos[0] 
-            : 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=400'
+          image: this.getPropertyImage(response.property)
         };
         this.loading = false;
         this.cdr.detectChanges();
@@ -93,25 +91,58 @@ export class PropertyDetailsComponent implements OnInit {
     });
   }
 
+  getPhotosArray(): string[] {
+    if (!this.property || !this.property.photos) {
+      return [];
+    }
+    
+    if (Array.isArray(this.property.photos)) {
+      return this.property.photos;
+    }
+    
+    // Handle comma-separated string
+    return this.property.photos.split(',').map(url => url.trim()).filter(url => url);
+  }
+
   nextImage() {
-    if (this.property && this.property.photos && this.property.photos.length > 1) {
-      this.currentImageIndex = (this.currentImageIndex + 1) % this.property.photos.length;
+    const photos = this.getPhotosArray();
+    if (photos.length > 1) {
+      this.currentImageIndex = (this.currentImageIndex + 1) % photos.length;
     }
   }
 
   prevImage() {
-    if (this.property && this.property.photos && this.property.photos.length > 1) {
+    const photos = this.getPhotosArray();
+    if (photos.length > 1) {
       this.currentImageIndex = this.currentImageIndex === 0 
-        ? this.property.photos.length - 1 
+        ? photos.length - 1 
         : this.currentImageIndex - 1;
     }
   }
 
   getCurrentImage(): string {
-    if (this.property && this.property.photos && this.property.photos.length > 0) {
-      return this.property.photos[this.currentImageIndex];
+    const photos = this.getPhotosArray();
+    if (photos.length > 0) {
+      return photos[this.currentImageIndex];
     }
     return 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800';
+  }
+
+  getPropertyImage(property: Property): string {
+    // Get the first photo from the photos array
+    let imageUrl = 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=400'; // default
+    
+    if (property.photos && Array.isArray(property.photos) && property.photos.length > 0) {
+      imageUrl = property.photos[0];
+    } else if (property.photos && typeof property.photos === 'string' && property.photos.trim()) {
+      // Handle case where photos is a comma-separated string
+      const photoUrls = property.photos.split(',').map((url: string) => url.trim()).filter((url: string) => url);
+      if (photoUrls.length > 0) {
+        imageUrl = photoUrls[0];
+      }
+    }
+    
+    return imageUrl;
   }
 
   goBack() {

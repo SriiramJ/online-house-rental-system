@@ -10,7 +10,7 @@ export const createProperty = async (req: Request, res: Response) => {
     const propertyData = req.body;
 
     // Validate required fields to match frontend form
-    const { title, description, rent, location, bedrooms, bathrooms, area } = propertyData;
+    const { title, description, rent, location, bedrooms, bathrooms, area, propertyType } = propertyData;
     
     if (!title?.trim()) {
       return res.status(400).json({ message: "Title is required" });
@@ -30,8 +30,11 @@ export const createProperty = async (req: Request, res: Response) => {
     if (!bathrooms || parseInt(bathrooms) <= 0) {
       return res.status(400).json({ message: "Number of bathrooms is required" });
     }
-    if (!area || parseFloat(area) <= 0) {
+    if (!area || parseInt(area) <= 0) {
       return res.status(400).json({ message: "Property area is required" });
+    }
+    if (!propertyType?.trim()) {
+      return res.status(400).json({ message: "Property type is required" });
     }
 
     const property = await propertyService.createProperty(user.userId, propertyData);

@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { NavbarComponent } from '../../../shared/navbar/navbar.component';
 import { FooterComponent } from '../../../shared/footer/footer.component';
+import { SidebarComponent, SidebarItem } from '../../../shared/shared/sidebar/sidebar.component';
 import { OwnerService } from '../../../core/services/owner.service';
 import { ToastService } from '../../../core/services/toast.service';
-import { LucideAngularModule, Plus, Edit, Trash2, Eye, ArrowLeft, MapPin, Bed, Bath, Maximize, Home as HomeIcon } from 'lucide-angular';
+import { LucideAngularModule, Plus, Edit, Trash2, Eye, ArrowLeft, MapPin, Bed, Bath, Maximize, Home as HomeIcon, Menu, BarChart3, Calendar, Users } from 'lucide-angular';
 
 @Component({
   selector: 'app-my-properties',
   standalone: true,
-  imports: [CommonModule, RouterModule, NavbarComponent, FooterComponent, LucideAngularModule],
+  imports: [CommonModule, RouterModule, NavbarComponent, FooterComponent, SidebarComponent, LucideAngularModule],
   templateUrl: './my-properties.component.html',
   styleUrls: ['./my-properties.component.css']
 })
@@ -25,72 +26,93 @@ export class MyPropertiesComponent implements OnInit {
   readonly Bath = Bath;
   readonly Maximize = Maximize;
   readonly HomeIcon = HomeIcon;
+  readonly Menu = Menu;
+  readonly BarChart3 = BarChart3;
+  readonly Calendar = Calendar;
+  readonly Users = Users;
 
   properties: any[] = [];
   loading = false;
   showDeleteModal = false;
   propertyToDelete: any = null;
+  sidebarOpen = true;
+  sidebarItems: SidebarItem[] = [
+    { label: 'Dashboard', route: '/owner/dashboard', icon: BarChart3 },
+    { label: 'My Properties', route: '/owner/properties', icon: HomeIcon },
+    { label: 'Booking Requests', route: '/owner/booking-requests', icon: Calendar },
+    { label: 'My Tenants', route: '/owner/tenants', icon: Users }
+  ];
 
   constructor(
     private ownerService: OwnerService,
     private toast: ToastService,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
     this.loadProperties();
+    this.setSidebarInitialState();
+  }
+
+  ionViewWillEnter() {
+    this.loadProperties();
+  }
+
+  setSidebarInitialState() {
+    this.sidebarOpen = window.innerWidth >= 1024;
+  }
+
+  toggleSidebar() {
+    this.sidebarOpen = !this.sidebarOpen;
   }
 
   loadProperties() {
     this.loading = true;
-    // Mock data for UI testing - immediate load
-    this.properties = [
-      {
-        id: 1,
-        title: 'Modern Downtown Apartment',
-        description: 'Beautiful 2-bedroom apartment in the heart of downtown',
-        location: 'Downtown, New York',
-        rent: 2500,
-        bedrooms: 2,
-        bathrooms: 2,
-        area: 1200,
-        status: 'Available',
-        image: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=400'
+    this.ownerService.getOwnerProperties().subscribe({
+      next: (response) => {
+        this.properties = response.properties || [];
+        this.loading = false;
+        this.cdr.markForCheck();
       },
-      {
-        id: 2,
-        title: 'Cozy Suburban House',
-        description: 'Spacious 3-bedroom house with beautiful garden',
-        location: 'Suburbia, California',
-        rent: 3200,
-        bedrooms: 3,
-        bathrooms: 2,
-        area: 1800,
-        status: 'Rented',
-        image: 'https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=400'
-      },
-      {
-        id: 3,
-        title: 'Luxury Penthouse Suite',
-        description: 'Stunning 4-bedroom villa with private pool',
-        location: 'Upper East Side, New York',
-        rent: 5500,
-        bedrooms: 4,
-        bathrooms: 3,
-        area: 2500,
-        status: 'Available',
-        image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=400'
+      error: (error) => {
+        console.error('Error loading properties:', error);
+        this.toast.error('Failed to load properties');
+        this.properties = [];
+        this.loading = false;
+        this.cdr.markForCheck();
       }
-    ];
-    this.loading = false;
+    });
   }
 
   getAvailableCount(): number {
-    return this.properties.filter(p => p.status === 'Available').length;
+    return this.properties.filter(p => p.is_available || p.status === 'Available').length;
   }
 
   getOccupiedCount(): number {
-    return this.properties.filter(p => p.status === 'Rented').length;
+    return this.properties.filter(p => !p.is_available || p.status === 'Rented').length;
+  }
+
+  getPropertyImage(property: any): string {
+    console.log('Getting image for property:', property.title, 'Photos:', property.photos);
+    
+    // Get the first photo from the photos array
+    let imageUrl = 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=400'; // default
+    
+    if (property.photos && Array.isArray(property.photos) && property.photos.length > 0) {
+      imageUrl = property.photos[0];
+    } else if (property.photos && typeof property.photos === 'string' && property.photos.trim()) {
+      // Handle case where photos is a comma-separated string
+      const photoUrls = property.photos.split(',').map((url: string) => url.trim()).filter((url: string) => url);
+      if (photoUrls.length > 0) {
+        imageUrl = photoUrls[0];
+      }
+    } else if (property.image) {
+      imageUrl = property.image;
+    }
+    
+    console.log('Final image URL for', property.title, ':', imageUrl);
+    return imageUrl;
   }
 
   handleDeleteClick(property: any) {

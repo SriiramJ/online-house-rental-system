@@ -20,6 +20,14 @@ export class OwnerService {
     });
   }
 
+  private getUploadHeaders(): HttpHeaders {
+    const token = this.authService.getToken();
+    return new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+      // Don't set Content-Type for FormData, let browser set it
+    });
+  }
+
   getDashboardData(): Observable<any> {
     return this.http.get(`${this.apiUrl}/dashboard`, { headers: this.getHeaders() });
   }
@@ -42,5 +50,9 @@ export class OwnerService {
 
   addProperty(propertyData: any): Observable<any> {
     return this.http.post(`${environment.apiUrl}/properties`, propertyData, { headers: this.getHeaders() });
+  }
+
+  uploadPropertyImages(formData: FormData): Observable<any> {
+    return this.http.post(`${environment.apiUrl}/properties/upload-images`, formData, { headers: this.getUploadHeaders() });
   }
 }

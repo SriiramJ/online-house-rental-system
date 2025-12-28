@@ -170,6 +170,34 @@ import { LucideAngularModule, Upload, X, Plus, ArrowLeft } from 'lucide-angular'
               Number of bathrooms is required
             </p>
           </div>
+        </div>
+
+        <!-- Property Type and Area -->
+        <div class="grid md:grid-cols-2 gap-6">
+          <div>
+            <label for="propertyType" class="block text-gray-700 mb-2">
+              Property Type *
+            </label>
+            <select
+              id="propertyType"
+              name="propertyType"
+              [(ngModel)]="formData.propertyType"
+              #propertyType="ngModel"
+              required
+              class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200 text-gray-900"
+              [class.border-red-500]="propertyType.invalid && propertyType.touched"
+              [class.border-gray-300]="!propertyType.invalid || !propertyType.touched"
+            >
+              <option value="">Select property type</option>
+              <option value="Apartment">Apartment</option>
+              <option value="House">House</option>
+              <option value="Condo">Condo</option>
+              <option value="Studio">Studio</option>
+            </select>
+            <p *ngIf="propertyType.invalid && propertyType.touched" class="mt-1 text-sm text-red-600">
+              Property type is required
+            </p>
+          </div>
 
           <div>
             <label for="area" class="block text-gray-700 mb-2">
@@ -248,24 +276,66 @@ import { LucideAngularModule, Upload, X, Plus, ArrowLeft } from 'lucide-angular'
           </div>
         </div>
 
-        <!-- Image Upload -->
+        <!-- Property Images -->
         <div>
           <label class="block text-gray-700 mb-2">Property Images</label>
-          <input 
-            type="file" 
-            id="imageUpload" 
-            multiple 
-            accept="image/jpeg,image/jpg,image/png" 
-            (change)="onFileSelect($event)" 
-            class="hidden"
-          >
-          <div 
-            (click)="triggerFileUpload()" 
-            class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-indigo-400 focus-within:border-indigo-500 transition-all duration-200 cursor-pointer bg-gray-50 hover:bg-gray-100"
-          >
-            <lucide-icon [img]="Upload" class="w-12 h-12 text-gray-400 mx-auto mb-4"></lucide-icon>
-            <p class="text-gray-600 mb-2">Click to upload or drag and drop</p>
-            <p class="text-sm text-gray-500">PNG, JPG up to 10MB</p>
+          
+          <!-- Current Images -->
+          <div *ngIf="formData.photos.length > 0" class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-4">
+            <div *ngFor="let photo of formData.photos; let i = index" class="relative">
+              <img [src]="photo" [alt]="'Property image ' + (i + 1)" class="w-full h-24 object-cover rounded-lg">
+              <button
+                type="button"
+                (click)="removePhoto(i)"
+                class="absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center hover:bg-red-600"
+              >
+                <lucide-icon [img]="X" class="w-3 h-3"></lucide-icon>
+              </button>
+            </div>
+          </div>
+
+          <!-- File Upload -->
+          <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-indigo-400 transition-colors">
+            <input
+              type="file"
+              id="imageUpload"
+              multiple
+              accept="image/*"
+              (change)="onFileSelect($event)"
+              class="hidden"
+            >
+            <button
+              type="button"
+              (click)="triggerFileUpload()"
+              class="flex flex-col items-center gap-2 w-full"
+            >
+              <lucide-icon [img]="Upload" class="w-12 h-12 text-gray-400"></lucide-icon>
+              <span class="text-gray-600">Click to upload images</span>
+              <span class="text-sm text-gray-500">PNG, JPG up to 5MB each</span>
+            </button>
+          </div>
+
+          <!-- Add Image URL (Alternative) -->
+          <div class="mt-4">
+            <div class="text-sm text-gray-600 mb-2">Or add image URL:</div>
+            <div class="flex gap-2 mb-3">
+              <input
+                type="url"
+                [(ngModel)]="newImageUrl"
+                name="newImageUrl"
+                (keypress)="onImageUrlKeyPress($event)"
+                class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200 text-gray-900 placeholder-gray-500"
+                placeholder="Enter image URL..."
+              >
+              <button
+                type="button"
+                (click)="addImageUrl()"
+                class="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all duration-200 flex items-center gap-2 font-medium"
+              >
+                <lucide-icon [img]="Plus" class="w-5 h-5"></lucide-icon>
+                Add
+              </button>
+            </div>
           </div>
         </div>
 
@@ -756,6 +826,14 @@ export class AddPropertyComponent {
   isEditMode = false;
   loading = false;
   newAmenity = '';
+  newImageUrl = '';
+
+  sampleImageUrls = [
+    'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=400',
+    'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=400',
+    'https://images.unsplash.com/photo-1484154218962-a197022b5858?w=400',
+    'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400'
+  ];
 
   formData = {
     title: '',
@@ -765,7 +843,9 @@ export class AddPropertyComponent {
     bedrooms: '',
     bathrooms: '',
     area: '',
+    propertyType: '',
     amenities: [] as string[],
+    photos: [] as string[],
     available: true
   };
 
@@ -798,7 +878,9 @@ export class AddPropertyComponent {
         bedrooms: '2',
         bathrooms: '2',
         area: '1200',
+        propertyType: 'Apartment',
         amenities: ['Parking', 'Gym', 'Pool', 'WiFi'],
+        photos: ['https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=400'],
         available: true
       };
     }
@@ -808,6 +890,25 @@ export class AddPropertyComponent {
     if (amenity && !this.formData.amenities.includes(amenity)) {
       this.formData.amenities.push(amenity);
       this.newAmenity = '';
+    }
+  }
+
+  addImageUrl(url?: string) {
+    const imageUrl = url || this.newImageUrl;
+    if (imageUrl && !this.formData.photos.includes(imageUrl)) {
+      this.formData.photos.push(imageUrl);
+      this.newImageUrl = '';
+    }
+  }
+
+  removePhoto(index: number) {
+    this.formData.photos.splice(index, 1);
+  }
+
+  onImageUrlKeyPress(event: KeyboardEvent) {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      this.addImageUrl();
     }
   }
 
@@ -841,17 +942,28 @@ export class AddPropertyComponent {
     this.loading = true;
     console.log('Starting submission...');
 
-    // Mock success/failure for UI testing
-    setTimeout(() => {
-      const isSuccess = Math.random() > 0.3; // 70% success rate
-      
-      if (isSuccess) {
+    // Prepare data for API
+    const propertyData = {
+      title: this.formData.title,
+      description: this.formData.description,
+      rent: parseFloat(this.formData.rent),
+      location: this.formData.location,
+      bedrooms: parseInt(this.formData.bedrooms),
+      bathrooms: parseFloat(this.formData.bathrooms),
+      area: parseInt(this.formData.area),
+      propertyType: this.formData.propertyType,
+      amenities: this.formData.amenities,
+      photos: this.formData.photos.length > 0 ? this.formData.photos : ['https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=400'],
+      available: this.formData.available
+    };
+
+    console.log('Sending property data:', propertyData);
+    console.log('Photos array:', propertyData.photos);
+
+    this.ownerService.addProperty(propertyData).subscribe({
+      next: (response) => {
         this.loading = false;
-        if (this.isEditMode) {
-          this.toast.success('Property updated successfully!');
-        } else {
-          this.toast.success('Property added successfully!');
-        }
+        this.toast.success('Property added successfully!');
         // Reset form
         this.resetForm();
         form.resetForm();
@@ -859,11 +971,20 @@ export class AddPropertyComponent {
         setTimeout(() => {
           this.router.navigate(['/owner/properties']);
         }, 1500);
-      } else {
+      },
+      error: (error) => {
         this.loading = false;
-        this.toast.error('Failed to save property. Please try again.');
+        console.error('Error adding property:', error);
+        console.error('Full error object:', JSON.stringify(error, null, 2));
+        let errorMessage = 'Failed to add property. Please try again.';
+        if (error?.error?.message) {
+          errorMessage = error.error.message;
+        } else if (error?.message) {
+          errorMessage = error.message;
+        }
+        this.toast.error(errorMessage);
       }
-    }, 2000);
+    });
   }
 
   resetForm() {
@@ -875,10 +996,13 @@ export class AddPropertyComponent {
       bedrooms: '',
       bathrooms: '',
       area: '',
+      propertyType: '',
       amenities: [],
+      photos: [],
       available: true
     };
     this.newAmenity = '';
+    this.newImageUrl = '';
   }
 
   validateForm(): boolean {
@@ -887,8 +1011,9 @@ export class AddPropertyComponent {
              this.formData.rent && parseFloat(this.formData.rent) > 0 &&
              this.formData.location.trim() &&
              this.formData.bedrooms && parseInt(this.formData.bedrooms) > 0 &&
-             this.formData.bathrooms && parseInt(this.formData.bathrooms) > 0 &&
-             this.formData.area && parseFloat(this.formData.area) > 0);
+             this.formData.bathrooms && parseFloat(this.formData.bathrooms) > 0 &&
+             this.formData.area && parseFloat(this.formData.area) > 0 &&
+             this.formData.propertyType.trim());
   }
 
   goBack() {
@@ -907,9 +1032,28 @@ export class AddPropertyComponent {
   onFileSelect(event: any) {
     const files = event.target.files;
     if (files && files.length > 0) {
-      // Handle file upload logic here
-      console.log('Selected files:', files);
-      this.toast.success(`${files.length} image(s) selected`);
+      this.uploadImages(files);
     }
+  }
+
+  uploadImages(files: FileList) {
+    const formData = new FormData();
+    
+    for (let i = 0; i < files.length; i++) {
+      formData.append('images', files[i]);
+    }
+
+    this.ownerService.uploadPropertyImages(formData).subscribe({
+      next: (response) => {
+        if (response.images && response.images.length > 0) {
+          this.formData.photos.push(...response.images);
+          this.toast.success(`${response.images.length} image(s) uploaded successfully`);
+        }
+      },
+      error: (error) => {
+        console.error('Error uploading images:', error);
+        this.toast.error('Failed to upload images');
+      }
+    });
   }
 }

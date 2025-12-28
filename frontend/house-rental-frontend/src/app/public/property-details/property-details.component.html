@@ -39,15 +39,15 @@
         </div>
         
         <!-- Image Navigation -->
-        <div *ngIf="property.photos && property.photos.length > 1" class="image-nav">
+        <div *ngIf="getPhotosArray().length > 1" class="image-nav">
           <button (click)="prevImage()" class="nav-btn prev-btn">‹</button>
           <button (click)="nextImage()" class="nav-btn next-btn">›</button>
         </div>
         
         <!-- Image Indicators -->
-        <div *ngIf="property.photos && property.photos.length > 1" class="image-indicators">
+        <div *ngIf="getPhotosArray().length > 1" class="image-indicators">
           <span 
-            *ngFor="let photo of property.photos; let i = index" 
+            *ngFor="let photo of getPhotosArray(); let i = index" 
             class="indicator"
             [class.active]="i === currentImageIndex"
             (click)="currentImageIndex = i"
