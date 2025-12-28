@@ -498,3 +498,32 @@
 2025-12-28 21:25:30 [INFO]: Property created successfully by user 8
 2025-12-28 21:27:13 [INFO]: MySQL database connected successfully
 2025-12-28 21:27:13 [INFO]: Server running on port 3001
+2025-12-28 21:49:41 [INFO]: MySQL database connected successfully
+2025-12-28 21:49:41 [INFO]: Server running on port 3001
+2025-12-28 21:52:54 [INFO]: Property created successfully by user 8
+2025-12-28 21:55:14 [INFO]: Property created successfully by user 8
+2025-12-28 21:57:37 [INFO]: Uploaded 1 property images
+2025-12-28 21:58:17 [INFO]: Property created successfully by user 8
+2025-12-28 22:07:25 [INFO]: Login attempt for email: tenant@demo.com
+2025-12-28 22:07:25 [INFO]: Fetching user by email: tenant@demo.com
+2025-12-28 22:07:25 [WARN]: User not found: tenant@demo.com
+2025-12-28 22:07:25 [ERROR]: Login failed: User not found
+2025-12-28 22:07:58 [INFO]: Registration request received: {"name":"vishnu","email":"vishnu@gmail.com","phone":"9790766986","password":"123456","role":"TENANT"}
+2025-12-28 22:07:58 [INFO]: Register attempt for email: vishnu@gmail.com
+2025-12-28 22:07:58 [INFO]: Fetching user by email: vishnu@gmail.com
+2025-12-28 22:07:58 [INFO]: Creating user: vishnu@gmail.com
+2025-12-28 22:07:58 [INFO]: User registered successfully: vishnu@gmail.com
+2025-12-28 22:08:08 [INFO]: Login attempt for email: vishnu@gmail.com
+2025-12-28 22:08:08 [INFO]: Fetching user by email: vishnu@gmail.com
+2025-12-28 22:08:08 [INFO]: Login successful for userId: 9
+2025-12-28 22:09:49 [INFO]: Registration request received: {"name":"vishnu","email":"vishnu@test.com","phone":"9790766986","password":"123456","role":"TENANT"}
+2025-12-28 22:09:49 [INFO]: Register attempt for email: vishnu@test.com
+2025-12-28 22:09:49 [INFO]: Fetching user by email: vishnu@test.com
+2025-12-28 22:09:49 [INFO]: Creating user: vishnu@test.com
+2025-12-28 22:09:49 [INFO]: User registered successfully: vishnu@test.com
+2025-12-28 22:09:55 [INFO]: Login attempt for email: vishnu@test.com
+2025-12-28 22:09:55 [INFO]: Fetching user by email: vishnu@test.com
+2025-12-28 22:09:55 [INFO]: Login successful for userId: 10
+2025-12-28 22:14:08 [INFO]: Login attempt for email: sriram1@test.com
+2025-12-28 22:14:08 [INFO]: Fetching user by email: sriram1@test.com
+2025-12-28 22:14:08 [INFO]: Login successful for userId: 8
