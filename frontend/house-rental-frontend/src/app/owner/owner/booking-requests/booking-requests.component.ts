@@ -6,6 +6,7 @@ import { NavbarComponent } from '../../../shared/navbar/navbar.component';
 import { FooterComponent } from '../../../shared/footer/footer.component';
 import { SidebarComponent, SidebarItem } from '../../../shared/shared/sidebar/sidebar.component';
 import { OwnerService } from '../../../core/services/owner.service';
+import { SidebarService } from '../../../core/services/sidebar.service';
 import { ToastService } from '../../../core/services/toast.service';
 import { LucideAngularModule, Check, X, Clock, User, ArrowLeft, Menu, BarChart3, Home, Calendar, Users, Mail, Phone, MapPin, MessageSquare } from 'lucide-angular';
 
@@ -22,13 +23,13 @@ import { LucideAngularModule, Check, X, Clock, User, ArrowLeft, Menu, BarChart3,
         <app-sidebar 
           title="Owner Dashboard" 
           [items]="sidebarItems" 
-          [isOpen]="sidebarOpen"
+          [isOpen]="(sidebarService.sidebarOpen$ | async) ?? false"
           [toggleIcon]="Menu"
-          (toggle)="toggleSidebar()">
+          (toggle)="sidebarService.toggle()">
         </app-sidebar>
 
         <!-- Main Content -->
-        <div class="main-content" [class.sidebar-open]="sidebarOpen">
+        <div class="main-content" [class.sidebar-open]="(sidebarService.sidebarOpen$ | async) ?? false">
           <div class="content-wrapper">
             <div class="header-section">
               <h1 class="page-title">Booking Requests</h1>
@@ -704,7 +705,6 @@ export class BookingRequestsComponent implements OnInit {
   showRejectModal = false;
   selectedRequest: any = null;
   rejectReason = '';
-  sidebarOpen = true;
   activeFilter = 'All';
   filters: any[] = [];
   
@@ -718,91 +718,33 @@ export class BookingRequestsComponent implements OnInit {
   constructor(
     private ownerService: OwnerService,
     private toast: ToastService,
+    public sidebarService: SidebarService,
     private router: Router
   ) {}
 
   ngOnInit() {
     this.loadBookingRequests();
-    this.setSidebarInitialState();
     this.updateFilters();
-  }
-
-  setSidebarInitialState() {
-    this.sidebarOpen = window.innerWidth >= 1024;
-  }
-
-  toggleSidebar() {
-    this.sidebarOpen = !this.sidebarOpen;
   }
 
   loadBookingRequests() {
     this.loading = true;
-    // Mock data for UI testing - immediate load
-    this.bookingRequests = [
-      {
-        id: 1,
-        tenantName: 'Alice Johnson',
-        tenantEmail: 'alice@example.com',
-        tenantPhone: '+1 (555) 111-2222',
-        propertyTitle: 'Modern Downtown Apartment',
-        propertyLocation: 'Downtown, NYC',
-        propertyImage: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=400',
-        rent: 2500,
-        moveInDate: '15/01/2025',
-        leaseDuration: '12 months',
-        message: 'I am very interested in this property. I work as a software engineer and looking for a long-term rental. I have excellent references from my previous landlord.',
-        status: 'Pending',
-        requestDate: '14/12/2025'
+    this.ownerService.getOwnerBookings().subscribe({
+      next: (response) => {
+        this.bookingRequests = response.bookings || [];
+        this.loading = false;
+        this.updateFilters();
+        this.filterRequests();
       },
-      {
-        id: 2,
-        tenantName: 'Bob Smith',
-        tenantEmail: 'bob@example.com',
-        tenantPhone: '+1 (555) 222-3333',
-        propertyTitle: 'Cozy Suburban House',
-        propertyLocation: 'Suburbia, California',
-        propertyImage: 'https://images.unsplash.com/photo-1484154218962-a197022b5858?w=400',
-        rent: 3200,
-        moveInDate: '01/02/2025',
-        leaseDuration: '18 months',
-        message: 'Family of four looking for a safe neighborhood. Both parents are working professionals with stable employment.',
-        status: 'Approved',
-        requestDate: '10/12/2025'
-      },
-      {
-        id: 3,
-        tenantName: 'Carol Martinez',
-        tenantEmail: 'carol@example.com',
-        tenantPhone: '+1 (555) 333-4444',
-        propertyTitle: 'Luxury Villa with Pool',
-        propertyLocation: 'Queens, NYC',
-        propertyImage: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400',
-        rent: 4500,
-        moveInDate: '20/01/2025',
-        leaseDuration: '24 months',
-        message: 'Interested in a long-term lease. Can provide first and last month rent upfront plus security deposit.',
-        status: 'Rejected',
-        requestDate: '08/12/2025'
-      },
-      {
-        id: 4,
-        tenantName: 'David Chen',
-        tenantEmail: 'david@example.com',
-        tenantPhone: '+1 (555) 444-5555',
-        propertyTitle: 'Modern Downtown Apartment',
-        propertyLocation: 'Downtown, NYC',
-        propertyImage: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=400',
-        rent: 2500,
-        moveInDate: '01/03/2025',
-        leaseDuration: '12 months',
-        message: 'Looking for a modern apartment close to work. I have a stable job and good credit history.',
-        status: 'Pending',
-        requestDate: '12/12/2025'
+      error: (error) => {
+        console.error('Error loading booking requests:', error);
+        this.toast.error('Failed to load booking requests');
+        this.bookingRequests = [];
+        this.loading = false;
+        this.updateFilters();
+        this.filterRequests();
       }
-    ];
-    this.loading = false;
-    this.updateFilters();
-    this.filterRequests();
+    });
   }
 
   updateFilters() {
@@ -849,66 +791,17 @@ export class BookingRequestsComponent implements OnInit {
   }
 
   updateBookingStatus(bookingId: number, status: string) {
-    // Mock API call for UI testing
-    setTimeout(() => {
-      this.toast.success(`Booking ${status.toLowerCase()} successfully`);
-      // Update the status in mock data
-      const request = this.bookingRequests.find(r => r.id === bookingId);
-      if (request) {
-        request.status = status;
+    this.ownerService.updateBookingStatus(bookingId, status).subscribe({
+      next: (response) => {
+        this.toast.success(`Booking ${status.toLowerCase()} successfully`);
+        this.loadBookingRequests(); // Reload to get updated data
+      },
+      error: (error) => {
+        console.error('Error updating booking status:', error);
+        this.toast.error(`Failed to ${status.toLowerCase()} booking`);
       }
-    }, 500);
-    
-    // Real API call (commented out for mock)
-    // this.ownerService.updateBookingStatus(bookingId, status).subscribe({
-    //   next: (response) => {
-    //     this.toast.success(`Booking ${status.toLowerCase()} successfully`);
-    //     this.loadBookingRequests();
-    //   },
-    //   error: (error) => {
-    //     this.toast.error(`Failed to ${status.toLowerCase()} booking`);
-    //   }
-    // });
+    });
   }
-
-  oldBookingRequests = [
-    {
-      id: 1,
-      tenantName: 'John Smith',
-      tenantEmail: 'john.smith@email.com',
-      propertyTitle: 'Modern Downtown Apartment',
-      propertyLocation: 'Downtown, NYC',
-      rent: 2500,
-      moveInDate: 'March 15, 2024',
-      leaseDuration: '12 months',
-      message: 'I am very interested in this property. I have stable income and excellent references.',
-      status: 'Pending'
-    },
-    {
-      id: 2,
-      tenantName: 'Sarah Johnson',
-      tenantEmail: 'sarah.j@email.com',
-      propertyTitle: 'Cozy Studio Loft',
-      propertyLocation: 'Brooklyn, NY',
-      rent: 1800,
-      moveInDate: 'April 1, 2024',
-      leaseDuration: '6 months',
-      message: 'Looking for a short-term lease. I am a graduate student with good credit score.',
-      status: 'Approved'
-    },
-    {
-      id: 3,
-      tenantName: 'Mike Davis',
-      tenantEmail: 'mike.davis@email.com',
-      propertyTitle: 'Luxury Penthouse',
-      propertyLocation: 'Manhattan, NY',
-      rent: 5000,
-      moveInDate: 'March 20, 2024',
-      leaseDuration: '24 months',
-      message: 'Interested in a long-term lease. Can provide first and last month rent upfront.',
-      status: 'Rejected'
-    }
-  ];
 
   getStatusClass(status: string): string {
     switch (status) {
@@ -921,6 +814,17 @@ export class BookingRequestsComponent implements OnInit {
       default:
         return 'status-pending';
     }
+  }
+
+  formatDate(dateString: string): string {
+    if (!dateString) return '';
+    return new Date(dateString).toLocaleDateString();
+  }
+
+  getPropertyImage(request: any): string {
+    return request.property_photos && request.property_photos.length > 0 
+      ? request.property_photos[0] 
+      : 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=400';
   }
 
   goToDashboard() {
@@ -941,27 +845,17 @@ export class BookingRequestsComponent implements OnInit {
 
   confirmReject() {
     if (this.selectedRequest && this.rejectReason.trim()) {
-      // Mock API call for UI testing
-      setTimeout(() => {
-        this.toast.success('Booking rejected successfully');
-        // Update the status in mock data
-        if (this.selectedRequest) {
-          this.selectedRequest.status = 'Rejected';
+      this.ownerService.updateBookingStatus(this.selectedRequest.id, 'Rejected').subscribe({
+        next: (response) => {
+          this.toast.success('Booking rejected successfully');
+          this.closeRejectModal();
+          this.loadBookingRequests(); // Reload to get updated data
+        },
+        error: (error) => {
+          console.error('Error rejecting booking:', error);
+          this.toast.error('Failed to reject booking');
         }
-        this.closeRejectModal();
-      }, 500);
-      
-      // Real API call (commented out for mock)
-      // this.ownerService.updateBookingStatus(this.selectedRequest.id, 'Rejected').subscribe({
-      //   next: (response) => {
-      //     this.toast.success('Booking rejected successfully');
-      //     this.closeRejectModal();
-      //     this.loadBookingRequests();
-      //   },
-      //   error: (error) => {
-      //     this.toast.error('Failed to reject booking');
-      //   }
-      // });
+      });
     }
   }
 }

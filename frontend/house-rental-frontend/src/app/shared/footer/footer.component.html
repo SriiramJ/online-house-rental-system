@@ -11,24 +11,26 @@
         </p>
       </div>
       
-      <!-- For Tenants - Show when not logged in or logged in as tenant -->
+      <!-- For Tenants -->
       <div class="footer-section" *ngIf="!authService.isAuthenticated() || authService.isTenant()">
         <h4>For Tenants</h4>
         <ul class="footer-list">
           <li><button (click)="navigateToProperties()" class="footer-link">Browse Properties</button></li>
           <li *ngIf="!authService.isAuthenticated()"><button (click)="navigateToRegister()" class="footer-link">Sign Up</button></li>
           <li *ngIf="authService.isTenant()"><button (click)="navigateToDashboard()" class="footer-link">Dashboard</button></li>
+          <li *ngIf="authService.isTenant()"><button (click)="navigateToTenantBookings()" class="footer-link">My Bookings</button></li>
         </ul>
       </div>
       
-      <!-- For Owners - Show when not logged in or logged in as owner -->
+      <!-- For Owners -->
       <div class="footer-section" *ngIf="!authService.isAuthenticated() || authService.isOwner()">
         <h4>For Owners</h4>
         <ul class="footer-list">
           <li *ngIf="!authService.isAuthenticated()"><button (click)="navigateToRegister()" class="footer-link">List Property</button></li>
           <li *ngIf="!authService.isAuthenticated()"><button (click)="navigateToLogin()" class="footer-link">Owner Login</button></li>
-          <li *ngIf="authService.isOwner()"><button (click)="navigateToAddProperty()" class="footer-link">Add Property</button></li>
           <li *ngIf="authService.isOwner()"><button (click)="navigateToDashboard()" class="footer-link">Dashboard</button></li>
+          <li *ngIf="authService.isOwner()"><button (click)="navigateToAddProperty()" class="footer-link">Add Property</button></li>
+          <li *ngIf="authService.isOwner()"><button (click)="navigateToOwnerProperties()" class="footer-link">My Properties</button></li>
         </ul>
       </div>
       

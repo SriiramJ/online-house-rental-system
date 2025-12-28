@@ -5,6 +5,7 @@ import { NavbarComponent } from '../../../shared/navbar/navbar.component';
 import { FooterComponent } from '../../../shared/footer/footer.component';
 import { SidebarComponent, SidebarItem } from '../../../shared/shared/sidebar/sidebar.component';
 import { OwnerService } from '../../../core/services/owner.service';
+import { SidebarService } from '../../../core/services/sidebar.service';
 import { ToastService } from '../../../core/services/toast.service';
 import { LucideAngularModule, User, Phone, Mail, MapPin, Calendar, ArrowLeft, Menu, BarChart3, Home, Users, DollarSign } from 'lucide-angular';
 
@@ -21,13 +22,13 @@ import { LucideAngularModule, User, Phone, Mail, MapPin, Calendar, ArrowLeft, Me
         <app-sidebar 
           title="Owner Dashboard" 
           [items]="sidebarItems" 
-          [isOpen]="sidebarOpen"
+          [isOpen]="(sidebarService.sidebarOpen$ | async) ?? false"
           [toggleIcon]="Menu"
-          (toggle)="toggleSidebar()">
+          (toggle)="sidebarService.toggle()">
         </app-sidebar>
 
         <!-- Main Content -->
-        <div class="main-content" [class.sidebar-open]="sidebarOpen">
+        <div class="main-content" [class.sidebar-open]="(sidebarService.sidebarOpen$ | async) ?? false">
           <div class="content-wrapper">
             <div class="header-section">
               <h1 class="page-title">My Tenants</h1>
@@ -585,7 +586,6 @@ export class MyTenantsComponent implements OnInit {
 
   tenants: any[] = [];
   loading = false;
-  sidebarOpen = true;
   sidebarItems: SidebarItem[] = [
     { label: 'Dashboard', route: '/owner/dashboard', icon: BarChart3 },
     { label: 'My Properties', route: '/owner/properties', icon: Home },
@@ -596,84 +596,28 @@ export class MyTenantsComponent implements OnInit {
   constructor(
     private ownerService: OwnerService,
     private toast: ToastService,
+    public sidebarService: SidebarService,
     private router: Router
   ) {}
 
   ngOnInit() {
     this.loadTenants();
-    this.setSidebarInitialState();
-  }
-
-  setSidebarInitialState() {
-    this.sidebarOpen = window.innerWidth >= 1024;
-  }
-
-  toggleSidebar() {
-    this.sidebarOpen = !this.sidebarOpen;
   }
 
   loadTenants() {
     this.loading = true;
-    // Mock data for UI testing - immediate load
-    this.tenants = [
-      {
-        id: 1,
-        name: 'Carol Martinez',
-        email: 'carol@example.com',
-        phone: '+1 (555) 333-4444',
-        propertyTitle: 'Modern Downtown Apartment',
-        propertyLocation: 'Downtown, NYC',
-        propertyImage: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=400',
-        rent: 2500,
-        leaseStart: '20/01/2025',
-        leaseEnd: '20/01/2026',
-        nextPayment: '20/01/2025',
-        status: 'Active'
+    this.ownerService.getOwnerTenants().subscribe({
+      next: (response) => {
+        this.tenants = response.tenants || [];
+        this.loading = false;
       },
-      {
-        id: 2,
-        name: 'David Chen',
-        email: 'david@example.com',
-        phone: '+1 (555) 444-5555',
-        propertyTitle: 'Luxury Villa with Pool',
-        propertyLocation: 'Queens, NYC',
-        propertyImage: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400',
-        rent: 4500,
-        leaseStart: '01/01/2025',
-        leaseEnd: '01/01/2026',
-        nextPayment: '01/01/2025',
-        status: 'Active'
-      },
-      {
-        id: 3,
-        name: 'Emma Davis',
-        email: 'emma@example.com',
-        phone: '+1 (555) 555-6666',
-        propertyTitle: 'Cozy Suburban House',
-        propertyLocation: 'Suburbia, California',
-        propertyImage: 'https://images.unsplash.com/photo-1484154218962-a197022b5858?w=400',
-        rent: 3200,
-        leaseStart: '15/12/2024',
-        leaseEnd: '15/12/2025',
-        nextPayment: '15/01/2025',
-        status: 'Active'
-      },
-      {
-        id: 4,
-        name: 'Frank Wilson',
-        email: 'frank@example.com',
-        phone: '+1 (555) 666-7777',
-        propertyTitle: 'Modern Downtown Apartment',
-        propertyLocation: 'Downtown, NYC',
-        propertyImage: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=400',
-        rent: 2500,
-        leaseStart: '01/11/2024',
-        leaseEnd: '01/11/2025',
-        nextPayment: '01/01/2025',
-        status: 'Active'
+      error: (error) => {
+        console.error('Error loading tenants:', error);
+        this.toast.error('Failed to load tenants');
+        this.tenants = [];
+        this.loading = false;
       }
-    ];
-    this.loading = false;
+    });
   }
 
   getActiveTenants(): number {
@@ -693,44 +637,16 @@ export class MyTenantsComponent implements OnInit {
     return status === 'Active' ? 'status-active' : 'status-inactive';
   }
 
-  oldTenants = [
-    {
-      id: 1,
-      name: 'Sarah Johnson',
-      email: 'sarah.j@email.com',
-      phone: '+1 (555) 123-4567',
-      propertyTitle: 'Cozy Studio Loft',
-      rent: 1800,
-      leaseStart: 'Jan 1, 2024',
-      leaseEnd: 'Dec 31, 2024',
-      nextPayment: 'Mar 1, 2024',
-      status: 'Active'
-    },
-    {
-      id: 2,
-      name: 'Michael Chen',
-      email: 'michael.chen@email.com',
-      phone: '+1 (555) 987-6543',
-      propertyTitle: 'Modern Downtown Apartment',
-      rent: 2500,
-      leaseStart: 'Feb 15, 2024',
-      leaseEnd: 'Feb 14, 2025',
-      nextPayment: 'Mar 15, 2024',
-      status: 'Active'
-    },
-    {
-      id: 3,
-      name: 'Emily Rodriguez',
-      email: 'emily.r@email.com',
-      phone: '+1 (555) 456-7890',
-      propertyTitle: 'Suburban Family Home',
-      rent: 3200,
-      leaseStart: 'Dec 1, 2023',
-      leaseEnd: 'Nov 30, 2024',
-      nextPayment: 'Feb 28, 2024',
-      status: 'Overdue'
-    }
-  ];
+  formatDate(dateString: string): string {
+    if (!dateString) return '';
+    return new Date(dateString).toLocaleDateString();
+  }
+
+  getPropertyImage(tenant: any): string {
+    return tenant.property_photos && tenant.property_photos.length > 0 
+      ? tenant.property_photos[0] 
+      : 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=400';
+  }
 
   isPaymentOverdue(nextPayment: string): boolean {
     const paymentDate = new Date(nextPayment);

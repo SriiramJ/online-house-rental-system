@@ -409,3 +409,92 @@
 2025-12-28 18:28:44 [INFO]: Server running on port 3001
 2025-12-28 20:09:54 [INFO]: Server running on port 3001
 2025-12-28 20:09:54 [INFO]: MySQL database connected successfully
+2025-12-28 20:37:19 [INFO]: MySQL database connected successfully
+2025-12-28 20:37:19 [INFO]: Server running on port 3001
+2025-12-28 20:37:37 [INFO]: MySQL database connected successfully
+2025-12-28 20:37:37 [INFO]: Server running on port 3001
+2025-12-28 20:38:00 [ERROR]: JWT verification failed: jwt expired
+2025-12-28 20:38:02 [ERROR]: JWT verification failed: jwt expired
+2025-12-28 20:38:45 [ERROR]: JWT verification failed: jwt expired
+2025-12-28 20:40:53 [ERROR]: JWT verification failed: jwt expired
+2025-12-28 20:40:57 [ERROR]: JWT verification failed: jwt expired
+2025-12-28 20:41:10 [INFO]: Login attempt for email: sriram1@test.com
+2025-12-28 20:41:10 [INFO]: Fetching user by email: sriram1@test.com
+2025-12-28 20:41:11 [INFO]: Login successful for userId: 8
+2025-12-28 20:41:12 [ERROR]: Error fetching owner properties: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 20:41:12 [ERROR]: Error fetching owner tenants: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 20:41:43 [INFO]: Uploaded 1 property images
+2025-12-28 20:41:48 [ERROR]: Error creating property: Unknown column 'property_type' in 'field list'
+2025-12-28 20:41:48 [ERROR]: Error in createProperty: Failed to create property
+2025-12-28 20:42:12 [ERROR]: Error creating property: Unknown column 'property_type' in 'field list'
+2025-12-28 20:42:12 [ERROR]: Error in createProperty: Failed to create property
+2025-12-28 20:42:24 [ERROR]: Error fetching owner properties: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 20:42:24 [ERROR]: Error fetching owner tenants: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 20:42:36 [ERROR]: Error fetching owner properties: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 20:42:36 [ERROR]: Error fetching owner tenants: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 20:42:37 [ERROR]: Error fetching owner properties: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 20:45:21 [ERROR]: Error fetching owner properties: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 20:45:21 [ERROR]: Error fetching owner tenants: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 20:47:30 [ERROR]: Error fetching owner properties: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 20:47:30 [ERROR]: Error fetching owner tenants: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 20:47:31 [ERROR]: Error fetching owner properties: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 20:47:31 [ERROR]: Error fetching owner tenants: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 20:47:35 [ERROR]: Error fetching owner properties: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 20:47:35 [ERROR]: Error fetching owner tenants: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 20:49:19 [ERROR]: Error fetching owner properties: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 20:49:19 [ERROR]: Error fetching owner tenants: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 20:49:57 [ERROR]: Error fetching owner properties: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 20:49:57 [ERROR]: Error fetching owner tenants: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 20:50:37 [ERROR]: Error fetching owner properties: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 20:50:37 [ERROR]: Error fetching owner tenants: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 20:53:21 [ERROR]: Error fetching owner properties: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 20:53:21 [ERROR]: Error fetching owner tenants: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 20:53:30 [ERROR]: Error fetching owner properties: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 20:53:30 [ERROR]: Error fetching owner tenants: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 20:53:34 [ERROR]: Error fetching owner properties: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 20:53:36 [ERROR]: Error fetching owner properties: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 20:53:36 [ERROR]: Error fetching owner tenants: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 20:53:46 [ERROR]: Error fetching owner properties: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 20:53:46 [ERROR]: Error fetching owner tenants: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 20:53:54 [ERROR]: Error fetching owner properties: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 20:53:54 [ERROR]: Error fetching owner tenants: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 20:53:57 [ERROR]: Error fetching owner properties: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 20:54:38 [INFO]: Uploaded 1 property images
+2025-12-28 20:54:41 [ERROR]: Error creating property: Unknown column 'property_type' in 'field list'
+2025-12-28 20:54:41 [ERROR]: Error in createProperty: Failed to create property
+2025-12-28 20:54:46 [ERROR]: Error creating property: Unknown column 'property_type' in 'field list'
+2025-12-28 20:54:46 [ERROR]: Error in createProperty: Failed to create property
+2025-12-28 21:03:48 [ERROR]: Error fetching owner properties: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 21:03:48 [ERROR]: Error fetching owner tenants: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 21:03:57 [ERROR]: Error fetching owner properties: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 21:03:57 [ERROR]: Error fetching owner tenants: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 21:03:58 [ERROR]: Error fetching owner properties: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 21:04:09 [ERROR]: Error fetching owner properties: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 21:04:09 [ERROR]: Error fetching owner tenants: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 21:04:36 [INFO]: MySQL database connected successfully
+2025-12-28 21:04:36 [INFO]: Server running on port 3001
+2025-12-28 21:05:00 [ERROR]: Error fetching owner properties: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 21:05:00 [ERROR]: Error fetching owner tenants: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 21:05:15 [ERROR]: Error fetching owner properties: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 21:05:15 [ERROR]: Error fetching owner tenants: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 21:05:19 [ERROR]: Error fetching owner properties: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 21:05:19 [ERROR]: Error fetching owner properties: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 21:05:19 [ERROR]: Error fetching owner tenants: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 21:06:31 [INFO]: Uploaded 1 property images
+2025-12-28 21:06:41 [ERROR]: Error creating property: Unknown column 'property_type' in 'field list'
+2025-12-28 21:06:41 [ERROR]: Error in createProperty: Failed to create property
+2025-12-28 21:18:05 [ERROR]: Error creating property: Unknown column 'property_type' in 'field list'
+2025-12-28 21:18:05 [ERROR]: Error in createProperty: Failed to create property
+2025-12-28 21:18:19 [INFO]: MySQL database connected successfully
+2025-12-28 21:18:19 [INFO]: Server running on port 3001
+2025-12-28 21:18:23 [ERROR]: Error creating property: Unknown column 'bedrooms' in 'field list'
+2025-12-28 21:18:23 [ERROR]: Error in createProperty: Failed to create property
+2025-12-28 21:21:21 [ERROR]: Error creating property: Unknown column 'bedrooms' in 'field list'
+2025-12-28 21:21:21 [ERROR]: Error in createProperty: Failed to create property
+2025-12-28 21:22:04 [ERROR]: Error creating property: Unknown column 'bedrooms' in 'field list'
+2025-12-28 21:22:04 [ERROR]: Error in createProperty: Failed to create property
+2025-12-28 21:23:36 [ERROR]: Error creating property: Unknown column 'bedrooms' in 'field list'
+2025-12-28 21:23:36 [ERROR]: Error in createProperty: Failed to create property
+2025-12-28 21:25:30 [INFO]: Property created successfully by user 8
+2025-12-28 21:27:13 [INFO]: MySQL database connected successfully
+2025-12-28 21:27:13 [INFO]: Server running on port 3001

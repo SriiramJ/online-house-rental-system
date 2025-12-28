@@ -6,6 +6,7 @@ import { FooterComponent } from '../../shared/footer/footer.component';
 import { SidebarComponent, SidebarItem } from '../../shared/shared/sidebar/sidebar.component';
 import { OwnerService } from '../../core/services/owner.service';
 import { AuthService } from '../../core/services/auth.service';
+import { SidebarService } from '../../core/services/sidebar.service';
 import { ToastService } from '../../core/services/toast.service';
 import { LucideAngularModule, Plus, Home, Users, Calendar, DollarSign, TrendingUp, Eye, Menu, BarChart3 } from 'lucide-angular';
 
@@ -21,13 +22,13 @@ import { LucideAngularModule, Plus, Home, Users, Calendar, DollarSign, TrendingU
       <app-sidebar 
         title="Owner Dashboard" 
         [items]="sidebarItems" 
-        [isOpen]="sidebarOpen"
+        [isOpen]="(sidebarService.sidebarOpen$ | async) ?? false"
         [toggleIcon]="Menu"
-        (toggle)="toggleSidebar()">
+        (toggle)="sidebarService.toggle()">
       </app-sidebar>
 
       <!-- Main Content -->
-      <div class="main-content" [class.sidebar-open]="sidebarOpen">
+      <div class="main-content" [class.sidebar-open]="(sidebarService.sidebarOpen$ | async) ?? false">
         <div class="content-header">
           <div class="greeting-section">
             <h1>{{getGreeting()}}</h1>
@@ -474,7 +475,6 @@ import { LucideAngularModule, Plus, Home, Users, Calendar, DollarSign, TrendingU
 export class OwnerDashboardComponent implements OnInit {
   dashboardData: any = null;
   loading = false;
-  sidebarOpen = true;
   sidebarItems: SidebarItem[] = [
     { label: 'Dashboard', route: '/owner/dashboard', icon: BarChart3 },
     { label: 'My Properties', route: '/owner/properties', icon: Home },
@@ -497,24 +497,16 @@ export class OwnerDashboardComponent implements OnInit {
     private router: Router,
     private toast: ToastService,
     private authService: AuthService,
+    public sidebarService: SidebarService,
     private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
     this.loadDashboardData();
-    this.setSidebarInitialState();
   }
 
   ionViewWillEnter() {
     this.loadDashboardData();
-  }
-
-  setSidebarInitialState() {
-    this.sidebarOpen = window.innerWidth >= 1024;
-  }
-
-  toggleSidebar() {
-    this.sidebarOpen = !this.sidebarOpen;
   }
 
   loadDashboardData() {

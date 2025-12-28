@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, ActivatedRoute, Router } from '@angular/router';
 import { PropertyService, Property } from '../../core/services/property.service';
-import { AuthStateService } from '../../core/services/auth-state.service';
+import { AuthService } from '../../core/services/auth.service';
 import { ToastService } from '../../core/services/toast.service';
 import { LoaderComponent } from '../../shared/components/loader/loader.component';
 import { NavbarComponent } from '../../shared/navbar/navbar.component';
@@ -46,13 +46,13 @@ export class PropertyDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private propertyService: PropertyService,
-    private authState: AuthStateService,
+    private authService: AuthService,
     private cdr: ChangeDetectorRef,
     private toast: ToastService
   ) {}
 
   ngOnInit() {
-    this.isLoggedIn = !!this.authState.getToken();
+    this.isLoggedIn = this.authService.isAuthenticated();
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.loadProperty(parseInt(id));
@@ -150,9 +150,14 @@ export class PropertyDetailsComponent implements OnInit {
   }
 
   bookProperty() {
-    if (!this.isLoggedIn) {
+    if (!this.authService.isAuthenticated()) {
       this.toast.warning('Login required', 'Please log in to book this property');
       this.router.navigate(['/auth/login']);
+      return;
+    }
+    
+    if (this.authService.isOwner()) {
+      this.toast.error('Access denied', 'Property owners cannot book properties. Switch to tenant account to book.');
       return;
     }
     
@@ -163,12 +168,24 @@ export class PropertyDetailsComponent implements OnInit {
   }
 
   contactOwner() {
-    if (!this.isLoggedIn) {
+    if (!this.authService.isAuthenticated()) {
       this.toast.warning('Login required', 'Please log in to contact the property owner');
       this.router.navigate(['/auth/login']);
       return;
     }
     
     this.toast.info('Contact feature coming soon', 'We\'re working on direct messaging between tenants and owners!');
+  }
+  
+  canBookProperty(): boolean {
+    return this.authService.isAuthenticated() && this.authService.isTenant();
+  }
+
+  isCurrentUserOwner(): boolean {
+    if (!this.authService.isAuthenticated() || !this.property) {
+      return false;
+    }
+    const currentUser = this.authService.getCurrentUser();
+    return currentUser?.id === this.property.owner_id;
   }
 }

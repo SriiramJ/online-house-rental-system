@@ -4,6 +4,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NavbarComponent } from '../../shared/navbar/navbar.component';
 import { FooterComponent } from '../../shared/footer/footer.component';
+import { ButtonComponent } from '../../shared/button/button.component';
 import { OwnerService } from '../../core/services/owner.service';
 import { ToastService } from '../../core/services/toast.service';
 import { LucideAngularModule, Upload, X, Plus, ArrowLeft } from 'lucide-angular';
@@ -11,32 +12,33 @@ import { LucideAngularModule, Upload, X, Plus, ArrowLeft } from 'lucide-angular'
 @Component({
   selector: 'app-add-property',
   standalone: true,
-  imports: [CommonModule, FormsModule, NavbarComponent, FooterComponent, LucideAngularModule],
+  imports: [CommonModule, FormsModule, NavbarComponent, FooterComponent, ButtonComponent, LucideAngularModule],
   template: `
     <app-navbar></app-navbar>
     
-    <div class="max-w-4xl mx-auto px-4 py-8 mt-16">
-      <div class="mb-8">
-        <button 
-          type="button" 
-          (click)="goToDashboard()" 
-          class="flex items-center gap-2 text-gray-600 hover:text-gray-800 mb-4 transition-colors bg-transparent border-none cursor-pointer p-0 outline-none"
+    <div class="container">
+      <div class="header-section">
+        <app-button 
+          variant="ghost" 
+          size="sm"
+          (onClick)="goToDashboard()" 
+          className="back-button"
         >
-          <lucide-icon [img]="ArrowLeft" class="w-4 h-4"></lucide-icon>
+          <lucide-icon [img]="ArrowLeft" class="icon-sm"></lucide-icon>
           Back to Dashboard
-        </button>
-        <h1 class="text-3xl text-gray-900 mb-2">
+        </app-button>
+        <h1 class="page-title">
           {{isEditMode ? 'Edit Property' : 'Add New Property'}}
         </h1>
-        <p class="text-gray-600">
+        <p class="page-subtitle">
           {{isEditMode ? 'Update your property details' : 'Fill in the details to list your property'}}
         </p>
       </div>
 
-      <form #propertyForm="ngForm" (ngSubmit)="onSubmit(propertyForm)" class="bg-white rounded-lg shadow-sm p-6 space-y-6">
+      <form #propertyForm="ngForm" (ngSubmit)="onSubmit(propertyForm)" class="form-container">
         <!-- Title -->
-        <div>
-          <label for="title" class="block text-gray-700 mb-2">
+        <div class="form-group">
+          <label for="title" class="form-label">
             Property Title *
           </label>
           <input
@@ -46,19 +48,18 @@ import { LucideAngularModule, Upload, X, Plus, ArrowLeft } from 'lucide-angular'
             [(ngModel)]="formData.title"
             #title="ngModel"
             required
-            class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200 text-gray-900 placeholder-gray-500"
-            [class.border-red-500]="title.invalid && title.touched"
-            [class.border-gray-300]="!title.invalid || !title.touched"
+            class="form-input"
+            [class.error]="title.invalid && title.touched"
             placeholder="e.g., Modern Downtown Apartment"
           >
-          <p *ngIf="title.invalid && title.touched" class="mt-1 text-sm text-red-600">
+          <p *ngIf="title.invalid && title.touched" class="error-message">
             Title is required
           </p>
         </div>
 
         <!-- Description -->
-        <div>
-          <label for="description" class="block text-gray-700 mb-2">
+        <div class="form-group">
+          <label for="description" class="form-label">
             Description *
           </label>
           <textarea
@@ -68,20 +69,19 @@ import { LucideAngularModule, Upload, X, Plus, ArrowLeft } from 'lucide-angular'
             #description="ngModel"
             required
             rows="4"
-            class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200 text-gray-900 placeholder-gray-500 resize-none"
-            [class.border-red-500]="description.invalid && description.touched"
-            [class.border-gray-300]="!description.invalid || !description.touched"
+            class="form-textarea"
+            [class.error]="description.invalid && description.touched"
             placeholder="Describe your property in detail..."
           ></textarea>
-          <p *ngIf="description.invalid && description.touched" class="mt-1 text-sm text-red-600">
+          <p *ngIf="description.invalid && description.touched" class="error-message">
             Description is required
           </p>
         </div>
 
         <!-- Rent and Location -->
-        <div class="grid md:grid-cols-2 gap-6">
-          <div>
-            <label for="rent" class="block text-gray-700 mb-2">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="rent" class="form-label">
               Monthly Rent ($) *
             </label>
             <input
@@ -92,18 +92,17 @@ import { LucideAngularModule, Upload, X, Plus, ArrowLeft } from 'lucide-angular'
               #rent="ngModel"
               required
               min="0"
-              class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200 text-gray-900 placeholder-gray-500"
-              [class.border-red-500]="rent.invalid && rent.touched"
-              [class.border-gray-300]="!rent.invalid || !rent.touched"
+              class="form-input"
+              [class.error]="rent.invalid && rent.touched"
               placeholder="2500"
             >
-            <p *ngIf="rent.invalid && rent.touched" class="mt-1 text-sm text-red-600">
+            <p *ngIf="rent.invalid && rent.touched" class="error-message">
               Valid rent amount is required
             </p>
           </div>
 
-          <div>
-            <label for="location" class="block text-gray-700 mb-2">
+          <div class="form-group">
+            <label for="location" class="form-label">
               Location *
             </label>
             <input
@@ -113,21 +112,20 @@ import { LucideAngularModule, Upload, X, Plus, ArrowLeft } from 'lucide-angular'
               [(ngModel)]="formData.location"
               #location="ngModel"
               required
-              class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200 text-gray-900 placeholder-gray-500"
-              [class.border-red-500]="location.invalid && location.touched"
-              [class.border-gray-300]="!location.invalid || !location.touched"
+              class="form-input"
+              [class.error]="location.invalid && location.touched"
               placeholder="City, State"
             >
-            <p *ngIf="location.invalid && location.touched" class="mt-1 text-sm text-red-600">
+            <p *ngIf="location.invalid && location.touched" class="error-message">
               Location is required
             </p>
           </div>
         </div>
 
         <!-- Property Details -->
-        <div class="grid md:grid-cols-3 gap-6">
-          <div>
-            <label for="bedrooms" class="block text-gray-700 mb-2">
+        <div class="form-row-three">
+          <div class="form-group">
+            <label for="bedrooms" class="form-label">
               Bedrooms *
             </label>
             <input
@@ -138,18 +136,17 @@ import { LucideAngularModule, Upload, X, Plus, ArrowLeft } from 'lucide-angular'
               #bedrooms="ngModel"
               required
               min="0"
-              class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200 text-gray-900 placeholder-gray-500"
-              [class.border-red-500]="bedrooms.invalid && bedrooms.touched"
-              [class.border-gray-300]="!bedrooms.invalid || !bedrooms.touched"
+              class="form-input"
+              [class.error]="bedrooms.invalid && bedrooms.touched"
               placeholder="2"
             >
-            <p *ngIf="bedrooms.invalid && bedrooms.touched" class="mt-1 text-sm text-red-600">
+            <p *ngIf="bedrooms.invalid && bedrooms.touched" class="error-message">
               Number of bedrooms is required
             </p>
           </div>
 
-          <div>
-            <label for="bathrooms" class="block text-gray-700 mb-2">
+          <div class="form-group">
+            <label for="bathrooms" class="form-label">
               Bathrooms *
             </label>
             <input
@@ -161,46 +158,17 @@ import { LucideAngularModule, Upload, X, Plus, ArrowLeft } from 'lucide-angular'
               required
               min="0"
               step="0.5"
-              class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200 text-gray-900 placeholder-gray-500"
-              [class.border-red-500]="bathrooms.invalid && bathrooms.touched"
-              [class.border-gray-300]="!bathrooms.invalid || !bathrooms.touched"
+              class="form-input"
+              [class.error]="bathrooms.invalid && bathrooms.touched"
               placeholder="2"
             >
-            <p *ngIf="bathrooms.invalid && bathrooms.touched" class="mt-1 text-sm text-red-600">
+            <p *ngIf="bathrooms.invalid && bathrooms.touched" class="error-message">
               Number of bathrooms is required
             </p>
           </div>
-        </div>
 
-        <!-- Property Type and Area -->
-        <div class="grid md:grid-cols-2 gap-6">
-          <div>
-            <label for="propertyType" class="block text-gray-700 mb-2">
-              Property Type *
-            </label>
-            <select
-              id="propertyType"
-              name="propertyType"
-              [(ngModel)]="formData.propertyType"
-              #propertyType="ngModel"
-              required
-              class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200 text-gray-900"
-              [class.border-red-500]="propertyType.invalid && propertyType.touched"
-              [class.border-gray-300]="!propertyType.invalid || !propertyType.touched"
-            >
-              <option value="">Select property type</option>
-              <option value="Apartment">Apartment</option>
-              <option value="House">House</option>
-              <option value="Condo">Condo</option>
-              <option value="Studio">Studio</option>
-            </select>
-            <p *ngIf="propertyType.invalid && propertyType.touched" class="mt-1 text-sm text-red-600">
-              Property type is required
-            </p>
-          </div>
-
-          <div>
-            <label for="area" class="block text-gray-700 mb-2">
+          <div class="form-group">
+            <label for="area" class="form-label">
               Area (sqft) *
             </label>
             <input
@@ -211,91 +179,118 @@ import { LucideAngularModule, Upload, X, Plus, ArrowLeft } from 'lucide-angular'
               #area="ngModel"
               required
               min="0"
-              class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200 text-gray-900 placeholder-gray-500"
-              [class.border-red-500]="area.invalid && area.touched"
-              [class.border-gray-300]="!area.invalid || !area.touched"
+              class="form-input"
+              [class.error]="area.invalid && area.touched"
               placeholder="1200"
             >
-            <p *ngIf="area.invalid && area.touched" class="mt-1 text-sm text-red-600">
+            <p *ngIf="area.invalid && area.touched" class="error-message">
               Property area is required
             </p>
           </div>
         </div>
 
+        <!-- Property Type -->
+        <div class="form-group">
+          <label for="propertyType" class="form-label">
+            Property Type *
+          </label>
+          <select
+            id="propertyType"
+            name="propertyType"
+            [(ngModel)]="formData.propertyType"
+            #propertyType="ngModel"
+            required
+            class="form-select"
+            [class.error]="propertyType.invalid && propertyType.touched"
+          >
+            <option value="">Select property type</option>
+            <option value="Apartment">Apartment</option>
+            <option value="House">House</option>
+            <option value="Condo">Condo</option>
+            <option value="Studio">Studio</option>
+          </select>
+          <p *ngIf="propertyType.invalid && propertyType.touched" class="error-message">
+            Property type is required
+          </p>
+        </div>
+
         <!-- Amenities -->
-        <div>
-          <label class="block text-gray-700 mb-2">Amenities</label>
+        <div class="form-group">
+          <label class="form-label">Amenities</label>
           
           <!-- Selected Amenities -->
-          <div *ngIf="formData.amenities.length > 0" class="flex flex-wrap gap-2 mb-3">
+          <div *ngIf="formData.amenities.length > 0" class="amenities-list">
             <span
               *ngFor="let amenity of formData.amenities"
-              class="inline-flex items-center gap-2 px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full"
+              class="amenity-tag"
             >
               {{amenity}}
-              <button
-                type="button"
-                (click)="removeAmenity(amenity)"
-                class="hover:text-indigo-900 hover:bg-white hover:bg-opacity-20 rounded-full p-1 transition-all duration-200 bg-transparent border-none"
+              <app-button
+                variant="ghost"
+                size="icon"
+                (onClick)="removeAmenity(amenity)"
+                className="remove-amenity"
               >
-                <lucide-icon [img]="X" class="w-3 h-3"></lucide-icon>
-              </button>
+                <lucide-icon [img]="X" class="icon-xs"></lucide-icon>
+              </app-button>
             </span>
           </div>
 
           <!-- Add Amenity -->
-          <div class="flex gap-2 mb-3">
+          <div class="amenity-input-group">
             <input
               type="text"
               [(ngModel)]="newAmenity"
               name="newAmenity"
               (keypress)="onAmenityKeyPress($event)"
-              class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200 text-gray-900 placeholder-gray-500"
+              class="form-input"
               placeholder="Type amenity name..."
             >
-            <button
+            <app-button
+              variant="default"
               type="button"
-              (click)="addAmenity(newAmenity)"
-              class="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all duration-200 flex items-center gap-2 font-medium"
+              (onClick)="addAmenity(newAmenity)"
             >
-              <lucide-icon [img]="Plus" class="w-5 h-5"></lucide-icon>
+              <lucide-icon [img]="Plus" class="icon-sm"></lucide-icon>
               Add
-            </button>
+            </app-button>
           </div>
 
           <!-- Suggestions -->
-          <div class="flex flex-wrap gap-2">
-            <button
+          <div class="amenity-suggestions">
+            <app-button
               *ngFor="let amenity of getAvailableAmenities()"
+              variant="outline"
+              size="sm"
               type="button"
-              (click)="addAmenity(amenity)"
-              class="px-3 py-1 border border-gray-300 rounded-full text-sm hover:bg-gray-50"
+              (onClick)="addAmenity(amenity)"
             >
               + {{amenity}}
-            </button>
+            </app-button>
           </div>
         </div>
 
         <!-- Property Images -->
-        <div>
-          <label class="block text-gray-700 mb-2">Property Images</label>
+        <div class="form-group">
+          <label class="form-label">Property Images</label>
           
           <!-- Current Images -->
-          <div *ngIf="formData.photos.length > 0" class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-4">
-            <div *ngFor="let photo of formData.photos; let i = index" class="relative">
-              <img [src]="photo" [alt]="'Property image ' + (i + 1)" class="w-full h-24 object-cover rounded-lg">
-              <button
-                type="button"
-                (click)="removePhoto(i)"
-                class="absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center hover:bg-red-600"
+          <div *ngIf="formData.photos.length > 0" class="images-grid">
+            <div *ngFor="let photo of formData.photos; let i = index" class="image-item">
+              <img [src]="photo" [alt]="'Property image ' + (i + 1)" class="image-preview">
+              <app-button
+                variant="destructive"
+                size="icon"
+                (onClick)="removePhoto(i)"
+                className="remove-image"
               >
-                <lucide-icon [img]="X" class="w-3 h-3"></lucide-icon>
-              </button>
+                <lucide-icon [img]="X" class="icon-xs"></lucide-icon>
+              </app-button>
             </div>
           </div>
 
           <!-- File Upload -->
-          <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-indigo-400 transition-colors">
+          <div class="upload-area" (click)="triggerFileUpload()">
             <input
               type="file"
               id="imageUpload"
@@ -304,523 +299,77 @@ import { LucideAngularModule, Upload, X, Plus, ArrowLeft } from 'lucide-angular'
               (change)="onFileSelect($event)"
               class="hidden"
             >
-            <button
-              type="button"
-              (click)="triggerFileUpload()"
-              class="flex flex-col items-center gap-2 w-full"
-            >
-              <lucide-icon [img]="Upload" class="w-12 h-12 text-gray-400"></lucide-icon>
-              <span class="text-gray-600">Click to upload images</span>
-              <span class="text-sm text-gray-500">PNG, JPG up to 5MB each</span>
-            </button>
+            <lucide-icon [img]="Upload" class="upload-icon"></lucide-icon>
+            <span class="upload-text">Click to upload images</span>
+            <span class="upload-subtext">PNG, JPG up to 5MB each</span>
           </div>
 
-          <!-- Add Image URL (Alternative) -->
-          <div class="mt-4">
-            <div class="text-sm text-gray-600 mb-2">Or add image URL:</div>
-            <div class="flex gap-2 mb-3">
+          <!-- Add Image URL -->
+          <div class="url-input-section">
+            <div class="url-label">Or add image URL:</div>
+            <div class="url-input-group">
               <input
                 type="url"
                 [(ngModel)]="newImageUrl"
                 name="newImageUrl"
                 (keypress)="onImageUrlKeyPress($event)"
-                class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200 text-gray-900 placeholder-gray-500"
+                class="form-input"
                 placeholder="Enter image URL..."
               >
-              <button
+              <app-button
+                variant="default"
                 type="button"
-                (click)="addImageUrl()"
-                class="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all duration-200 flex items-center gap-2 font-medium"
+                (onClick)="addImageUrl()"
               >
-                <lucide-icon [img]="Plus" class="w-5 h-5"></lucide-icon>
+                <lucide-icon [img]="Plus" class="icon-sm"></lucide-icon>
                 Add
-              </button>
+              </app-button>
             </div>
           </div>
         </div>
 
         <!-- Availability -->
-        <div class="flex items-center gap-3">
+        <div class="checkbox-group">
           <input
             type="checkbox"
             id="available"
             name="available"
             [(ngModel)]="formData.available"
-            class="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+            class="form-checkbox"
           >
-          <label for="available" class="text-gray-700">
+          <label for="available" class="checkbox-label">
             Property is available for rent
           </label>
         </div>
 
         <!-- Actions -->
-        <div class="flex gap-4 pt-6 border-t border-gray-200">
-          <button
+        <div class="form-actions">
+          <app-button
+            variant="outline"
+            size="lg"
             type="button"
-            (click)="goBack()"
-            class="flex-1 px-6 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-200 text-center font-medium text-gray-700"
+            (onClick)="goBack()"
+            className="action-button"
           >
             Cancel
-          </button>
-          <button
+          </app-button>
+          <app-button
+            variant="default"
+            size="lg"
             type="submit"
             [disabled]="loading"
-            class="flex-1 px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 flex items-center justify-center font-medium"
+            className="action-button submit-button"
           >
-            <div *ngIf="loading" class="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+            <div *ngIf="loading" class="loading-spinner"></div>
             <span *ngIf="!loading">{{isEditMode ? 'Update Property' : 'Add Property'}}</span>
-          </button>
+          </app-button>
         </div>
       </form>
     </div>
 
     <app-footer></app-footer>
   `,
-  styles: [`
-    .max-w-4xl {
-      max-width: 56rem;
-    }
-    
-    .mx-auto {
-      margin-left: auto;
-      margin-right: auto;
-    }
-    
-    .px-4 {
-      padding-left: 1rem;
-      padding-right: 1rem;
-    }
-    
-    .py-8 {
-      padding-top: 2rem;
-      padding-bottom: 2rem;
-    }
-    
-    .mt-16 {
-      margin-top: 4rem;
-    }
-    
-    .mb-8 {
-      margin-bottom: 2rem;
-    }
-    
-    .mb-2 {
-      margin-bottom: 0.5rem;
-    }
-    
-    .mb-3 {
-      margin-bottom: 0.75rem;
-    }
-    
-    .mb-4 {
-      margin-bottom: 1rem;
-    }
-    
-    .transition-colors {
-      transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
-      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-      transition-duration: 150ms;
-    }
-    
-    .text-3xl {
-      font-size: 1.875rem;
-      line-height: 2.25rem;
-    }
-    
-    .text-gray-900 {
-      color: #111827;
-    }
-    
-    .text-gray-600 {
-      color: #4b5563;
-    }
-    
-    .text-gray-700 {
-      color: #374151;
-    }
-    
-    .text-gray-800 {
-      color: #1f2937;
-    }
-    
-    .text-red-600 {
-      color: #dc2626;
-    }
-    
-    .text-indigo-700 {
-      color: #3730a3;
-    }
-    
-    .text-white {
-      color: #ffffff;
-    }
-    
-    .text-sm {
-      font-size: 0.875rem;
-      line-height: 1.25rem;
-    }
-    
-    .text-gray-500 {
-      color: #6b7280;
-    }
-    
-    .placeholder-gray-500::placeholder {
-      color: #6b7280;
-    }
-    
-    .resize-none {
-      resize: none;
-    }
-    
-    .font-medium {
-      font-weight: 500;
-    }
-    
-    .duration-200 {
-      transition-duration: 200ms;
-    }
-    
-    .transition-all {
-      transition-property: all;
-      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    
-    .bg-white {
-      background-color: #ffffff;
-    }
-    
-    .bg-indigo-100 {
-      background-color: #e0e7ff;
-    }
-    
-    .bg-indigo-600 {
-      background-color: #4f46e5;
-    }
-    
-    .bg-gray-50 {
-      background-color: #f9fafb;
-    }
-    
-    .bg-gray-400 {
-      background-color: #9ca3af;
-    }
-    
-    .rounded-lg {
-      border-radius: 0.5rem;
-    }
-    
-    .rounded-full {
-      border-radius: 9999px;
-    }
-    
-    .shadow-sm {
-      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    }
-    
-    .p-6 {
-      padding: 1.5rem;
-    }
-    
-    .p-8 {
-      padding: 2rem;
-    }
-    
-    .p-1 {
-      padding: 0.25rem;
-    }
-    
-    .bg-transparent {
-      background-color: transparent;
-    }
-    
-    .bg-opacity-20 {
-      background-color: rgba(255, 255, 255, 0.2);
-    }
-    
-    .hover\:bg-opacity-20:hover {
-      background-color: rgba(255, 255, 255, 0.2);
-    }
-    
-    .bg-indigo-200 {
-      background-color: #c7d2fe;
-    }
-    
-    .border-none {
-      border: none;
-      outline: none;
-    }
-    
-    .hidden {
-      display: none;
-    }
-    
-    .px-3 {
-      padding-left: 0.75rem;
-      padding-right: 0.75rem;
-    }
-    
-    .px-4 {
-      padding-left: 1rem;
-      padding-right: 1rem;
-    }
-    
-    .py-1 {
-      padding-top: 0.25rem;
-      padding-bottom: 0.25rem;
-    }
-    
-    .py-2 {
-      padding-top: 0.5rem;
-      padding-bottom: 0.5rem;
-    }
-    
-    .py-3 {
-      padding-top: 0.75rem;
-      padding-bottom: 0.75rem;
-    }
-    
-    .px-6 {
-      padding-left: 1.5rem;
-      padding-right: 1.5rem;
-    }
-    
-    .pt-6 {
-      padding-top: 1.5rem;
-    }
-    
-    .mt-1 {
-      margin-top: 0.25rem;
-    }
-    
-    .space-y-6 > * + * {
-      margin-top: 1.5rem;
-    }
-    
-    .block {
-      display: block;
-    }
-    
-    .flex {
-      display: flex;
-    }
-    
-    .inline-flex {
-      display: inline-flex;
-    }
-    
-    .grid {
-      display: grid;
-    }
-    
-    .w-full {
-      width: 100%;
-    }
-    
-    .w-3 {
-      width: 0.75rem;
-    }
-    
-    .w-4 {
-      width: 1rem;
-    }
-    
-    .w-5 {
-      width: 1.25rem;
-    }
-    
-    .w-12 {
-      width: 3rem;
-    }
-    
-    .h-3 {
-      height: 0.75rem;
-    }
-    
-    .h-4 {
-      height: 1rem;
-    }
-    
-    .h-5 {
-      height: 1.25rem;
-    }
-    
-    .h-12 {
-      height: 3rem;
-    }
-    
-    .flex-1 {
-      flex: 1 1 0%;
-    }
-    
-    .flex-wrap {
-      flex-wrap: wrap;
-    }
-    
-    .items-center {
-      align-items: center;
-    }
-    
-    .justify-center {
-      justify-content: center;
-    }
-    
-    .gap-2 {
-      gap: 0.5rem;
-    }
-    
-    .gap-3 {
-      gap: 0.75rem;
-    }
-    
-    .gap-4 {
-      gap: 1rem;
-    }
-    
-    .gap-6 {
-      gap: 1.5rem;
-    }
-    
-    .border {
-      border-width: 1px;
-    }
-    
-    .border-2 {
-      border-width: 2px;
-    }
-    
-    .border-t {
-      border-top-width: 1px;
-    }
-    
-    .border-dashed {
-      border-style: dashed;
-    }
-    
-    .border-gray-200 {
-      border-color: #e5e7eb;
-    }
-    
-    .border-gray-300 {
-      border-color: #d1d5db;
-    }
-    
-    .border-indigo-500 {
-      border-color: #6366f1;
-    }
-    
-    .border-red-500 {
-      border-color: #ef4444;
-    }
-    
-    .cursor-pointer {
-      cursor: pointer;
-    }
-    
-    .text-center {
-      text-align: center;
-    }
-    
-    .transition-colors {
-      transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
-      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-      transition-duration: 150ms;
-    }
-    
-    .focus\:ring-2:focus {
-      box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.5);
-    }
-    
-    .focus\:ring-indigo-500:focus {
-      box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.5);
-    }
-    
-    .focus\:ring-gray-500:focus {
-      box-shadow: 0 0 0 2px rgba(107, 114, 128, 0.5);
-    }
-    
-    .focus\:ring-offset-2:focus {
-      box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px rgba(79, 70, 229, 0.5);
-    }
-    
-    .focus\:border-indigo-500:focus {
-      border-color: #6366f1;
-    }
-    
-    .focus-within\:border-indigo-500:focus-within {
-      border-color: #6366f1;
-    }
-    
-    .focus\:border-transparent:focus {
-      border-color: transparent;
-    }
-    
-    .hover\:bg-gray-50:hover {
-      background-color: #f9fafb;
-    }
-    
-    .hover\:bg-gray-100:hover {
-      background-color: #f3f4f6;
-    }
-    
-    .hover\:bg-indigo-700:hover {
-      background-color: #4338ca;
-    }
-    
-    .hover\:border-indigo-400:hover {
-      border-color: #818cf8;
-    }
-    
-    .hover\:text-indigo-900:hover {
-      color: #312e81;
-    }
-    
-    .hover\:text-gray-800:hover {
-      color: #1f2937;
-    }
-    
-    .hover\:border-indigo-500:hover {
-      border-color: #6366f1;
-    }
-    
-    .disabled\:opacity-50:disabled {
-      opacity: 0.5;
-    }
-    
-    .disabled\:cursor-not-allowed:disabled {
-      cursor: not-allowed;
-    }
-    
-    .animate-spin {
-      animation: spin 1s linear infinite;
-    }
-    
-    @keyframes spin {
-      from {
-        transform: rotate(0deg);
-      }
-      to {
-        transform: rotate(360deg);
-      }
-    }
-    
-    .border-b-2 {
-      border-bottom-width: 2px;
-    }
-    
-    .border-white {
-      border-color: #ffffff;
-    }
-    
-    @media (min-width: 768px) {
-      .md\:grid-cols-2 {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-      
-      .md\:grid-cols-3 {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-      }
-    }
-  `]
+  styleUrls: ['./add-property.component.scss']
 })
 export class AddPropertyComponent {
   isEditMode = false;
@@ -908,6 +457,7 @@ export class AddPropertyComponent {
   onImageUrlKeyPress(event: KeyboardEvent) {
     if (event.key === 'Enter') {
       event.preventDefault();
+      event.stopPropagation();
       this.addImageUrl();
     }
   }
@@ -919,6 +469,7 @@ export class AddPropertyComponent {
   onAmenityKeyPress(event: KeyboardEvent) {
     if (event.key === 'Enter') {
       event.preventDefault();
+      event.stopPropagation();
       this.addAmenity(this.newAmenity);
     }
   }

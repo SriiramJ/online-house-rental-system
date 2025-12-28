@@ -3,9 +3,10 @@ import { Router, RouterModule, NavigationEnd } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../button/button.component';
 import { AuthService } from '../../core/services/auth.service';
+import { SidebarService } from '../../core/services/sidebar.service';
 import { filter, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { LucideAngularModule, Building2, User as UserIcon, ChevronDown } from 'lucide-angular';
+import { LucideAngularModule, Building2, User as UserIcon, ChevronDown, Menu, X } from 'lucide-angular';
 
 @Component({
   selector: 'app-navbar',
@@ -22,10 +23,13 @@ export class NavbarComponent implements OnInit, OnDestroy {
   readonly Building2 = Building2;
   readonly UserIcon = UserIcon;
   readonly ChevronDown = ChevronDown;
+  readonly Menu = Menu;
+  readonly X = X;
 
   constructor(
     private router: Router,
     public authService: AuthService,
+    public sidebarService: SidebarService,
     private cdr: ChangeDetectorRef,
     private elementRef: ElementRef
   ) {}
@@ -99,5 +103,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.showUserMenu = false;
     this.authService.logout();
     this.router.navigate(['/']);
+  }
+
+  toggleSidebar() {
+    this.sidebarService.toggle();
   }
 }

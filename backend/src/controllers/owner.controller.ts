@@ -141,3 +141,26 @@ export const getOwnerTenants = async (req: Request, res: Response) => {
     });
   }
 };
+
+export const deleteOwnerProperty = async (req: Request, res: Response) => {
+  try {
+    const user = (req as any).user;
+    const { propertyId } = req.params;
+
+    const deleted = await propertyService.deleteOwnerProperty(parseInt(propertyId), user.userId);
+    
+    if (!deleted) {
+      return res.status(404).json({ message: "Property not found or not owned by user" });
+    }
+
+    res.status(200).json({
+      message: "Property deleted successfully"
+    });
+  } catch (error: any) {
+    logger.error(`Error in deleteOwnerProperty: ${error.message}`);
+    res.status(500).json({
+      message: "Internal server error",
+      error: error.message
+    });
+  }
+};

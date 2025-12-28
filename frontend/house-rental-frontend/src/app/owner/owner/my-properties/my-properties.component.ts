@@ -5,6 +5,7 @@ import { NavbarComponent } from '../../../shared/navbar/navbar.component';
 import { FooterComponent } from '../../../shared/footer/footer.component';
 import { SidebarComponent, SidebarItem } from '../../../shared/shared/sidebar/sidebar.component';
 import { OwnerService } from '../../../core/services/owner.service';
+import { SidebarService } from '../../../core/services/sidebar.service';
 import { ToastService } from '../../../core/services/toast.service';
 import { LucideAngularModule, Plus, Edit, Trash2, Eye, ArrowLeft, MapPin, Bed, Bath, Maximize, Home as HomeIcon, Menu, BarChart3, Calendar, Users } from 'lucide-angular';
 
@@ -35,7 +36,6 @@ export class MyPropertiesComponent implements OnInit {
   loading = false;
   showDeleteModal = false;
   propertyToDelete: any = null;
-  sidebarOpen = true;
   sidebarItems: SidebarItem[] = [
     { label: 'Dashboard', route: '/owner/dashboard', icon: BarChart3 },
     { label: 'My Properties', route: '/owner/properties', icon: HomeIcon },
@@ -47,24 +47,16 @@ export class MyPropertiesComponent implements OnInit {
     private ownerService: OwnerService,
     private toast: ToastService,
     private router: Router,
+    public sidebarService: SidebarService,
     private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
     this.loadProperties();
-    this.setSidebarInitialState();
   }
 
   ionViewWillEnter() {
     this.loadProperties();
-  }
-
-  setSidebarInitialState() {
-    this.sidebarOpen = window.innerWidth >= 1024;
-  }
-
-  toggleSidebar() {
-    this.sidebarOpen = !this.sidebarOpen;
   }
 
   loadProperties() {
@@ -127,10 +119,20 @@ export class MyPropertiesComponent implements OnInit {
 
   confirmDelete() {
     if (this.propertyToDelete) {
-      this.properties = this.properties.filter(p => p.id !== this.propertyToDelete.id);
-      this.toast.success('Property deleted successfully');
-      this.showDeleteModal = false;
-      this.propertyToDelete = null;
+      this.ownerService.deleteProperty(this.propertyToDelete.id).subscribe({
+        next: (response) => {
+          this.toast.success('Property deleted successfully');
+          this.loadProperties(); // Reload the properties list
+          this.showDeleteModal = false;
+          this.propertyToDelete = null;
+        },
+        error: (error) => {
+          console.error('Error deleting property:', error);
+          this.toast.error('Failed to delete property');
+          this.showDeleteModal = false;
+          this.propertyToDelete = null;
+        }
+      });
     }
   }
 

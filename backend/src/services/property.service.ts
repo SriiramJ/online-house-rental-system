@@ -14,12 +14,11 @@ export class PropertyService {
         ? propertyData.photos.join(', ') 
         : null;
 
-      // Map frontend field names to database fields
+      // Basic query without property_type column
       const query = `INSERT INTO properties (
         owner_id, title, description, rent, location, 
-        property_type, bedrooms, bathrooms, area_sqft,
-        amenities, photos, is_available
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+        bedrooms, bathrooms, amenities, photos
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
       
       const values = [
         ownerId,
@@ -27,13 +26,10 @@ export class PropertyService {
         propertyData.description,
         parseFloat(propertyData.rent as any),
         propertyData.location,
-        propertyData.property_type || propertyData.propertyType || 'Apartment',
         parseInt(propertyData.bedrooms as any) || 1,
         parseFloat(propertyData.bathrooms as any) || 1,
-        parseInt(propertyData.area_sqft || propertyData.area as any) || null,
         amenitiesText,
-        photosText,
-        propertyData.is_available !== undefined ? propertyData.is_available : (propertyData.available !== undefined ? propertyData.available : true)
+        photosText
       ];
 
       const [result] = await connection.execute(query, values);
@@ -60,13 +56,13 @@ export class PropertyService {
 
       const properties = rows as any[];
       if (properties.length === 0) {
-        return []; // Return empty array instead of throwing error
+        return [];
       }
       
       return properties.map(this.formatProperty);
     } catch (error: any) {
       logger.error(`Error fetching properties: ${error.message}`);
-      return []; // Return empty array on error
+      return [];
     } finally {
       connection.release();
     }
@@ -104,8 +100,7 @@ export class PropertyService {
     try {
       const [rows] = await connection.execute(
         `SELECT p.*, u.name as owner_name,
-         (SELECT COUNT(*) FROM bookings b WHERE b.property_id = p.id AND b.status = 'Pending') as pending_requests,
-         (SELECT COUNT(*) FROM tenants t WHERE t.property_id = p.id AND t.status = 'Active') as active_tenants
+         (SELECT COUNT(*) FROM bookings b WHERE b.property_id = p.id AND b.status = 'Pending') as pending_requests
          FROM properties p 
          JOIN users u ON p.owner_id = u.id 
          WHERE p.owner_id = ?
@@ -123,6 +118,24 @@ export class PropertyService {
     }
   }
 
+  async deleteOwnerProperty(propertyId: number, ownerId: number): Promise<boolean> {
+    const connection = await db.getConnection();
+    
+    try {
+      const [result] = await connection.execute(
+        `DELETE FROM properties WHERE id = ? AND owner_id = ?`,
+        [propertyId, ownerId]
+      );
+
+      return (result as any).affectedRows > 0;
+    } catch (error: any) {
+      logger.error(`Error deleting property: ${error.message}`);
+      return false;
+    } finally {
+      connection.release();
+    }
+  }
+
   private formatProperty(row: any): Property {
     return {
       id: row.id,
@@ -134,7 +147,7 @@ export class PropertyService {
       bedrooms: row.bedrooms || 1,
       bathrooms: row.bathrooms || 1,
       property_type: row.property_type || 'Apartment',
-      area_sqft: row.area_sqft,
+      area_sqft: row.area_sqft || null,
       amenities: row.amenities ? row.amenities.split(', ').filter(Boolean) : [],
       photos: row.photos ? row.photos.split(', ').filter(Boolean) : ['https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=400'],
       is_available: row.is_available !== undefined ? Boolean(row.is_available) : true,

@@ -26,11 +26,23 @@ export class FooterComponent {
   }
 
   navigateToDashboard() {
-    this.router.navigate(['/dashboard']);
+    if (this.authService.isOwner()) {
+      this.router.navigate(['/owner/dashboard']);
+    } else {
+      this.router.navigate(['/dashboard']);
+    }
+  }
+
+  navigateToTenantBookings() {
+    this.router.navigate(['/tenant/bookings']);
   }
 
   navigateToAddProperty() {
-    this.router.navigate(['/add-property']);
+    this.router.navigate(['/owner/add-property']);
+  }
+
+  navigateToOwnerProperties() {
+    this.router.navigate(['/owner/properties']);
   }
 
   navigateToHelpCenter() {

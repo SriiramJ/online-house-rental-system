@@ -31,12 +31,23 @@ export class OwnerGuard implements CanActivate {
   ) {}
 
   canActivate(): boolean {
-    if (this.authService.isAuthenticated() && this.authService.isOwner()) {
-      return true;
-    } else {
+    if (!this.authService.isAuthenticated()) {
       this.router.navigate(['/auth/login']);
       return false;
     }
+    
+    if (this.authService.isOwner()) {
+      return true;
+    }
+    
+    // Redirect tenant to their dashboard
+    if (this.authService.isTenant()) {
+      this.router.navigate(['/dashboard']);
+      return false;
+    }
+    
+    this.router.navigate(['/auth/login']);
+    return false;
   }
 }
 
@@ -50,11 +61,22 @@ export class TenantGuard implements CanActivate {
   ) {}
 
   canActivate(): boolean {
-    if (this.authService.isAuthenticated() && this.authService.isTenant()) {
-      return true;
-    } else {
+    if (!this.authService.isAuthenticated()) {
       this.router.navigate(['/auth/login']);
       return false;
     }
+    
+    if (this.authService.isTenant()) {
+      return true;
+    }
+    
+    // Redirect owner to their dashboard
+    if (this.authService.isOwner()) {
+      this.router.navigate(['/owner/dashboard']);
+      return false;
+    }
+    
+    this.router.navigate(['/auth/login']);
+    return false;
   }
 }

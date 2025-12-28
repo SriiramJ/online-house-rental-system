@@ -165,14 +165,17 @@
             <button 
               (click)="bookProperty()" 
               class="btn btn-primary btn-full"
-              [disabled]="!property.is_available"
+              [disabled]="!property.is_available || !canBookProperty()"
             >
-              {{ isLoggedIn ? 'Book Now' : 'Login to Book' }}
+              <span *ngIf="!isLoggedIn">Login to Book</span>
+              <span *ngIf="isLoggedIn && !canBookProperty()">Owners Cannot Book</span>
+              <span *ngIf="canBookProperty()">Book Now</span>
             </button>
             
             <button 
               (click)="contactOwner()" 
               class="btn btn-outline btn-full"
+              *ngIf="!isCurrentUserOwner()"
             >
               {{ isLoggedIn ? 'Contact Owner' : 'Login to Contact' }}
             </button>

@@ -6,7 +6,8 @@ import {
   getOwnerProperties, 
   getOwnerBookings, 
   getOwnerTenants,
-  updateBookingStatus
+  updateBookingStatus,
+  deleteOwnerProperty
 } from "../controllers/owner.controller.ts";
 
 const router = Router();
@@ -21,5 +22,6 @@ router.get("/properties", getOwnerProperties);
 router.get("/bookings", getOwnerBookings);
 router.get("/tenants", getOwnerTenants);
 router.put("/bookings/:bookingId/status", updateBookingStatus);
+router.delete("/properties/:propertyId", deleteOwnerProperty);
 
 export default router;

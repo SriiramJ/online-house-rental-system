@@ -64,3 +64,75 @@
 2025-12-28 16:40:08 [ERROR]: Error in createProperty: Failed to create property
 2025-12-28 16:43:54 [ERROR]: Error creating property: Unknown column 'property_type' in 'field list'
 2025-12-28 16:43:54 [ERROR]: Error in createProperty: Failed to create property
+2025-12-28 20:38:00 [ERROR]: JWT verification failed: jwt expired
+2025-12-28 20:38:02 [ERROR]: JWT verification failed: jwt expired
+2025-12-28 20:38:45 [ERROR]: JWT verification failed: jwt expired
+2025-12-28 20:40:53 [ERROR]: JWT verification failed: jwt expired
+2025-12-28 20:40:57 [ERROR]: JWT verification failed: jwt expired
+2025-12-28 20:41:12 [ERROR]: Error fetching owner properties: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 20:41:12 [ERROR]: Error fetching owner tenants: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 20:41:48 [ERROR]: Error creating property: Unknown column 'property_type' in 'field list'
+2025-12-28 20:41:48 [ERROR]: Error in createProperty: Failed to create property
+2025-12-28 20:42:12 [ERROR]: Error creating property: Unknown column 'property_type' in 'field list'
+2025-12-28 20:42:12 [ERROR]: Error in createProperty: Failed to create property
+2025-12-28 20:42:24 [ERROR]: Error fetching owner properties: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 20:42:24 [ERROR]: Error fetching owner tenants: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 20:42:36 [ERROR]: Error fetching owner properties: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 20:42:36 [ERROR]: Error fetching owner tenants: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 20:42:37 [ERROR]: Error fetching owner properties: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 20:45:21 [ERROR]: Error fetching owner properties: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 20:45:21 [ERROR]: Error fetching owner tenants: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 20:47:30 [ERROR]: Error fetching owner properties: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 20:47:30 [ERROR]: Error fetching owner tenants: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 20:47:31 [ERROR]: Error fetching owner properties: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 20:47:31 [ERROR]: Error fetching owner tenants: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 20:47:35 [ERROR]: Error fetching owner properties: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 20:47:35 [ERROR]: Error fetching owner tenants: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 20:49:19 [ERROR]: Error fetching owner properties: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 20:49:19 [ERROR]: Error fetching owner tenants: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 20:49:57 [ERROR]: Error fetching owner properties: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 20:49:57 [ERROR]: Error fetching owner tenants: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 20:50:37 [ERROR]: Error fetching owner properties: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 20:50:37 [ERROR]: Error fetching owner tenants: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 20:53:21 [ERROR]: Error fetching owner properties: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 20:53:21 [ERROR]: Error fetching owner tenants: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 20:53:30 [ERROR]: Error fetching owner properties: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 20:53:30 [ERROR]: Error fetching owner tenants: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 20:53:34 [ERROR]: Error fetching owner properties: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 20:53:36 [ERROR]: Error fetching owner properties: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 20:53:36 [ERROR]: Error fetching owner tenants: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 20:53:46 [ERROR]: Error fetching owner properties: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 20:53:46 [ERROR]: Error fetching owner tenants: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 20:53:54 [ERROR]: Error fetching owner properties: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 20:53:54 [ERROR]: Error fetching owner tenants: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 20:53:57 [ERROR]: Error fetching owner properties: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 20:54:41 [ERROR]: Error creating property: Unknown column 'property_type' in 'field list'
+2025-12-28 20:54:41 [ERROR]: Error in createProperty: Failed to create property
+2025-12-28 20:54:46 [ERROR]: Error creating property: Unknown column 'property_type' in 'field list'
+2025-12-28 20:54:46 [ERROR]: Error in createProperty: Failed to create property
+2025-12-28 21:03:48 [ERROR]: Error fetching owner properties: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 21:03:48 [ERROR]: Error fetching owner tenants: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 21:03:57 [ERROR]: Error fetching owner properties: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 21:03:57 [ERROR]: Error fetching owner tenants: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 21:03:58 [ERROR]: Error fetching owner properties: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 21:04:09 [ERROR]: Error fetching owner properties: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 21:04:09 [ERROR]: Error fetching owner tenants: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 21:05:00 [ERROR]: Error fetching owner properties: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 21:05:00 [ERROR]: Error fetching owner tenants: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 21:05:15 [ERROR]: Error fetching owner properties: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 21:05:15 [ERROR]: Error fetching owner tenants: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 21:05:19 [ERROR]: Error fetching owner properties: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 21:05:19 [ERROR]: Error fetching owner properties: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 21:05:19 [ERROR]: Error fetching owner tenants: Table 'house_rental_db.tenants' doesn't exist
+2025-12-28 21:06:41 [ERROR]: Error creating property: Unknown column 'property_type' in 'field list'
+2025-12-28 21:06:41 [ERROR]: Error in createProperty: Failed to create property
+2025-12-28 21:18:05 [ERROR]: Error creating property: Unknown column 'property_type' in 'field list'
+2025-12-28 21:18:05 [ERROR]: Error in createProperty: Failed to create property
+2025-12-28 21:18:23 [ERROR]: Error creating property: Unknown column 'bedrooms' in 'field list'
+2025-12-28 21:18:23 [ERROR]: Error in createProperty: Failed to create property
+2025-12-28 21:21:21 [ERROR]: Error creating property: Unknown column 'bedrooms' in 'field list'
+2025-12-28 21:21:21 [ERROR]: Error in createProperty: Failed to create property
+2025-12-28 21:22:04 [ERROR]: Error creating property: Unknown column 'bedrooms' in 'field list'
+2025-12-28 21:22:04 [ERROR]: Error in createProperty: Failed to create property
+2025-12-28 21:23:36 [ERROR]: Error creating property: Unknown column 'bedrooms' in 'field list'
+2025-12-28 21:23:36 [ERROR]: Error in createProperty: Failed to create property

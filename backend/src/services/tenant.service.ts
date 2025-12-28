@@ -23,6 +23,17 @@ export class TenantService {
     const connection = await db.getConnection();
     
     try {
+      // Check if tenants table exists first
+      const [tableCheck] = await connection.execute(
+        `SELECT COUNT(*) as count FROM information_schema.tables 
+         WHERE table_schema = 'house_rental_db' AND table_name = 'tenants'`
+      );
+      
+      if ((tableCheck as any[])[0].count === 0) {
+        logger.info('Tenants table does not exist yet');
+        return [];
+      }
+
       const [rows] = await connection.execute(
         `SELECT t.*, u.name as tenant_name, u.email as tenant_email, u.phone as tenant_phone,
          p.title as property_title, p.location as property_location

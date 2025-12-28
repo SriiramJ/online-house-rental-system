@@ -84,12 +84,8 @@ export class RegisterComponent {
       next: (response) => {
         this.loading = false;
         if (response.success) {
-          // Navigate based on role
-          if (this.role === 'owner') {
-            this.router.navigate(['/owner/dashboard']);
-          } else {
-            this.router.navigate(['/properties']);
-          }
+          // Redirect to login page after successful registration
+          this.router.navigate(['/auth/login']);
         } else {
           // Handle specific error codes
           if (response.error?.code === 'USER_EXISTS') {

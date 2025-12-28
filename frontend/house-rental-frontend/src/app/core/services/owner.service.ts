@@ -52,6 +52,10 @@ export class OwnerService {
     return this.http.post(`${environment.apiUrl}/properties`, propertyData, { headers: this.getHeaders() });
   }
 
+  deleteProperty(propertyId: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/properties/${propertyId}`, { headers: this.getHeaders() });
+  }
+
   uploadPropertyImages(formData: FormData): Observable<any> {
     return this.http.post(`${environment.apiUrl}/properties/upload-images`, formData, { headers: this.getUploadHeaders() });
   }

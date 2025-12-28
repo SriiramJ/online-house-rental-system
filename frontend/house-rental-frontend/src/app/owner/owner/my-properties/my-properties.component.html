@@ -6,13 +6,13 @@
     <app-sidebar 
       title="Owner Dashboard" 
       [items]="sidebarItems" 
-      [isOpen]="sidebarOpen"
+      [isOpen]="(sidebarService.sidebarOpen$ | async) ?? false"
       [toggleIcon]="Menu"
-      (toggle)="toggleSidebar()">
+      (toggle)="sidebarService.toggle()">
     </app-sidebar>
 
     <!-- Main Content -->
-    <div class="main-content" [class.sidebar-open]="sidebarOpen">
+    <div class="main-content" [class.sidebar-open]="(sidebarService.sidebarOpen$ | async) ?? false">
       <div class="content-wrapper">
         <div class="mb-8 flex items-center justify-between">
           <div>

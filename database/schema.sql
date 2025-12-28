@@ -1,12 +1,10 @@
 -- =====================================================
--- DATABASE
+-- HOUSE RENTAL DATABASE SCHEMA - COMPLETE
 -- =====================================================
-CREATE DATABASE IF NOT EXISTS house_rental_db;
 USE house_rental_db;
 
 -- =====================================================
 -- USERS TABLE
--- Supports Tenant, Owner, Admin
 -- =====================================================
 CREATE TABLE IF NOT EXISTS users (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -20,7 +18,6 @@ CREATE TABLE IF NOT EXISTS users (
 
 -- =====================================================
 -- PROPERTIES TABLE
--- Owned by OWNER
 -- =====================================================
 CREATE TABLE IF NOT EXISTS properties (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -29,24 +26,77 @@ CREATE TABLE IF NOT EXISTS properties (
   description TEXT,
   rent DECIMAL(10,2) NOT NULL,
   location VARCHAR(255) NOT NULL,
-  property_type ENUM('Apartment', 'House', 'Condo', 'Studio') DEFAULT 'Apartment',
-  bedrooms INT DEFAULT 1,
-  bathrooms INT DEFAULT 1,
-  area_sqft INT,
-  amenities TEXT,
-  photos TEXT,
-  is_available BOOLEAN DEFAULT TRUE,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-
-  CONSTRAINT fk_properties_owner
-    FOREIGN KEY (owner_id)
-    REFERENCES users(id)
-    ON DELETE CASCADE
+  
+  FOREIGN KEY (owner_id) REFERENCES users(id) ON DELETE CASCADE
 );
+
+-- Add missing columns to existing properties table
+SET @sql = (SELECT IF(
+    (SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name='properties' AND column_name='property_type' AND table_schema='house_rental_db') > 0,
+    'SELECT "property_type column exists"',
+    'ALTER TABLE properties ADD COLUMN property_type ENUM("Apartment", "House", "Condo", "Studio") DEFAULT "Apartment"'
+));
+PREPARE stmt FROM @sql;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
+
+SET @sql = (SELECT IF(
+    (SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name='properties' AND column_name='bedrooms' AND table_schema='house_rental_db') > 0,
+    'SELECT "bedrooms column exists"',
+    'ALTER TABLE properties ADD COLUMN bedrooms INT DEFAULT 1'
+));
+PREPARE stmt FROM @sql;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
+
+SET @sql = (SELECT IF(
+    (SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name='properties' AND column_name='bathrooms' AND table_schema='house_rental_db') > 0,
+    'SELECT "bathrooms column exists"',
+    'ALTER TABLE properties ADD COLUMN bathrooms INT DEFAULT 1'
+));
+PREPARE stmt FROM @sql;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
+
+SET @sql = (SELECT IF(
+    (SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name='properties' AND column_name='area_sqft' AND table_schema='house_rental_db') > 0,
+    'SELECT "area_sqft column exists"',
+    'ALTER TABLE properties ADD COLUMN area_sqft INT'
+));
+PREPARE stmt FROM @sql;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
+
+SET @sql = (SELECT IF(
+    (SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name='properties' AND column_name='amenities' AND table_schema='house_rental_db') > 0,
+    'SELECT "amenities column exists"',
+    'ALTER TABLE properties ADD COLUMN amenities TEXT'
+));
+PREPARE stmt FROM @sql;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
+
+SET @sql = (SELECT IF(
+    (SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name='properties' AND column_name='photos' AND table_schema='house_rental_db') > 0,
+    'SELECT "photos column exists"',
+    'ALTER TABLE properties ADD COLUMN photos TEXT'
+));
+PREPARE stmt FROM @sql;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
+
+SET @sql = (SELECT IF(
+    (SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name='properties' AND column_name='is_available' AND table_schema='house_rental_db') > 0,
+    'SELECT "is_available column exists"',
+    'ALTER TABLE properties ADD COLUMN is_available BOOLEAN DEFAULT TRUE'
+));
+PREPARE stmt FROM @sql;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
 
 -- =====================================================
 -- BOOKINGS TABLE
--- Tenant requests to rent a property
 -- =====================================================
 CREATE TABLE IF NOT EXISTS bookings (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -58,52 +108,12 @@ CREATE TABLE IF NOT EXISTS bookings (
   message TEXT,
   request_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
-  CONSTRAINT fk_bookings_property
-    FOREIGN KEY (property_id)
-    REFERENCES properties(id)
-    ON DELETE CASCADE,
-
-  CONSTRAINT fk_bookings_tenant
-    FOREIGN KEY (tenant_id)
-    REFERENCES users(id)
-    ON DELETE CASCADE
+  FOREIGN KEY (property_id) REFERENCES properties(id) ON DELETE CASCADE,
+  FOREIGN KEY (tenant_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
--- =====================================================
--- OPTIONAL: NOTIFICATIONS TABLE
--- =====================================================
-CREATE TABLE IF NOT EXISTS notifications (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  user_id INT NOT NULL,
-  message TEXT NOT NULL,
-  is_read BOOLEAN DEFAULT FALSE,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-
-  CONSTRAINT fk_notifications_user
-    FOREIGN KEY (user_id)
-    REFERENCES users(id)
-    ON DELETE CASCADE
-);
-
--- =====================================================
--- OPTIONAL: AUDIT / ACTIVITY LOG
--- (Admin / debugging)
--- =====================================================
-CREATE TABLE IF NOT EXISTS activity_logs (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  user_id INT,
-  action VARCHAR(255) NOT NULL,
-  details TEXT,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-
-  CONSTRAINT fk_activity_user
-    FOREIGN KEY (user_id)
-    REFERENCES users(id)
-    ON DELETE SET NULL
-);
 -- =====================================================
 -- TENANTS TABLE
--- Active lease agreements
 -- =====================================================
 CREATE TABLE IF NOT EXISTS tenants (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -116,13 +126,32 @@ CREATE TABLE IF NOT EXISTS tenants (
   status ENUM('Active', 'Expired', 'Terminated') DEFAULT 'Active',
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
-  CONSTRAINT fk_tenants_property
-    FOREIGN KEY (property_id)
-    REFERENCES properties(id)
-    ON DELETE CASCADE,
+  FOREIGN KEY (property_id) REFERENCES properties(id) ON DELETE CASCADE,
+  FOREIGN KEY (tenant_id) REFERENCES users(id) ON DELETE CASCADE
+);
 
-  CONSTRAINT fk_tenants_user
-    FOREIGN KEY (tenant_id)
-    REFERENCES users(id)
-    ON DELETE CASCADE
+-- =====================================================
+-- NOTIFICATIONS TABLE
+-- =====================================================
+CREATE TABLE IF NOT EXISTS notifications (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NOT NULL,
+  message TEXT NOT NULL,
+  is_read BOOLEAN DEFAULT FALSE,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+-- =====================================================
+-- ACTIVITY LOGS TABLE
+-- =====================================================
+CREATE TABLE IF NOT EXISTS activity_logs (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT,
+  action VARCHAR(255) NOT NULL,
+  details TEXT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL
 );

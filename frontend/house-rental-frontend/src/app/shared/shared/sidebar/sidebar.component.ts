@@ -15,10 +15,6 @@ export interface SidebarItem {
   standalone: true,
   imports: [CommonModule, RouterModule, LucideAngularModule],
   template: `
-    <button class="external-toggle" [class.sidebar-open]="isOpen" (click)="onToggle()">
-      <lucide-icon [img]="toggleIcon" class="toggle-icon"></lucide-icon>
-    </button>
-    
     <div class="sidebar-overlay" [class.sidebar-open]="isOpen" (click)="onToggle()"></div>
     
     <div class="sidebar" [class.sidebar-open]="isOpen">
@@ -39,25 +35,6 @@ export interface SidebarItem {
     </div>
   `,
   styles: [`
-    .external-toggle {
-      position: fixed;
-      top: 80px;
-      left: 10px;
-      z-index: 1002;
-      background: #4f46e5;
-      color: white;
-      border: none;
-      border-radius: 0.375rem;
-      width: 40px;
-      height: 40px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-      transition: all 0.3s ease;
-    }
-
     .sidebar-overlay {
       position: fixed;
       top: 0;
@@ -110,22 +87,6 @@ export interface SidebarItem {
       .sidebar:not(.sidebar-open) {
         left: -280px;
       }
-      
-      .external-toggle {
-        left: 230px;
-        width: 44px;
-        height: 44px;
-        background: rgba(79, 70, 229, 0.1);
-        color: #4f46e5;
-        border: 1px solid #e5e7eb;
-      }
-      
-      .external-toggle:not(.sidebar-open) {
-        left: 10px;
-        background: #4f46e5;
-        color: white;
-        border: none;
-      }
     }
 
     /* Tablet (768px-1023px) */
@@ -137,16 +98,6 @@ export interface SidebarItem {
       
       .sidebar.sidebar-open {
         left: 0;
-      }
-      
-      .external-toggle {
-        width: 42px;
-        height: 42px;
-        top: 85px;
-      }
-      
-      .external-toggle.sidebar-open {
-        left: 240px;
       }
     }
 
@@ -162,27 +113,6 @@ export interface SidebarItem {
       .sidebar.sidebar-open {
         left: 0;
       }
-      
-      .external-toggle {
-        width: 48px;
-        height: 48px;
-        top: 75px;
-        border-radius: 0.5rem;
-      }
-      
-      .external-toggle.sidebar-open {
-        left: calc(100vw - 58px);
-      }
-      
-      .toggle-icon {
-        width: 24px;
-        height: 24px;
-      }
-    }
-
-    .toggle-icon {
-      width: 20px;
-      height: 20px;
     }
 
     .sidebar-header {

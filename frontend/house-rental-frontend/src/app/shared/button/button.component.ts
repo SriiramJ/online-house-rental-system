@@ -10,6 +10,7 @@ type ButtonSize = 'default' | 'sm' | 'lg' | 'xl' | 'icon';
   imports: [CommonModule],
   template: `
     <button 
+      [type]="type"
       [class]="getButtonClasses()"
       [disabled]="disabled"
       (click)="onClick.emit($event)"
@@ -122,6 +123,7 @@ type ButtonSize = 'default' | 'sm' | 'lg' | 'xl' | 'icon';
 export class ButtonComponent {
   @Input() variant: ButtonVariant = 'default';
   @Input() size: ButtonSize = 'default';
+  @Input() type: 'button' | 'submit' | 'reset' = 'button';
   @Input() disabled = false;
   @Input() className = '';
   @Output() onClick = new EventEmitter<Event>();

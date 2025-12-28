@@ -30,43 +30,44 @@
 
 .content-wrapper {
   padding: 2rem;
-  max-width: 80rem;
-  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .content-wrapper {
+    padding: 1rem;
+  }
 }
 
 /* Action Button Styles */
 .action-btn {
-  display: inline-flex;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  padding-right: 1rem;
+  border-radius: 0.375rem;
+  transition: all 0.2s ease;
+  display: flex;
   align-items: center;
   justify-content: center;
-  width: 2rem;
-  height: 2rem;
-  border-radius: 0.375rem;
-  border: 1px solid;
-  cursor: pointer;
-  transition: all 0.15s ease-in-out;
 }
 
 .edit-btn {
-  background-color: #f0f9ff;
-  border-color: #0ea5e9;
-  color: #0369a1;
+  color: #2563eb;
 }
 
 .edit-btn:hover {
-  background-color: #e0f2fe;
-  border-color: #0284c7;
+  color: #1d4ed8;
+  background: #dbeafe;
 }
 
 .delete-btn {
-  background-color: #fef2f2;
-  border-color: #ef4444;
   color: #dc2626;
 }
 
 .delete-btn:hover {
-  background-color: #fee2e2;
-  border-color: #dc2626;
+  color: #b91c1c;
+  background: #fee2e2;
 }
 
 /* Button Styles */
@@ -89,8 +90,8 @@
   opacity: 0.5;
 }
 .btn-base:focus-visible {
-  ring: 2px solid;
-  ring-offset: 2px;
+  outline: 2px solid;
+  outline-offset: 2px;
 }
 
 .btn-default {
@@ -107,6 +108,14 @@
 }
 
 /* Table Styles */
+.w-full {
+  width: 100%;
+}
+
+.overflow-x-auto {
+  overflow-x: auto;
+}
+
 table {
   border-collapse: collapse;
   width: 100%;
@@ -128,7 +137,7 @@ th:last-child {
 
 td {
   padding: 1rem 1.5rem;
-  vertical-align: top;
+  vertical-align: middle;
 }
 
 tbody tr {
@@ -137,6 +146,16 @@ tbody tr {
 
 tbody tr:hover {
   background-color: #f9fafb;
+}
+
+.px-6 {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.py-4 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 
 /* Layout */

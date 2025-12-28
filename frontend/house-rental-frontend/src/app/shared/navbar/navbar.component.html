@@ -1,8 +1,15 @@
 <nav class="navbar">
   <div class="navbar-container">
-    <div class="navbar-brand" routerLink="/">
-      <lucide-icon [img]="Building2" class="brand-icon"></lucide-icon>
-      <span class="brand-text">RentEase</span>
+    <div class="navbar-left">
+      <!-- Sidebar Toggle Button -->
+      <button class="sidebar-toggle" (click)="toggleSidebar()">
+        <lucide-icon [img]="(sidebarService.sidebarOpen$ | async) ? X : Menu" class="toggle-icon"></lucide-icon>
+      </button>
+      
+      <div class="navbar-brand" routerLink="/">
+        <lucide-icon [img]="Building2" class="brand-icon"></lucide-icon>
+        <span class="brand-text">RentEase</span>
+      </div>
     </div>
     
     <div class="navbar-menu">
