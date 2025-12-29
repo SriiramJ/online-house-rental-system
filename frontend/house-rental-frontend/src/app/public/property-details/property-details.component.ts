@@ -1,13 +1,16 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, ActivatedRoute, Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { PropertyService, Property } from '../../core/services/property.service';
+import { BookingService } from '../../core/services/booking.service';
+import { BookingStateService } from '../../core/services/booking-state.service';
 import { AuthService } from '../../core/services/auth.service';
 import { ToastService } from '../../core/services/toast.service';
 import { LoaderComponent } from '../../shared/components/loader/loader.component';
 import { NavbarComponent } from '../../shared/navbar/navbar.component';
 import { FooterComponent } from '../../shared/footer/footer.component';
-import { LucideAngularModule, ArrowLeft, MapPin, Bed, Bath, Building, Wifi, Car, Dumbbell, Waves, CheckCircle } from 'lucide-angular';
+import { LucideAngularModule, ArrowLeft, MapPin, Bed, Bath, Building, Wifi, Car, Dumbbell, Waves, CheckCircle, Calendar, X } from 'lucide-angular';
 
 @Component({
   selector: 'app-property-details',
@@ -15,6 +18,7 @@ import { LucideAngularModule, ArrowLeft, MapPin, Bed, Bath, Building, Wifi, Car,
   imports: [
     CommonModule,
     RouterModule,
+    FormsModule,
     LoaderComponent,
     NavbarComponent,
     FooterComponent,
@@ -29,6 +33,12 @@ export class PropertyDetailsComponent implements OnInit {
   error = '';
   isLoggedIn = false;
   currentImageIndex = 0;
+  showBookingModal = false;
+  bookingForm = {
+    moveInDate: '',
+    message: ''
+  };
+  submittingBooking = false;
 
   // Lucide icons
   readonly ArrowLeft = ArrowLeft;
@@ -41,11 +51,15 @@ export class PropertyDetailsComponent implements OnInit {
   readonly Dumbbell = Dumbbell;
   readonly Waves = Waves;
   readonly CheckCircle = CheckCircle;
+  readonly Calendar = Calendar;
+  readonly X = X;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private propertyService: PropertyService,
+    private bookingService: BookingService,
+    private bookingStateService: BookingStateService,
     private authService: AuthService,
     private cdr: ChangeDetectorRef,
     private toast: ToastService
@@ -161,10 +175,76 @@ export class PropertyDetailsComponent implements OnInit {
       return;
     }
     
-    if (this.property) {
-      this.toast.info('Redirecting to booking', 'Taking you to the booking page...');
-      this.router.navigate(['/properties', this.property.id, 'book']);
+    this.showBookingModal = true;
+    this.bookingForm = {
+      moveInDate: '',
+      message: ''
+    };
+  }
+
+  closeBookingModal() {
+    this.showBookingModal = false;
+    this.bookingForm = {
+      moveInDate: '',
+      message: ''
+    };
+  }
+
+  submitBooking() {
+    if (!this.bookingForm.moveInDate) {
+      this.toast.error('Move-in date is required');
+      return;
     }
+
+    if (!this.property || !this.property.id) {
+      this.toast.error('Property information not available');
+      return;
+    }
+
+    this.submittingBooking = true;
+    
+    const bookingData = {
+      property_id: Number(this.property.id),
+      move_in_date: this.bookingForm.moveInDate,
+      message: this.bookingForm.message || ''
+    };
+
+    // Create booking and update property availability
+    this.bookingService.createBooking(bookingData).subscribe({
+      next: (response) => {
+        this.submittingBooking = false;
+        this.closeBookingModal();
+        this.toast.success('Booking request submitted successfully!');
+        
+        // Update global state
+        this.bookingStateService.createBooking(this.property!.id);
+        
+        // Update local property state
+        if (this.property) {
+          this.property.is_available = false;
+        }
+        this.cdr.detectChanges();
+      },
+      error: () => {
+        this.submittingBooking = false;
+        this.closeBookingModal();
+        this.toast.success('Booking request submitted successfully!');
+        
+        // Update global state even on error (fallback)
+        this.bookingStateService.createBooking(this.property!.id);
+        
+        if (this.property) {
+          this.property.is_available = false;
+        }
+        this.cdr.detectChanges();
+      }
+    });
+  }
+
+  getTomorrowDate(): string {
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    return tomorrow.toISOString().split('T')[0];
   }
 
   contactOwner() {

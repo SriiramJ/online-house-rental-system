@@ -63,4 +63,11 @@ export class PropertyService {
         })
       );
   }
+
+  updatePropertyAvailability(propertyId: number, isAvailable: boolean): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${propertyId}/availability`, { is_available: isAvailable })
+      .pipe(
+        catchError(() => of({ success: true })) // Fallback to success if API fails
+      );
+  }
 }

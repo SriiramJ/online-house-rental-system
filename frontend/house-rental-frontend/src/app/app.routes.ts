@@ -7,6 +7,8 @@ import { MyPropertiesComponent } from './owner/owner/my-properties/my-properties
 import { BookingRequestsComponent } from './owner/owner/booking-requests/booking-requests.component';
 import { MyTenantsComponent } from './owner/owner/my-tenants/my-tenants.component';
 import { MyBookingsComponent } from './tenant/my-bookings/my-bookings.component';
+import { TenantDashboardComponent } from './tenant/tenant-dashboard/tenant-dashboard.component';
+import { TenantBookingsComponent } from './tenant/tenant-bookings/tenant-bookings.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { LandingComponent } from './public/landing/landing.component';
@@ -34,9 +36,9 @@ export const routes: Routes = [
   { path: 'auth/register', component: RegisterComponent, canActivate: [NoAuthGuard] },
   
   // Tenant-only routes
-  { path: 'dashboard', component: DashboardComponent, canActivate: [TenantGuard] },
-  { path: 'tenant/dashboard', component: DashboardComponent, canActivate: [TenantGuard] },
-  { path: 'tenant/bookings', component: MyBookingsComponent, canActivate: [TenantGuard] },
+  { path: 'dashboard', component: TenantDashboardComponent, canActivate: [TenantGuard] },
+  { path: 'tenant/dashboard', component: TenantDashboardComponent, canActivate: [TenantGuard] },
+  { path: 'tenant/bookings', component: TenantBookingsComponent, canActivate: [TenantGuard] },
   
   // Owner-only routes
   { path: 'owner/dashboard', component: OwnerDashboardComponent, canActivate: [OwnerGuard] },

@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NavbarComponent } from '../../../shared/navbar/navbar.component';
 import { FooterComponent } from '../../../shared/footer/footer.component';
 import { SidebarComponent, SidebarItem } from '../../../shared/shared/sidebar/sidebar.component';
-import { OwnerService } from '../../../core/services/owner.service';
+import { BookingService } from '../../../core/services/booking.service';
+import { BookingStateService } from '../../../core/services/booking-state.service';
 import { SidebarService } from '../../../core/services/sidebar.service';
 import { ToastService } from '../../../core/services/toast.service';
 import { LucideAngularModule, Check, X, Clock, User, ArrowLeft, Menu, BarChart3, Home, Calendar, Users, Mail, Phone, MapPin, MessageSquare } from 'lucide-angular';
@@ -94,22 +95,22 @@ import { LucideAngularModule, Check, X, Clock, User, ArrowLeft, Menu, BarChart3,
                 <div class="request-header">
                   <div class="tenant-info">
                     <div class="tenant-avatar">
-                      <span>{{request.tenantName.charAt(0)}}</span>
+                      <span>{{request.tenant_name?.charAt(0) || 'T'}}</span>
                     </div>
                     <div class="tenant-details">
-                      <h3 class="tenant-name">{{request.tenantName}}</h3>
+                      <h3 class="tenant-name">{{request.tenant_name}}</h3>
                       <div class="contact-info">
                         <lucide-icon [img]="Mail" class="w-4 h-4"></lucide-icon>
-                        <span>{{request.tenantEmail}}</span>
+                        <span>{{request.tenant_email}}</span>
                       </div>
                       <div class="contact-info">
                         <lucide-icon [img]="Phone" class="w-4 h-4"></lucide-icon>
-                        <span>{{request.tenantPhone}}</span>
+                        <span>{{request.tenant_phone || 'N/A'}}</span>
                       </div>
                     </div>
                   </div>
                   <div class="request-date">
-                    <span class="date-label">{{request.requestDate}}</span>
+                    <span class="date-label">{{formatDate(request.created_at || request.request_time)}}</span>
                     <span [ngClass]="getStatusClass(request.status)" class="status-badge">
                       {{request.status}}
                     </span>
@@ -117,19 +118,16 @@ import { LucideAngularModule, Check, X, Clock, User, ArrowLeft, Menu, BarChart3,
                 </div>
 
                 <div class="property-section">
-                  <div class="property-image">
-                    <img [src]="request.propertyImage" [alt]="request.propertyTitle" />
-                  </div>
                   <div class="property-details">
-                    <h4 class="property-title">{{request.propertyTitle}}</h4>
+                    <h4 class="property-title">{{request.property_title}}</h4>
                     <div class="property-location">
                       <lucide-icon [img]="MapPin" class="w-4 h-4"></lucide-icon>
-                      <span>{{request.propertyLocation}}</span>
+                      <span>{{request.property_location}}</span>
                     </div>
                     <div class="property-price">\${{request.rent}}/month</div>
                     <div class="move-in-info">
                       <lucide-icon [img]="Calendar" class="w-4 h-4"></lucide-icon>
-                      <span>Move-in: {{request.moveInDate}}</span>
+                      <span>Move-in: {{formatDate(request.move_in_date)}}</span>
                     </div>
                   </div>
                 </div>
@@ -143,11 +141,11 @@ import { LucideAngularModule, Check, X, Clock, User, ArrowLeft, Menu, BarChart3,
                 </div>
 
                 <div class="action-section" *ngIf="request.status === 'Pending'">
-                  <button (click)="openRejectModal(request)" class="reject-btn">
+                  <button (click)="rejectBooking(request.id)" class="reject-btn">
                     <lucide-icon [img]="X" class="w-4 h-4"></lucide-icon>
                     Reject
                   </button>
-                  <button (click)="updateBookingStatus(request.id, 'Approved')" class="approve-btn">
+                  <button (click)="approveBooking(request.id)" class="approve-btn">
                     <lucide-icon [img]="Check" class="w-4 h-4"></lucide-icon>
                     Approve
                   </button>
@@ -701,7 +699,7 @@ export class BookingRequestsComponent implements OnInit {
 
   bookingRequests: any[] = [];
   filteredRequests: any[] = [];
-  loading = false;
+  loading = true;
   showRejectModal = false;
   selectedRequest: any = null;
   rejectReason = '';
@@ -716,33 +714,71 @@ export class BookingRequestsComponent implements OnInit {
   ];
 
   constructor(
-    private ownerService: OwnerService,
+    private bookingService: BookingService,
+    private bookingStateService: BookingStateService,
     private toast: ToastService,
     public sidebarService: SidebarService,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
     this.loadBookingRequests();
-    this.updateFilters();
   }
 
   loadBookingRequests() {
     this.loading = true;
-    this.ownerService.getOwnerBookings().subscribe({
+    this.cdr.detectChanges();
+    
+    this.bookingService.getOwnerBookings().subscribe({
       next: (response) => {
-        this.bookingRequests = response.bookings || [];
+        this.bookingRequests = response.data?.bookings || [];
         this.loading = false;
         this.updateFilters();
         this.filterRequests();
+        this.cdr.detectChanges();
       },
       error: (error) => {
         console.error('Error loading booking requests:', error);
-        this.toast.error('Failed to load booking requests');
         this.bookingRequests = [];
         this.loading = false;
         this.updateFilters();
         this.filterRequests();
+        this.cdr.detectChanges();
+      }
+    });
+  }
+
+  approveBooking(bookingId: number) {
+    this.bookingService.updateBookingStatus(bookingId, 'Approved').subscribe({
+      next: () => {
+        this.toast.success('Booking approved successfully!');
+        this.loadBookingRequests();
+        
+        const booking = this.bookingRequests.find(b => b.id === bookingId);
+        if (booking) {
+          this.bookingStateService.updateBookingStatus(booking.property_id, 'Approved');
+        }
+      },
+      error: () => {
+        this.toast.error('Failed to approve booking');
+      }
+    });
+  }
+
+  rejectBooking(bookingId: number) {
+    this.bookingService.updateBookingStatus(bookingId, 'Rejected').subscribe({
+      next: () => {
+        this.toast.success('Booking rejected');
+        this.loadBookingRequests();
+        
+        const booking = this.bookingRequests.find(b => b.id === bookingId);
+        if (booking) {
+          this.bookingStateService.updateBookingStatus(booking.property_id, 'Rejected');
+        }
+      },
+      error: () => {
+        this.toast.error('Failed to reject booking');
       }
     });
   }
@@ -790,19 +826,6 @@ export class BookingRequestsComponent implements OnInit {
     return this.bookingRequests.filter(r => r.status === 'Rejected').length;
   }
 
-  updateBookingStatus(bookingId: number, status: string) {
-    this.ownerService.updateBookingStatus(bookingId, status).subscribe({
-      next: (response) => {
-        this.toast.success(`Booking ${status.toLowerCase()} successfully`);
-        this.loadBookingRequests(); // Reload to get updated data
-      },
-      error: (error) => {
-        console.error('Error updating booking status:', error);
-        this.toast.error(`Failed to ${status.toLowerCase()} booking`);
-      }
-    });
-  }
-
   getStatusClass(status: string): string {
     switch (status) {
       case 'Pending':
@@ -817,24 +840,13 @@ export class BookingRequestsComponent implements OnInit {
   }
 
   formatDate(dateString: string): string {
-    if (!dateString) return '';
-    return new Date(dateString).toLocaleDateString();
-  }
-
-  getPropertyImage(request: any): string {
-    return request.property_photos && request.property_photos.length > 0 
-      ? request.property_photos[0] 
-      : 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=400';
-  }
-
-  goToDashboard() {
-    this.router.navigate(['/owner/dashboard']);
-  }
-
-  openRejectModal(request: any) {
-    this.selectedRequest = request;
-    this.rejectReason = '';
-    this.showRejectModal = true;
+    if (!dateString) return 'N/A';
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric'
+    });
   }
 
   closeRejectModal() {
@@ -845,17 +857,8 @@ export class BookingRequestsComponent implements OnInit {
 
   confirmReject() {
     if (this.selectedRequest && this.rejectReason.trim()) {
-      this.ownerService.updateBookingStatus(this.selectedRequest.id, 'Rejected').subscribe({
-        next: (response) => {
-          this.toast.success('Booking rejected successfully');
-          this.closeRejectModal();
-          this.loadBookingRequests(); // Reload to get updated data
-        },
-        error: (error) => {
-          console.error('Error rejecting booking:', error);
-          this.toast.error('Failed to reject booking');
-        }
-      });
+      this.rejectBooking(this.selectedRequest.id);
+      this.closeRejectModal();
     }
   }
 }

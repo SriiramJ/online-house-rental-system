@@ -1,14 +1,7 @@
 import { Router } from "express";
 import { authMiddleware } from "../middlewares/auth.middleware.ts";
 import { roleMiddleware } from "../middlewares/role.middleware.ts";
-import { 
-  getOwnerDashboard, 
-  getOwnerProperties, 
-  getOwnerBookings, 
-  getOwnerTenants,
-  updateBookingStatus,
-  deleteOwnerProperty
-} from "../controllers/owner.controller.ts";
+import { ownerController } from "../controllers/owner.controller.ts";
 
 const router = Router();
 
@@ -17,11 +10,6 @@ router.use(authMiddleware);
 router.use(roleMiddleware(['OWNER']));
 
 // Dashboard routes
-router.get("/dashboard", getOwnerDashboard);
-router.get("/properties", getOwnerProperties);
-router.get("/bookings", getOwnerBookings);
-router.get("/tenants", getOwnerTenants);
-router.put("/bookings/:bookingId/status", updateBookingStatus);
-router.delete("/properties/:propertyId", deleteOwnerProperty);
+router.get("/dashboard", ownerController.getDashboardData);
 
 export default router;

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { NavbarComponent } from '../../../shared/navbar/navbar.component';
@@ -585,7 +585,7 @@ export class MyTenantsComponent implements OnInit {
   readonly DollarSign = DollarSign;
 
   tenants: any[] = [];
-  loading = false;
+  loading = true;
   sidebarItems: SidebarItem[] = [
     { label: 'Dashboard', route: '/owner/dashboard', icon: BarChart3 },
     { label: 'My Properties', route: '/owner/properties', icon: Home },
@@ -597,7 +597,8 @@ export class MyTenantsComponent implements OnInit {
     private ownerService: OwnerService,
     private toast: ToastService,
     public sidebarService: SidebarService,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
@@ -606,16 +607,19 @@ export class MyTenantsComponent implements OnInit {
 
   loadTenants() {
     this.loading = true;
+    this.cdr.detectChanges();
+    
     this.ownerService.getOwnerTenants().subscribe({
       next: (response) => {
         this.tenants = response.tenants || [];
         this.loading = false;
+        this.cdr.detectChanges();
       },
       error: (error) => {
         console.error('Error loading tenants:', error);
-        this.toast.error('Failed to load tenants');
         this.tenants = [];
         this.loading = false;
+        this.cdr.detectChanges();
       }
     });
   }

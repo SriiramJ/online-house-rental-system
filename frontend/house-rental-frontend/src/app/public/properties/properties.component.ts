@@ -1,14 +1,16 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { PropertyService, Property } from '../../core/services/property.service';
+import { BookingStateService } from '../../core/services/booking-state.service';
 import { ToastService } from '../../core/services/toast.service';
 import { LoaderComponent } from '../../shared/components/loader/loader.component';
 import { EmptyStateComponent } from '../../shared/components/empty-state/empty-state.component';
 import { NavbarComponent } from '../../shared/navbar/navbar.component';
 import { FooterComponent } from '../../shared/footer/footer.component';
 import { LucideAngularModule, Search, Filter, MapPin, Bed, Bath, AlertTriangle, Home, Building, Eye, DollarSign } from 'lucide-angular';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-properties',
@@ -26,11 +28,12 @@ import { LucideAngularModule, Search, Filter, MapPin, Bed, Bath, AlertTriangle, 
   templateUrl: './properties.component.html',
   styleUrls: ['./properties.component.scss']
 })
-export class PropertiesComponent implements OnInit {
+export class PropertiesComponent implements OnInit, OnDestroy {
   properties: Property[] = [];
   filteredProperties: Property[] = [];
   loading = false;
   error = '';
+  private destroy$ = new Subject<void>();
   
   // Search and filters
   searchTerm = '';
@@ -58,6 +61,7 @@ export class PropertiesComponent implements OnInit {
 
   constructor(
     private propertyService: PropertyService,
+    private bookingStateService: BookingStateService,
     private router: Router,
     private cdr: ChangeDetectorRef,
     private toast: ToastService
@@ -65,6 +69,27 @@ export class PropertiesComponent implements OnInit {
 
   ngOnInit() {
     this.loadProperties();
+    this.subscribeToBookingUpdates();
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  subscribeToBookingUpdates() {
+    this.bookingStateService.propertyUpdates$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(update => {
+        if (update) {
+          const property = this.properties.find(p => p.id === update.id);
+          if (property) {
+            property.is_available = update.is_available;
+            this.applyFilters();
+            this.cdr.detectChanges();
+          }
+        }
+      });
   }
 
   loadProperties() {

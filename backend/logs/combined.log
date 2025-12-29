@@ -527,3 +527,26 @@
 2025-12-28 22:14:08 [INFO]: Login attempt for email: sriram1@test.com
 2025-12-28 22:14:08 [INFO]: Fetching user by email: sriram1@test.com
 2025-12-28 22:14:08 [INFO]: Login successful for userId: 8
+2025-12-29 09:02:09 [INFO]: Server running on port 3001
+2025-12-29 09:02:09 [INFO]: MySQL database connected successfully
+2025-12-29 09:17:38 [INFO]: Login attempt for email: vishnu@test.com
+2025-12-29 09:17:38 [INFO]: Fetching user by email: vishnu@test.com
+2025-12-29 09:17:38 [INFO]: Login successful for userId: 10
+2025-12-29 10:04:24 [INFO]: Login attempt for email: sriram1@test.com
+2025-12-29 10:04:24 [INFO]: Fetching user by email: sriram1@test.com
+2025-12-29 10:04:24 [INFO]: Login successful for userId: 8
+2025-12-29 10:09:38 [INFO]: Login attempt for email: vishnu@test.com
+2025-12-29 10:09:38 [INFO]: Fetching user by email: vishnu@test.com
+2025-12-29 10:09:38 [INFO]: Login successful for userId: 10
+2025-12-29 13:36:13 [INFO]: Login attempt for email: sriram1@test.com
+2025-12-29 13:36:13 [INFO]: Fetching user by email: sriram1@test.com
+2025-12-29 13:36:13 [INFO]: Login successful for userId: 8
+2025-12-29 13:41:02 [INFO]: Login attempt for email: vishnu@test.com
+2025-12-29 13:41:02 [INFO]: Fetching user by email: vishnu@test.com
+2025-12-29 13:41:02 [INFO]: Login successful for userId: 10
+2025-12-29 13:45:58 [INFO]: Login attempt for email: sriram1@test.com
+2025-12-29 13:45:58 [INFO]: Fetching user by email: sriram1@test.com
+2025-12-29 13:45:58 [INFO]: Login successful for userId: 8
+2025-12-29 14:46:44 [INFO]: Login attempt for email: vishnu@test.com
+2025-12-29 14:46:44 [INFO]: Fetching user by email: vishnu@test.com
+2025-12-29 14:46:45 [INFO]: Login successful for userId: 10

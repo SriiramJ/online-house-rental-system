@@ -65,7 +65,23 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   isOnDashboardPage(): boolean {
     const url = this.router.url;
-    return url === '/dashboard' || url === '/owner/dashboard';
+    return url === '/dashboard' || url === '/owner/dashboard' || url === '/tenant/dashboard';
+  }
+
+  isOnPropertiesPage(): boolean {
+    return this.router.url === '/properties';
+  }
+
+  isOnLandingPage(): boolean {
+    return this.router.url === '/';
+  }
+
+  isOnBookingRequestsPage(): boolean {
+    return false;
+  }
+
+  isOnPropertyDetailsPage(): boolean {
+    return this.router.url.includes('/property-details');
   }
 
   @HostListener('document:click', ['$event'])
@@ -87,7 +103,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     if (this.authService.isOwner()) {
       this.router.navigate(['/owner/dashboard']);
     } else {
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(['/tenant/dashboard']);
     }
   }
 

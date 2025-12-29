@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { NavbarComponent } from '../../shared/navbar/navbar.component';
 import { FooterComponent } from '../../shared/footer/footer.component';
 
@@ -40,7 +40,15 @@ import { FooterComponent } from '../../shared/footer/footer.component';
   `]
 })
 export class MyBookingsComponent implements OnInit {
-  constructor() {}
+  constructor(private router: Router) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.loadBookings();
+  }
+
+  loadBookings() {
+    // This component is not being used - tenant-bookings is the main one
+    // Redirect to tenant-bookings
+    this.router.navigate(['/tenant/bookings']);
+  }
 }

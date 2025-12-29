@@ -114,4 +114,121 @@ export class TenantService {
       connection.release();
     }
   }
+
+  async getTenantBookings(userId: number) {
+    const connection = await db.getConnection();
+    
+    try {
+      const [rows] = await connection.execute(
+        `SELECT 
+          b.*,
+          p.title as property_title,
+          p.location as property_location,
+          p.rent,
+          p.photos as property_photos,
+          u.name as owner_name,
+          u.email as owner_email
+        FROM bookings b
+        JOIN properties p ON b.property_id = p.id
+        JOIN users u ON p.owner_id = u.id
+        WHERE b.tenant_id = ?
+        ORDER BY b.created_at DESC`,
+        [userId]
+      );
+      
+      return rows;
+    } catch (error: any) {
+      logger.error(`Error fetching tenant bookings: ${error.message}`);
+      return [];
+    } finally {
+      connection.release();
+    }
+  }
+
+  async getTenantStats(userId: number) {
+    const connection = await db.getConnection();
+    
+    try {
+      const [rows] = await connection.execute(
+        `SELECT 
+          COUNT(*) as totalBookings,
+          SUM(CASE WHEN status = 'Pending' THEN 1 ELSE 0 END) as pendingBookings,
+          SUM(CASE WHEN status = 'Approved' THEN 1 ELSE 0 END) as approvedBookings,
+          SUM(CASE WHEN status = 'Rejected' THEN 1 ELSE 0 END) as rejectedBookings
+        FROM bookings 
+        WHERE tenant_id = ?`,
+        [userId]
+      );
+      
+      const stats = (rows as any[])[0] || {
+        totalBookings: 0,
+        pendingBookings: 0,
+        approvedBookings: 0,
+        rejectedBookings: 0
+      };
+      
+      return {
+        totalBookings: Number(stats.totalBookings) || 0,
+        pendingBookings: Number(stats.pendingBookings) || 0,
+        approvedBookings: Number(stats.approvedBookings) || 0,
+        rejectedBookings: Number(stats.rejectedBookings) || 0
+      };
+    } catch (error: any) {
+      logger.error(`Error fetching tenant stats: ${error.message}`);
+      return {
+        totalBookings: 0,
+        pendingBookings: 0,
+        approvedBookings: 0,
+        rejectedBookings: 0
+      };
+    } finally {
+      connection.release();
+    }
+  }
+
+  async getTenantDashboard(userId: number) {
+    const connection = await db.getConnection();
+    
+    try {
+      // Get tenant stats
+      const stats = await this.getTenantStats(userId);
+      
+      // Get recent bookings
+      const [bookingsRows] = await connection.execute(
+        `SELECT 
+          b.*,
+          p.title as property_title,
+          p.location as property_location,
+          p.rent,
+          p.photos as property_photos,
+          u.name as owner_name,
+          u.email as owner_email
+        FROM bookings b
+        JOIN properties p ON b.property_id = p.id
+        JOIN users u ON p.owner_id = u.id
+        WHERE b.tenant_id = ?
+        ORDER BY b.id DESC
+        LIMIT 5`,
+        [userId]
+      );
+      
+      return {
+        stats,
+        recentBookings: bookingsRows || []
+      };
+    } catch (error: any) {
+      logger.error(`Error fetching tenant dashboard: ${error.message}`);
+      return {
+        stats: {
+          totalBookings: 0,
+          pendingBookings: 0,
+          approvedBookings: 0,
+          rejectedBookings: 0
+        },
+        recentBookings: []
+      };
+    } finally {
+      connection.release();
+    }
+  }
 }

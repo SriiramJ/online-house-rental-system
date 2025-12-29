@@ -195,3 +195,70 @@
 </div>
 
 <app-footer></app-footer>
+
+<!-- Booking Modal -->
+<div *ngIf="showBookingModal" class="modal-overlay" (click)="closeBookingModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2 class="modal-title">Book Property</h2>
+      <button (click)="closeBookingModal()" class="close-btn">
+        <lucide-icon [img]="X" class="close-icon"></lucide-icon>
+      </button>
+    </div>
+    
+    <div class="modal-body">
+      <div class="property-summary">
+        <h3 class="property-name">{{ property?.title }}</h3>
+        <div class="property-location">
+          <lucide-icon [img]="MapPin" class="location-icon"></lucide-icon>
+          <span>{{ property?.location }}</span>
+        </div>
+      </div>
+      
+      <form>
+        <div class="form-group">
+          <label for="moveInDate" class="form-label">
+            <lucide-icon [img]="Calendar" class="label-icon"></lucide-icon>
+            Move-in Date *
+          </label>
+          <input 
+            type="date" 
+            id="moveInDate"
+            name="moveInDate"
+            [(ngModel)]="bookingForm.moveInDate"
+            [min]="getTomorrowDate()"
+            class="form-input"
+            required
+          />
+        </div>
+        
+        <div class="form-group">
+          <label for="message" class="form-label">Message to Owner (Optional)</label>
+          <textarea 
+            id="message"
+            name="message"
+            [(ngModel)]="bookingForm.message"
+            class="form-textarea"
+            rows="4"
+            placeholder="Introduce yourself and explain why you'd like to rent this property"
+          ></textarea>
+        </div>
+        
+        <div class="modal-actions">
+          <button type="button" (click)="closeBookingModal()" class="btn btn-outline">
+            Cancel
+          </button>
+          <button 
+            type="button" 
+            (click)="submitBooking()"
+            class="btn btn-primary"
+            [disabled]="submittingBooking || !bookingForm.moveInDate"
+          >
+            <span *ngIf="!submittingBooking">Submit Booking</span>
+            <span *ngIf="submittingBooking">Submitting...</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

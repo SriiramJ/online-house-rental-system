@@ -4,51 +4,47 @@ import { RouterModule, Router } from '@angular/router';
 import { NavbarComponent } from '../../shared/navbar/navbar.component';
 import { FooterComponent } from '../../shared/footer/footer.component';
 import { SidebarComponent, SidebarItem } from '../../shared/shared/sidebar/sidebar.component';
-import { OwnerService } from '../../core/services/owner.service';
 import { AuthService } from '../../core/services/auth.service';
+import { TenantService } from '../../core/services/tenant.service';
 import { SidebarService } from '../../core/services/sidebar.service';
-import { ToastService } from '../../core/services/toast.service';
-import { LucideAngularModule, Plus, Home, Users, Calendar, DollarSign, TrendingUp, Eye, Menu, BarChart3 } from 'lucide-angular';
+import { LucideAngularModule, Search, Calendar, Home, BarChart3, Eye, X } from 'lucide-angular';
 
 @Component({
-  selector: 'app-owner-dashboard',
+  selector: 'app-tenant-dashboard',
   standalone: true,
   imports: [CommonModule, RouterModule, NavbarComponent, FooterComponent, SidebarComponent, LucideAngularModule],
   template: `
     <app-navbar></app-navbar>
     
     <div class="dashboard-container">
-      <!-- Sidebar Toggle Button -->
       <app-sidebar 
-        title="Owner Dashboard" 
+        title="Tenant Dashboard" 
         [items]="sidebarItems" 
         [isOpen]="(sidebarService.sidebarOpen$ | async) ?? false"
-        [toggleIcon]="Menu"
+        [toggleIcon]="BarChart3"
         (toggle)="sidebarService.toggle()">
       </app-sidebar>
 
-      <!-- Main Content -->
       <div class="main-content" [class.sidebar-open]="(sidebarService.sidebarOpen$ | async) ?? false">
         <div class="content-header">
           <div class="greeting-section">
             <h1>{{getGreeting()}}</h1>
-            <p>Welcome back to your dashboard</p>
+            <p>Welcome to your tenant dashboard</p>
           </div>
-          <button class="add-property-btn" (click)="navigateToAddProperty()">
-            <lucide-icon [img]="Plus" class="btn-icon"></lucide-icon>
-            Add Property
+          <button class="browse-btn" (click)="navigateToBrowse()">
+            <lucide-icon [img]="Search" class="btn-icon"></lucide-icon>
+            Browse Properties
           </button>
         </div>
 
-        <!-- Statistics Cards -->
         <div class="stats-grid">
           <div class="stat-card">
             <div class="stat-icon stat-primary">
-              <lucide-icon [img]="Home"></lucide-icon>
+              <lucide-icon [img]="BarChart3"></lucide-icon>
             </div>
             <div class="stat-content">
-              <h3>{{dashboardData?.stats?.totalProperties || 0}}</h3>
-              <p>Total Properties</p>
+              <h3>{{dashboardData.totalBookings || 0}}</h3>
+              <p>Total Bookings</p>
             </div>
           </div>
           
@@ -57,82 +53,59 @@ import { LucideAngularModule, Plus, Home, Users, Calendar, DollarSign, TrendingU
               <lucide-icon [img]="Calendar"></lucide-icon>
             </div>
             <div class="stat-content">
-              <h3>{{dashboardData?.stats?.pendingRequests || 0}}</h3>
-              <p>Pending Requests</p>
+              <h3>{{dashboardData.pendingBookings || 0}}</h3>
+              <p>Pending</p>
             </div>
           </div>
           
           <div class="stat-card">
             <div class="stat-icon stat-success">
-              <lucide-icon [img]="Users"></lucide-icon>
+              <lucide-icon [img]="Home"></lucide-icon>
             </div>
             <div class="stat-content">
-              <h3>{{dashboardData?.stats?.activeTenants || 0}}</h3>
-              <p>Active Tenants</p>
+              <h3>{{dashboardData.approvedBookings || 0}}</h3>
+              <p>Approved</p>
             </div>
           </div>
           
           <div class="stat-card">
-            <div class="stat-icon stat-info">
-              <lucide-icon [img]="DollarSign"></lucide-icon>
+            <div class="stat-icon stat-danger">
+              <lucide-icon [img]="X"></lucide-icon>
             </div>
             <div class="stat-content">
-              <h3>\${{dashboardData?.stats?.monthlyRevenue || 0}}</h3>
-              <p>Monthly Revenue</p>
+              <h3>{{dashboardData.rejectedBookings || 0}}</h3>
+              <p>Rejected</p>
             </div>
           </div>
         </div>
 
-        <!-- Recent Sections -->
         <div class="dashboard-sections">
-          <!-- Recent Booking Requests -->
           <div class="section-card">
             <div class="section-header">
-              <h2>Recent Booking Requests</h2>
-              <button class="view-all-btn" (click)="viewAllBookings()">
+              <h2>Recent Bookings</h2>
+              <button class="view-all-btn" (click)="navigateToBookings()">
                 <lucide-icon [img]="Eye" class="btn-icon"></lucide-icon>
                 View All
               </button>
             </div>
             <div class="section-content">
-              <div *ngIf="dashboardData?.recentBookings?.length === 0" class="empty-state">
-                No recent booking requests
-              </div>
-              <div *ngFor="let booking of dashboardData?.recentBookings" class="booking-item">
-                <div class="booking-info">
-                  <h4>{{booking.property_title}}</h4>
-                  <p>{{booking.tenant_name}} - {{booking.tenant_email}}</p>
-                  <span class="booking-date">{{formatDate(booking.created_at)}}</span>
-                </div>
-                <div class="booking-status status-{{booking.status.toLowerCase()}}">
-                  {{booking.status}}
-                </div>
+              <div class="empty-state">
+                No recent bookings
               </div>
             </div>
           </div>
 
-          <!-- Recent Tenants -->
           <div class="section-card">
             <div class="section-header">
-              <h2>Recent Tenants</h2>
-              <button class="view-all-btn" (click)="navigateToTenants()">
+              <h2>Recommended Properties</h2>
+              <button class="view-all-btn" (click)="navigateToBrowse()">
                 <lucide-icon [img]="Eye" class="btn-icon"></lucide-icon>
-                View All
+                Browse All
               </button>
             </div>
             <div class="section-content">
-              <div *ngIf="dashboardData?.recentTenants?.length === 0" class="empty-state">
-                No tenants yet
-              </div>
-              <div *ngFor="let tenant of dashboardData?.recentTenants" class="tenant-item">
-                <div class="tenant-info">
-                  <h4>{{tenant.name}}</h4>
-                  <p>{{tenant.email}}</p>
-                  <span class="tenant-property">{{tenant.property_title}}</span>
-                </div>
-                <div class="tenant-date">
-                  {{formatDate(tenant.move_in_date)}}
-                </div>
+              <div class="empty-state">
+                Browse properties to see recommendations
               </div>
             </div>
           </div>
@@ -143,26 +116,27 @@ import { LucideAngularModule, Plus, Home, Users, Calendar, DollarSign, TrendingU
           <div class="quick-actions-card">
             <h2>Quick Actions</h2>
             <div class="quick-actions-grid">
-              <button class="quick-action-btn" (click)="navigateToAddProperty()">
-                <lucide-icon [img]="Plus" class="action-icon"></lucide-icon>
+              <button class="quick-action-btn primary" (click)="navigateToBrowse()">
+                <lucide-icon [img]="Search" class="action-icon"></lucide-icon>
                 <div class="action-content">
-                  <span class="action-title">Add New Property</span>
-                  <span class="action-description">List a new property for rent</span>
+                  <span class="action-title">Browse Properties</span>
+                  <span class="action-description">Find your perfect rental home</span>
                 </div>
               </button>
-              <button class="quick-action-btn" (click)="viewAllBookings()">
+              <button class="quick-action-btn secondary" (click)="navigateToBookings()">
                 <lucide-icon [img]="Calendar" class="action-icon"></lucide-icon>
                 <div class="action-content">
-                  <span class="action-title">Review Requests</span>
-                  <span class="action-description">Approve or reject bookings</span>
+                  <span class="action-title">View My Bookings</span>
+                  <span class="action-description">Track your booking requests</span>
                 </div>
               </button>
-              <button class="quick-action-btn" (click)="navigateToTenants()">
-                <lucide-icon [img]="Users" class="action-icon"></lucide-icon>
-                <div class="action-content">
-                  <span class="action-title">Manage Tenants</span>
-                  <span class="action-description">View and contact tenants</span>
-                </div>
+            </div>
+            
+            <div class="help-section">
+              <h3>Need Help?</h3>
+              <p>Contact our support team for assistance with your bookings.</p>
+              <button class="help-btn" (click)="getSupport()">
+                Get Support →
               </button>
             </div>
           </div>
@@ -180,8 +154,6 @@ import { LucideAngularModule, Plus, Home, Users, Calendar, DollarSign, TrendingU
       padding-top: 70px;
       position: relative;
     }
-
-
 
     .main-content {
       flex: 1;
@@ -219,25 +191,22 @@ import { LucideAngularModule, Plus, Home, Users, Calendar, DollarSign, TrendingU
       margin: 0.25rem 0 0 0;
     }
 
-    .add-property-btn {
+    .browse-btn {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      white-space: nowrap;
-      border-radius: 0.375rem;
-      font-size: 0.875rem;
-      font-weight: 700;
-      transition: all 0.15s ease-in-out;
-      outline: none;
-      cursor: pointer;
-      border: none;
-      height: 2.25rem;
       padding: 0.5rem 1rem;
       background-color: #4f46e5;
       color: white;
+      border: none;
+      border-radius: 0.375rem;
+      font-size: 0.875rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s ease-in-out;
     }
 
-    .add-property-btn:hover {
+    .browse-btn:hover {
       background-color: #4338ca;
     }
 
@@ -275,7 +244,7 @@ import { LucideAngularModule, Plus, Home, Users, Calendar, DollarSign, TrendingU
     .stat-primary { background: #ddd6fe; color: #4f46e5; }
     .stat-warning { background: #fef3c7; color: #d97706; }
     .stat-success { background: #d1fae5; color: #059669; }
-    .stat-info { background: #dbeafe; color: #2563eb; }
+    .stat-danger { background: #fee2e2; color: #dc2626; }
 
     .stat-content h3 {
       font-size: 1.875rem;
@@ -345,49 +314,10 @@ import { LucideAngularModule, Plus, Home, Users, Calendar, DollarSign, TrendingU
       padding: 2rem;
     }
 
-    .booking-item, .tenant-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem;
-      border-bottom: 1px solid #f3f4f6;
-    }
-
-    .booking-item:last-child, .tenant-item:last-child {
-      border-bottom: none;
-    }
-
-    .booking-info h4, .tenant-info h4 {
-      font-weight: 600;
-      color: #111827;
-      margin: 0 0 0.25rem 0;
-    }
-
-    .booking-info p, .tenant-info p {
-      color: #6b7280;
-      margin: 0 0 0.25rem 0;
-      font-size: 0.875rem;
-    }
-
-    .booking-date, .tenant-property {
-      font-size: 0.75rem;
-      color: #9ca3af;
-    }
-
-    .booking-status {
-      padding: 0.25rem 0.75rem;
-      border-radius: 9999px;
-      font-size: 0.75rem;
-      font-weight: 500;
-    }
-
-    .status-pending { background: #fef3c7; color: #d97706; }
-    .status-approved { background: #d1fae5; color: #059669; }
-    .status-rejected { background: #fee2e2; color: #dc2626; }
-
-    .tenant-date {
-      font-size: 0.875rem;
-      color: #6b7280;
+    @media (max-width: 768px) {
+      .dashboard-sections {
+        grid-template-columns: 1fr;
+      }
     }
 
     .quick-actions-section {
@@ -412,6 +342,7 @@ import { LucideAngularModule, Plus, Home, Users, Calendar, DollarSign, TrendingU
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 1rem;
+      margin-bottom: 2rem;
     }
 
     .quick-action-btn {
@@ -419,8 +350,6 @@ import { LucideAngularModule, Plus, Home, Users, Calendar, DollarSign, TrendingU
       align-items: center;
       gap: 1rem;
       padding: 1.5rem;
-      background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
-      color: white;
       border: none;
       border-radius: 0.75rem;
       cursor: pointer;
@@ -429,8 +358,24 @@ import { LucideAngularModule, Plus, Home, Users, Calendar, DollarSign, TrendingU
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 
-    .quick-action-btn:hover {
+    .quick-action-btn.primary {
+      background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+      color: white;
+    }
+
+    .quick-action-btn.primary:hover {
       background: linear-gradient(135deg, #4338ca 0%, #6d28d9 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .quick-action-btn.secondary {
+      background: white;
+      color: #374151;
+    }
+
+    .quick-action-btn.secondary:hover {
+      background: #f9fafb;
       transform: translateY(-2px);
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
     }
@@ -457,45 +402,69 @@ import { LucideAngularModule, Plus, Home, Users, Calendar, DollarSign, TrendingU
       opacity: 0.9;
     }
 
-    @media (max-width: 768px) {
-      .dashboard-container {
-        flex-direction: column;
-      }
-      
-      .sidebar {
-        width: 100%;
-      }
-      
-      .dashboard-sections {
-        grid-template-columns: 1fr;
-      }
+    .help-section {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .help-section h3 {
+      color: white;
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin: 0 0 0.5rem 0;
+    }
+
+    .help-section p {
+      color: rgba(255, 255, 255, 0.9);
+      margin: 0 0 1rem 0;
+      font-size: 0.875rem;
+    }
+
+    .help-btn {
+      background: white;
+      color: #4f46e5;
+      border: none;
+      border-radius: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .help-btn:hover {
+      background: #f8fafc;
+      transform: translateY(-1px);
     }
   `]
 })
-export class OwnerDashboardComponent implements OnInit {
-  dashboardData: any = null;
+export class TenantDashboardComponent implements OnInit {
+  dashboardData: any = {
+    totalBookings: 0,
+    pendingBookings: 0,
+    approvedBookings: 0,
+    rejectedBookings: 0
+  };
   loading = false;
+
   sidebarItems: SidebarItem[] = [
-    { label: 'Dashboard', route: '/owner/dashboard', icon: BarChart3 },
-    { label: 'My Properties', route: '/owner/properties', icon: Home },
-    { label: 'My Tenants', route: '/owner/tenants', icon: Users }
+    { label: 'Dashboard', route: '/tenant/dashboard', icon: BarChart3 },
+    { label: 'Browse Properties', route: '/properties', icon: Search },
+    { label: 'My Bookings', route: '/tenant/bookings', icon: Calendar }
   ];
 
-  readonly Plus = Plus;
-  readonly Home = Home;
-  readonly Users = Users;
+  readonly Search = Search;
   readonly Calendar = Calendar;
-  readonly DollarSign = DollarSign;
-  readonly TrendingUp = TrendingUp;
-  readonly Eye = Eye;
-  readonly Menu = Menu;
+  readonly Home = Home;
   readonly BarChart3 = BarChart3;
+  readonly Eye = Eye;
+  readonly X = X;
 
   constructor(
-    private ownerService: OwnerService,
     private router: Router,
-    private toast: ToastService,
     private authService: AuthService,
+    private tenantService: TenantService,
     public sidebarService: SidebarService,
     private cdr: ChangeDetectorRef
   ) {}
@@ -504,51 +473,37 @@ export class OwnerDashboardComponent implements OnInit {
     this.loadDashboardData();
   }
 
-  ionViewWillEnter() {
-    this.loadDashboardData();
-  }
-
   loadDashboardData() {
     this.loading = true;
-    this.ownerService.getDashboardData().subscribe({
+    this.tenantService.getTenantDashboard().subscribe({
       next: (response) => {
-        this.dashboardData = response.data;
-        this.loading = false;
-        this.cdr.markForCheck();
-      },
-      error: (error) => {
-        console.error('Dashboard error:', error);
-        this.dashboardData = {
-          stats: {
-            totalProperties: 0,
-            pendingRequests: 0,
-            activeTenants: 0,
-            monthlyRevenue: 0
-          },
-          recentBookings: [],
-          recentTenants: []
+        this.dashboardData = response.data?.stats || {
+          totalBookings: 0,
+          pendingBookings: 0,
+          approvedBookings: 0,
+          rejectedBookings: 0
         };
         this.loading = false;
-        this.cdr.markForCheck();
+        this.cdr.detectChanges();
+      },
+      error: (error) => {
+        console.error('Error loading dashboard data:', error);
+        this.loading = false;
+        this.cdr.detectChanges();
       }
     });
   }
 
-  navigateToAddProperty() {
-    this.router.navigate(['/owner/add-property']);
+  navigateToBrowse() {
+    this.router.navigate(['/properties']);
   }
 
-  viewAllBookings() {
-    // Since booking requests page is removed, show toast message
-    this.toast.info('Booking requests are now managed through the dashboard');
+  navigateToBookings() {
+    this.router.navigate(['/tenant/bookings']);
   }
 
-  navigateToTenants() {
-    this.router.navigate(['/owner/tenants']);
-  }
-
-  formatDate(dateString: string): string {
-    return new Date(dateString).toLocaleDateString();
+  getSupport() {
+    this.router.navigate(['/help-center']);
   }
 
   getGreeting(): string {
