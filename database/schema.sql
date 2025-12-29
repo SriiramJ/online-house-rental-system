@@ -112,6 +112,16 @@ CREATE TABLE IF NOT EXISTS bookings (
   FOREIGN KEY (tenant_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
+-- Add missing columns to existing bookings table
+SET @sql = (SELECT IF(
+    (SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name='bookings' AND column_name='created_at' AND table_schema='house_rental_db') > 0,
+    'SELECT "created_at column exists"',
+    'ALTER TABLE bookings ADD COLUMN created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP'
+));
+PREPARE stmt FROM @sql;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
+
 -- =====================================================
 -- TENANTS TABLE
 -- =====================================================

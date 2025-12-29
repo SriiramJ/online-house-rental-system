@@ -7,6 +7,7 @@ import { FooterComponent } from '../../shared/footer/footer.component';
 import { ButtonComponent } from '../../shared/button/button.component';
 import { OwnerService } from '../../core/services/owner.service';
 import { ToastService } from '../../core/services/toast.service';
+import { PropertyStateService } from '../../core/services/property-state.service';
 import { LucideAngularModule, Upload, X, Plus, ArrowLeft } from 'lucide-angular';
 
 @Component({
@@ -412,7 +413,8 @@ export class AddPropertyComponent {
     private ownerService: OwnerService,
     private router: Router,
     private route: ActivatedRoute,
-    private toast: ToastService
+    private toast: ToastService,
+    private propertyStateService: PropertyStateService
   ) {
     const id = this.route.snapshot.paramMap.get('id');
     this.isEditMode = !!id;
@@ -514,14 +516,21 @@ export class AddPropertyComponent {
     this.ownerService.addProperty(propertyData).subscribe({
       next: (response) => {
         this.loading = false;
-        this.toast.success('Property added successfully!');
+        console.log('Property added successfully:', response);
+        this.toast.success('Property added successfully! Redirecting to dashboard...');
+        
+        // Trigger updates for dashboard and properties list
+        console.log('Triggering state updates...');
+        this.propertyStateService.triggerAllUpdates();
+        
         // Reset form
         this.resetForm();
         form.resetForm();
-        // Navigate back to properties page
+        
+        // Navigate to dashboard to see updated stats
         setTimeout(() => {
-          this.router.navigate(['/owner/properties']);
-        }, 1500);
+          this.router.navigate(['/owner/dashboard']);
+        }, 1000);
       },
       error: (error) => {
         this.loading = false;
@@ -572,6 +581,8 @@ export class AddPropertyComponent {
   }
 
   goToDashboard() {
+    // Trigger updates before navigating to ensure fresh data
+    this.propertyStateService.triggerAllUpdates();
     this.router.navigate(['/owner/dashboard']);
   }
 

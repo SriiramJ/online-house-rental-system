@@ -137,3 +137,10 @@
 2025-12-28 21:23:36 [ERROR]: Error creating property: Unknown column 'bedrooms' in 'field list'
 2025-12-28 21:23:36 [ERROR]: Error in createProperty: Failed to create property
 2025-12-28 22:07:25 [ERROR]: Login failed: User not found
+2025-12-29 21:28:58 [ERROR]: Login failed: User not found
+2025-12-29 21:29:26 [ERROR]: Login failed: Invalid password
+2025-12-29 21:29:39 [ERROR]: Login failed: Invalid password
+2025-12-29 21:33:13 [ERROR]: JWT verification failed: invalid signature
+2025-12-29 21:39:29 [ERROR]: Error creating booking: Unknown column 'move_in_date' in 'field list'
+2025-12-29 21:44:28 [ERROR]: Error creating booking: Unknown column 'move_in_date' in 'field list'
+2025-12-29 21:44:58 [ERROR]: Error creating booking: Unknown column 'move_in_date' in 'field list'

@@ -4,6 +4,7 @@ import { RouterModule, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { PropertyService, Property } from '../../core/services/property.service';
 import { BookingStateService } from '../../core/services/booking-state.service';
+import { PropertyStateService } from '../../core/services/property-state.service';
 import { ToastService } from '../../core/services/toast.service';
 import { LoaderComponent } from '../../shared/components/loader/loader.component';
 import { EmptyStateComponent } from '../../shared/components/empty-state/empty-state.component';
@@ -62,6 +63,7 @@ export class PropertiesComponent implements OnInit, OnDestroy {
   constructor(
     private propertyService: PropertyService,
     private bookingStateService: BookingStateService,
+    private propertyStateService: PropertyStateService,
     private router: Router,
     private cdr: ChangeDetectorRef,
     private toast: ToastService
@@ -70,11 +72,20 @@ export class PropertiesComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.loadProperties();
     this.subscribeToBookingUpdates();
+    this.subscribeToPropertyUpdates();
   }
 
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  subscribeToPropertyUpdates() {
+    this.propertyStateService.propertiesUpdated$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.loadProperties();
+      });
   }
 
   subscribeToBookingUpdates() {

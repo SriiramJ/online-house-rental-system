@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -7,9 +7,11 @@ import { FooterComponent } from '../../../shared/footer/footer.component';
 import { SidebarComponent, SidebarItem } from '../../../shared/shared/sidebar/sidebar.component';
 import { BookingService } from '../../../core/services/booking.service';
 import { BookingStateService } from '../../../core/services/booking-state.service';
+import { PropertyStateService } from '../../../core/services/property-state.service';
 import { SidebarService } from '../../../core/services/sidebar.service';
 import { ToastService } from '../../../core/services/toast.service';
 import { LucideAngularModule, Check, X, Clock, User, ArrowLeft, Menu, BarChart3, Home, Calendar, Users, Mail, Phone, MapPin, MessageSquare } from 'lucide-angular';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-booking-requests',
@@ -681,7 +683,7 @@ import { LucideAngularModule, Check, X, Clock, User, ArrowLeft, Menu, BarChart3,
     }
   `]
 })
-export class BookingRequestsComponent implements OnInit {
+export class BookingRequestsComponent implements OnInit, OnDestroy {
   readonly Check = Check;
   readonly X = X;
   readonly Clock = Clock;
@@ -705,6 +707,7 @@ export class BookingRequestsComponent implements OnInit {
   rejectReason = '';
   activeFilter = 'All';
   filters: any[] = [];
+  private subscriptions: Subscription[] = [];
   
   sidebarItems: SidebarItem[] = [
     { label: 'Dashboard', route: '/owner/dashboard', icon: BarChart3 },
@@ -716,6 +719,7 @@ export class BookingRequestsComponent implements OnInit {
   constructor(
     private bookingService: BookingService,
     private bookingStateService: BookingStateService,
+    private propertyStateService: PropertyStateService,
     private toast: ToastService,
     public sidebarService: SidebarService,
     private router: Router,
@@ -726,13 +730,17 @@ export class BookingRequestsComponent implements OnInit {
     this.loadBookingRequests();
   }
 
+  ngOnDestroy() {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
+  }
+
   loadBookingRequests() {
     this.loading = true;
     this.cdr.detectChanges();
     
     this.bookingService.getOwnerBookings().subscribe({
       next: (response) => {
-        this.bookingRequests = response.data?.bookings || [];
+        this.bookingRequests = response.bookings || [];
         this.loading = false;
         this.updateFilters();
         this.filterRequests();
@@ -759,6 +767,9 @@ export class BookingRequestsComponent implements OnInit {
         if (booking) {
           this.bookingStateService.updateBookingStatus(booking.property_id, 'Approved');
         }
+        
+        // Trigger dashboard update to reflect new tenant/revenue data
+        this.propertyStateService.triggerDashboardUpdate();
       },
       error: () => {
         this.toast.error('Failed to approve booking');
@@ -767,20 +778,8 @@ export class BookingRequestsComponent implements OnInit {
   }
 
   rejectBooking(bookingId: number) {
-    this.bookingService.updateBookingStatus(bookingId, 'Rejected').subscribe({
-      next: () => {
-        this.toast.success('Booking rejected');
-        this.loadBookingRequests();
-        
-        const booking = this.bookingRequests.find(b => b.id === bookingId);
-        if (booking) {
-          this.bookingStateService.updateBookingStatus(booking.property_id, 'Rejected');
-        }
-      },
-      error: () => {
-        this.toast.error('Failed to reject booking');
-      }
-    });
+    this.selectedRequest = this.bookingRequests.find(b => b.id === bookingId);
+    this.showRejectModal = true;
   }
 
   updateFilters() {
@@ -857,8 +856,19 @@ export class BookingRequestsComponent implements OnInit {
 
   confirmReject() {
     if (this.selectedRequest && this.rejectReason.trim()) {
-      this.rejectBooking(this.selectedRequest.id);
-      this.closeRejectModal();
+      this.bookingService.updateBookingStatus(this.selectedRequest.id, 'Rejected', this.rejectReason).subscribe({
+        next: () => {
+          this.toast.success('Booking rejected');
+          this.loadBookingRequests();
+          this.bookingStateService.updateBookingStatus(this.selectedRequest.property_id, 'Rejected');
+          this.propertyStateService.triggerDashboardUpdate();
+          this.closeRejectModal();
+        },
+        error: () => {
+          this.toast.error('Failed to reject booking');
+          this.closeRejectModal();
+        }
+      });
     }
   }
 }

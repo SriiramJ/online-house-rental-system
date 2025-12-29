@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { NavbarComponent } from '../../../shared/navbar/navbar.component';
@@ -7,7 +7,9 @@ import { SidebarComponent, SidebarItem } from '../../../shared/shared/sidebar/si
 import { OwnerService } from '../../../core/services/owner.service';
 import { SidebarService } from '../../../core/services/sidebar.service';
 import { ToastService } from '../../../core/services/toast.service';
+import { PropertyStateService } from '../../../core/services/property-state.service';
 import { LucideAngularModule, User, Phone, Mail, MapPin, Calendar, ArrowLeft, Menu, BarChart3, Home, Users, DollarSign } from 'lucide-angular';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-my-tenants',
@@ -571,7 +573,7 @@ import { LucideAngularModule, User, Phone, Mail, MapPin, Calendar, ArrowLeft, Me
     }
   `]
 })
-export class MyTenantsComponent implements OnInit {
+export class MyTenantsComponent implements OnInit, OnDestroy {
   readonly User = User;
   readonly Phone = Phone;
   readonly Mail = Mail;
@@ -586,6 +588,7 @@ export class MyTenantsComponent implements OnInit {
 
   tenants: any[] = [];
   loading = true;
+  private subscriptions: Subscription[] = [];
   sidebarItems: SidebarItem[] = [
     { label: 'Dashboard', route: '/owner/dashboard', icon: BarChart3 },
     { label: 'My Properties', route: '/owner/properties', icon: Home },
@@ -598,11 +601,24 @@ export class MyTenantsComponent implements OnInit {
     private toast: ToastService,
     public sidebarService: SidebarService,
     private router: Router,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private propertyStateService: PropertyStateService
   ) {}
 
   ngOnInit() {
     this.loadTenants();
+    this.setupPropertyStateListener();
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
+  }
+
+  private setupPropertyStateListener() {
+    const dashboardSub = this.propertyStateService.dashboardUpdated$.subscribe(() => {
+      this.loadTenants();
+    });
+    this.subscriptions.push(dashboardSub);
   }
 
   loadTenants() {

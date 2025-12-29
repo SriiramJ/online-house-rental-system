@@ -475,14 +475,17 @@ export class TenantDashboardComponent implements OnInit {
 
   loadDashboardData() {
     this.loading = true;
+    console.log('Loading tenant dashboard data...');
     this.tenantService.getTenantDashboard().subscribe({
       next: (response) => {
+        console.log('Tenant dashboard response:', response);
         this.dashboardData = response.data?.stats || {
           totalBookings: 0,
           pendingBookings: 0,
           approvedBookings: 0,
           rejectedBookings: 0
         };
+        console.log('Dashboard data set to:', this.dashboardData);
         this.loading = false;
         this.cdr.detectChanges();
       },

@@ -36,14 +36,15 @@ export class BookingService {
   }
 
   getTenantBookings(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/tenant`);
+    return this.http.get('http://localhost:3001/api/bookings/tenant');
   }
 
   getOwnerBookings(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/owner`);
+    return this.http.get('http://localhost:3001/api/owner/bookings');
   }
 
-  updateBookingStatus(bookingId: number, status: string): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${bookingId}/status`, { status });
+  updateBookingStatus(bookingId: number, status: string, reason?: string): Observable<any> {
+    const body = reason ? { status, rejection_reason: reason } : { status };
+    return this.http.put(`http://localhost:3001/api/owner/bookings/${bookingId}/status`, body);
   }
 }

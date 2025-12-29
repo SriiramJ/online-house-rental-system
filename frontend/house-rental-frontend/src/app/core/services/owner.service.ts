@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { tap, catchError } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
-import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,53 +10,53 @@ import { AuthService } from './auth.service';
 export class OwnerService {
   private apiUrl = `${environment.apiUrl}/owner`;
 
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  constructor(private http: HttpClient) {}
 
-  private getHeaders(): HttpHeaders {
-    const token = this.authService.getToken();
+  private getJsonHeaders(): HttpHeaders {
     return new HttpHeaders({
-      'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json'
     });
   }
 
-  private getUploadHeaders(): HttpHeaders {
-    const token = this.authService.getToken();
-    return new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-      // Don't set Content-Type for FormData, let browser set it
-    });
-  }
-
   getDashboardData(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/dashboard`, { headers: this.getHeaders() });
+    return this.http.get(`${this.apiUrl}/dashboard`).pipe(
+      catchError(error => {
+        console.error('Dashboard API error:', error);
+        throw error;
+      })
+    );
   }
 
   getOwnerProperties(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/properties`, { headers: this.getHeaders() });
+    return this.http.get(`${this.apiUrl}/properties`).pipe(
+      catchError(error => {
+        console.error('Properties API error:', error);
+        throw error;
+      })
+    );
   }
 
   getOwnerBookings(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/bookings`, { headers: this.getHeaders() });
+    return this.http.get(`${this.apiUrl}/bookings`);
   }
 
   getOwnerTenants(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/tenants`, { headers: this.getHeaders() });
+    return this.http.get(`${this.apiUrl}/tenants`);
   }
 
   updateBookingStatus(bookingId: number, status: string): Observable<any> {
-    return this.http.put(`${this.apiUrl}/bookings/${bookingId}/status`, { status }, { headers: this.getHeaders() });
+    return this.http.put(`${this.apiUrl}/bookings/${bookingId}/status`, { status }, { headers: this.getJsonHeaders() });
   }
 
   addProperty(propertyData: any): Observable<any> {
-    return this.http.post(`${environment.apiUrl}/properties`, propertyData, { headers: this.getHeaders() });
+    return this.http.post(`${environment.apiUrl}/properties`, propertyData, { headers: this.getJsonHeaders() });
   }
 
   deleteProperty(propertyId: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/properties/${propertyId}`, { headers: this.getHeaders() });
+    return this.http.delete(`${this.apiUrl}/properties/${propertyId}`);
   }
 
   uploadPropertyImages(formData: FormData): Observable<any> {
-    return this.http.post(`${environment.apiUrl}/properties/upload-images`, formData, { headers: this.getUploadHeaders() });
+    return this.http.post(`${environment.apiUrl}/properties/upload-images`, formData);
   }
 }

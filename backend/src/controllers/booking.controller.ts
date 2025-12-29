@@ -8,7 +8,7 @@ export const createBooking = async (req: Request, res: Response) => {
   console.log('User from token:', req.user);
   
   try {
-    const userId = req.user?.id;
+    const userId = req.user?.userId;
     console.log('User ID extracted:', userId);
     
     if (!userId) {
@@ -45,7 +45,7 @@ export const createBooking = async (req: Request, res: Response) => {
 
 export const getTenantBookings = async (req: Request, res: Response) => {
   try {
-    const userId = req.user?.id;
+    const userId = req.user?.userId;
     if (!userId) {
       return res.status(401).json({ error: 'Unauthorized' });
     }
@@ -61,7 +61,7 @@ export const getTenantBookings = async (req: Request, res: Response) => {
 
 export const getOwnerBookings = async (req: Request, res: Response) => {
   try {
-    const userId = req.user?.id;
+    const userId = req.user?.userId;
     if (!userId) {
       return res.status(401).json({ error: 'Unauthorized' });
     }
@@ -77,7 +77,7 @@ export const getOwnerBookings = async (req: Request, res: Response) => {
 
 export const updateBookingStatus = async (req: Request, res: Response) => {
   try {
-    const userId = req.user?.id;
+    const userId = req.user?.userId;
     const bookingId = parseInt(req.params.id);
     const { status } = req.body;
 

@@ -10,12 +10,14 @@ export class TenantController {
 
   async getTenantBookings(req: Request, res: Response) {
     try {
-      const userId = req.user?.id;
+      const userId = (req as any).user?.userId;
+      console.log('Tenant bookings - userId from token:', userId);
       if (!userId) {
         return res.status(401).json({ error: 'Unauthorized' });
       }
 
       const bookings = await this.tenantService.getTenantBookings(userId);
+      console.log('Tenant bookings - result:', bookings);
       res.json({ success: true, data: { bookings } });
     } catch (error) {
       console.error('Error fetching tenant bookings:', error);
@@ -25,12 +27,14 @@ export class TenantController {
 
   async getTenantDashboard(req: Request, res: Response) {
     try {
-      const userId = req.user?.id;
+      const userId = (req as any).user?.userId;
+      console.log('Tenant dashboard - userId from token:', userId);
       if (!userId) {
         return res.status(401).json({ error: 'Unauthorized' });
       }
 
       const dashboardData = await this.tenantService.getTenantDashboard(userId);
+      console.log('Tenant dashboard - result:', dashboardData);
       res.json({ success: true, data: dashboardData });
     } catch (error) {
       console.error('Error fetching tenant dashboard:', error);

@@ -1,6 +1,6 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, Router } from '@angular/router';
+import { RouterModule, Router, NavigationEnd } from '@angular/router';
 import { NavbarComponent } from '../../shared/navbar/navbar.component';
 import { FooterComponent } from '../../shared/footer/footer.component';
 import { SidebarComponent, SidebarItem } from '../../shared/shared/sidebar/sidebar.component';
@@ -8,7 +8,10 @@ import { OwnerService } from '../../core/services/owner.service';
 import { AuthService } from '../../core/services/auth.service';
 import { SidebarService } from '../../core/services/sidebar.service';
 import { ToastService } from '../../core/services/toast.service';
+import { PropertyStateService } from '../../core/services/property-state.service';
 import { LucideAngularModule, Plus, Home, Users, Calendar, DollarSign, TrendingUp, Eye, Menu, BarChart3 } from 'lucide-angular';
+import { Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-owner-dashboard',
@@ -472,9 +475,10 @@ import { LucideAngularModule, Plus, Home, Users, Calendar, DollarSign, TrendingU
     }
   `]
 })
-export class OwnerDashboardComponent implements OnInit {
+export class OwnerDashboardComponent implements OnInit, OnDestroy {
   dashboardData: any = null;
   loading = false;
+  private subscriptions: Subscription[] = [];
   sidebarItems: SidebarItem[] = [
     { label: 'Dashboard', route: '/owner/dashboard', icon: BarChart3 },
     { label: 'My Properties', route: '/owner/properties', icon: Home },
@@ -497,24 +501,72 @@ export class OwnerDashboardComponent implements OnInit {
     private toast: ToastService,
     private authService: AuthService,
     public sidebarService: SidebarService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private propertyStateService: PropertyStateService
   ) {}
 
   ngOnInit() {
+    // Always load dashboard data on component init
     this.loadDashboardData();
+    this.setupPropertyStateListener();
+    this.setupRouterListener();
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
+  }
+
+  private setupPropertyStateListener() {
+    // Listen for dashboard updates - using Subject now, no need to check value
+    const dashboardSub = this.propertyStateService.dashboardUpdated$.subscribe(() => {
+      console.log('Dashboard update triggered via state service');
+      this.loadDashboardData();
+    });
+    
+    // Also listen for property updates to refresh dashboard
+    const propertySub = this.propertyStateService.propertiesUpdated$.subscribe(() => {
+      console.log('Properties update triggered, refreshing dashboard');
+      this.loadDashboardData();
+    });
+    
+    this.subscriptions.push(dashboardSub, propertySub);
+  }
+
+  private setupRouterListener() {
+    // Listen for navigation to dashboard route and always refresh
+    const routerSub = this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe((event: NavigationEnd) => {
+        if (event.url === '/owner/dashboard' || event.urlAfterRedirects === '/owner/dashboard') {
+          console.log('Navigated to dashboard, refreshing data');
+          // Add small delay to ensure navigation is complete
+          setTimeout(() => {
+            this.loadDashboardData();
+          }, 100);
+        }
+      });
+    this.subscriptions.push(routerSub);
   }
 
   ionViewWillEnter() {
     this.loadDashboardData();
   }
 
+  // Add method to refresh dashboard when navigating from other pages
+  refreshDashboard() {
+    console.log('Refreshing dashboard data...');
+    this.loadDashboardData();
+  }
+
   loadDashboardData() {
     this.loading = true;
+    console.log('Loading dashboard data...');
     this.ownerService.getDashboardData().subscribe({
       next: (response) => {
+        console.log('Dashboard data received:', response.data);
         this.dashboardData = response.data;
         this.loading = false;
-        this.cdr.markForCheck();
+        this.cdr.detectChanges(); // Force change detection
       },
       error: (error) => {
         console.error('Dashboard error:', error);
@@ -529,7 +581,7 @@ export class OwnerDashboardComponent implements OnInit {
           recentTenants: []
         };
         this.loading = false;
-        this.cdr.markForCheck();
+        this.cdr.detectChanges();
       }
     });
   }

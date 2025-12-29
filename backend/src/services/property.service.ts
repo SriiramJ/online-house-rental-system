@@ -14,11 +14,11 @@ export class PropertyService {
         ? propertyData.photos.join(', ') 
         : null;
 
-      // Basic query without property_type column
+      // Complete query with all columns
       const query = `INSERT INTO properties (
         owner_id, title, description, rent, location, 
-        bedrooms, bathrooms, amenities, photos
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+        property_type, bedrooms, bathrooms, area_sqft, amenities, photos
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
       
       const values = [
         ownerId,
@@ -26,8 +26,10 @@ export class PropertyService {
         propertyData.description,
         parseFloat(propertyData.rent as any),
         propertyData.location,
+        propertyData.propertyType || 'Apartment',
         parseInt(propertyData.bedrooms as any) || 1,
-        parseFloat(propertyData.bathrooms as any) || 1,
+        parseInt(propertyData.bathrooms as any) || 1,
+        parseInt(propertyData.area as any) || null,
         amenitiesText,
         photosText
       ];

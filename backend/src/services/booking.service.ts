@@ -110,6 +110,7 @@ export class BookingService {
     const connection = await db.getConnection();
     
     try {
+      console.log('Getting bookings for owner ID:', ownerId);
       const [rows] = await connection.execute(
         `SELECT 
           b.*,
@@ -128,6 +129,7 @@ export class BookingService {
         [ownerId]
       );
       
+      console.log('Found bookings:', rows);
       return rows;
     } catch (error: any) {
       logger.error(`Error fetching owner bookings: ${error.message}`);
@@ -137,20 +139,27 @@ export class BookingService {
     }
   }
 
-  async updateBookingStatus(bookingId: number, status: string, ownerId: number): Promise<boolean> {
+  async updateBookingStatus(bookingId: number, status: string, ownerId: number, rejectionReason?: string): Promise<boolean> {
     const connection = await db.getConnection();
     
     try {
       await connection.beginTransaction();
 
-      // Update booking status
-      const [result] = await connection.execute(
-        `UPDATE bookings b
+      // Update booking status and rejection reason if provided
+      let query = `UPDATE bookings b
          JOIN properties p ON b.property_id = p.id
-         SET b.status = ?
-         WHERE b.id = ? AND p.owner_id = ?`,
-        [status, bookingId, ownerId]
-      );
+         SET b.status = ?`;
+      let params = [status];
+      
+      if (status === 'Rejected' && rejectionReason) {
+        query += `, b.rejection_reason = ?`;
+        params.push(rejectionReason);
+      }
+      
+      query += ` WHERE b.id = ? AND p.owner_id = ?`;
+      params.push(bookingId, ownerId);
+
+      const [result] = await connection.execute(query, params);
 
       if ((result as any).affectedRows === 0) {
         await connection.rollback();

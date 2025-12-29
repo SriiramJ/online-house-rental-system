@@ -550,3 +550,116 @@
 2025-12-29 14:46:44 [INFO]: Login attempt for email: vishnu@test.com
 2025-12-29 14:46:44 [INFO]: Fetching user by email: vishnu@test.com
 2025-12-29 14:46:45 [INFO]: Login successful for userId: 10
+2025-12-29 15:40:53 [INFO]: Server running on port 3001
+2025-12-29 15:40:53 [INFO]: MySQL database connected successfully
+2025-12-29 15:41:10 [INFO]: Server running on port 3001
+2025-12-29 15:41:10 [INFO]: MySQL database connected successfully
+2025-12-29 15:42:05 [INFO]: Login attempt for email: udaygundu17@gmail.com
+2025-12-29 15:42:05 [INFO]: Fetching user by email: udaygundu17@gmail.com
+2025-12-29 15:42:05 [INFO]: Login successful for userId: 4
+2025-12-29 15:59:07 [INFO]: Uploaded 1 property images
+2025-12-29 16:00:44 [INFO]: Property created successfully by user 4
+2025-12-29 16:15:16 [INFO]: MySQL database connected successfully
+2025-12-29 16:15:16 [INFO]: Server running on port 3001
+2025-12-29 16:16:09 [INFO]: Login attempt for email: sriram@gmail.com
+2025-12-29 16:16:09 [INFO]: Fetching user by email: sriram@gmail.com
+2025-12-29 16:16:09 [INFO]: Login successful for userId: 5
+2025-12-29 16:19:02 [INFO]: Login attempt for email: udaygundu17@gmail.com
+2025-12-29 16:19:02 [INFO]: Fetching user by email: udaygundu17@gmail.com
+2025-12-29 16:19:02 [INFO]: Login successful for userId: 4
+2025-12-29 16:47:27 [INFO]: MySQL database connected successfully
+2025-12-29 16:47:27 [INFO]: Server running on port 3001
+2025-12-29 16:47:57 [INFO]: Server running on port 3001
+2025-12-29 16:47:57 [INFO]: MySQL database connected successfully
+2025-12-29 16:57:10 [INFO]: MySQL database connected successfully
+2025-12-29 16:57:10 [INFO]: Server running on port 3001
+2025-12-29 17:16:05 [INFO]: MySQL database connected successfully
+2025-12-29 17:16:05 [INFO]: Server running on port 3001
+2025-12-29 19:15:55 [INFO]: MySQL database connected successfully
+2025-12-29 19:15:55 [INFO]: Server running on port 3001
+2025-12-29 20:43:19 [INFO]: MySQL database connected successfully
+2025-12-29 20:43:19 [INFO]: Server running on port 3001
+2025-12-29 21:26:26 [INFO]: Server running on port 3001
+2025-12-29 21:26:26 [INFO]: MySQL database connected successfully
+2025-12-29 21:28:58 [INFO]: Login attempt for email: test@example.com
+2025-12-29 21:28:58 [INFO]: Fetching user by email: test@example.com
+2025-12-29 21:28:58 [WARN]: User not found: test@example.com
+2025-12-29 21:28:58 [ERROR]: Login failed: User not found
+2025-12-29 21:29:26 [INFO]: Login attempt for email: owner@test.com
+2025-12-29 21:29:26 [INFO]: Fetching user by email: owner@test.com
+2025-12-29 21:29:26 [WARN]: Invalid password for email: owner@test.com
+2025-12-29 21:29:26 [ERROR]: Login failed: Invalid password
+2025-12-29 21:29:39 [INFO]: Login attempt for email: owner@test.com
+2025-12-29 21:29:39 [INFO]: Fetching user by email: owner@test.com
+2025-12-29 21:29:39 [WARN]: Invalid password for email: owner@test.com
+2025-12-29 21:29:39 [ERROR]: Login failed: Invalid password
+2025-12-29 21:30:53 [INFO]: Registration request received: {"name":"Test Owner","email":"testowner@test.com","password":"password123","role":"OWNER"}
+2025-12-29 21:30:53 [INFO]: Register attempt for email: testowner@test.com
+2025-12-29 21:30:53 [INFO]: Fetching user by email: testowner@test.com
+2025-12-29 21:30:53 [INFO]: Creating user: testowner@test.com
+2025-12-29 21:30:54 [INFO]: User registered successfully: testowner@test.com
+2025-12-29 21:31:02 [INFO]: Login attempt for email: testowner@test.com
+2025-12-29 21:31:02 [INFO]: Fetching user by email: testowner@test.com
+2025-12-29 21:31:02 [INFO]: Login successful for userId: 6
+2025-12-29 21:33:13 [ERROR]: JWT verification failed: invalid signature
+2025-12-29 21:33:22 [INFO]: Login attempt for email: testowner@test.com
+2025-12-29 21:33:22 [INFO]: Fetching user by email: testowner@test.com
+2025-12-29 21:33:22 [INFO]: Login successful for userId: 6
+2025-12-29 21:34:27 [INFO]: MySQL database connected successfully
+2025-12-29 21:34:27 [INFO]: Server running on port 3001
+2025-12-29 21:35:57 [INFO]: Server running on port 3001
+2025-12-29 21:35:57 [INFO]: MySQL database connected successfully
+2025-12-29 21:38:50 [INFO]: Login attempt for email: sriram@gmail.com
+2025-12-29 21:38:50 [INFO]: Fetching user by email: sriram@gmail.com
+2025-12-29 21:38:50 [INFO]: Login successful for userId: 5
+2025-12-29 21:39:29 [ERROR]: Error creating booking: Unknown column 'move_in_date' in 'field list'
+2025-12-29 21:39:43 [INFO]: Login attempt for email: udaygundu17@gmail.com
+2025-12-29 21:39:43 [INFO]: Fetching user by email: udaygundu17@gmail.com
+2025-12-29 21:39:43 [INFO]: Login successful for userId: 4
+2025-12-29 21:43:54 [INFO]: Login attempt for email: sriram@gmail.com
+2025-12-29 21:43:54 [INFO]: Fetching user by email: sriram@gmail.com
+2025-12-29 21:43:54 [INFO]: Login successful for userId: 5
+2025-12-29 21:44:28 [ERROR]: Error creating booking: Unknown column 'move_in_date' in 'field list'
+2025-12-29 21:44:58 [ERROR]: Error creating booking: Unknown column 'move_in_date' in 'field list'
+2025-12-29 21:45:14 [INFO]: Login attempt for email: udaygundu17@gmail.com
+2025-12-29 21:45:14 [INFO]: Fetching user by email: udaygundu17@gmail.com
+2025-12-29 21:45:14 [INFO]: Login successful for userId: 4
+2025-12-29 21:54:38 [INFO]: Login attempt for email: sriram@gmail.com
+2025-12-29 21:54:38 [INFO]: Fetching user by email: sriram@gmail.com
+2025-12-29 21:54:38 [INFO]: Login successful for userId: 5
+2025-12-29 21:56:29 [INFO]: Login attempt for email: udaygundu17@gmail.com
+2025-12-29 21:56:29 [INFO]: Fetching user by email: udaygundu17@gmail.com
+2025-12-29 21:56:30 [INFO]: Login successful for userId: 4
+2025-12-29 21:56:56 [INFO]: Login attempt for email: sriram@gmail.com
+2025-12-29 21:56:56 [INFO]: Fetching user by email: sriram@gmail.com
+2025-12-29 21:56:56 [INFO]: Login successful for userId: 5
+2025-12-29 21:57:42 [INFO]: Login attempt for email: udaygundu17@gmail.com
+2025-12-29 21:57:42 [INFO]: Fetching user by email: udaygundu17@gmail.com
+2025-12-29 21:57:43 [INFO]: Login successful for userId: 4
+2025-12-29 22:00:02 [INFO]: Uploaded 1 property images
+2025-12-29 22:00:13 [INFO]: Property created successfully by user 4
+2025-12-29 22:00:27 [INFO]: Login attempt for email: sriram@gmail.com
+2025-12-29 22:00:27 [INFO]: Fetching user by email: sriram@gmail.com
+2025-12-29 22:00:27 [INFO]: Login successful for userId: 5
+2025-12-29 22:01:22 [INFO]: Login attempt for email: udaygundu17@gmail.com
+2025-12-29 22:01:22 [INFO]: Fetching user by email: udaygundu17@gmail.com
+2025-12-29 22:01:22 [INFO]: Login successful for userId: 4
+2025-12-29 22:02:12 [INFO]: Login attempt for email: sriram@gmail.com
+2025-12-29 22:02:12 [INFO]: Fetching user by email: sriram@gmail.com
+2025-12-29 22:02:12 [INFO]: Login successful for userId: 5
+2025-12-29 22:15:48 [INFO]: MySQL database connected successfully
+2025-12-29 22:15:48 [INFO]: Server running on port 3001
+2025-12-29 22:16:07 [INFO]: Login attempt for email: udaygundu17@gmail.com
+2025-12-29 22:16:07 [INFO]: Fetching user by email: udaygundu17@gmail.com
+2025-12-29 22:16:07 [INFO]: Login successful for userId: 4
+2025-12-29 22:17:38 [INFO]: Uploaded 1 property images
+2025-12-29 22:17:40 [INFO]: Property created successfully by user 4
+2025-12-29 22:17:55 [INFO]: Login attempt for email: sriram@gmail.com
+2025-12-29 22:17:55 [INFO]: Fetching user by email: sriram@gmail.com
+2025-12-29 22:17:55 [INFO]: Login successful for userId: 5
+2025-12-29 22:18:51 [INFO]: Login attempt for email: udaygundu17@gmail.com
+2025-12-29 22:18:51 [INFO]: Fetching user by email: udaygundu17@gmail.com
+2025-12-29 22:18:51 [INFO]: Login successful for userId: 4
+2025-12-29 22:19:58 [INFO]: Login attempt for email: sriram@gmail.com
+2025-12-29 22:19:58 [INFO]: Fetching user by email: sriram@gmail.com
+2025-12-29 22:19:58 [INFO]: Login successful for userId: 5
