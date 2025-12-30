@@ -3,18 +3,44 @@ import logger from "../utils/logger.ts";
 
 export const roleMiddleware = (allowedRoles: string[]) => {
   return (req: Request, res: Response, next: NextFunction) => {
-    const user = (req as any).user;
-    
-    if (!user) {
-      logger.warn("User not found in request");
-      return res.status(401).json({ message: "Unauthorized" });
+    try {
+      const user = (req as any).user;
+      
+      if (!user) {
+        logger.warn("User not found in request - auth middleware may not be applied");
+        return res.status(401).json({
+          success: false,
+          message: "Authentication required",
+          code: "USER_NOT_AUTHENTICATED"
+        });
+      }
+      
+      if (!user.role) {
+        logger.warn(`User ${user.userId} has no role assigned`);
+        return res.status(403).json({
+          success: false,
+          message: "Access denied. No role assigned.",
+          code: "NO_ROLE_ASSIGNED"
+        });
+      }
+      
+      if (!allowedRoles.includes(user.role)) {
+        logger.warn(`User ${user.userId} with role ${user.role} attempted to access resource requiring roles: ${allowedRoles.join(', ')}`);
+        return res.status(403).json({
+          success: false,
+          message: `Access denied. Required role: ${allowedRoles.join(' or ')}`,
+          code: "INSUFFICIENT_PERMISSIONS"
+        });
+      }
+      
+      next();
+    } catch (error: any) {
+      logger.error(`Role middleware error: ${error.message}`);
+      return res.status(500).json({
+        success: false,
+        message: "Internal server error during authorization",
+        code: "AUTHORIZATION_ERROR"
+      });
     }
-
-    if (!allowedRoles.includes(user.role)) {
-      logger.warn(`Access denied for role: ${user.role}`);
-      return res.status(403).json({ message: "Access denied" });
-    }
-
-    next();
   };
 };

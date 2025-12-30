@@ -10,99 +10,96 @@ export interface BookingData {
 
 export class BookingService {
   async createBooking(bookingData: BookingData) {
-    console.log('=== BOOKING SERVICE CREATE BOOKING ===');
-    console.log('Booking data received:', bookingData);
-    
-    const connection = await db.getConnection();
-    
     try {
-      await connection.beginTransaction();
-      console.log('Database transaction started');
-
-      // Check if property exists and is available
-      console.log('Checking property availability...');
-      const [propertyRows] = await connection.execute(
-        'SELECT id, is_available, owner_id FROM properties WHERE id = ?',
-        [bookingData.property_id]
-      );
-
-      const properties = propertyRows as any[];
-      console.log('Property query result:', properties);
+      logger.info(`Creating booking for property ${bookingData.property_id} by tenant ${bookingData.tenant_id}`);
       
-      if (properties.length === 0) {
-        throw new Error('Property not found');
-      }
+      return await db.transaction(async (connection) => {
+        // Check if property exists and is available
+        const [propertyRows] = await connection.execute(
+          'SELECT id, is_available, owner_id, title FROM properties WHERE id = ?',
+          [bookingData.property_id]
+        );
 
-      const property = properties[0];
-      if (!property.is_available) {
-        throw new Error('Property is not available for booking');
-      }
+        const properties = propertyRows as any[];
+        if (properties.length === 0) {
+          throw new Error('Property not found');
+        }
 
-      // Create booking request
-      console.log('Inserting booking into database...');
-      const [result] = await connection.execute(
-        `INSERT INTO bookings (property_id, tenant_id, move_in_date, message, status) 
-         VALUES (?, ?, ?, ?, 'Pending')`,
-        [bookingData.property_id, bookingData.tenant_id, bookingData.move_in_date, bookingData.message]
-      );
-      
-      console.log('Booking insert result:', result);
+        const property = properties[0];
+        if (!property.is_available) {
+          throw new Error('Property is not available for booking');
+        }
 
-      // Update property availability to false
-      console.log('Updating property availability...');
-      await connection.execute(
-        'UPDATE properties SET is_available = FALSE WHERE id = ?',
-        [bookingData.property_id]
-      );
+        // Check if tenant already has a pending/approved booking for this property
+        const [existingBookings] = await connection.execute(
+          'SELECT id FROM bookings WHERE property_id = ? AND tenant_id = ? AND status IN ("pending", "approved")',
+          [bookingData.property_id, bookingData.tenant_id]
+        );
 
-      await connection.commit();
-      console.log('Transaction committed successfully');
-      
-      const bookingResult = {
-        id: (result as any).insertId,
-        ...bookingData,
-        status: 'Pending'
-      };
-      
-      console.log('Returning booking result:', bookingResult);
-      return bookingResult;
+        if ((existingBookings as any[]).length > 0) {
+          throw new Error('You already have a booking request for this property');
+        }
+
+        // Create booking request
+        const [result] = await connection.execute(
+          `INSERT INTO bookings (property_id, tenant_id, move_in_date, message, status) 
+           VALUES (?, ?, ?, ?, 'pending')`,
+          [bookingData.property_id, bookingData.tenant_id, bookingData.move_in_date, bookingData.message]
+        );
+
+        const bookingId = (result as any).insertId;
+        logger.info(`Booking created successfully with ID: ${bookingId}`);
+        
+        return {
+          id: bookingId,
+          ...bookingData,
+          status: 'pending',
+          property_title: property.title
+        };
+      });
     } catch (error: any) {
-      await connection.rollback();
-      console.error('Error in createBooking service:', error);
       logger.error(`Error creating booking: ${error.message}`);
       throw error;
-    } finally {
-      connection.release();
     }
   }
 
   async getTenantBookings(tenantId: number) {
-    const connection = await db.getConnection();
-    
     try {
-      const [rows] = await connection.execute(
+      if (!tenantId || tenantId <= 0) {
+        throw new Error('Invalid tenant ID');
+      }
+
+      logger.info(`Fetching bookings for tenant ID: ${tenantId}`);
+      
+      const bookings = await db.query(
         `SELECT 
-          b.*,
+          b.id,
+          b.property_id,
+          b.move_in_date,
+          b.message,
+          b.status,
+          b.rejection_reason,
+          b.created_at,
           p.title as property_title,
           p.location as property_location,
           p.rent,
           p.photos as property_photos,
           u.name as owner_name,
-          u.email as owner_email
+          u.email as owner_email,
+          u.phone as owner_phone
         FROM bookings b
         JOIN properties p ON b.property_id = p.id
         JOIN users u ON p.owner_id = u.id
         WHERE b.tenant_id = ?
-        ORDER BY b.id DESC`,
+        ORDER BY b.created_at DESC`,
         [tenantId]
       );
       
-      return rows;
+      logger.info(`Found ${bookings.length} bookings for tenant ${tenantId}`);
+      return bookings;
     } catch (error: any) {
       logger.error(`Error fetching tenant bookings: ${error.message}`);
-      return [];
-    } finally {
-      connection.release();
+      throw new Error('Failed to fetch bookings');
     }
   }
 
@@ -188,7 +185,7 @@ export class BookingService {
          SET b.status = ?`;
       let params = [status];
       
-      if (status === 'Rejected' && rejectionReason) {
+      if (status === 'rejected' && rejectionReason) {
         query += `, b.rejection_reason = ?`;
         params.push(rejectionReason);
       }
@@ -204,7 +201,7 @@ export class BookingService {
       }
 
       // If rejected, make property available again
-      if (status === 'Rejected') {
+      if (status === 'rejected') {
         await connection.execute(
           `UPDATE properties p
            JOIN bookings b ON p.id = b.property_id

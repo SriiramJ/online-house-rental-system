@@ -55,19 +55,20 @@ EXECUTE stmt;
 DEALLOCATE PREPARE stmt;
 
 -- =====================================================
--- BOOKINGS TABLE
+-- BOOKINGS TABLE WITH IMPROVED CONSTRAINTS
 -- =====================================================
 CREATE TABLE IF NOT EXISTS bookings (
   id INT AUTO_INCREMENT PRIMARY KEY,
   property_id INT NOT NULL,
   tenant_id INT NOT NULL,
-  status ENUM('Pending', 'Approved', 'Rejected') DEFAULT 'Pending',
-  move_in_date DATE,
-  lease_duration VARCHAR(50),
+  status ENUM('pending', 'approved', 'rejected') DEFAULT 'pending',
+  move_in_date DATE NOT NULL,
+  lease_duration VARCHAR(50) DEFAULT '12 months',
   message TEXT,
   rejection_reason TEXT,
   request_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
   CONSTRAINT fk_bookings_property
     FOREIGN KEY (property_id)
@@ -77,7 +78,17 @@ CREATE TABLE IF NOT EXISTS bookings (
   CONSTRAINT fk_bookings_tenant
     FOREIGN KEY (tenant_id)
     REFERENCES users(id)
-    ON DELETE CASCADE
+    ON DELETE CASCADE,
+    
+  -- Prevent duplicate pending/approved bookings for same property-tenant combination
+  UNIQUE KEY unique_active_booking (property_id, tenant_id, status),
+  
+  -- Ensure move_in_date is in the future
+  CONSTRAINT chk_move_in_date CHECK (move_in_date >= CURDATE()),
+  
+  -- Index for performance
+  INDEX idx_tenant_bookings (tenant_id, status),
+  INDEX idx_property_bookings (property_id, status)
 );
 
 -- Add missing columns to bookings table if they don't exist
@@ -163,6 +174,23 @@ CREATE TABLE IF NOT EXISTS activity_logs (
     FOREIGN KEY (user_id)
     REFERENCES users(id)
     ON DELETE SET NULL
+);
+
+-- =====================================================
+-- PASSWORD RESET TOKENS TABLE
+-- =====================================================
+CREATE TABLE IF NOT EXISTS password_reset_tokens (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NOT NULL,
+  token VARCHAR(255) NOT NULL UNIQUE,
+  expires_at TIMESTAMP NOT NULL,
+  used BOOLEAN DEFAULT FALSE,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+  CONSTRAINT fk_password_reset_user
+    FOREIGN KEY (user_id)
+    REFERENCES users(id)
+    ON DELETE CASCADE
 );
 
 -- =====================================================

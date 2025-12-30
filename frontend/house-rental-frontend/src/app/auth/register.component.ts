@@ -169,12 +169,32 @@ export class RegisterComponent {
   constructor(private authService: AuthService, private toast: ToastService) {}
 
   onRegister() {
+    // Validate email
+    if (!this.userData.email.endsWith('@gmail.com')) {
+      this.toast.error('Invalid Email', 'Only Gmail addresses (@gmail.com) are accepted');
+      return;
+    }
+    
+    // Validate password
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/;
+    if (!passwordRegex.test(this.userData.password)) {
+      this.toast.error('Invalid Password', 'Password must contain at least 8 characters with uppercase, lowercase, and special character');
+      return;
+    }
+    
     this.authService.register(this.userData).subscribe({
       next: (response) => {
         console.log('Register response:', response);
+        this.toast.success('Registration Successful', 'Account created successfully!');
       },
       error: (error) => {
-        this.toast.error('Registration failed', error.error?.message || 'Please check your information and try again.');
+        const errorMessage = error.error?.message || 'Please check your information and try again.';
+        
+        if (errorMessage.includes('already registered') || errorMessage.includes('Email already registered')) {
+          this.toast.error('User Already Exists', 'This email is already registered. Please use a different email or sign in.');
+        } else {
+          this.toast.error('Registration failed', errorMessage);
+        }
         console.error('Register error:', error);
       }
     });

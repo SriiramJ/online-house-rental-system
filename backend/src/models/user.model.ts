@@ -29,3 +29,14 @@ export const findUserByEmail = async (email: string) => {
 
   return rows[0];
 };
+
+export const updateUserPassword = async (userId: number, passwordHash: string) => {
+  logger.info(`Updating password for user ID: ${userId}`);
+
+  const [result]: any = await db.query(
+    `UPDATE users SET password_hash = ? WHERE id = ?`,
+    [passwordHash, userId]
+  );
+
+  return result.affectedRows > 0;
+};

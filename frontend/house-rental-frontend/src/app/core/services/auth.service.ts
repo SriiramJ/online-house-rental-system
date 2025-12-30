@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject, tap } from 'rxjs';
+import { Observable, BehaviorSubject, tap, catchError, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { ToastService } from './toast.service';
 
@@ -17,10 +17,8 @@ interface AuthResponse {
     user: User;
     token: string;
   };
-  error?: {
-    code: string;
-    message: string;
-  };
+  message?: string;
+  code?: string;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -32,25 +30,47 @@ export class AuthService {
   private currentUserSubject = new BehaviorSubject<User | null>(this.getUserFromStorage());
   public currentUser$ = this.currentUserSubject.asObservable();
 
-  constructor(private http: HttpClient, private toast: ToastService) {}
+  constructor(private http: HttpClient, private toast: ToastService) {
+    this.validateStoredToken();
+  }
 
-  login(credentials: { email: string; password: string }): Observable<AuthResponse> {
+  private validateStoredToken(): void {
+    const token = this.getToken();
+    if (token) {
+      try {
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        if (payload.exp * 1000 < Date.now()) {
+          this.logout();
+        }
+      } catch {
+        this.logout();
+      }
+    }
+  }
+
+  private handleError = (error: HttpErrorResponse): Observable<never> => {
+    let errorMessage = 'An unexpected error occurred';
+    
+    if (error.error?.message) {
+      errorMessage = error.error.message;
+    } else if (error.status === 0) {
+      errorMessage = 'Unable to connect to server. Please check your internet connection.';
+    } else if (error.status >= 500) {
+      errorMessage = 'Server error. Please try again later.';
+    }
+    
+    return throwError(() => ({ error: { message: errorMessage, code: error.error?.code } }));
+  };
+
+  login(credentials: { email: string; password: string; rememberMe?: boolean }): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${this.api}/login`, credentials).pipe(
       tap(response => {
         if (response.success && response.data) {
           this.setSession(response.data.user, response.data.token);
           this.toast.success('Welcome back!', `Hello ${response.data.user.name}, you're successfully logged in.`);
-          
-          // Redirect based on role
-          setTimeout(() => {
-            if (response.data!.user.role === 'OWNER') {
-              window.location.href = '/owner/dashboard';
-            } else {
-              window.location.href = '/dashboard';
-            }
-          }, 1000);
         }
-      })
+      }),
+      catchError(this.handleError)
     );
   }
 
@@ -59,6 +79,7 @@ export class AuthService {
     email: string;
     password: string;
     role: 'TENANT' | 'OWNER';
+    phone?: string;
   }): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${this.api}/register`, userData).pipe(
       tap(response => {
@@ -66,7 +87,20 @@ export class AuthService {
           this.setSession(response.data.user, response.data.token);
           this.toast.success('Welcome to RentEase!', `Account created successfully. Hello ${response.data.user.name}!`);
         }
-      })
+      }),
+      catchError(this.handleError)
+    );
+  }
+
+  forgotPassword(email: string): Observable<any> {
+    return this.http.post(`${this.api}/forgot-password`, { email }).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  resetPassword(token: string, password: string): Observable<any> {
+    return this.http.post(`${this.api}/reset-password`, { token, password }).pipe(
+      catchError(this.handleError)
     );
   }
 
@@ -87,7 +121,9 @@ export class AuthService {
   }
 
   isAuthenticated(): boolean {
-    return !!this.getToken() && !!this.getCurrentUser();
+    const token = this.getToken();
+    const user = this.getCurrentUser();
+    return !!token && !!user;
   }
 
   isOwner(): boolean {
@@ -112,6 +148,7 @@ export class AuthService {
       try {
         return JSON.parse(userStr);
       } catch {
+        localStorage.removeItem(this.userKey);
         return null;
       }
     }

@@ -72,7 +72,7 @@
         </div>
         <div *ngIf="email?.invalid && email?.touched" class="error-text">
           <span *ngIf="email?.errors?.['required']">Email is required</span>
-          <span *ngIf="email?.errors?.['email']">Please enter a valid email address</span>
+          <span *ngIf="email?.errors?.['gmailRequired']">Only Gmail addresses (@gmail.com) are accepted</span>
           <span *ngIf="email?.errors?.['userExists']">An account with this email already exists</span>
         </div>
       </div>
@@ -109,7 +109,13 @@
         </div>
         <div *ngIf="password?.invalid && password?.touched" class="error-text">
           <span *ngIf="password?.errors?.['required']">Password is required</span>
-          <span *ngIf="password?.errors?.['minlength']">Password must be at least 6 characters</span>
+          <div *ngIf="password?.errors && !password?.errors?.['required']" class="password-requirements">
+            <div class="requirement-title">Password must contain:</div>
+            <div class="requirement" [class.valid]="!password?.errors?.['minLength']">• At least 8 characters</div>
+            <div class="requirement" [class.valid]="!password?.errors?.['upperCase']">• One uppercase letter (A-Z)</div>
+            <div class="requirement" [class.valid]="!password?.errors?.['lowerCase']">• One lowercase letter (a-z)</div>
+            <div class="requirement" [class.valid]="!password?.errors?.['specialChar']">• One special character (!@#$%^&*)</div>
+          </div>
         </div>
       </div>
 

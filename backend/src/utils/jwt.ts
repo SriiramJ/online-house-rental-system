@@ -6,14 +6,14 @@ export interface TokenPayload {
   role: string;
 }
 
-export const generateToken = (payload: TokenPayload): string => {
+export const generateToken = (payload: TokenPayload, rememberMe: boolean = false): string => {
   const secret = process.env.JWT_SECRET;
   if (!secret) {
     throw new Error("JWT_SECRET is not defined");
   }
 
   const options: SignOptions = {
-    expiresIn: 24 * 60 * 60,
+    expiresIn: rememberMe ? '30d' : '1d', // Use string format for expiration
   };
 
   return jwt.sign(payload, secret, options);

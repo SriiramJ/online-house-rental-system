@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../core/services/auth.service';
+import { ToastService } from '../../core/services/toast.service';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -11,23 +13,56 @@ import { AuthService } from '../../core/services/auth.service';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnDestroy {
   registerForm: FormGroup;
   role: 'tenant' | 'owner' = 'tenant';
   loading = false;
+  private destroy$ = new Subject<void>();
 
   constructor(
     private router: Router,
     private fb: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    private toast: ToastService
   ) {
     this.registerForm = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(2)]],
-      email: ['', [Validators.required, Validators.email]],
-      phone: ['', [Validators.required, Validators.pattern(/^[\+]?[1-9][\d]{0,15}$/)]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
+      email: ['', [Validators.required, this.gmailValidator]],
+      phone: ['', [Validators.pattern(/^[0-9]{10}$/)]],
+      password: ['', [Validators.required, this.passwordValidator]],
       confirmPassword: ['', [Validators.required]]
     }, { validators: this.passwordMatchValidator });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  gmailValidator(control: any) {
+    const email = control.value;
+    if (email && !email.endsWith('@gmail.com')) {
+      return { gmailRequired: true };
+    }
+    return null;
+  }
+
+  passwordValidator(control: any) {
+    const password = control.value;
+    if (!password) return null;
+    
+    const hasUpperCase = /[A-Z]/.test(password);
+    const hasLowerCase = /[a-z]/.test(password);
+    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+    const hasMinLength = password.length >= 8;
+    
+    const errors: any = {};
+    if (!hasMinLength) errors.minLength = true;
+    if (!hasUpperCase) errors.upperCase = true;
+    if (!hasLowerCase) errors.lowerCase = true;
+    if (!hasSpecialChar) errors.specialChar = true;
+    
+    return Object.keys(errors).length ? errors : null;
   }
 
   passwordMatchValidator(form: FormGroup) {
@@ -40,25 +75,11 @@ export class RegisterComponent {
     return null;
   }
 
-  get name() {
-    return this.registerForm.get('name');
-  }
-
-  get email() {
-    return this.registerForm.get('email');
-  }
-
-  get phone() {
-    return this.registerForm.get('phone');
-  }
-
-  get password() {
-    return this.registerForm.get('password');
-  }
-
-  get confirmPassword() {
-    return this.registerForm.get('confirmPassword');
-  }
+  get name() { return this.registerForm.get('name'); }
+  get email() { return this.registerForm.get('email'); }
+  get phone() { return this.registerForm.get('phone'); }
+  get password() { return this.registerForm.get('password'); }
+  get confirmPassword() { return this.registerForm.get('confirmPassword'); }
 
   setRole(role: 'tenant' | 'owner') {
     this.role = role;
@@ -73,33 +94,34 @@ export class RegisterComponent {
     this.loading = true;
 
     const userData = {
-      name: this.name?.value,
-      email: this.email?.value,
-      phone: this.phone?.value,
+      name: this.name?.value?.trim(),
+      email: this.email?.value?.toLowerCase().trim(),
+      phone: this.phone?.value || undefined,
       password: this.password?.value,
       role: this.role.toUpperCase() as 'TENANT' | 'OWNER'
     };
 
-    this.authService.register(userData).subscribe({
-      next: (response) => {
-        this.loading = false;
-        if (response.success) {
-          // Redirect to login page after successful registration
-          this.router.navigate(['/auth/login']);
-        } else {
-          // Handle specific error codes
-          if (response.error?.code === 'USER_EXISTS') {
+    this.authService.register(userData)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (response) => {
+          this.loading = false;
+          if (response.success) {
+            this.toast.success('Registration Successful', 'Welcome to RentEase! Please log in to continue.');
+            this.router.navigate(['/auth/login']);
+          }
+        },
+        error: (error) => {
+          this.loading = false;
+          const errorMessage = error.error?.message || 'Registration failed';
+          
+          if (error.error?.code === 'EMAIL_EXISTS') {
             this.registerForm.get('email')?.setErrors({ userExists: true });
+            this.toast.error('Email Already Registered', 'Please use a different email address.');
           } else {
-            // Show general error message
-            alert(response.error?.message || 'Registration failed');
+            this.toast.error('Registration Failed', errorMessage);
           }
         }
-      },
-      error: (error) => {
-        this.loading = false;
-        alert(error.error?.error?.message || 'An error occurred during registration');
-      }
-    });
+      });
   }
 }

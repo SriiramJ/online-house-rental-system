@@ -54,10 +54,10 @@
 
       <div class="form-options">
         <label class="checkbox-label">
-          <input type="checkbox" id="remember-me" />
+          <input type="checkbox" formControlName="rememberMe" />
           Remember me
         </label>
-        <a href="#" class="forgot-link">Forgot password?</a>
+        <a routerLink="/auth/forgot-password" class="forgot-link">Forgot password?</a>
       </div>
 
       <button type="submit" [disabled]="loading" class="submit-btn">
@@ -65,19 +65,5 @@
         {{ loading ? 'Signing In...' : 'Sign In' }}
       </button>
     </form>
-
-    <div class="demo-section">
-      <div class="divider">
-        <span>Demo Accounts</span>
-      </div>
-      <div class="demo-buttons">
-        <button type="button" (click)="setDemoAccount('tenant')" class="demo-btn">
-          Tenant Demo
-        </button>
-        <button type="button" (click)="setDemoAccount('owner')" class="demo-btn">
-          Owner Demo
-        </button>
-      </div>
-    </div>
   </div>
 </div>

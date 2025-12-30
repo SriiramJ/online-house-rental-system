@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../core/services/auth.service';
 import { AuthStateService } from '../../core/services/auth-state.service';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -12,10 +13,11 @@ import { AuthStateService } from '../../core/services/auth-state.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent {
+export class LoginComponent implements OnDestroy {
   loginForm: FormGroup;
   error = '';
   loading = false;
+  private destroy$ = new Subject<void>();
 
   constructor(
     private router: Router,
@@ -24,9 +26,23 @@ export class LoginComponent {
     private authState: AuthStateService
   ) {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+      email: ['', [Validators.required, this.gmailValidator]],
+      password: ['', [Validators.required, Validators.minLength(8)]],
+      rememberMe: [false]
     });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  gmailValidator(control: any) {
+    const email = control.value;
+    if (email && !email.endsWith('@gmail.com')) {
+      return { gmailRequired: true };
+    }
+    return null;
   }
 
   get email() {
@@ -48,40 +64,45 @@ export class LoginComponent {
     this.loading = true;
 
     const credentials = {
-      email: this.email?.value,
-      password: this.password?.value
+      email: this.email?.value?.toLowerCase().trim(),
+      password: this.password?.value,
+      rememberMe: this.loginForm.get('rememberMe')?.value || false
     };
 
-    this.authService.login(credentials).subscribe({
-      next: (response) => {
-        this.loading = false;
-        if (response.success && response.data) {
-          // Set token in auth state service
-          this.authState.setToken(response.data.token);
-          // Navigate to dashboard
-          this.router.navigate(['/dashboard']);
-        } else {
-          this.error = response.error?.message || 'Login failed';
+    this.authService.login(credentials)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (response) => {
+          this.loading = false;
+          if (response.success && response.data) {
+            this.authState.setToken(response.data.token);
+            
+            // Navigate based on role
+            const redirectUrl = response.data.user.role === 'OWNER' 
+              ? '/owner/dashboard' 
+              : '/dashboard';
+            this.router.navigate([redirectUrl]);
+          }
+        },
+        error: (error) => {
+          this.loading = false;
+          this.error = error.error?.message || 'Login failed. Please try again.';
         }
-      },
-      error: (error) => {
-        this.loading = false;
-        this.error = error.error?.message || 'Login failed. Please try again.';
-      }
+      });
+  }
+
+  // Demo login methods
+  loginAsTenant() {
+    this.loginForm.patchValue({
+      email: 'tenant@test.com',
+      password: 'Test@123'
     });
   }
 
-  setDemoAccount(type: 'tenant' | 'owner') {
-    if (type === 'tenant') {
-      this.loginForm.patchValue({
-        email: 'tenant@demo.com',
-        password: 'demo123'
-      });
-    } else {
-      this.loginForm.patchValue({
-        email: 'owner@demo.com',
-        password: 'demo123'
-      });
-    }
+  loginAsOwner() {
+    this.loginForm.patchValue({
+      email: 'owner@test.com',
+      password: 'Test@123'
+    });
   }
 }

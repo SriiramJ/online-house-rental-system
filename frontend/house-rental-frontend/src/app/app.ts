@@ -18,9 +18,6 @@ export class App implements OnInit {
   constructor(private toastService: ToastService) {}
 
   ngOnInit() {
-    // Test toast
-    setTimeout(() => {
-      this.toastService.success('Welcome to RentEase!', 'Perfect place to find your dream home and rent it out.');
-    }, 1000);
+    // App initialization
   }
 }

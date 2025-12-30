@@ -151,3 +151,13 @@
 2025-12-30 12:17:37 [ERROR]: Error creating booking: Unknown column 'move_in_date' in 'field list'
 2025-12-30 12:23:29 [ERROR]: Error creating booking: Unknown column 'message' in 'field list'
 2025-12-30 12:23:44 [ERROR]: Error creating booking: Unknown column 'message' in 'field list'
+2025-12-30 18:05:27 [ERROR]: Register failed: Email already registered
+2025-12-30 18:05:27 [ERROR]: Full error: Email already registered
+2025-12-30 18:07:12 [ERROR]: Register failed: Email already registered
+2025-12-30 18:07:12 [ERROR]: Full error: Email already registered
+2025-12-30 18:07:34 [ERROR]: Register failed: Email already registered
+2025-12-30 18:07:34 [ERROR]: Full error: Email already registered
+2025-12-30 21:31:43 [ERROR]: Forgot password failed: Table 'house_rental_db.password_reset_tokens' doesn't exist
+2025-12-30 21:41:29 [ERROR]: Forgot password failed: Table 'house_rental_db.password_reset_tokens' doesn't exist
+2025-12-30 21:42:23 [ERROR]: Forgot password failed: Table 'house_rental_db.password_reset_tokens' doesn't exist
+2025-12-30 21:48:39 [ERROR]: Forgot password failed: Table 'house_rental_db.password_reset_tokens' doesn't exist

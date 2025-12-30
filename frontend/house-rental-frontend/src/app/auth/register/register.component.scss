@@ -172,6 +172,30 @@
     color: #dc2626;
     font-size: 0.875rem;
     margin-top: 0.25rem;
+
+    .password-requirements {
+      margin-top: 0.5rem;
+      padding: 0.75rem;
+      background: #fef2f2;
+      border-radius: 0.375rem;
+      border: 1px solid #fecaca;
+
+      .requirement-title {
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+        color: #991b1b;
+      }
+
+      .requirement {
+        font-size: 0.75rem;
+        margin-bottom: 0.25rem;
+        color: #dc2626;
+
+        &.valid {
+          color: #059669;
+        }
+      }
+    }
   }
 }
 

@@ -4,29 +4,40 @@ import { verifyToken } from "../utils/jwt.ts";
 
 export const authMiddleware = (
     req: Request,
-    res:Response,
+    res: Response,
     next: NextFunction
-)=>{
-    const authHeader = req.headers.authorization
-    if(!authHeader || !authHeader.startsWith("Bearer ")){
-        logger.warn("Authorization header missing")
-        return res.status(401).json({message: "Unauthorized"})
-    }
-    const token = authHeader.split(" ")[1]
-    if(!token){
-        logger.warn("Token not found in authorization header")
-        return res.status(401).json({
-            message: "Unauthorized"
-        })
-    }
-
+) => {
     try {
+        const authHeader = req.headers.authorization;
+        
+        if (!authHeader || !authHeader.startsWith("Bearer ")) {
+            logger.warn("Authorization header missing or invalid format");
+            return res.status(401).json({
+                success: false,
+                message: "Access denied. No token provided.",
+                code: "NO_TOKEN"
+            });
+        }
+        
+        const token = authHeader.split(" ")[1];
+        if (!token) {
+            logger.warn("Token not found in authorization header");
+            return res.status(401).json({
+                success: false,
+                message: "Access denied. Invalid token format.",
+                code: "INVALID_TOKEN_FORMAT"
+            });
+        }
+
         const decoded = verifyToken(token);
         (req as any).user = decoded;
-        console.log('Auth middleware - decoded user:', decoded);
         next();
-    } catch (error:any) {
-        logger.error(`JWT verification failed: ${error.message}`)
-        return res.status(401).json({message:"Invalid token"})
+    } catch (error: any) {
+        logger.error(`JWT verification failed: ${error.message}`);
+        return res.status(401).json({
+            success: false,
+            message: "Access denied. Invalid or expired token.",
+            code: "TOKEN_VERIFICATION_FAILED"
+        });
     }
-}
+};

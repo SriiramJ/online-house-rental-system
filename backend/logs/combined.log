@@ -719,3 +719,55 @@
 2025-12-30 17:49:39 [INFO]: Login attempt for email: sriram1@test.com
 2025-12-30 17:49:39 [INFO]: Fetching user by email: sriram1@test.com
 2025-12-30 17:49:39 [INFO]: Login successful for userId: 8
+2025-12-30 18:05:27 [INFO]: Registration request received: {"name":"Sriram","email":"Sriram2005j@gmail.com","phone":"+919025581587","password":"Sriram2005#","role":"TENANT"}
+2025-12-30 18:05:27 [INFO]: Register attempt for email: Sriram2005j@gmail.com
+2025-12-30 18:05:27 [INFO]: Fetching user by email: Sriram2005j@gmail.com
+2025-12-30 18:05:27 [WARN]: Email already exists: Sriram2005j@gmail.com
+2025-12-30 18:05:27 [ERROR]: Register failed: Email already registered
+2025-12-30 18:05:27 [ERROR]: Full error: Email already registered
+2025-12-30 18:07:11 [INFO]: Registration request received: {"name":"Sriram J","email":"Sriram2005j@gmail.com","phone":"+919025581587","password":"Sriram2005#","role":"TENANT"}
+2025-12-30 18:07:11 [INFO]: Register attempt for email: Sriram2005j@gmail.com
+2025-12-30 18:07:11 [INFO]: Fetching user by email: Sriram2005j@gmail.com
+2025-12-30 18:07:12 [WARN]: Email already exists: Sriram2005j@gmail.com
+2025-12-30 18:07:12 [ERROR]: Register failed: Email already registered
+2025-12-30 18:07:12 [ERROR]: Full error: Email already registered
+2025-12-30 18:07:33 [INFO]: Registration request received: {"name":"Sriram J","email":"sriram@gmail.com","phone":"+919025581587","password":"Sriram2005#","role":"TENANT"}
+2025-12-30 18:07:33 [INFO]: Register attempt for email: sriram@gmail.com
+2025-12-30 18:07:33 [INFO]: Fetching user by email: sriram@gmail.com
+2025-12-30 18:07:34 [WARN]: Email already exists: sriram@gmail.com
+2025-12-30 18:07:34 [ERROR]: Register failed: Email already registered
+2025-12-30 18:07:34 [ERROR]: Full error: Email already registered
+2025-12-30 18:07:44 [INFO]: Registration request received: {"name":"Sriram J","email":"sriram123@gmail.com","phone":"+919025581587","password":"Sriram2005#","role":"TENANT"}
+2025-12-30 18:07:44 [INFO]: Register attempt for email: sriram123@gmail.com
+2025-12-30 18:07:44 [INFO]: Fetching user by email: sriram123@gmail.com
+2025-12-30 18:07:44 [INFO]: Creating user: sriram123@gmail.com
+2025-12-30 18:07:44 [INFO]: User registered successfully: sriram123@gmail.com
+2025-12-30 21:15:57 [INFO]: Login attempt for email: sriram123@gmail.com
+2025-12-30 21:15:58 [INFO]: Fetching user by email: sriram123@gmail.com
+2025-12-30 21:16:02 [INFO]: Login successful for userId: 11
+2025-12-30 21:30:54 [INFO]: MySQL database connected successfully
+2025-12-30 21:30:54 [INFO]: Server running on port 3001
+2025-12-30 21:31:17 [INFO]: Server running on port 3001
+2025-12-30 21:31:17 [INFO]: MySQL database connected successfully
+2025-12-30 21:31:43 [INFO]: Fetching user by email: sriram2005j@gmail.com
+2025-12-30 21:31:43 [ERROR]: Forgot password failed: Table 'house_rental_db.password_reset_tokens' doesn't exist
+2025-12-30 21:31:55 [INFO]: Login attempt for email: sriram123@gmail.com
+2025-12-30 21:31:55 [INFO]: Fetching user by email: sriram123@gmail.com
+2025-12-30 21:31:55 [INFO]: Login successful for userId: 11, rememberMe: false
+2025-12-30 21:41:28 [INFO]: Fetching user by email: sriram2005j@gmail.com
+2025-12-30 21:41:29 [ERROR]: Forgot password failed: Table 'house_rental_db.password_reset_tokens' doesn't exist
+2025-12-30 21:42:23 [INFO]: Fetching user by email: sriram2005j@gmail.com
+2025-12-30 21:42:23 [ERROR]: Forgot password failed: Table 'house_rental_db.password_reset_tokens' doesn't exist
+2025-12-30 21:48:23 [INFO]: Email service initialized with user: sriram2005j@gmail.com
+2025-12-30 21:48:23 [INFO]: Server running on port 3001
+2025-12-30 21:48:23 [INFO]: MySQL database connected successfully
+2025-12-30 21:48:39 [INFO]: Fetching user by email: sriram2005j@gmail.com
+2025-12-30 21:48:39 [ERROR]: Forgot password failed: Table 'house_rental_db.password_reset_tokens' doesn't exist
+2025-12-30 21:49:55 [INFO]: Fetching user by email: sriram2005j@gmail.com
+2025-12-30 21:49:55 [INFO]: Attempting to send email to: sriram2005j@gmail.com
+2025-12-30 21:49:58 [INFO]: Password reset email sent successfully to: sriram2005j@gmail.com
+2025-12-30 21:49:58 [INFO]: Password reset token generated and email sent for user: sriram2005j@gmail.com
+2025-12-30 21:50:27 [INFO]: Password reset successful for user ID: 5
+2025-12-30 21:50:52 [INFO]: Login attempt for email: sriram2005j@gmail.com
+2025-12-30 21:50:52 [INFO]: Fetching user by email: sriram2005j@gmail.com
+2025-12-30 21:50:52 [INFO]: Login successful for userId: 5, rememberMe: true

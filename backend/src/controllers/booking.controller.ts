@@ -2,32 +2,41 @@ import { Request, Response } from 'express';
 import { BookingService } from '../services/booking.service';
 
 export const createBooking = async (req: Request, res: Response) => {
-  console.log('=== CREATE BOOKING ENDPOINT HIT ===');
-  console.log('Request body:', req.body);
-  console.log('Request headers:', req.headers);
-  console.log('User from token:', req.user);
-  
   try {
     const userId = req.user?.userId;
-    console.log('User ID extracted:', userId);
     
     if (!userId) {
-      console.log('No user ID - returning 401');
-      return res.status(401).json({ error: 'Unauthorized' });
+      return res.status(401).json({
+        success: false,
+        message: 'Authentication required',
+        code: 'UNAUTHORIZED'
+      });
     }
 
     const { property_id, move_in_date, message } = req.body;
-    console.log('Extracted booking data:', { property_id, move_in_date, message });
 
     if (!property_id || !move_in_date) {
-      console.log('Missing required fields - returning 400');
-      return res.status(400).json({ error: 'Property ID and move-in date are required' });
+      return res.status(400).json({
+        success: false,
+        message: 'Property ID and move-in date are required',
+        code: 'MISSING_FIELDS'
+      });
     }
 
-    console.log('Creating booking service instance...');
-    const bookingService = new BookingService();
+    // Validate move-in date
+    const moveInDate = new Date(move_in_date);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
     
-    console.log('Calling bookingService.createBooking...');
+    if (moveInDate < today) {
+      return res.status(400).json({
+        success: false,
+        message: 'Move-in date cannot be in the past',
+        code: 'INVALID_DATE'
+      });
+    }
+
+    const bookingService = new BookingService();
     const booking = await bookingService.createBooking({
       property_id: Number(property_id),
       tenant_id: userId,
@@ -35,27 +44,67 @@ export const createBooking = async (req: Request, res: Response) => {
       message: message || null
     });
 
-    console.log('Booking created successfully:', booking);
-    res.json({ success: true, data: booking });
+    res.status(201).json({
+      success: true,
+      message: 'Booking request created successfully',
+      data: booking
+    });
   } catch (error: any) {
-    console.error('Error in createBooking controller:', error);
-    res.status(500).json({ error: error.message || 'Failed to create booking' });
+    logger.error('Error in createBooking controller:', error);
+    
+    let statusCode = 500;
+    let message = 'Failed to create booking';
+    let code = 'BOOKING_ERROR';
+    
+    if (error.message.includes('Property not found')) {
+      statusCode = 404;
+      message = 'Property not found';
+      code = 'PROPERTY_NOT_FOUND';
+    } else if (error.message.includes('not available')) {
+      statusCode = 409;
+      message = 'Property is not available for booking';
+      code = 'PROPERTY_UNAVAILABLE';
+    } else if (error.message.includes('already have a booking')) {
+      statusCode = 409;
+      message = error.message;
+      code = 'DUPLICATE_BOOKING';
+    }
+    
+    res.status(statusCode).json({
+      success: false,
+      message,
+      code
+    });
   }
 };
 
 export const getTenantBookings = async (req: Request, res: Response) => {
   try {
     const userId = req.user?.userId;
+    
     if (!userId) {
-      return res.status(401).json({ error: 'Unauthorized' });
+      return res.status(401).json({
+        success: false,
+        message: 'Authentication required',
+        code: 'UNAUTHORIZED'
+      });
     }
 
     const bookingService = new BookingService();
     const bookings = await bookingService.getTenantBookings(userId);
-    res.json({ success: true, data: { bookings } });
-  } catch (error) {
-    console.error('Error fetching tenant bookings:', error);
-    res.status(500).json({ error: 'Failed to fetch bookings' });
+    
+    res.json({
+      success: true,
+      data: { bookings },
+      count: bookings.length
+    });
+  } catch (error: any) {
+    logger.error('Error fetching tenant bookings:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to fetch bookings',
+      code: 'FETCH_ERROR'
+    });
   }
 };
 
@@ -101,12 +150,12 @@ export const updateBookingStatus = async (req: Request, res: Response) => {
       return res.status(401).json({ error: 'Unauthorized' });
     }
 
-    if (!['Approved', 'Rejected'].includes(status)) {
+    if (!['approved', 'rejected'].includes(status.toLowerCase())) {
       return res.status(400).json({ error: 'Invalid status' });
     }
 
     const bookingService = new BookingService();
-    const result = await bookingService.updateBookingStatus(bookingId, status, userId, rejection_reason);
+    const result = await bookingService.updateBookingStatus(bookingId, status.toLowerCase(), userId, rejection_reason);
     
     if (result) {
       res.json({ success: true, message: `Booking ${status.toLowerCase()} successfully` });
