@@ -18,18 +18,27 @@ export class BookingService {
   constructor(private http: HttpClient) {}
 
   createBooking(bookingData: BookingRequest): Observable<any> {
+    console.log('=== BOOKING SERVICE CREATE BOOKING ===');
     console.log('BookingService.createBooking called with:', bookingData);
     console.log('API URL:', this.apiUrl);
     
-    // Add headers for proper request
     const headers = {
       'Content-Type': 'application/json'
     };
     
+    console.log('Request headers:', headers);
+    
     return this.http.post(`${this.apiUrl}`, bookingData, { headers }).pipe(
-      tap(response => console.log('Booking API response:', response)),
+      tap(response => {
+        console.log('=== BOOKING API SUCCESS ===');
+        console.log('Booking API response:', response);
+      }),
       catchError(error => {
+        console.error('=== BOOKING API ERROR ===');
         console.error('Booking API error:', error);
+        console.error('Error status:', error.status);
+        console.error('Error statusText:', error.statusText);
+        console.error('Error body:', error.error);
         return throwError(() => error);
       })
     );
@@ -40,11 +49,15 @@ export class BookingService {
   }
 
   getOwnerBookings(): Observable<any> {
-    return this.http.get('http://localhost:3001/api/owner/bookings');
+    return this.http.get('http://localhost:3001/api/bookings/owner');
+  }
+
+  getOwnerTenants(): Observable<any> {
+    return this.http.get('http://localhost:3001/api/bookings/owner/tenants');
   }
 
   updateBookingStatus(bookingId: number, status: string, reason?: string): Observable<any> {
     const body = reason ? { status, rejection_reason: reason } : { status };
-    return this.http.put(`http://localhost:3001/api/owner/bookings/${bookingId}/status`, body);
+    return this.http.put(`http://localhost:3001/api/bookings/${bookingId}/status`, body);
   }
 }

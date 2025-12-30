@@ -7,7 +7,6 @@ import { FooterComponent } from '../../../shared/footer/footer.component';
 import { SidebarComponent, SidebarItem } from '../../../shared/shared/sidebar/sidebar.component';
 import { BookingService } from '../../../core/services/booking.service';
 import { BookingStateService } from '../../../core/services/booking-state.service';
-import { PropertyStateService } from '../../../core/services/property-state.service';
 import { SidebarService } from '../../../core/services/sidebar.service';
 import { ToastService } from '../../../core/services/toast.service';
 import { LucideAngularModule, Check, X, Clock, User, ArrowLeft, Menu, BarChart3, Home, Calendar, Users, Mail, Phone, MapPin, MessageSquare } from 'lucide-angular';
@@ -142,7 +141,7 @@ import { Subscription } from 'rxjs';
                   <p class="message-text">{{request.message}}</p>
                 </div>
 
-                <div class="action-section" *ngIf="request.status === 'Pending'">
+                <div class="action-section" *ngIf="request.status?.toLowerCase() === 'pending'">
                   <button (click)="rejectBooking(request.id)" class="reject-btn">
                     <lucide-icon [img]="X" class="w-4 h-4"></lucide-icon>
                     Reject
@@ -719,7 +718,6 @@ export class BookingRequestsComponent implements OnInit, OnDestroy {
   constructor(
     private bookingService: BookingService,
     private bookingStateService: BookingStateService,
-    private propertyStateService: PropertyStateService,
     private toast: ToastService,
     public sidebarService: SidebarService,
     private router: Router,
@@ -740,7 +738,7 @@ export class BookingRequestsComponent implements OnInit, OnDestroy {
     
     this.bookingService.getOwnerBookings().subscribe({
       next: (response) => {
-        this.bookingRequests = response.bookings || [];
+        this.bookingRequests = response.data?.bookings || [];
         this.loading = false;
         this.updateFilters();
         this.filterRequests();
@@ -767,9 +765,6 @@ export class BookingRequestsComponent implements OnInit, OnDestroy {
         if (booking) {
           this.bookingStateService.updateBookingStatus(booking.property_id, 'Approved');
         }
-        
-        // Trigger dashboard update to reflect new tenant/revenue data
-        this.propertyStateService.triggerDashboardUpdate();
       },
       error: () => {
         this.toast.error('Failed to approve booking');
@@ -784,9 +779,9 @@ export class BookingRequestsComponent implements OnInit, OnDestroy {
 
   updateFilters() {
     const totalCount = this.bookingRequests.length;
-    const pendingCount = this.bookingRequests.filter(r => r.status === 'Pending').length;
-    const approvedCount = this.bookingRequests.filter(r => r.status === 'Approved').length;
-    const rejectedCount = this.bookingRequests.filter(r => r.status === 'Rejected').length;
+    const pendingCount = this.bookingRequests.filter(r => r.status?.toLowerCase() === 'pending').length;
+    const approvedCount = this.bookingRequests.filter(r => r.status?.toLowerCase() === 'approved').length;
+    const rejectedCount = this.bookingRequests.filter(r => r.status?.toLowerCase() === 'rejected').length;
 
     this.filters = [
       { key: 'All', label: 'All', count: totalCount },
@@ -805,7 +800,7 @@ export class BookingRequestsComponent implements OnInit, OnDestroy {
     if (this.activeFilter === 'All') {
       this.filteredRequests = [...this.bookingRequests];
     } else {
-      this.filteredRequests = this.bookingRequests.filter(r => r.status === this.activeFilter);
+      this.filteredRequests = this.bookingRequests.filter(r => r.status?.toLowerCase() === this.activeFilter.toLowerCase());
     }
   }
 
@@ -814,15 +809,15 @@ export class BookingRequestsComponent implements OnInit, OnDestroy {
   }
 
   getPendingRequests(): number {
-    return this.bookingRequests.filter(r => r.status === 'Pending').length;
+    return this.bookingRequests.filter(r => r.status?.toLowerCase() === 'pending').length;
   }
 
   getApprovedRequests(): number {
-    return this.bookingRequests.filter(r => r.status === 'Approved').length;
+    return this.bookingRequests.filter(r => r.status?.toLowerCase() === 'approved').length;
   }
 
   getRejectedRequests(): number {
-    return this.bookingRequests.filter(r => r.status === 'Rejected').length;
+    return this.bookingRequests.filter(r => r.status?.toLowerCase() === 'rejected').length;
   }
 
   getStatusClass(status: string): string {
@@ -861,7 +856,6 @@ export class BookingRequestsComponent implements OnInit, OnDestroy {
           this.toast.success('Booking rejected');
           this.loadBookingRequests();
           this.bookingStateService.updateBookingStatus(this.selectedRequest.property_id, 'Rejected');
-          this.propertyStateService.triggerDashboardUpdate();
           this.closeRejectModal();
         },
         error: () => {

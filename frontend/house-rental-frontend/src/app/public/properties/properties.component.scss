@@ -270,6 +270,16 @@
     transform: translateY(-4px);
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
   }
+
+  &.unavailable {
+    opacity: 0.6;
+    filter: grayscale(0.3);
+    
+    &:hover {
+      transform: none;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+  }
 }
 
 .property-image {

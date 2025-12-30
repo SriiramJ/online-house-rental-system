@@ -1,0 +1,151 @@
+<app-navbar></app-navbar>
+
+<div class="page-wrapper">
+  <div class="dashboard-container">
+    <!-- Sidebar -->
+    <app-sidebar 
+      title="Owner Dashboard" 
+      [items]="sidebarItems" 
+      [isOpen]="(sidebarService.sidebarOpen$ | async) ?? false"
+      [toggleIcon]="Menu"
+      (toggle)="sidebarService.toggle()">
+    </app-sidebar>
+
+    <!-- Main Content -->
+    <div class="main-content" [class.sidebar-open]="(sidebarService.sidebarOpen$ | async) ?? false">
+      <div class="content-wrapper">
+        <div class="header-section">
+          <h1 class="page-title">My Tenants</h1>
+          <p class="page-subtitle">View and manage your active tenants</p>
+        </div>
+
+        <!-- Statistics Cards -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon">
+              <lucide-icon [img]="Users" class="w-6 h-6"></lucide-icon>
+            </div>
+            <div class="stat-content">
+              <div class="stat-number">{{getActiveTenants()}}</div>
+              <div class="stat-label">Active Tenants</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon occupied">
+              <lucide-icon [img]="Home" class="w-6 h-6"></lucide-icon>
+            </div>
+            <div class="stat-content">
+              <div class="stat-number">{{getOccupiedProperties()}}</div>
+              <div class="stat-label">Occupied Properties</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon revenue">
+              <lucide-icon [img]="DollarSign" class="w-6 h-6"></lucide-icon>
+            </div>
+            <div class="stat-content">
+              <div class="stat-number">${{getMonthlyRevenue()}}</div>
+              <div class="stat-label">Monthly Revenue</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tenants Grid -->
+        <div class="tenants-container">
+          <div *ngIf="loading" class="loading-state">
+            <div class="loading-spinner"></div>
+            <p>Loading tenants...</p>
+          </div>
+          
+          <div *ngIf="!loading && tenants.length === 0" class="empty-state">
+            <div class="empty-icon">
+              <lucide-icon [img]="Users" class="w-12 h-12 text-gray-400"></lucide-icon>
+            </div>
+            <h3 class="empty-title">No tenants yet</h3>
+            <p class="empty-subtitle">You don't have any active tenants at the moment.</p>
+          </div>
+
+          <div class="tenants-grid">
+            <div *ngFor="let tenant of tenants" class="tenant-card">
+              <div class="tenant-header">
+                <div class="tenant-avatar">
+                  <span>{{tenant.name.charAt(0)}}</span>
+                </div>
+                <div class="tenant-info">
+                  <h3 class="tenant-name">{{tenant.name}}</h3>
+                  <span [ngClass]="getStatusClass(tenant.status)" class="status-badge">
+                    {{tenant.status}}
+                  </span>
+                </div>
+              </div>
+
+              <div class="contact-section">
+                <div class="contact-item">
+                  <lucide-icon [img]="Mail" class="w-4 h-4"></lucide-icon>
+                  <span>{{tenant.email}}</span>
+                </div>
+                <div class="contact-item">
+                  <lucide-icon [img]="Phone" class="w-4 h-4"></lucide-icon>
+                  <span>{{tenant.phone}}</span>
+                </div>
+              </div>
+
+              <div class="property-section">
+                <div class="property-image">
+                  <img [src]="tenant.propertyImage" [alt]="tenant.propertyTitle" />
+                </div>
+                <div class="property-details">
+                  <h4 class="property-title">{{tenant.propertyTitle}}</h4>
+                  <div class="property-location">
+                    <lucide-icon [img]="MapPin" class="w-4 h-4"></lucide-icon>
+                    <span>{{tenant.propertyLocation}}</span>
+                  </div>
+                  <div class="property-price">${{tenant.rent}}/month</div>
+                </div>
+              </div>
+
+              <div class="lease-section">
+                <div class="lease-item">
+                  <lucide-icon [img]="Calendar" class="w-4 h-4"></lucide-icon>
+                  <div class="lease-details">
+                    <span class="lease-label">Move-in</span>
+                    <span class="lease-value">{{tenant.leaseStart}}</span>
+                  </div>
+                </div>
+                <div class="lease-item">
+                  <lucide-icon [img]="Calendar" class="w-4 h-4"></lucide-icon>
+                  <div class="lease-details">
+                    <span class="lease-label">Lease End</span>
+                    <span class="lease-value">{{tenant.leaseEnd}}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="payment-section">
+                <div class="payment-info">
+                  <span class="payment-label">Next Payment</span>
+                  <span class="payment-date" [ngClass]="isPaymentOverdue(tenant.nextPayment) ? 'overdue' : ''">
+                    {{tenant.nextPayment}}
+                  </span>
+                </div>
+              </div>
+
+              <div class="action-section">
+                <button class="action-btn secondary">
+                  <lucide-icon [img]="Mail" class="w-4 h-4"></lucide-icon>
+                  Send Email
+                </button>
+                <button class="action-btn primary">
+                  <lucide-icon [img]="Phone" class="w-4 h-4"></lucide-icon>
+                  Call
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>

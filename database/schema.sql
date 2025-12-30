@@ -1,6 +1,9 @@
 -- =====================================================
--- HOUSE RENTAL DATABASE SCHEMA - COMPLETE
+-- HOUSE RENTAL SYSTEM - COMPLETE DATABASE SCHEMA
 -- =====================================================
+
+-- Create database if not exists
+CREATE DATABASE IF NOT EXISTS house_rental_db;
 USE house_rental_db;
 
 -- =====================================================
@@ -26,69 +29,25 @@ CREATE TABLE IF NOT EXISTS properties (
   description TEXT,
   rent DECIMAL(10,2) NOT NULL,
   location VARCHAR(255) NOT NULL,
+  property_type ENUM('Apartment', 'House', 'Condo', 'Studio') DEFAULT 'Apartment',
+  bedrooms INT DEFAULT 1,
+  bathrooms INT DEFAULT 1,
+  area_sqft INT,
+  amenities TEXT,
+  photos TEXT,
+  is_available BOOLEAN DEFAULT TRUE,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   
-  FOREIGN KEY (owner_id) REFERENCES users(id) ON DELETE CASCADE
+  CONSTRAINT fk_properties_owner
+    FOREIGN KEY (owner_id)
+    REFERENCES users(id)
+    ON DELETE CASCADE
 );
 
--- Add missing columns to existing properties table
-SET @sql = (SELECT IF(
-    (SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name='properties' AND column_name='property_type' AND table_schema='house_rental_db') > 0,
-    'SELECT "property_type column exists"',
-    'ALTER TABLE properties ADD COLUMN property_type ENUM("Apartment", "House", "Condo", "Studio") DEFAULT "Apartment"'
-));
-PREPARE stmt FROM @sql;
-EXECUTE stmt;
-DEALLOCATE PREPARE stmt;
-
-SET @sql = (SELECT IF(
-    (SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name='properties' AND column_name='bedrooms' AND table_schema='house_rental_db') > 0,
-    'SELECT "bedrooms column exists"',
-    'ALTER TABLE properties ADD COLUMN bedrooms INT DEFAULT 1'
-));
-PREPARE stmt FROM @sql;
-EXECUTE stmt;
-DEALLOCATE PREPARE stmt;
-
-SET @sql = (SELECT IF(
-    (SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name='properties' AND column_name='bathrooms' AND table_schema='house_rental_db') > 0,
-    'SELECT "bathrooms column exists"',
-    'ALTER TABLE properties ADD COLUMN bathrooms INT DEFAULT 1'
-));
-PREPARE stmt FROM @sql;
-EXECUTE stmt;
-DEALLOCATE PREPARE stmt;
-
-SET @sql = (SELECT IF(
-    (SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name='properties' AND column_name='area_sqft' AND table_schema='house_rental_db') > 0,
-    'SELECT "area_sqft column exists"',
-    'ALTER TABLE properties ADD COLUMN area_sqft INT'
-));
-PREPARE stmt FROM @sql;
-EXECUTE stmt;
-DEALLOCATE PREPARE stmt;
-
-SET @sql = (SELECT IF(
-    (SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name='properties' AND column_name='amenities' AND table_schema='house_rental_db') > 0,
-    'SELECT "amenities column exists"',
-    'ALTER TABLE properties ADD COLUMN amenities TEXT'
-));
-PREPARE stmt FROM @sql;
-EXECUTE stmt;
-DEALLOCATE PREPARE stmt;
-
-SET @sql = (SELECT IF(
-    (SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name='properties' AND column_name='photos' AND table_schema='house_rental_db') > 0,
-    'SELECT "photos column exists"',
-    'ALTER TABLE properties ADD COLUMN photos TEXT'
-));
-PREPARE stmt FROM @sql;
-EXECUTE stmt;
-DEALLOCATE PREPARE stmt;
-
+-- Add is_available column if it doesn't exist (for existing databases)
 SET @sql = (SELECT IF(
     (SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name='properties' AND column_name='is_available' AND table_schema='house_rental_db') > 0,
-    'SELECT "is_available column exists"',
+    'SELECT "is_available column already exists"',
     'ALTER TABLE properties ADD COLUMN is_available BOOLEAN DEFAULT TRUE'
 ));
 PREPARE stmt FROM @sql;
@@ -106,17 +65,44 @@ CREATE TABLE IF NOT EXISTS bookings (
   move_in_date DATE,
   lease_duration VARCHAR(50),
   message TEXT,
+  rejection_reason TEXT,
   request_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
-  FOREIGN KEY (property_id) REFERENCES properties(id) ON DELETE CASCADE,
-  FOREIGN KEY (tenant_id) REFERENCES users(id) ON DELETE CASCADE
+  CONSTRAINT fk_bookings_property
+    FOREIGN KEY (property_id)
+    REFERENCES properties(id)
+    ON DELETE CASCADE,
+
+  CONSTRAINT fk_bookings_tenant
+    FOREIGN KEY (tenant_id)
+    REFERENCES users(id)
+    ON DELETE CASCADE
 );
 
--- Add missing columns to existing bookings table
+-- Add missing columns to bookings table if they don't exist
 SET @sql = (SELECT IF(
-    (SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name='bookings' AND column_name='created_at' AND table_schema='house_rental_db') > 0,
-    'SELECT "created_at column exists"',
-    'ALTER TABLE bookings ADD COLUMN created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP'
+    (SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name='bookings' AND column_name='move_in_date' AND table_schema='house_rental_db') > 0,
+    'SELECT "move_in_date column already exists"',
+    'ALTER TABLE bookings ADD COLUMN move_in_date DATE'
+));
+PREPARE stmt FROM @sql;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
+
+SET @sql = (SELECT IF(
+    (SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name='bookings' AND column_name='rejection_reason' AND table_schema='house_rental_db') > 0,
+    'SELECT "rejection_reason column already exists"',
+    'ALTER TABLE bookings ADD COLUMN rejection_reason TEXT'
+));
+PREPARE stmt FROM @sql;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
+
+SET @sql = (SELECT IF(
+    (SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name='bookings' AND column_name='message' AND table_schema='house_rental_db') > 0,
+    'SELECT "message column already exists"',
+    'ALTER TABLE bookings ADD COLUMN message TEXT'
 ));
 PREPARE stmt FROM @sql;
 EXECUTE stmt;
@@ -136,8 +122,15 @@ CREATE TABLE IF NOT EXISTS tenants (
   status ENUM('Active', 'Expired', 'Terminated') DEFAULT 'Active',
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
-  FOREIGN KEY (property_id) REFERENCES properties(id) ON DELETE CASCADE,
-  FOREIGN KEY (tenant_id) REFERENCES users(id) ON DELETE CASCADE
+  CONSTRAINT fk_tenants_property
+    FOREIGN KEY (property_id)
+    REFERENCES properties(id)
+    ON DELETE CASCADE,
+
+  CONSTRAINT fk_tenants_user
+    FOREIGN KEY (tenant_id)
+    REFERENCES users(id)
+    ON DELETE CASCADE
 );
 
 -- =====================================================
@@ -150,7 +143,10 @@ CREATE TABLE IF NOT EXISTS notifications (
   is_read BOOLEAN DEFAULT FALSE,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
-  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+  CONSTRAINT fk_notifications_user
+    FOREIGN KEY (user_id)
+    REFERENCES users(id)
+    ON DELETE CASCADE
 );
 
 -- =====================================================
@@ -163,5 +159,21 @@ CREATE TABLE IF NOT EXISTS activity_logs (
   details TEXT,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
-  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL
+  CONSTRAINT fk_activity_user
+    FOREIGN KEY (user_id)
+    REFERENCES users(id)
+    ON DELETE SET NULL
 );
+
+-- =====================================================
+-- SAMPLE DATA (OPTIONAL)
+-- =====================================================
+-- Insert sample users for testing
+INSERT IGNORE INTO users (id, name, email, password_hash, role, phone) VALUES
+(1, 'Admin User', 'admin@test.com', '$2b$10$hashedpassword', 'ADMIN', '9000000001'),
+(2, 'Tenant User', 'tenant@test.com', '$2b$10$hashedpassword', 'TENANT', '9000000002'),
+(3, 'Owner User', 'owner@test.com', '$2b$10$hashedpassword', 'OWNER', '9000000003');
+
+-- Show completion message
+SELECT 'Database schema created successfully!' as status;
+SHOW TABLES;

@@ -482,6 +482,7 @@ export class OwnerDashboardComponent implements OnInit, OnDestroy {
   sidebarItems: SidebarItem[] = [
     { label: 'Dashboard', route: '/owner/dashboard', icon: BarChart3 },
     { label: 'My Properties', route: '/owner/properties', icon: Home },
+    { label: 'Booking Requests', route: '/owner/booking-requests', icon: Calendar },
     { label: 'My Tenants', route: '/owner/tenants', icon: Users }
   ];
 
@@ -591,8 +592,7 @@ export class OwnerDashboardComponent implements OnInit, OnDestroy {
   }
 
   viewAllBookings() {
-    // Since booking requests page is removed, show toast message
-    this.toast.info('Booking requests are now managed through the dashboard');
+    this.router.navigate(['/owner/booking-requests']);
   }
 
   navigateToTenants() {

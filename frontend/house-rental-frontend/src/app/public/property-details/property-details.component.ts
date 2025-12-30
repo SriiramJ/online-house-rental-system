@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { PropertyService, Property } from '../../core/services/property.service';
 import { BookingService } from '../../core/services/booking.service';
 import { BookingStateService } from '../../core/services/booking-state.service';
+import { PropertyStateService } from '../../core/services/property-state.service';
 import { AuthService } from '../../core/services/auth.service';
 import { ToastService } from '../../core/services/toast.service';
 import { LoaderComponent } from '../../shared/components/loader/loader.component';
@@ -60,6 +61,7 @@ export class PropertyDetailsComponent implements OnInit {
     private propertyService: PropertyService,
     private bookingService: BookingService,
     private bookingStateService: BookingStateService,
+    private propertyStateService: PropertyStateService,
     private authService: AuthService,
     private cdr: ChangeDetectorRef,
     private toast: ToastService
@@ -191,6 +193,12 @@ export class PropertyDetailsComponent implements OnInit {
   }
 
   submitBooking() {
+    console.log('=== SUBMIT BOOKING CALLED ===');
+    console.log('Form data:', this.bookingForm);
+    console.log('Property:', this.property);
+    console.log('Is authenticated:', this.authService.isAuthenticated());
+    console.log('User role:', this.authService.getCurrentUser());
+    
     if (!this.bookingForm.moveInDate) {
       this.toast.error('Move-in date is required');
       return;
@@ -209,9 +217,12 @@ export class PropertyDetailsComponent implements OnInit {
       message: this.bookingForm.message || ''
     };
 
+    console.log('Booking data to send:', bookingData);
+
     // Create booking and update property availability
     this.bookingService.createBooking(bookingData).subscribe({
       next: (response) => {
+        console.log('Booking success response:', response);
         this.submittingBooking = false;
         this.closeBookingModal();
         this.toast.success('Booking request submitted successfully!');
@@ -219,24 +230,30 @@ export class PropertyDetailsComponent implements OnInit {
         // Update global state
         this.bookingStateService.createBooking(this.property!.id);
         
+        // Trigger properties list update
+        this.propertyStateService.triggerPropertiesUpdate();
+        
         // Update local property state
         if (this.property) {
           this.property.is_available = false;
         }
         this.cdr.detectChanges();
       },
-      error: () => {
+      error: (error) => {
         this.submittingBooking = false;
-        this.closeBookingModal();
-        this.toast.success('Booking request submitted successfully!');
+        console.error('Booking submission error:', error);
+        console.error('Error status:', error.status);
+        console.error('Error message:', error.message);
+        console.error('Error details:', error.error);
         
-        // Update global state even on error (fallback)
-        this.bookingStateService.createBooking(this.property!.id);
-        
-        if (this.property) {
-          this.property.is_available = false;
+        let errorMessage = 'Failed to submit booking request. Please try again.';
+        if (error.status === 401) {
+          errorMessage = 'Please log in to book this property.';
+        } else if (error.error?.message) {
+          errorMessage = error.error.message;
         }
-        this.cdr.detectChanges();
+        
+        this.toast.error(errorMessage);
       }
     });
   }

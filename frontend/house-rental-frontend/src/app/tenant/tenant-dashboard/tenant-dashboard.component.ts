@@ -1,13 +1,15 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { NavbarComponent } from '../../shared/navbar/navbar.component';
 import { FooterComponent } from '../../shared/footer/footer.component';
 import { SidebarComponent, SidebarItem } from '../../shared/shared/sidebar/sidebar.component';
 import { AuthService } from '../../core/services/auth.service';
-import { TenantService } from '../../core/services/tenant.service';
+import { BookingService } from '../../core/services/booking.service';
+import { BookingStateService } from '../../core/services/booking-state.service';
 import { SidebarService } from '../../core/services/sidebar.service';
 import { LucideAngularModule, Search, Calendar, Home, BarChart3, Eye, X } from 'lucide-angular';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-tenant-dashboard',
@@ -439,7 +441,7 @@ import { LucideAngularModule, Search, Calendar, Home, BarChart3, Eye, X } from '
     }
   `]
 })
-export class TenantDashboardComponent implements OnInit {
+export class TenantDashboardComponent implements OnInit, OnDestroy {
   dashboardData: any = {
     totalBookings: 0,
     pendingBookings: 0,
@@ -447,6 +449,7 @@ export class TenantDashboardComponent implements OnInit {
     rejectedBookings: 0
   };
   loading = false;
+  private destroy$ = new Subject<void>();
 
   sidebarItems: SidebarItem[] = [
     { label: 'Dashboard', route: '/tenant/dashboard', icon: BarChart3 },
@@ -464,28 +467,43 @@ export class TenantDashboardComponent implements OnInit {
   constructor(
     private router: Router,
     private authService: AuthService,
-    private tenantService: TenantService,
+    private bookingService: BookingService,
+    private bookingStateService: BookingStateService,
     public sidebarService: SidebarService,
     private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
     this.loadDashboardData();
+    this.subscribeToBookingUpdates();
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  subscribeToBookingUpdates() {
+    this.bookingStateService.bookingUpdates$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(update => {
+        if (update) {
+          this.loadDashboardData();
+        }
+      });
   }
 
   loadDashboardData() {
     this.loading = true;
-    console.log('Loading tenant dashboard data...');
-    this.tenantService.getTenantDashboard().subscribe({
+    this.bookingService.getTenantBookings().subscribe({
       next: (response) => {
-        console.log('Tenant dashboard response:', response);
-        this.dashboardData = response.data?.stats || {
-          totalBookings: 0,
-          pendingBookings: 0,
-          approvedBookings: 0,
-          rejectedBookings: 0
+        const bookings = response.data?.bookings || [];
+        this.dashboardData = {
+          totalBookings: bookings.length,
+          pendingBookings: bookings.filter((b: any) => b.status === 'Pending').length,
+          approvedBookings: bookings.filter((b: any) => b.status === 'Approved').length,
+          rejectedBookings: bookings.filter((b: any) => b.status === 'Rejected').length
         };
-        console.log('Dashboard data set to:', this.dashboardData);
         this.loading = false;
         this.cdr.detectChanges();
       },

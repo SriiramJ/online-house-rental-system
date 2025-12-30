@@ -75,11 +75,27 @@ export const getOwnerBookings = async (req: Request, res: Response) => {
   }
 };
 
+export const getOwnerTenants = async (req: Request, res: Response) => {
+  try {
+    const userId = req.user?.userId;
+    if (!userId) {
+      return res.status(401).json({ error: 'Unauthorized' });
+    }
+
+    const bookingService = new BookingService();
+    const tenants = await bookingService.getOwnerTenants(userId);
+    res.json({ success: true, tenants });
+  } catch (error) {
+    console.error('Error fetching owner tenants:', error);
+    res.status(500).json({ error: 'Failed to fetch tenants' });
+  }
+};
+
 export const updateBookingStatus = async (req: Request, res: Response) => {
   try {
     const userId = req.user?.userId;
     const bookingId = parseInt(req.params.id);
-    const { status } = req.body;
+    const { status, rejection_reason } = req.body;
 
     if (!userId) {
       return res.status(401).json({ error: 'Unauthorized' });
@@ -90,7 +106,7 @@ export const updateBookingStatus = async (req: Request, res: Response) => {
     }
 
     const bookingService = new BookingService();
-    const result = await bookingService.updateBookingStatus(bookingId, status, userId);
+    const result = await bookingService.updateBookingStatus(bookingId, status, userId, rejection_reason);
     
     if (result) {
       res.json({ success: true, message: `Booking ${status.toLowerCase()} successfully` });

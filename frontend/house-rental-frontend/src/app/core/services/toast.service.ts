@@ -29,8 +29,11 @@ export class ToastService {
       show: true
     };
 
-    const currentToasts = this.toastsSubject.value;
-    this.toastsSubject.next([...currentToasts, toast]);
+    // Use setTimeout to avoid change detection issues
+    setTimeout(() => {
+      const currentToasts = this.toastsSubject.value;
+      this.toastsSubject.next([...currentToasts, toast]);
+    }, 0);
 
     // Auto remove
     setTimeout(() => {

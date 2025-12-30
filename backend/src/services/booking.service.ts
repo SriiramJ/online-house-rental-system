@@ -139,6 +139,43 @@ export class BookingService {
     }
   }
 
+  async getOwnerTenants(ownerId: number) {
+    const connection = await db.getConnection();
+    
+    try {
+      console.log('Getting tenants for owner ID:', ownerId);
+      const [rows] = await connection.execute(
+        `SELECT 
+          b.id as booking_id,
+          b.move_in_date,
+          b.status as booking_status,
+          p.id as property_id,
+          p.title as property_title,
+          p.location as property_location,
+          p.rent,
+          p.photos as property_photos,
+          u.id as tenant_id,
+          u.name as tenant_name,
+          u.email as tenant_email,
+          u.phone as tenant_phone
+        FROM bookings b
+        JOIN properties p ON b.property_id = p.id
+        JOIN users u ON b.tenant_id = u.id
+        WHERE p.owner_id = ? AND LOWER(b.status) = 'approved'
+        ORDER BY b.move_in_date DESC`,
+        [ownerId]
+      );
+      
+      console.log('Found approved tenants:', rows);
+      return rows;
+    } catch (error: any) {
+      logger.error(`Error fetching owner tenants: ${error.message}`);
+      return [];
+    } finally {
+      connection.release();
+    }
+  }
+
   async updateBookingStatus(bookingId: number, status: string, ownerId: number, rejectionReason?: string): Promise<boolean> {
     const connection = await db.getConnection();
     

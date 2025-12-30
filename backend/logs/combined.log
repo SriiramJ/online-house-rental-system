@@ -663,3 +663,44 @@
 2025-12-29 22:19:58 [INFO]: Login attempt for email: sriram@gmail.com
 2025-12-29 22:19:58 [INFO]: Fetching user by email: sriram@gmail.com
 2025-12-29 22:19:58 [INFO]: Login successful for userId: 5
+2025-12-30 11:27:23 [INFO]: Server running on port 3001
+2025-12-30 11:27:23 [INFO]: MySQL database connected successfully
+2025-12-30 11:30:19 [INFO]: Login attempt for email: vishnu@test.com
+2025-12-30 11:30:19 [INFO]: Fetching user by email: vishnu@test.com
+2025-12-30 11:30:19 [INFO]: Login successful for userId: 10
+2025-12-30 11:30:32 [ERROR]: Error creating booking: Unknown column 'is_available' in 'field list'
+2025-12-30 11:30:59 [INFO]: Login attempt for email: sriram1@test.com
+2025-12-30 11:30:59 [INFO]: Fetching user by email: sriram1@test.com
+2025-12-30 11:30:59 [INFO]: Login successful for userId: 8
+2025-12-30 11:55:03 [INFO]: Login attempt for email: vishnu@test.com
+2025-12-30 11:55:03 [INFO]: Fetching user by email: vishnu@test.com
+2025-12-30 11:55:03 [INFO]: Login successful for userId: 10
+2025-12-30 11:55:20 [ERROR]: Error creating booking: Unknown column 'is_available' in 'field list'
+2025-12-30 12:02:33 [ERROR]: Error creating booking: Unknown column 'is_available' in 'field list'
+2025-12-30 12:06:57 [ERROR]: Error creating booking: Unknown column 'is_available' in 'field list'
+2025-12-30 12:15:29 [INFO]: MySQL database connected successfully
+2025-12-30 12:15:29 [INFO]: Server running on port 3001
+2025-12-30 12:15:48 [INFO]: Login attempt for email: sriram1@test.com
+2025-12-30 12:15:48 [INFO]: Fetching user by email: sriram1@test.com
+2025-12-30 12:15:48 [INFO]: Login successful for userId: 8
+2025-12-30 12:16:39 [INFO]: Uploaded 1 property images
+2025-12-30 12:16:49 [INFO]: Property created successfully by user 8
+2025-12-30 12:17:06 [INFO]: Login attempt for email: sriram1@test.com
+2025-12-30 12:17:06 [INFO]: Fetching user by email: sriram1@test.com
+2025-12-30 12:17:06 [INFO]: Login successful for userId: 8
+2025-12-30 12:17:19 [INFO]: Login attempt for email: vishnu@test.com
+2025-12-30 12:17:19 [INFO]: Fetching user by email: vishnu@test.com
+2025-12-30 12:17:19 [INFO]: Login successful for userId: 10
+2025-12-30 12:17:37 [ERROR]: Error creating booking: Unknown column 'move_in_date' in 'field list'
+2025-12-30 12:23:21 [INFO]: MySQL database connected successfully
+2025-12-30 12:23:21 [INFO]: Server running on port 3001
+2025-12-30 12:23:29 [ERROR]: Error creating booking: Unknown column 'message' in 'field list'
+2025-12-30 12:23:44 [ERROR]: Error creating booking: Unknown column 'message' in 'field list'
+2025-12-30 12:28:54 [INFO]: Login attempt for email: vishnu@test.com
+2025-12-30 12:28:54 [INFO]: Fetching user by email: vishnu@test.com
+2025-12-30 12:28:54 [INFO]: Login successful for userId: 10
+2025-12-30 12:29:08 [INFO]: Login attempt for email: sriram1@test.com
+2025-12-30 12:29:08 [INFO]: Fetching user by email: sriram1@test.com
+2025-12-30 12:29:09 [INFO]: Login successful for userId: 8
+2025-12-30 13:54:51 [INFO]: Server running on port 3001
+2025-12-30 13:54:51 [INFO]: MySQL database connected successfully
