@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject, tap } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { ToastService } from './toast.service';
 
 interface User {
   id: number;
@@ -31,13 +32,23 @@ export class AuthService {
   private currentUserSubject = new BehaviorSubject<User | null>(this.getUserFromStorage());
   public currentUser$ = this.currentUserSubject.asObservable();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private toast: ToastService) {}
 
   login(credentials: { email: string; password: string }): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${this.api}/login`, credentials).pipe(
       tap(response => {
         if (response.success && response.data) {
           this.setSession(response.data.user, response.data.token);
+          this.toast.success('Welcome back!', `Hello ${response.data.user.name}, you're successfully logged in.`);
+          
+          // Redirect based on role
+          setTimeout(() => {
+            if (response.data!.user.role === 'OWNER') {
+              window.location.href = '/owner/dashboard';
+            } else {
+              window.location.href = '/dashboard';
+            }
+          }, 1000);
         }
       })
     );
@@ -53,15 +64,18 @@ export class AuthService {
       tap(response => {
         if (response.success && response.data) {
           this.setSession(response.data.user, response.data.token);
+          this.toast.success('Welcome to RentEase!', `Account created successfully. Hello ${response.data.user.name}!`);
         }
       })
     );
   }
 
   logout(): void {
+    const user = this.getCurrentUser();
     localStorage.removeItem(this.tokenKey);
     localStorage.removeItem(this.userKey);
     this.currentUserSubject.next(null);
+    this.toast.info('Logged out successfully', `Goodbye ${user?.name || 'User'}, see you soon!`);
   }
 
   getToken(): string | null {

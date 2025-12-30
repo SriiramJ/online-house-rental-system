@@ -6,7 +6,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { ApiService } from '../services/api.service';
+import { AuthService } from '../core/services/auth.service';
+import { ToastService } from '../core/services/toast.service';
 
 @Component({
   selector: 'app-login',
@@ -43,11 +44,6 @@ import { ApiService } from '../services/api.service';
               Sign In
             </button>
           </form>
-          
-          <div *ngIf="message" class="message" [ngClass]="messageClass">
-            <mat-icon>{{messageClass === 'success' ? 'check_circle' : 'error'}}</mat-icon>
-            {{ message }}
-          </div>
         </mat-card-content>
       </mat-card>
     </div>
@@ -127,22 +123,17 @@ export class LoginComponent {
     password: ''
   };
   
-  message = '';
-  messageClass = '';
   hidePassword = true;
 
-  constructor(private apiService: ApiService) {}
+  constructor(private authService: AuthService, private toast: ToastService) {}
 
   onLogin() {
-    this.apiService.login(this.credentials).subscribe({
+    this.authService.login(this.credentials).subscribe({
       next: (response) => {
-        this.message = 'Login successful!';
-        this.messageClass = 'success';
         console.log('Login response:', response);
       },
       error: (error) => {
-        this.message = error.error?.message || 'Login failed. Please try again.';
-        this.messageClass = 'error';
+        this.toast.error('Login failed', error.error?.message || 'Please check your credentials and try again.');
         console.error('Login error:', error);
       }
     });

@@ -1,0 +1,111 @@
+<app-navbar></app-navbar>
+
+<div class="page-wrapper">
+  <div class="dashboard-container">
+    <app-sidebar 
+      title="Tenant Dashboard" 
+      [items]="sidebarItems" 
+      [isOpen]="(sidebarService.sidebarOpen$ | async) ?? false"
+      [toggleIcon]="BarChart3"
+      (toggle)="sidebarService.toggle()">
+    </app-sidebar>
+
+    <div class="main-content" [class.sidebar-open]="(sidebarService.sidebarOpen$ | async) ?? false">
+      <div class="content-wrapper">
+        <div class="header-section">
+          <h1 class="page-title">My Bookings</h1>
+          <p class="page-subtitle">Track your property booking requests and status</p>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-content">
+              <div class="stat-number">{{getTotalBookings()}}</div>
+              <div class="stat-label">Total Bookings</div>
+            </div>
+          </div>
+          <div class="stat-card pending">
+            <div class="stat-content">
+              <div class="stat-number">{{getPendingBookings()}}</div>
+              <div class="stat-label">Pending</div>
+            </div>
+          </div>
+          <div class="stat-card approved">
+            <div class="stat-content">
+              <div class="stat-number">{{getApprovedBookings()}}</div>
+              <div class="stat-label">Approved</div>
+            </div>
+          </div>
+          <div class="stat-card rejected">
+            <div class="stat-content">
+              <div class="stat-number">{{getRejectedBookings()}}</div>
+              <div class="stat-label">Rejected</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bookings-container">
+          <div *ngIf="loading" class="loading-state">
+            <div class="loading-spinner"></div>
+            <p>Loading bookings...</p>
+          </div>
+          
+          <div *ngIf="!loading && bookings.length === 0" class="empty-state">
+            <div class="empty-icon">
+              <lucide-icon [img]="Calendar" class="w-12 h-12 text-gray-400"></lucide-icon>
+            </div>
+            <h3 class="empty-title">No bookings yet</h3>
+            <p class="empty-subtitle">Start by browsing properties and making your first booking request.</p>
+            <button class="browse-btn" (click)="navigateToBrowse()">
+              <lucide-icon [img]="Search" class="btn-icon"></lucide-icon>
+              Browse Properties
+            </button>
+          </div>
+
+          <div *ngFor="let booking of bookings" class="booking-card">
+            <div class="booking-header">
+              <div class="property-info">
+                <h3 class="property-title">{{booking.property_title}}</h3>
+                <p class="property-location">{{booking.property_location}}</p>
+                <p class="property-rent">${{booking.rent}}/month</p>
+              </div>
+              <div class="booking-status">
+                <span [ngClass]="getStatusClass(booking.status)" class="status-badge">
+                  <lucide-icon [img]="getStatusIcon(booking.status)" class="status-icon"></lucide-icon>
+                  {{booking.status}}
+                </span>
+              </div>
+            </div>
+            
+            <div class="booking-details">
+              <div class="detail-item">
+                <span class="detail-label">Move-in Date:</span>
+                <span class="detail-value">{{formatDate(booking.move_in_date)}}</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Request Date:</span>
+                <span class="detail-value">{{formatDate(booking.created_at || booking.request_time)}}</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Owner:</span>
+                <span class="detail-value">{{booking.owner_name}}</span>
+              </div>
+            </div>
+
+            <div *ngIf="booking.message" class="booking-message">
+              <h4>Your Message:</h4>
+              <p>{{booking.message}}</p>
+            </div>
+
+            <div *ngIf="booking.status?.toLowerCase() === 'rejected' && booking.rejection_reason" class="rejection-reason">
+              <h4>Rejection Reason:</h4>
+              <p>{{booking.rejection_reason}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>

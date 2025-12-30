@@ -22,8 +22,9 @@ export const authMiddleware = (
 
     try {
         const decoded = verifyToken(token);
-    (req as any).user = decoded;
-    next();
+        (req as any).user = decoded;
+        console.log('Auth middleware - decoded user:', decoded);
+        next();
     } catch (error:any) {
         logger.error(`JWT verification failed: ${error.message}`)
         return res.status(401).json({message:"Invalid token"})

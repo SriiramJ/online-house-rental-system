@@ -126,6 +126,7 @@
       <div
         *ngFor="let property of filteredProperties"
         class="property-card"
+        [class.unavailable]="!property.is_available"
         (click)="viewProperty(property.id)"
       >
         <div class="property-image">

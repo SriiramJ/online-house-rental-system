@@ -9,13 +9,18 @@
 }
 
 .navbar-container {
-  max-width: 80rem;
-  margin: 0 auto;
+  width: 100%;
   padding: 0 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 4rem;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
 .navbar-brand {
@@ -36,6 +41,30 @@
   line-height: 1.75rem;
   color: #111827;
   font-weight: 600;
+}
+
+.sidebar-toggle {
+  background: none;
+  border: none;
+  color: #374151;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 0.375rem;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+}
+
+.sidebar-toggle:hover {
+  background: rgba(102, 126, 234, 0.1);
+  color: #667eea;
+}
+
+.toggle-icon {
+  width: 20px;
+  height: 20px;
 }
 
 .navbar-menu {
@@ -188,6 +217,18 @@
 .user-info .email {
   font-size: 0.875rem;
   color: #6b7280;
+  margin-bottom: 0.25rem;
+}
+
+.user-info .role {
+  font-size: 0.75rem;
+  color: #667eea;
+  font-weight: 500;
+  text-transform: uppercase;
+  background: rgba(102, 126, 234, 0.1);
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  display: inline-block;
 }
 
 .logout-btn {

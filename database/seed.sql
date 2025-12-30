@@ -8,13 +8,7 @@ INSERT INTO users (name, email, password_hash, role, phone) VALUES
 ('Admin User', 'admin@test.com', '$2b$10$hashedpassword', 'ADMIN', '9000000003');
 
 -- PROPERTIES (Owned by OWNER)
-INSERT INTO properties (owner_id, title, description, rent, location, amenities)
-VALUES
-(2, '2BHK Apartment', 'Near metro station', 15000, 'Chennai', 'AC,WiFi,Parking'),
-(2, '1BHK Studio', 'Ideal for bachelors', 9000, 'Bangalore', 'WiFi');
+-- No mock properties - owners will add their own properties
 
 -- BOOKINGS (Tenant books property)
-INSERT INTO bookings (property_id, tenant_id, status)
-VALUES
-(1, 1, 'Pending'),
-(2, 1, 'Approved');
+-- No mock bookings - will be created when tenants book properties

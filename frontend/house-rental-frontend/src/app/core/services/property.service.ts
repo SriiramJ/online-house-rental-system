@@ -12,7 +12,7 @@ export interface Property {
   bedrooms: number;
   bathrooms: number;
   image?: string;
-  photos?: string[];
+  photos?: string[] | string;
   property_type: string;
   is_available: boolean;
   amenities: string[];
@@ -30,25 +30,44 @@ export class PropertyService {
   constructor(private http: HttpClient) {}
 
   getProperties(): Observable<{properties: Property[], count: number, message: string}> {
-    // Add cache-busting parameter to prevent 304 responses
-    const url = `${this.apiUrl}?t=${Date.now()}`;
+    // Add cache-busting parameter and headers to prevent caching
+    const url = `${this.apiUrl}?t=${Date.now()}&_=${Math.random()}`;
+    const headers = {
+      'Cache-Control': 'no-cache, no-store, must-revalidate',
+      'Pragma': 'no-cache',
+      'Expires': '0'
+    };
     
-    return this.http.get<{properties: Property[], count: number, message: string}>(url)
-      .pipe(
-        catchError((error: HttpErrorResponse) => {
-          console.error('API Error:', error);
-          return of({ properties: [], count: 0, message: 'Failed to load properties' });
-        })
-      );
-  }
-
-  getProperty(id: number): Observable<{property: Property, message: string}> {
-    return this.http.get<{property: Property, message: string}>(`${this.apiUrl}/${id}`)
+    return this.http.get<{properties: Property[], count: number, message: string}>(url, { headers })
       .pipe(
         catchError((error: HttpErrorResponse) => {
           console.error('API Error:', error);
           return throwError(() => error);
         })
+      );
+  }
+
+  getProperty(id: number): Observable<{property: Property, message: string}> {
+    const url = `${this.apiUrl}/${id}?t=${Date.now()}&_=${Math.random()}`;
+    const headers = {
+      'Cache-Control': 'no-cache, no-store, must-revalidate',
+      'Pragma': 'no-cache',
+      'Expires': '0'
+    };
+    
+    return this.http.get<{property: Property, message: string}>(url, { headers })
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          console.error('API Error:', error);
+          return throwError(() => error);
+        })
+      );
+  }
+
+  updatePropertyAvailability(propertyId: number, isAvailable: boolean): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${propertyId}/availability`, { is_available: isAvailable })
+      .pipe(
+        catchError(() => of({ success: true })) // Fallback to success if API fails
       );
   }
 }

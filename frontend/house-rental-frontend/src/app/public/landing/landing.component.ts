@@ -1,11 +1,14 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../../shared/button/button.component';
 import { NavbarComponent } from '../../shared/navbar/navbar.component';
 import { FooterComponent } from '../../shared/footer/footer.component';
 import { PropertyService, Property } from '../../core/services/property.service';
+import { BookingStateService } from '../../core/services/booking-state.service';
+import { AuthStateService } from '../../core/services/auth-state.service';
 import { LucideAngularModule, Search, Home, Users } from 'lucide-angular';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-landing',
@@ -14,10 +17,12 @@ import { LucideAngularModule, Search, Home, Users } from 'lucide-angular';
   templateUrl: './landing.component.html',
   styleUrls: ['./landing.component.scss']
 })
-export class LandingComponent implements OnInit {
+export class LandingComponent implements OnInit, OnDestroy {
   featuredProperties: Property[] = [];
   loading = false;
   error = '';
+  isLoggedIn = false;
+  private destroy$ = new Subject<void>();
 
   // Lucide icons
   readonly Search = Search;
@@ -27,11 +32,34 @@ export class LandingComponent implements OnInit {
   constructor(
     private router: Router,
     private propertyService: PropertyService,
+    private bookingStateService: BookingStateService,
+    private authState: AuthStateService,
     private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
+    this.isLoggedIn = !!this.authState.getToken();
     this.loadFeaturedProperties();
+    this.subscribeToBookingUpdates();
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  subscribeToBookingUpdates() {
+    this.bookingStateService.propertyUpdates$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(update => {
+        if (update) {
+          const property = this.featuredProperties.find(p => p.id === update.id);
+          if (property) {
+            property.is_available = update.is_available;
+            this.cdr.detectChanges();
+          }
+        }
+      });
   }
 
   loadFeaturedProperties() {

@@ -2,6 +2,8 @@ import { Router } from "express";
 import { authMiddleware } from "../middlewares/auth.middleware.ts";
 import { roleMiddleware } from "../middlewares/role.middleware.ts";
 import { createProperty, getAllProperties, getPropertyById } from "../controllers/property.controller.ts";
+import { uploadPropertyImages } from "../controllers/upload.controller.ts";
+import { upload } from "../middlewares/upload.middleware.ts";
 
 const router = Router();
 
@@ -11,5 +13,8 @@ router.get("/:id", getPropertyById);
 
 // Protected routes (Owner only)
 router.post("/", authMiddleware, roleMiddleware(['OWNER']), createProperty);
+
+// Upload routes
+router.post("/upload-images", authMiddleware, roleMiddleware(['OWNER']), upload.array('images', 10), uploadPropertyImages);
 
 export default router;

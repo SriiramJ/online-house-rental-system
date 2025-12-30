@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 type ButtonVariant = 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link';
-type ButtonSize = 'default' | 'sm' | 'lg' | 'icon';
+type ButtonSize = 'default' | 'sm' | 'lg' | 'xl' | 'icon';
 
 @Component({
   selector: 'app-button',
@@ -10,6 +10,7 @@ type ButtonSize = 'default' | 'sm' | 'lg' | 'icon';
   imports: [CommonModule],
   template: `
     <button 
+      [type]="type"
       [class]="getButtonClasses()"
       [disabled]="disabled"
       (click)="onClick.emit($event)"
@@ -107,6 +108,11 @@ type ButtonSize = 'default' | 'sm' | 'lg' | 'icon';
       height: 2.5rem;
       padding: 0.625rem 1.5rem;
     }
+    .btn-xl {
+      height: 3rem;
+      padding: 0.75rem 2rem;
+      font-size: 1rem;
+    }
     .btn-icon {
       height: 2.25rem;
       width: 2.25rem;
@@ -117,6 +123,7 @@ type ButtonSize = 'default' | 'sm' | 'lg' | 'icon';
 export class ButtonComponent {
   @Input() variant: ButtonVariant = 'default';
   @Input() size: ButtonSize = 'default';
+  @Input() type: 'button' | 'submit' | 'reset' = 'button';
   @Input() disabled = false;
   @Input() className = '';
   @Output() onClick = new EventEmitter<Event>();
