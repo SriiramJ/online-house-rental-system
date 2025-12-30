@@ -25,6 +25,12 @@
     justify-content: center;
     gap: 0.5rem;
     margin-bottom: 1.5rem;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+
+    &:hover {
+      transform: scale(1.05);
+    }
 
     .logo-icon {
       font-size: 3rem;
@@ -50,6 +56,7 @@
 
     a {
       color: #4f46e5;
+      text-decoration: none;
 
       &:hover {
         color: #3730a3;

@@ -1,47 +1,101 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { ButtonComponent } from '../../shared/button/button.component';
+import { NavbarComponent } from '../../shared/navbar/navbar.component';
+import { FooterComponent } from '../../shared/footer/footer.component';
+import { PropertyService, Property } from '../../core/services/property.service';
+import { BookingStateService } from '../../core/services/booking-state.service';
+import { AuthStateService } from '../../core/services/auth-state.service';
+import { LucideAngularModule, Search, Home, Users } from 'lucide-angular';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-landing',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ButtonComponent, NavbarComponent, FooterComponent, LucideAngularModule],
   templateUrl: './landing.component.html',
   styleUrls: ['./landing.component.scss']
 })
-export class LandingComponent {
+export class LandingComponent implements OnInit, OnDestroy {
+  featuredProperties: Property[] = [];
+  loading = false;
+  error = '';
+  isLoggedIn = false;
+  private destroy$ = new Subject<void>();
 
-  featuredProperties = [
-    {
-      id: 1,
-      image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800',
-      title: 'Modern Downtown Apartment',
-      location: 'Downtown, NYC',
-      rent: 2500,
-      bedrooms: 2,
-      bathrooms: 2
-    },
-    {
-      id: 2,
-      image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800',
-      title: 'Cozy Suburban House',
-      location: 'Brooklyn, NYC',
-      rent: 3200,
-      bedrooms: 3,
-      bathrooms: 2
-    },
-    {
-      id: 3,
-      image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800',
-      title: 'Luxury Villa with Pool',
-      location: 'Queens, NYC',
-      rent: 4500,
-      bedrooms: 4,
-      bathrooms: 3
-    }
-  ];
+  // Lucide icons
+  readonly Search = Search;
+  readonly Home = Home;
+  readonly Users = Users;
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private propertyService: PropertyService,
+    private bookingStateService: BookingStateService,
+    private authState: AuthStateService,
+    private cdr: ChangeDetectorRef
+  ) {}
+
+  ngOnInit() {
+    this.isLoggedIn = !!this.authState.getToken();
+    this.loadFeaturedProperties();
+    this.subscribeToBookingUpdates();
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  subscribeToBookingUpdates() {
+    this.bookingStateService.propertyUpdates$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(update => {
+        if (update) {
+          const property = this.featuredProperties.find(p => p.id === update.id);
+          if (property) {
+            property.is_available = update.is_available;
+            this.cdr.detectChanges();
+          }
+        }
+      });
+  }
+
+  loadFeaturedProperties() {
+    this.loading = true;
+    this.error = '';
+    this.featuredProperties = [];
+    this.cdr.detectChanges();
+    
+    // Timeout fallback
+    setTimeout(() => {
+      if (this.loading) {
+        this.loading = false;
+        this.cdr.detectChanges();
+      }
+    }, 3000);
+    
+    this.propertyService.getProperties().subscribe({
+      next: (response) => {
+        if (response && response.properties && response.properties.length > 0) {
+          this.featuredProperties = response.properties.slice(0, 3).map(property => ({
+            ...property,
+            image: property.photos && property.photos.length > 0 
+              ? property.photos[0] 
+              : 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=400'
+          }));
+        }
+        this.loading = false;
+        this.cdr.detectChanges();
+      },
+      error: (error) => {
+        console.error('Error loading properties:', error);
+        this.loading = false;
+        this.cdr.detectChanges();
+      }
+    });
+  }
 
   browseProperties() {
     this.router.navigate(['/properties']);
@@ -56,6 +110,6 @@ export class LandingComponent {
   }
 
   viewProperty(id: number) {
-    this.router.navigate(['/properties', id]);
+    this.router.navigate(['/property-details', id]);
   }
 }

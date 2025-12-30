@@ -1,0 +1,264 @@
+<app-navbar></app-navbar>
+
+<div class="property-details-container">
+  <!-- Loading State -->
+  <app-loader 
+    *ngIf="loading" 
+    message="Loading property details..."
+  ></app-loader>
+
+  <!-- Error State -->
+  <div *ngIf="error && !loading" class="error-state">
+    <div class="error-content">
+      <lucide-icon [img]="Building" class="error-icon"></lucide-icon>
+      <h3>Property Not Found</h3>
+      <p>{{ error }}</p>
+      <button (click)="goBack()" class="btn btn-primary">
+        <lucide-icon [img]="ArrowLeft" class="btn-icon"></lucide-icon>
+        Back to Properties
+      </button>
+    </div>
+  </div>
+
+  <!-- Property Details -->
+  <div *ngIf="property && !loading && !error" class="property-details">
+    <!-- Back Button -->
+    <div class="back-section">
+      <button (click)="goBack()" class="back-btn">
+        <lucide-icon [img]="ArrowLeft" class="back-icon"></lucide-icon>
+        Back to Properties
+      </button>
+    </div>
+
+    <!-- Property Images -->
+    <div class="property-images">
+      <div class="main-image">
+        <img [src]="getCurrentImage()" [alt]="property.title" />
+        <div class="availability-badge" [class.available]="property.is_available">
+          {{ property.is_available ? 'Available' : 'Not Available' }}
+        </div>
+        
+        <!-- Image Navigation -->
+        <div *ngIf="getPhotosArray().length > 1" class="image-nav">
+          <button (click)="prevImage()" class="nav-btn prev-btn">‹</button>
+          <button (click)="nextImage()" class="nav-btn next-btn">›</button>
+        </div>
+        
+        <!-- Image Indicators -->
+        <div *ngIf="getPhotosArray().length > 1" class="image-indicators">
+          <span 
+            *ngFor="let photo of getPhotosArray(); let i = index" 
+            class="indicator"
+            [class.active]="i === currentImageIndex"
+            (click)="currentImageIndex = i"
+          ></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Property Info -->
+    <div class="property-info">
+      <div class="info-main">
+        <!-- Header -->
+        <div class="property-header">
+          <h1 class="property-title">{{ property.title }}</h1>
+          <div class="property-location">
+            <lucide-icon [img]="MapPin" class="location-icon"></lucide-icon>
+            <span>{{ property.location }}</span>
+          </div>
+          <div class="property-price">
+            <span class="price">${{ property.rent }}</span>
+            <span class="period">/month</span>
+          </div>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="property-stats">
+          <div class="stat-item">
+            <lucide-icon [img]="Bed" class="stat-icon"></lucide-icon>
+            <span class="stat-value">{{ property.bedrooms }}</span>
+            <span class="stat-label">Bedroom{{ property.bedrooms !== 1 ? 's' : '' }}</span>
+          </div>
+          <div class="stat-item">
+            <lucide-icon [img]="Bath" class="stat-icon"></lucide-icon>
+            <span class="stat-value">{{ property.bathrooms }}</span>
+            <span class="stat-label">Bathroom{{ property.bathrooms !== 1 ? 's' : '' }}</span>
+          </div>
+          <div class="stat-item">
+            <lucide-icon [img]="Building" class="stat-icon"></lucide-icon>
+            <span class="stat-value">{{ property.property_type }}</span>
+            <span class="stat-label">Type</span>
+          </div>
+        </div>
+
+        <!-- Description -->
+        <div class="property-description">
+          <h2 class="section-title">Description</h2>
+          <p class="description-text">
+            {{ property.description || 'Beautiful property with modern amenities and excellent location. Perfect for comfortable living with all necessary facilities nearby.' }}
+          </p>
+        </div>
+
+        <!-- Amenities -->
+        <div *ngIf="property.amenities && property.amenities.length > 0" class="property-amenities">
+          <h2 class="section-title">Amenities</h2>
+          <div class="amenities-grid">
+            <div *ngFor="let amenity of property.amenities" class="amenity-item">
+              <lucide-icon [img]="CheckCircle" class="amenity-icon"></lucide-icon>
+              <span class="amenity-name">{{ amenity }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Property Features -->
+        <div class="property-features">
+          <h2 class="section-title">Property Details</h2>
+          <div class="features-grid">
+            <div class="feature-row">
+              <span class="feature-label">Property Type</span>
+              <span class="feature-value">{{ property.property_type }}</span>
+            </div>
+            <div class="feature-row">
+              <span class="feature-label">Bedrooms</span>
+              <span class="feature-value">{{ property.bedrooms }}</span>
+            </div>
+            <div class="feature-row">
+              <span class="feature-label">Bathrooms</span>
+              <span class="feature-value">{{ property.bathrooms }}</span>
+            </div>
+            <div class="feature-row">
+              <span class="feature-label">Monthly Rent</span>
+              <span class="feature-value">${{ property.rent }}</span>
+            </div>
+            <div class="feature-row">
+              <span class="feature-label">Availability</span>
+              <span class="feature-value" [class.available]="property.is_available">
+                {{ property.is_available ? 'Available Now' : 'Not Available' }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Booking Sidebar -->
+      <div class="booking-sidebar">
+        <div class="booking-card">
+          <div class="booking-header">
+            <div class="rent-info">
+              <span class="rent-amount">${{ property.rent }}</span>
+              <span class="rent-period">/month</span>
+            </div>
+          </div>
+
+          <div class="booking-details">
+            <div class="detail-row">
+              <span class="detail-label">Security Deposit</span>
+              <span class="detail-value">${{ property.rent }}</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Lease Term</span>
+              <span class="detail-value">12 months minimum</span>
+            </div>
+          </div>
+
+          <div class="booking-actions">
+            <button 
+              (click)="bookProperty()" 
+              class="btn btn-primary btn-full"
+              [disabled]="!property.is_available || !canBookProperty()"
+            >
+              <span *ngIf="!isLoggedIn">Login to Book</span>
+              <span *ngIf="isLoggedIn && !canBookProperty()">Owners Cannot Book</span>
+              <span *ngIf="canBookProperty()">Book Now</span>
+            </button>
+            
+            <button 
+              (click)="contactOwner()" 
+              class="btn btn-outline btn-full"
+              *ngIf="!isCurrentUserOwner()"
+            >
+              {{ isLoggedIn ? 'Contact Owner' : 'Login to Contact' }}
+            </button>
+          </div>
+
+          <div class="booking-note">
+            <p class="note-text">
+              {{ property.is_available 
+                ? 'This property is available for immediate booking.' 
+                : 'This property is currently not available.' }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>
+
+<!-- Booking Modal -->
+<div *ngIf="showBookingModal" class="modal-overlay" (click)="closeBookingModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2 class="modal-title">Book Property</h2>
+      <button (click)="closeBookingModal()" class="close-btn">
+        <lucide-icon [img]="X" class="close-icon"></lucide-icon>
+      </button>
+    </div>
+    
+    <div class="modal-body">
+      <div class="property-summary">
+        <h3 class="property-name">{{ property?.title }}</h3>
+        <div class="property-location">
+          <lucide-icon [img]="MapPin" class="location-icon"></lucide-icon>
+          <span>{{ property?.location }}</span>
+        </div>
+      </div>
+      
+      <form>
+        <div class="form-group">
+          <label for="moveInDate" class="form-label">
+            <lucide-icon [img]="Calendar" class="label-icon"></lucide-icon>
+            Move-in Date *
+          </label>
+          <input 
+            type="date" 
+            id="moveInDate"
+            name="moveInDate"
+            [(ngModel)]="bookingForm.moveInDate"
+            [min]="getTomorrowDate()"
+            class="form-input"
+            required
+          />
+        </div>
+        
+        <div class="form-group">
+          <label for="message" class="form-label">Message to Owner (Optional)</label>
+          <textarea 
+            id="message"
+            name="message"
+            [(ngModel)]="bookingForm.message"
+            class="form-textarea"
+            rows="4"
+            placeholder="Introduce yourself and explain why you'd like to rent this property"
+          ></textarea>
+        </div>
+        
+        <div class="modal-actions">
+          <button type="button" (click)="closeBookingModal()" class="btn btn-outline">
+            Cancel
+          </button>
+          <button 
+            type="button" 
+            (click)="submitBooking()"
+            class="btn btn-primary"
+            [disabled]="submittingBooking || !bookingForm.moveInDate"
+          >
+            <span *ngIf="!submittingBooking">Submit Booking</span>
+            <span *ngIf="submittingBooking">Submitting...</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

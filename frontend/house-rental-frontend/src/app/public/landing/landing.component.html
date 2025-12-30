@@ -1,45 +1,35 @@
 <div class="min-h-screen bg-gray-50">
-  <!-- Navbar -->
-  <nav class="bg-white shadow-sm sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between items-center h-16">
-        <div class="flex items-center gap-2">
-          <span class="text-lg">🏢</span>
-          <span class="text-lg text-gray-900 font-semibold">RentEase</span>
-        </div>
-        <div class="flex items-center gap-4">
-          <button (click)="browseProperties()" class="navbar-browse text-gray-700 hover:text-indigo-600">
-            Browse Properties
-          </button>
-          <button (click)="login()" class="navbar-browse text-gray-700 hover:text-indigo-600">
-            Login
-          </button>
-          <button (click)="register()" class="navbar-get-started px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">
-            Get Started
-          </button>
-        </div>
-      </div>
-    </div>
-  </nav>
+  <app-navbar></app-navbar>
 
   <!-- Hero Section -->
   <section class="relative bg-gradient-to-br from-indigo-600 to-indigo-800 text-white">
-    <div class="max-w-7xl ml-0 px-4 sm:px-6 lg:px-8 py-8 md:py-16 text-left">
-      <div class="colored-container max-w-3xl mx-auto ">
-        <h1 class="h1-heading text-5xl md:text-4xl mb-1">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+      <div class="text-center">
+        <h1 class="text-3xl md:text-5xl font-bold mb-6">
           Find Your Perfect Home or Manage Your Properties with Ease
         </h1>
-        <p class="text-base md:text-lg text-indigo-100 mb-6">
+        <p class="text-lg md:text-xl text-indigo-100 mb-8 max-w-3xl mx-auto">
           The complete platform for tenants to discover their dream rental and owners to manage properties efficiently.
         </p>
-        <div class="browse-and-started flex flex-col sm:flex-row gap-3 justify-center">
-          <button (click)="browseProperties()" class="browse-click px-5 py-2.5 bg-white text-indigo-600 rounded-lg hover:bg-gray-100 inline-flex items-center justify-center gap-2 font-medium text-sm">
-            <span>🔍</span>
-            Browse Properties
-          </button>
-          <button (click)="register()" class="started-click px-5 py-2.5 bg-indigo-700 text-white rounded-lg hover:bg-indigo-800 border border-indigo-500 font-medium text-sm">
-            Get Started Free
-          </button>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <!-- Logged in user -->
+          <div *ngIf="isLoggedIn" class="flex justify-center">
+            <app-button variant="secondary" size="xl" (onClick)="browseProperties()">
+              <lucide-icon [img]="Search" class="w-6 h-6"></lucide-icon>
+              Browse Properties
+            </app-button>
+          </div>
+          
+          <!-- Not logged in -->
+          <ng-container *ngIf="!isLoggedIn">
+            <app-button variant="outline" size="lg" (onClick)="browseProperties()">
+              <lucide-icon [img]="Search" class="w-5 h-5"></lucide-icon>
+              Browse Properties
+            </app-button>
+            <app-button variant="default" size="lg" (onClick)="register()">
+              Get Started Free
+            </app-button>
+          </ng-container>
         </div>
       </div>
     </div>
@@ -48,28 +38,51 @@
   <!-- Featured Properties -->
   <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <div class="text-center mb-8">
-      <h2 class="featured-text text-2xl md:text-3xl text-gray-900 mb-3">Featured Properties</h2>
-      <p class="discover-text text-gray-600 text-sm md:text-base">Discover the best rental properties available</p>
+      <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-3">Featured Properties</h2>
+      <p class="text-gray-600 text-base md:text-lg">Discover the best rental properties available</p>
     </div>
-    <div class="grid md:grid-cols-3 gap-8">
+    
+    <!-- Loading State -->
+    <div *ngIf="loading" class="text-center py-8">
+      <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
+      <p class="mt-2 text-gray-600">Loading properties...</p>
+    </div>
+    
+    <!-- Error State -->
+    <div *ngIf="error && !loading" class="text-center py-8">
+      <p class="text-red-600">{{ error }}</p>
+    </div>
+    
+    <!-- Properties Grid -->
+    <div *ngIf="!loading && !error && featuredProperties.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       <div *ngFor="let property of featuredProperties" class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow overflow-hidden cursor-pointer" (click)="viewProperty(property.id)">
         <img [src]="property.image" [alt]="property.title" class="w-full h-48 object-cover" />
-        <div class="discription-container p-6">
-          <h3 class="text-xl text-gray-900 mb-2">{{ property.title }}</h3>
+        <div class="p-6">
+          <h3 class="text-xl font-semibold text-gray-900 mb-2">{{ property.title }}</h3>
           <p class="text-gray-600 mb-4">{{ property.location }}</p>
           <div class="flex items-center justify-between">
-            <span class="text-2xl text-indigo-600">${{ property.rent }}/mo</span>
-            <span class="text-gray-600">
+            <span class="text-2xl font-bold text-indigo-600">${{ property.rent }}/mo</span>
+            <span class="text-sm text-gray-600">
               {{ property.bedrooms }} bed • {{ property.bathrooms }} bath
             </span>
           </div>
         </div>
       </div>
     </div>
-    <div class="text-center mt-8">
-      <button (click)="browseProperties()" class="viewall-button text-indigo-600 hover:text-indigo-700">
+    
+    <!-- Empty State -->
+    <div *ngIf="!loading && !error && featuredProperties.length === 0" class="text-center py-12">
+      <div class="text-gray-400 mb-4">
+        <lucide-icon [img]="Home" class="w-16 h-16 mx-auto"></lucide-icon>
+      </div>
+      <h3 class="text-lg font-medium text-gray-900 mb-2">No Properties Available</h3>
+      <p class="text-gray-600">There are currently no properties listed. Check back later!</p>
+    </div>
+    
+    <div *ngIf="!loading && !error && featuredProperties.length > 0" class="text-center mt-8">
+      <app-button variant="link" (onClick)="browseProperties()">
         View all properties →
-      </button>
+      </app-button>
     </div>
   </section>
 
@@ -77,192 +90,125 @@
   <section class="bg-white py-12">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-8">
-        <h2 class="how-work-text text-2xl md:text-3xl text-gray-900 mb-3">How It Works</h2>
-        <p class="simple-text text-gray-600 text-sm md:text-base">Simple steps for tenants and owners</p>
+        <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-3">How It Works</h2>
+        <p class="text-gray-600 text-base md:text-lg">Simple steps for tenants and owners</p>
       </div>
 
-      <div class="grid md:grid-cols-2 gap-6 lg:gap-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <!-- For Tenants -->
-        <div class="-50 rounded-xl p-5 md:p-6">
-          <div class="flex items-center gap-2 mb-4">
-            <span class="text-lg">🏠</span>
-            <h3 class="text-lg md:text-xl text-gray-900 font-semibold">For Tenants</h3>
+        <div class="bg-gray-50 rounded-xl p-6">
+          <div class="flex items-center gap-3 mb-6">
+            <lucide-icon [img]="Home" class="w-8 h-8 text-indigo-600"></lucide-icon>
+            <h3 class="text-xl font-semibold text-gray-900">For Tenants</h3>
           </div>
-          <div class="space-y-3">
-            <div class="flex gap-3">
-              <div class="count-const flex-shrink-0 w-6 h-6 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-600 font-bold text-xs">
+          <div class="space-y-4">
+            <div class="flex gap-4">
+              <div class="flex-shrink-0 w-8 h-8 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-600 font-bold text-sm">
                 1
               </div>
-              <div class="count-container">
-                <h4 class="count-text pb-0 text-gray-900 font-medium mb-1 text-sm">Browse Properties</h4>
-                <p class="pt-0 text-gray-600 text-xs">Search and filter properties that match your needs</p>
+              <div>
+                <h4 class="font-medium text-gray-900 mb-1">Browse Properties</h4>
+                <p class="text-gray-600 text-sm">Search and filter properties that match your needs</p>
               </div>
             </div>
-            <div class="flex gap-3">
-              <div class="count-const flex-shrink-0 w-6 h-6 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-600 font-bold text-xs">
+            <div class="flex gap-4">
+              <div class="flex-shrink-0 w-8 h-8 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-600 font-bold text-sm">
                 2
               </div>
-              <div class="count-container">
-                <h4 class="count-text pb-0 text-gray-900 font-medium mb-1 text-sm">Submit Booking</h4>
-                <p class="pt-0 text-gray-600 text-xs">Send a booking request with your move-in details</p>
+              <div>
+                <h4 class="font-medium text-gray-900 mb-1">Submit Booking</h4>
+                <p class="text-gray-600 text-sm">Send a booking request with your move-in details</p>
               </div>
             </div>
-            <div class="flex gap-3">
-              <div class="count-const flex-shrink-0 w-6 h-6 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-600 font-bold text-xs">
+            <div class="flex gap-4">
+              <div class="flex-shrink-0 w-8 h-8 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-600 font-bold text-sm">
                 3
               </div>
-              <div class="count-container">
-                <h4 class="count-text pb-0 text-gray-900 font-medium mb-1 text-sm">Get Approved</h4>
-                <p class="pt-0 text-gray-600 text-xs">Owner reviews and approves your request</p>
+              <div>
+                <h4 class="font-medium text-gray-900 mb-1">Get Approved</h4>
+                <p class="text-gray-600 text-sm">Owner reviews and approves your request</p>
               </div>
             </div>
-            <div class="flex gap-3">
-              <div class="count-const flex-shrink-0 w-6 h-6 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-600 font-bold text-xs">
+            <div class="flex gap-4">
+              <div class="flex-shrink-0 w-8 h-8 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-600 font-bold text-sm">
                 4
               </div>
-              <div class="count-container">
-                <h4 class="count-text pb-0 text-gray-900 font-medium mb-1 text-sm">Move In</h4>
-                <p class="pt-0 text-gray-600 text-xs">Contact the owner and complete your rental</p>
+              <div>
+                <h4 class="font-medium text-gray-900 mb-1">Move In</h4>
+                <p class="text-gray-600 text-sm">Contact the owner and complete your rental</p>
               </div>
             </div>
           </div>
         </div>
 
         <!-- For Owners -->
-        <div class=" rounded-xl p-5 md:p-6">
-          <div class="flex items-center gap-2 mb-4">
-            <span class="text-lg">👥</span>
-            <h3 class="text-lg md:text-xl text-gray-900 font-semibold">For Owners</h3>
+        <div class="bg-gray-50 rounded-xl p-6">
+          <div class="flex items-center gap-3 mb-6">
+            <lucide-icon [img]="Users" class="w-8 h-8 text-indigo-600"></lucide-icon>
+            <h3 class="text-xl font-semibold text-gray-900">For Owners</h3>
           </div>
-          <div class="space-y-3">
-            <div class="flex gap-3">
-              <div class="count-const flex-shrink-0 w-6 h-6 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-600 font-bold text-xs">
+          <div class="space-y-4">
+            <div class="flex gap-4">
+              <div class="flex-shrink-0 w-8 h-8 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-600 font-bold text-sm">
                 1
               </div>
-              <div class="count-container">
-                <h4 class="count-text pb-0 text-gray-900 font-medium mb-1 text-sm">List Property</h4>
-                <p class="pt-0 text-gray-600 text-xs">Add your properties with details and photos</p>
+              <div>
+                <h4 class="font-medium text-gray-900 mb-1">List Property</h4>
+                <p class="text-gray-600 text-sm">Add your properties with details and photos</p>
               </div>
             </div>
-            <div class="flex gap-3">
-              <div class="count-const flex-shrink-0 w-6 h-6 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-600 font-bold text-xs">
+            <div class="flex gap-4">
+              <div class="flex-shrink-0 w-8 h-8 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-600 font-bold text-sm">
                 2
               </div>
-              <div class="count-container">
-                <h4 class="count-text pb-0 text-gray-900 font-medium mb-1 text-sm">Receive Requests</h4>
-                <p class="pt-0 text-gray-600 text-xs">Get booking requests from interested tenants</p>
+              <div>
+                <h4 class="font-medium text-gray-900 mb-1">Receive Requests</h4>
+                <p class="text-gray-600 text-sm">Get booking requests from interested tenants</p>
               </div>
             </div>
-            <div class="flex gap-3">
-              <div class="count-const flex-shrink-0 w-6 h-6 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-600 font-bold text-xs">
+            <div class="flex gap-4">
+              <div class="flex-shrink-0 w-8 h-8 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-600 font-bold text-sm">
                 3
               </div>
-              <div class="count-container">
-                <h4 class="count-text pb-0 text-gray-900 font-medium mb-1 text-sm">Review & Approve</h4>
-                <p class="pt-0 text-gray-600 text-xs">Review tenant details and approve bookings</p>
+              <div>
+                <h4 class="font-medium text-gray-900 mb-1">Review & Approve</h4>
+                <p class="text-gray-600 text-sm">Review tenant details and approve bookings</p>
               </div>
             </div>
-            <div class="flex gap-3">
-              <div class="count-const flex-shrink-0 w-6 h-6 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-600 font-bold text-xs">
+            <div class="flex gap-4">
+              <div class="flex-shrink-0 w-8 h-8 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-600 font-bold text-sm">
                 4
               </div>
-              <div class="count-container">
-                <h4 class="count-text pb-0 text-gray-900 font-medium mb-1 text-sm">Manage Tenants</h4>
-                <p class="pt-0 text-gray-600 text-xs">Track and communicate with your tenants</p>
+              <div>
+                <h4 class="font-medium text-gray-900 mb-1">Manage Tenants</h4>
+                <p class="text-gray-600 text-sm">Track and communicate with your tenants</p>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Features -->
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <div class="grid md:grid-cols-3 gap-6">
-      <div class="text-center">
-        <div class="icon-container w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-3">
-          <span class="text-lg">🔍</span>
-        </div>
-        <h3 class="text-lg text-gray-900 mb-2 font-medium">Smart Search</h3>
-        <p class="text-gray-600 text-sm">
-          Advanced filters to find properties that match your exact requirements
-        </p>
-      </div>
-      <div class="text-center">
-        <div class="icon-container w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
-          <span class="text-lg">✅</span>
-        </div>
-        <h3 class="text-lg text-gray-900 mb-2 font-medium">Quick Approval</h3>
-        <p class="text-gray-600 text-sm">
-          Fast booking approval process with instant notifications
-        </p>
-      </div>
-      <div class="text-center">
-        <div class="icon-container w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
-          <span class="text-lg">🛡️</span>
-        </div>
-        <h3 class="text-lg text-gray-900 mb-2 font-medium">Secure Platform</h3>
-        <p class="text-gray-600 text-sm">
-          Role-based access control ensures data privacy and security
-        </p>
       </div>
     </div>
   </section>
 
   <!-- CTA Section -->
-  <section class="bg-indigo-600 text-white py-8 md:py-12">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h2 class="cta-ready-text text-xl md:text-2xl mb-3">Ready to Get Started?</h2>
-      <p class="text-base md:text-lg text-indigo-100 mb-6">
+  <section class="bg-indigo-600 text-white py-16">
+    <div class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">
+        Ready to Get Started?
+      </h2>
+      <p class="text-xl text-indigo-100 mb-8">
         Join thousands of tenants and owners using RentEase
       </p>
-      <button (click)="register()" class="cta-button px-5 md:px-6 py-2.5 md:py-3 bg-white text-indigo-600 rounded-lg hover:bg-gray-100 inline-block font-medium text-sm md:text-base">
-        Create Free Account
-      </button>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <app-button variant="outline" size="lg" (onClick)="register()">
+          Start as Tenant
+        </app-button>
+        <app-button variant="secondary" size="lg" (onClick)="register()">
+          Start as Owner
+        </app-button>
+      </div>
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="bg-gray-900 text-gray-400 py-6 md:py-8">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="footer-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-        <div class="md:col-span-1">
-          <div class="flex items-center gap-2 mb-3">
-            <span class="text-base">🏢</span>
-            <span class="text-white text-base font-semibold">RentEase</span>
-          </div>
-          <p class="footer-btn text-xs">
-            The complete rental management <br> platform for modern living.
-          </p>
-        </div>
-        <div>
-          <h4 class="text-white mb-3 font-medium text-sm">For Tenants</h4>
-          <ul class="space-y-1 text-xs">
-            <li><button (click)="browseProperties()" class="footer-btn hover:text-white transition-colors">Browse Properties</button></li>
-            <li><button (click)="register()" class="footer-btn hover:text-white transition-colors">Sign Up</button></li>
-          </ul>
-        </div>
-        <div>
-          <h4 class="text-white mb-3 font-medium text-sm">For Owners</h4>
-          <ul class="space-y-1 text-xs">
-            <li><button (click)="register()" class="footer-btn hover:text-white transition-colors">List Property</button></li>
-            <li><button (click)="login()" class="footer-btn hover:text-white transition-colors">Owner Login</button></li>
-          </ul>
-        </div>
-        <div>
-          <h4 class="text-white mb-3 font-medium text-sm">Support</h4>
-          <ul class="space-y-1 text-xs">
-            <li><a href="#" class="footer-btn hover:text-white transition-colors">Help Center</a></li>
-            <li><a href="#" class="footer-btn hover:text-white transition-colors">Contact Us</a></li>
-          </ul>
-        </div>
-      </div>
-      <hr class="divider">
-
-      <div class="last-text p-5 border-t border-gray-800 mt-4 md:mt-6 pt-4 md:pt-6 text-center text-xs">
-        © 2025 RentEase. All rights reserved.
-      </div>
-    </div>
-  </footer>
+  <app-footer></app-footer>
 </div>

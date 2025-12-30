@@ -1,0 +1,52 @@
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">
+          <span class="footer-icon">🏢</span>
+          <span class="footer-title">RentEase</span>
+        </div>
+        <p class="footer-description">
+          The complete rental management platform for modern living.
+        </p>
+      </div>
+      
+      <!-- For Tenants -->
+      <div class="footer-section" *ngIf="!authService.isAuthenticated() || authService.isTenant()">
+        <h4>For Tenants</h4>
+        <ul class="footer-list">
+          <li><button (click)="navigateToProperties()" class="footer-link">Browse Properties</button></li>
+          <li *ngIf="!authService.isAuthenticated()"><button (click)="navigateToRegister()" class="footer-link">Sign Up</button></li>
+          <li *ngIf="authService.isTenant()"><button (click)="navigateToDashboard()" class="footer-link">Dashboard</button></li>
+          <li *ngIf="authService.isTenant()"><button (click)="navigateToTenantBookings()" class="footer-link">My Bookings</button></li>
+        </ul>
+      </div>
+      
+      <!-- For Owners -->
+      <div class="footer-section" *ngIf="!authService.isAuthenticated() || authService.isOwner()">
+        <h4>For Owners</h4>
+        <ul class="footer-list">
+          <li *ngIf="!authService.isAuthenticated()"><button (click)="navigateToRegister()" class="footer-link">List Property</button></li>
+          <li *ngIf="!authService.isAuthenticated()"><button (click)="navigateToLogin()" class="footer-link">Owner Login</button></li>
+          <li *ngIf="authService.isOwner()"><button (click)="navigateToDashboard()" class="footer-link">Dashboard</button></li>
+          <li *ngIf="authService.isOwner()"><button (click)="navigateToAddProperty()" class="footer-link">Add Property</button></li>
+          <li *ngIf="authService.isOwner()"><button (click)="navigateToOwnerProperties()" class="footer-link">My Properties</button></li>
+        </ul>
+      </div>
+      
+      <div class="footer-section">
+        <h4>Support</h4>
+        <ul class="footer-list">
+          <li><button (click)="navigateToHelpCenter()" class="footer-link">Help Center</button></li>
+          <li><button (click)="navigateToContact()" class="footer-link">Contact Us</button></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="footer-divider">
+      <div class="footer-copyright">
+        © 2025 RentEase. All rights reserved.
+      </div>
+    </div>
+  </div>
+</footer>

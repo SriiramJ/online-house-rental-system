@@ -1,0 +1,62 @@
+<nav class="navbar">
+  <div class="navbar-container">
+    <div class="navbar-left">
+      <!-- Sidebar Toggle Button -->
+      <button class="sidebar-toggle" (click)="toggleSidebar()" *ngIf="!isOnPropertiesPage() && !isOnLandingPage() && !isOnBookingRequestsPage() && !isOnPropertyDetailsPage()">
+        <lucide-icon [img]="(sidebarService.sidebarOpen$ | async) ? X : Menu" class="toggle-icon"></lucide-icon>
+      </button>
+      
+      <div class="navbar-brand" routerLink="/">
+        <lucide-icon [img]="Building2" class="brand-icon"></lucide-icon>
+        <span class="brand-text">RentEase</span>
+      </div>
+    </div>
+    
+    <div class="navbar-menu">
+      <!-- Authenticated User -->
+      <ng-container *ngIf="authService.isAuthenticated()">
+        <app-button variant="ghost" (onClick)="browseProperties()">
+          Browse Properties
+        </app-button>
+        
+        <!-- Show Dashboard button only if not on dashboard page -->
+        <app-button 
+          *ngIf="!isOnDashboardPage()" 
+          variant="default" 
+          (onClick)="goToDashboard()">
+          Dashboard
+        </app-button>
+        
+        <div class="user-profile" (click)="toggleUserMenu()">
+          <lucide-icon [img]="UserIcon" class="user-avatar"></lucide-icon>
+          <span class="user-name">{{ authService.getCurrentUser()?.name || 'User' }}</span>
+          <lucide-icon [img]="ChevronDown" class="dropdown-arrow"></lucide-icon>
+          
+          <div class="user-dropdown" [class.active]="showUserMenu">
+            <div class="user-info">
+              <div class="name">{{ authService.getCurrentUser()?.name }}</div>
+              <div class="email">{{ authService.getCurrentUser()?.email }}</div>
+              <div class="role">{{ authService.getCurrentUser()?.role }}</div>
+            </div>
+            <button class="logout-btn" (click)="logout()">
+              Logout
+            </button>
+          </div>
+        </div>
+      </ng-container>
+
+      <!-- Not logged in -->
+      <ng-container *ngIf="!authService.isAuthenticated()">
+        <app-button variant="ghost" (onClick)="browseProperties()">
+          Browse Properties
+        </app-button>
+        <app-button variant="ghost" (onClick)="login()">
+          Login
+        </app-button>
+        <app-button variant="default" (onClick)="register()">
+          Get Started
+        </app-button>
+      </ng-container>
+    </div>
+  </div>
+</nav>

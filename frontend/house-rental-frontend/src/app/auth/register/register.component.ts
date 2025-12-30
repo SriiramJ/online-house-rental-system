@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../core/services/auth.service';
@@ -7,7 +7,7 @@ import { AuthService } from '../../core/services/auth.service';
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, RouterModule],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
@@ -84,12 +84,8 @@ export class RegisterComponent {
       next: (response) => {
         this.loading = false;
         if (response.success) {
-          // Navigate based on role
-          if (this.role === 'owner') {
-            this.router.navigate(['/owner/dashboard']);
-          } else {
-            this.router.navigate(['/properties']);
-          }
+          // Redirect to login page after successful registration
+          this.router.navigate(['/auth/login']);
         } else {
           // Handle specific error codes
           if (response.error?.code === 'USER_EXISTS') {
