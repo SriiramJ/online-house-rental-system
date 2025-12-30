@@ -704,3 +704,18 @@
 2025-12-30 12:29:09 [INFO]: Login successful for userId: 8
 2025-12-30 13:54:51 [INFO]: Server running on port 3001
 2025-12-30 13:54:51 [INFO]: MySQL database connected successfully
+2025-12-30 17:42:57 [INFO]: Uploaded 1 property images
+2025-12-30 17:43:07 [INFO]: Uploaded 1 property images
+2025-12-30 17:43:25 [INFO]: Property created successfully by user 8
+2025-12-30 17:43:58 [INFO]: Login attempt for email: vishnu@test.com
+2025-12-30 17:43:58 [INFO]: Fetching user by email: vishnu@test.com
+2025-12-30 17:43:58 [INFO]: Login successful for userId: 10
+2025-12-30 17:44:32 [INFO]: Login attempt for email: sriram1@test.com
+2025-12-30 17:44:32 [INFO]: Fetching user by email: sriram1@test.com
+2025-12-30 17:44:33 [INFO]: Login successful for userId: 8
+2025-12-30 17:45:29 [INFO]: Login attempt for email: vishnu@test.com
+2025-12-30 17:45:29 [INFO]: Fetching user by email: vishnu@test.com
+2025-12-30 17:45:29 [INFO]: Login successful for userId: 10
+2025-12-30 17:49:39 [INFO]: Login attempt for email: sriram1@test.com
+2025-12-30 17:49:39 [INFO]: Fetching user by email: sriram1@test.com
+2025-12-30 17:49:39 [INFO]: Login successful for userId: 8
