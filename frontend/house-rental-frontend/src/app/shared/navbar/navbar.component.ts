@@ -117,8 +117,12 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   logout() {
     this.showUserMenu = false;
+    const user = this.authService.getCurrentUser();
     this.authService.logout(this.cdr);
-    this.router.navigate(['/']);
+    // Navigate immediately after logout
+    setTimeout(() => {
+      this.router.navigate(['/']);
+    }, 100);
   }
 
   toggleSidebar() {

@@ -11,6 +11,8 @@ import { TenantDashboardComponent } from './tenant/tenant-dashboard/tenant-dashb
 import { TenantBookingsComponent } from './tenant/tenant-bookings/tenant-bookings.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
+import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
 import { LandingComponent } from './public/landing/landing.component';
 import { PropertiesComponent } from './public/properties/properties.component';
 import { PropertyDetailsComponent } from './public/property-details/property-details.component';
@@ -34,6 +36,8 @@ export const routes: Routes = [
   { path: 'register', component: RegisterComponent, canActivate: [NoAuthGuard] },
   { path: 'auth/login', component: LoginComponent, canActivate: [NoAuthGuard] },
   { path: 'auth/register', component: RegisterComponent, canActivate: [NoAuthGuard] },
+  { path: 'auth/forgot-password', component: ForgotPasswordComponent, canActivate: [NoAuthGuard] },
+  { path: 'auth/reset-password', component: ResetPasswordComponent, canActivate: [NoAuthGuard] },
   
   // Tenant-only routes
   { path: 'dashboard', component: TenantDashboardComponent, canActivate: [TenantGuard] },
