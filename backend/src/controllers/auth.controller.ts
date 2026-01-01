@@ -10,7 +10,7 @@ export const register = async (req: Request, res: Response)=>{
         
         // Validate required fields
         if (!name || !email || !password || !role) {
-            logger.warn(`Missing required fields: name=${!!name}, email=${!!email}, password=${!!password}, role=${!!role}`);
+            logger.warn(`Missing required fields: name=${!!name}, email=${!!email}, role=${!!role}`);
             return res.status(400).json({
                 success: false,
                 message: "Missing required fields: name, email, password, and role are required"
