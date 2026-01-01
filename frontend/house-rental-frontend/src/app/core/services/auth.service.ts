@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, ChangeDetectorRef } from '@angular/core';
 import { Observable, BehaviorSubject, tap } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { ToastService } from './toast.service';
@@ -57,25 +57,33 @@ export class AuthService {
   register(userData: {
     name: string;
     email: string;
+    phone?: string;
     password: string;
     role: 'TENANT' | 'OWNER';
-  }): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.api}/register`, userData).pipe(
+  }): Observable<any> {
+    console.log('Sending registration data:', userData);
+    return this.http.post<any>(`${this.api}/register`, userData).pipe(
       tap(response => {
-        if (response.success && response.data) {
+        console.log('Registration response:', response);
+        if (response.success && response.data && response.data.user) {
           this.setSession(response.data.user, response.data.token);
           this.toast.success('Welcome to RentEase!', `Account created successfully. Hello ${response.data.user.name}!`);
+        } else if (response.success) {
+          this.toast.success('Registration Successful!', 'Please login to continue.');
         }
       })
     );
   }
 
-  logout(): void {
+  logout(cdr?: ChangeDetectorRef): void {
     const user = this.getCurrentUser();
     localStorage.removeItem(this.tokenKey);
     localStorage.removeItem(this.userKey);
     this.currentUserSubject.next(null);
     this.toast.info('Logged out successfully', `Goodbye ${user?.name || 'User'}, see you soon!`);
+    if (cdr) {
+      cdr.detectChanges();
+    }
   }
 
   getToken(): string | null {

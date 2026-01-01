@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -12,6 +12,7 @@ import { LoaderComponent } from '../../shared/components/loader/loader.component
 import { NavbarComponent } from '../../shared/navbar/navbar.component';
 import { FooterComponent } from '../../shared/footer/footer.component';
 import { LucideAngularModule, ArrowLeft, MapPin, Bed, Bath, Building, Wifi, Car, Dumbbell, Waves, CheckCircle, Calendar, X } from 'lucide-angular';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-property-details',
@@ -28,18 +29,21 @@ import { LucideAngularModule, ArrowLeft, MapPin, Bed, Bath, Building, Wifi, Car,
   templateUrl: './property-details.component.html',
   styleUrls: ['./property-details.component.scss']
 })
-export class PropertyDetailsComponent implements OnInit {
+export class PropertyDetailsComponent implements OnInit, OnDestroy {
   property: Property | null = null;
   loading = false;
   error = '';
   isLoggedIn = false;
   currentImageIndex = 0;
   showBookingModal = false;
+  userBookings: any[] = [];
+  hasSubmittedBooking = false;
   bookingForm = {
     moveInDate: '',
     message: ''
   };
   submittingBooking = false;
+  private destroy$ = new Subject<void>();
 
   // Lucide icons
   readonly ArrowLeft = ArrowLeft;
@@ -73,6 +77,37 @@ export class PropertyDetailsComponent implements OnInit {
     if (id) {
       this.loadProperty(parseInt(id));
     }
+    if (this.isLoggedIn && this.authService.isTenant()) {
+      this.loadUserBookings();
+    }
+    this.subscribeToBookingUpdates();
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  subscribeToBookingUpdates() {
+    this.bookingStateService.propertyUpdates$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(update => {
+        if (update && this.property && update.id === this.property.id) {
+          this.property.is_available = update.is_available;
+          this.cdr.detectChanges();
+        }
+      });
+
+    this.bookingStateService.bookingUpdated$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        if (this.property) {
+          this.loadProperty(this.property.id);
+        }
+        if (this.authService.isTenant()) {
+          this.loadUserBookings();
+        }
+      });
   }
 
   loadProperty(id: number) {
@@ -93,7 +128,8 @@ export class PropertyDetailsComponent implements OnInit {
       next: (response: {property: Property, message: string}) => {
         this.property = {
           ...response.property,
-          image: this.getPropertyImage(response.property)
+          image: this.getPropertyImage(response.property),
+          status: response.property.status
         };
         this.loading = false;
         this.cdr.detectChanges();
@@ -225,6 +261,7 @@ export class PropertyDetailsComponent implements OnInit {
         console.log('Booking success response:', response);
         this.submittingBooking = false;
         this.closeBookingModal();
+        this.hasSubmittedBooking = true;
         this.toast.success('Booking request submitted successfully!');
         
         // Update global state
@@ -233,10 +270,6 @@ export class PropertyDetailsComponent implements OnInit {
         // Trigger properties list update
         this.propertyStateService.triggerPropertiesUpdate();
         
-        // Update local property state
-        if (this.property) {
-          this.property.is_available = false;
-        }
         this.cdr.detectChanges();
       },
       error: (error) => {
@@ -284,5 +317,29 @@ export class PropertyDetailsComponent implements OnInit {
     }
     const currentUser = this.authService.getCurrentUser();
     return currentUser?.id === this.property.owner_id;
+  }
+
+  loadUserBookings() {
+    this.bookingService.getTenantBookings().subscribe({
+      next: (response) => {
+        this.userBookings = response.bookings || [];
+        console.log('User bookings loaded:', this.userBookings);
+        this.cdr.detectChanges();
+      },
+      error: (error) => {
+        console.error('Error loading user bookings:', error);
+      }
+    });
+  }
+
+  hasUserPendingBooking(): boolean {
+    if (!this.property || !this.userBookings.length) {
+      return false;
+    }
+    const hasPending = this.userBookings.some(booking => 
+      booking.property_id === this.property!.id && booking.status === 'Pending'
+    );
+    console.log('Has pending booking for property', this.property.id, ':', hasPending);
+    return hasPending;
   }
 }

@@ -12,7 +12,10 @@ export interface Property {
   amenities?: string[];
   photos?: string[];
   is_available: boolean;
+  status: 'Available' | 'Rented' | 'Pending';
   created_at?: Date;
+  owner_name?: string;
+  pending_requests?: number;
 }
 
 export interface CreatePropertyRequest {

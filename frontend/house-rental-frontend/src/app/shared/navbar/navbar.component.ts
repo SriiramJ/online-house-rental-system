@@ -117,7 +117,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   logout() {
     this.showUserMenu = false;
-    this.authService.logout();
+    this.authService.logout(this.cdr);
     this.router.navigate(['/']);
   }
 

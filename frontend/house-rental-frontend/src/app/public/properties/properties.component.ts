@@ -32,9 +32,15 @@ import { Subject, takeUntil } from 'rxjs';
 export class PropertiesComponent implements OnInit, OnDestroy {
   properties: Property[] = [];
   filteredProperties: Property[] = [];
+  paginatedProperties: Property[] = [];
   loading = false;
   error = '';
   private destroy$ = new Subject<void>();
+  
+  // Pagination
+  currentPage = 1;
+  itemsPerPage = 6;
+  totalPages = 0;
   
   // Search and filters
   searchTerm = '';
@@ -101,6 +107,14 @@ export class PropertiesComponent implements OnInit, OnDestroy {
           }
         }
       });
+
+    // Also listen for general booking updates and reload all properties
+    this.bookingStateService.bookingUpdated$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        console.log('Booking updated - reloading properties');
+        this.loadProperties();
+      });
   }
 
   loadProperties() {
@@ -142,12 +156,13 @@ export class PropertiesComponent implements OnInit, OnDestroy {
           return {
             ...property,
             image: imageUrl,
-            type: property.property_type,
-            available: property.is_available
+            is_available: property.is_available,
+            status: property.status
           };
-        });
+        }).filter(property => property.status === 'Available');
         console.log('Processed properties:', this.properties);
         this.filteredProperties = [...this.properties];
+        this.updatePagination();
         this.loading = false;
         this.cdr.detectChanges();
       },
@@ -175,6 +190,9 @@ export class PropertiesComponent implements OnInit, OnDestroy {
 
       return matchesSearch && matchesType && matchesMinRent && matchesMaxRent && matchesMinBedrooms && matchesLocation;
     });
+    
+    this.currentPage = 1;
+    this.updatePagination();
   }
 
   toggleFilters() {
@@ -198,7 +216,27 @@ export class PropertiesComponent implements OnInit, OnDestroy {
     this.location = '';
     this.showFilters = false;
     this.filteredProperties = [...this.properties];
+    this.currentPage = 1;
+    this.updatePagination();
     this.toast.info('Filters cleared', 'Showing all available properties');
+  }
+
+  updatePagination() {
+    this.totalPages = Math.ceil(this.filteredProperties.length / this.itemsPerPage);
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    this.paginatedProperties = this.filteredProperties.slice(startIndex, endIndex);
+  }
+
+  goToPage(page: number) {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+      this.updatePagination();
+    }
+  }
+
+  get showPagination(): boolean {
+    return this.filteredProperties.length > this.itemsPerPage;
   }
 
   viewProperty(propertyId: number) {

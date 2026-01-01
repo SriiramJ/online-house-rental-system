@@ -122,17 +122,17 @@
     </div>
 
     <!-- Properties Grid -->
-    <div *ngIf="!loading && !error && filteredProperties.length > 0" class="properties-grid">
+    <div *ngIf="!loading && !error && paginatedProperties.length > 0" class="properties-grid">
       <div
-        *ngFor="let property of filteredProperties"
+        *ngFor="let property of paginatedProperties"
         class="property-card"
-        [class.unavailable]="!property.is_available"
+        [class.unavailable]="property.status === 'Rented'"
         (click)="viewProperty(property.id)"
       >
         <div class="property-image">
           <img [src]="property.image" [alt]="property.title" />
-          <div class="availability-badge" [class.available]="property.is_available">
-            {{ property.is_available ? 'Available' : 'Unavailable' }}
+          <div class="availability-badge" [class.available]="property.status === 'Available'" [class.rented]="property.status === 'Rented'">
+            {{ property.status }}
           </div>
         </div>
 
@@ -185,6 +185,36 @@
             </button>
           </div>
         </div>
+      </div>
+    </div>
+
+    <!-- Pagination -->
+    <div *ngIf="showPagination && !loading && !error" class="pagination-container">
+      <div class="pagination">
+        <button 
+          (click)="goToPage(currentPage - 1)" 
+          [disabled]="currentPage === 1"
+          class="pagination-btn prev-btn"
+        >
+          Previous
+        </button>
+        
+        <span 
+          *ngFor="let page of [].constructor(totalPages); let i = index"
+          class="pagination-number"
+          [class.active]="currentPage === i + 1"
+          (click)="goToPage(i + 1)"
+        >
+          {{ i + 1 }}
+        </span>
+        
+        <button 
+          (click)="goToPage(currentPage + 1)" 
+          [disabled]="currentPage === totalPages"
+          class="pagination-btn next-btn"
+        >
+          Next
+        </button>
       </div>
     </div>
 

@@ -3,6 +3,7 @@ import { Router, RouterModule } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../core/services/auth.service';
+import { ToastService } from '../../core/services/toast.service';
 
 @Component({
   selector: 'app-register',
@@ -19,7 +20,8 @@ export class RegisterComponent {
   constructor(
     private router: Router,
     private fb: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    private toast: ToastService
   ) {
     this.registerForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(2)]],
@@ -72,33 +74,39 @@ export class RegisterComponent {
 
     this.loading = true;
 
+    const formValue = this.registerForm.value;
     const userData = {
-      name: this.name?.value,
-      email: this.email?.value,
-      phone: this.phone?.value,
-      password: this.password?.value,
+      name: formValue.name,
+      email: formValue.email,
+      phone: formValue.phone,
+      password: formValue.password,
       role: this.role.toUpperCase() as 'TENANT' | 'OWNER'
     };
 
     this.authService.register(userData).subscribe({
       next: (response) => {
         this.loading = false;
+        console.log('Registration response:', response);
+        
         if (response.success) {
-          // Redirect to login page after successful registration
+          this.toast.success('Registration Successful!', 'Please login to continue.');
           this.router.navigate(['/auth/login']);
         } else {
-          // Handle specific error codes
-          if (response.error?.code === 'USER_EXISTS') {
-            this.registerForm.get('email')?.setErrors({ userExists: true });
-          } else {
-            // Show general error message
-            alert(response.error?.message || 'Registration failed');
-          }
+          this.toast.error('Registration Failed', response.message || 'Registration failed');
         }
       },
       error: (error) => {
         this.loading = false;
-        alert(error.error?.error?.message || 'An error occurred during registration');
+        console.error('Registration error:', error);
+        
+        let errorMessage = 'An error occurred during registration';
+        if (error.error?.message) {
+          errorMessage = error.error.message;
+        } else if (error.message) {
+          errorMessage = error.message;
+        }
+        
+        this.toast.error('Registration Failed', errorMessage);
       }
     });
   }

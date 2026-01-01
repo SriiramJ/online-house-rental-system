@@ -57,7 +57,6 @@ export const getAllProperties = async (req: Request, res: Response) => {
   try {
     const properties = await propertyService.getAllProperties();
     
-    // Always return 200 with proper response structure
     res.status(200).json({
       message: "Properties fetched successfully",
       properties: properties || [],

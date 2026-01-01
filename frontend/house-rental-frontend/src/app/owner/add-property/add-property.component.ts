@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -414,7 +414,8 @@ export class AddPropertyComponent {
     private router: Router,
     private route: ActivatedRoute,
     private toast: ToastService,
-    private propertyStateService: PropertyStateService
+    private propertyStateService: PropertyStateService,
+    private cdr: ChangeDetectorRef
   ) {
     const id = this.route.snapshot.paramMap.get('id');
     this.isEditMode = !!id;
@@ -610,11 +611,13 @@ export class AddPropertyComponent {
         if (response.images && response.images.length > 0) {
           this.formData.photos.push(...response.images);
           this.toast.success(`${response.images.length} image(s) uploaded successfully`);
+          this.cdr.detectChanges();
         }
       },
       error: (error) => {
         console.error('Error uploading images:', error);
         this.toast.error('Failed to upload images');
+        this.cdr.detectChanges();
       }
     });
   }
