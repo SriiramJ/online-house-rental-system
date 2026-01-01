@@ -165,6 +165,23 @@ CREATE TABLE IF NOT EXISTS activity_logs (
     ON DELETE SET NULL
 );
 
+-- =====================================================
+-- PASSWORD RESET TOKENS TABLE
+-- =====================================================
+CREATE TABLE IF NOT EXISTS password_reset_tokens (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NOT NULL,
+  token VARCHAR(255) NOT NULL UNIQUE,
+  expires_at TIMESTAMP NOT NULL,
+  used BOOLEAN DEFAULT FALSE,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+  CONSTRAINT fk_reset_token_user
+    FOREIGN KEY (user_id)
+    REFERENCES users(id)
+    ON DELETE CASCADE
+);
+
 -- Show completion message
 SELECT 'Database schema created successfully!' as status;
 SHOW TABLES;

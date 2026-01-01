@@ -1,6 +1,7 @@
 import type { Request, Response } from "express";
 import logger from "../utils/logger.ts";
-import { registerUserService, loginUserService  } from "../services/auth.service.ts";
+import { registerUserService, loginUserService, forgotPasswordService, resetPasswordService } from "../services/auth.service.ts";
+import crypto from "crypto";
 
 export const register = async (req: Request, res: Response)=>{
     try{
@@ -142,3 +143,78 @@ export const login = async (req: Request,res: Response)=>{
         });
     }
 }
+
+export const forgotPassword = async (req: Request, res: Response) => {
+    try {
+        const { email } = req.body;
+        
+        if (!email) {
+            return res.status(400).json({
+                success: false,
+                message: "Email is required"
+            });
+        }
+        
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid email format"
+            });
+        }
+        
+        await forgotPasswordService(email);
+        
+        res.status(200).json({
+            success: true,
+            message: "Password reset email sent successfully"
+        });
+        
+    } catch (error: any) {
+        logger.error(`Forgot password failed: ${error.message}`);
+        res.status(500).json({
+            success: false,
+            message: "Failed to send reset email. Please try again."
+        });
+    }
+};
+
+export const resetPassword = async (req: Request, res: Response) => {
+    try {
+        const { token, password } = req.body;
+        
+        if (!token || !password) {
+            return res.status(400).json({
+                success: false,
+                message: "Token and new password are required"
+            });
+        }
+        
+        if (password.length < 6) {
+            return res.status(400).json({
+                success: false,
+                message: "Password must be at least 6 characters long"
+            });
+        }
+        
+        await resetPasswordService(token, password);
+        
+        res.status(200).json({
+            success: true,
+            message: "Password reset successfully"
+        });
+        
+    } catch (error: any) {
+        logger.error(`Reset password failed: ${error.message}`);
+        
+        let message = "Failed to reset password. Please try again.";
+        if (error.message.includes("Invalid or expired token")) {
+            message = "Invalid or expired reset token. Please request a new password reset.";
+        }
+        
+        res.status(400).json({
+            success: false,
+            message
+        });
+    }
+};
