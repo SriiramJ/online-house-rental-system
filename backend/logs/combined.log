@@ -759,3 +759,41 @@
 2026-01-01 15:10:19 [INFO]: Fetching user by email: Sriram2005j@gmail.com
 2026-01-01 15:10:20 [ERROR]: Failed to send password reset email: Missing credentials for "PLAIN"
 2026-01-01 15:10:20 [ERROR]: Forgot password failed: Failed to send reset email
+2026-01-01 15:14:16 [INFO]: Forgot password request for email: Sriram2005j@gmail.com
+2026-01-01 15:14:16 [INFO]: Fetching user by email: Sriram2005j@gmail.com
+2026-01-01 15:14:20 [ERROR]: Failed to send password reset email: Missing credentials for "PLAIN"
+2026-01-01 15:14:20 [ERROR]: Forgot password failed: Failed to send reset email
+2026-01-01 15:16:58 [INFO]: Forgot password request for email: Sriram2005j@gmail.com
+2026-01-01 15:16:58 [INFO]: Fetching user by email: Sriram2005j@gmail.com
+2026-01-01 15:16:59 [ERROR]: Failed to send password reset email: Missing credentials for "PLAIN"
+2026-01-01 15:16:59 [ERROR]: Forgot password failed: Failed to send reset email
+2026-01-01 15:19:29 [INFO]: Forgot password request for email: Sriram2005j@gmail.com
+2026-01-01 15:19:29 [INFO]: Fetching user by email: Sriram2005j@gmail.com
+2026-01-01 15:19:30 [ERROR]: Failed to send password reset email: Missing credentials for "PLAIN"
+2026-01-01 15:19:30 [ERROR]: Forgot password failed: Failed to send reset email
+2026-01-01 15:22:33 [INFO]: Server running on port 3001
+2026-01-01 15:22:33 [INFO]: MySQL database connected successfully
+2026-01-01 15:23:25 [INFO]: Forgot password request for email: Sriram2005j@gmail.com
+2026-01-01 15:23:25 [INFO]: Fetching user by email: Sriram2005j@gmail.com
+2026-01-01 15:23:25 [INFO]: Email config: host=smtp.gmail.com, user=sriram2005j@gmail.com
+2026-01-01 15:23:25 [INFO]: Attempting to send email to: Sriram2005j@gmail.com
+2026-01-01 15:23:29 [INFO]: Password reset email sent successfully to: Sriram2005j@gmail.com
+2026-01-01 15:23:29 [INFO]: Password reset email sent to: Sriram2005j@gmail.com
+2026-01-01 15:24:45 [INFO]: Forgot password request for email: Sriram2005j@gmail.com
+2026-01-01 15:24:45 [INFO]: Fetching user by email: Sriram2005j@gmail.com
+2026-01-01 15:24:45 [INFO]: Email config: host=smtp.gmail.com, user=sriram2005j@gmail.com
+2026-01-01 15:24:45 [INFO]: Attempting to send email to: Sriram2005j@gmail.com
+2026-01-01 15:24:49 [INFO]: Password reset email sent successfully to: Sriram2005j@gmail.com
+2026-01-01 15:24:49 [INFO]: Password reset email sent to: Sriram2005j@gmail.com
+2026-01-01 15:25:39 [INFO]: Forgot password request for email: Sriram2005j@gmail.com
+2026-01-01 15:25:39 [INFO]: Fetching user by email: Sriram2005j@gmail.com
+2026-01-01 15:25:39 [INFO]: Email config: host=smtp.gmail.com, user=sriram2005j@gmail.com
+2026-01-01 15:25:39 [INFO]: Attempting to send email to: Sriram2005j@gmail.com
+2026-01-01 15:25:42 [INFO]: Password reset email sent successfully to: Sriram2005j@gmail.com
+2026-01-01 15:25:42 [INFO]: Password reset email sent to: Sriram2005j@gmail.com
+2026-01-01 15:27:00 [INFO]: Forgot password request for email: Sriram2005j@gmail.com
+2026-01-01 15:27:00 [INFO]: Fetching user by email: Sriram2005j@gmail.com
+2026-01-01 15:27:00 [INFO]: Email config: host=smtp.gmail.com, user=sriram2005j@gmail.com
+2026-01-01 15:27:00 [INFO]: Attempting to send email to: Sriram2005j@gmail.com
+2026-01-01 15:27:03 [INFO]: Password reset email sent successfully to: Sriram2005j@gmail.com
+2026-01-01 15:27:03 [INFO]: Password reset email sent to: Sriram2005j@gmail.com

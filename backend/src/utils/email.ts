@@ -6,13 +6,16 @@ const transporter = nodemailer.createTransport({
   port: parseInt(process.env.SMTP_PORT || '587'),
   secure: false,
   auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS
   }
 });
 
 export const sendPasswordResetEmail = async (email: string, name: string, token: string) => {
   const resetUrl = `${process.env.FRONTEND_URL || 'http://localhost:4200'}/auth/reset-password?token=${token}`;
+  
+  // Debug email configuration
+  logger.info(`Email config: host=${process.env.SMTP_HOST || 'smtp.gmail.com'}, user=${process.env.EMAIL_USER}`);
   
   const mailOptions = {
     from: process.env.SMTP_FROM || 'noreply@rentease.com',
@@ -37,10 +40,12 @@ export const sendPasswordResetEmail = async (email: string, name: string, token:
   };
 
   try {
+    logger.info(`Attempting to send email to: ${email}`);
     await transporter.sendMail(mailOptions);
-    logger.info(`Password reset email sent to: ${email}`);
+    logger.info(`Password reset email sent successfully to: ${email}`);
   } catch (error: any) {
     logger.error(`Failed to send password reset email: ${error.message}`);
+    logger.error(`Full error:`, error);
     throw new Error('Failed to send reset email');
   }
 };

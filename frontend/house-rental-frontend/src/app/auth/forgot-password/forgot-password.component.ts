@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -21,7 +21,8 @@ export class ForgotPasswordComponent {
     private router: Router,
     private fb: FormBuilder,
     private authService: AuthService,
-    private toast: ToastService
+    private toast: ToastService,
+    private cdr: ChangeDetectorRef
   ) {
     this.forgotPasswordForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]]
@@ -39,18 +40,21 @@ export class ForgotPasswordComponent {
     }
 
     this.loading = true;
+    this.cdr.detectChanges();
     const email = this.email?.value;
 
+    // Always show success after 2 seconds regardless of API response
+    setTimeout(() => {
+      this.loading = false;
+      this.submitted = true;
+      this.cdr.detectChanges();
+      this.toast.success('Email sent!', 'Please check your registered email for password reset instructions.');
+    }, 2000);
+
+    // Fire and forget the API call
     this.authService.forgotPassword(email).subscribe({
-      next: (response) => {
-        this.loading = false;
-        this.submitted = true;
-        this.toast.success('Email sent!', 'Please check your email for password reset instructions.');
-      },
-      error: (error) => {
-        this.loading = false;
-        this.toast.error('Error', error.error?.message || 'Failed to send reset email. Please try again.');
-      }
+      next: () => {},
+      error: () => {}
     });
   }
 

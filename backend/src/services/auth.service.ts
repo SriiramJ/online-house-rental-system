@@ -82,6 +82,22 @@ export const forgotPasswordService = async (email: string) => {
     
     const connection = await db.getConnection();
     try {
+        // Create table if it doesn't exist
+        await connection.execute(`
+            CREATE TABLE IF NOT EXISTS password_reset_tokens (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                user_id INT NOT NULL,
+                token VARCHAR(255) NOT NULL UNIQUE,
+                expires_at TIMESTAMP NOT NULL,
+                used BOOLEAN DEFAULT FALSE,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                CONSTRAINT fk_reset_token_user
+                    FOREIGN KEY (user_id)
+                    REFERENCES users(id)
+                    ON DELETE CASCADE
+            )
+        `);
+        
         // Delete any existing tokens for this user
         await connection.execute(
             'DELETE FROM password_reset_tokens WHERE user_id = ?',
