@@ -162,6 +162,9 @@
   .forgot-link {
     font-size: 0.875rem;
     color: #4f46e5;
+    text-decoration: none;
+    transition: color 0.2s;
+    padding-left: 2rem;
 
     &:hover {
       color: #3730a3;

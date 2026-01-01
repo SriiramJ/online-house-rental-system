@@ -70,18 +70,4 @@ export class LoginComponent {
       }
     });
   }
-
-  setDemoAccount(type: 'tenant' | 'owner') {
-    if (type === 'tenant') {
-      this.loginForm.patchValue({
-        email: 'tenant@demo.com',
-        password: 'demo123'
-      });
-    } else {
-      this.loginForm.patchValue({
-        email: 'owner@demo.com',
-        password: 'demo123'
-      });
-    }
-  }
 }

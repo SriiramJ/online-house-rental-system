@@ -165,15 +165,6 @@ CREATE TABLE IF NOT EXISTS activity_logs (
     ON DELETE SET NULL
 );
 
--- =====================================================
--- SAMPLE DATA (OPTIONAL)
--- =====================================================
--- Insert sample users for testing
-INSERT IGNORE INTO users (id, name, email, password_hash, role, phone) VALUES
-(1, 'Admin User', 'admin@test.com', '$2b$10$hashedpassword', 'ADMIN', '9000000001'),
-(2, 'Tenant User', 'tenant@test.com', '$2b$10$hashedpassword', 'TENANT', '9000000002'),
-(3, 'Owner User', 'owner@test.com', '$2b$10$hashedpassword', 'OWNER', '9000000003');
-
 -- Show completion message
 SELECT 'Database schema created successfully!' as status;
 SHOW TABLES;
