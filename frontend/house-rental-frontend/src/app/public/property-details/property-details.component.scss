@@ -104,8 +104,13 @@
     color: white;
   }
 
-  &:not(.available) {
+  &.rented {
     background: #ef4444;
+    color: white;
+  }
+
+  &:not(.available):not(.rented) {
+    background: #6b7280;
     color: white;
   }
 }
@@ -336,6 +341,10 @@
 
   &.available {
     color: #10b981;
+  }
+
+  &.rented {
+    color: #ef4444;
   }
 }
 

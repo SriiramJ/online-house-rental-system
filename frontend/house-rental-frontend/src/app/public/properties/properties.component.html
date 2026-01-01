@@ -126,13 +126,13 @@
       <div
         *ngFor="let property of filteredProperties"
         class="property-card"
-        [class.unavailable]="property.is_available === false"
+        [class.unavailable]="property.status === 'Rented'"
         (click)="viewProperty(property.id)"
       >
         <div class="property-image">
           <img [src]="property.image" [alt]="property.title" />
-          <div class="availability-badge" [class.available]="property.is_available !== false">
-            {{ property.is_available !== false ? 'Available' : 'Unavailable' }}
+          <div class="availability-badge" [class.available]="property.status === 'Available'" [class.rented]="property.status === 'Rented'">
+            {{ property.status }}
           </div>
         </div>
 

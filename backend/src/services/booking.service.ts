@@ -198,16 +198,40 @@ export class BookingService {
         return false;
       }
 
-      // If approved, make property unavailable; if rejected, make property available again
+      // If approved, make property unavailable and create tenant record
       if (status === 'Approved') {
-        await connection.execute(
+        console.log(`Setting property as unavailable for booking ${bookingId}`);
+        
+        // Get booking details for tenant record
+        const [bookingDetails] = await connection.execute(
+          'SELECT * FROM bookings WHERE id = ?',
+          [bookingId]
+        );
+        const booking = (bookingDetails as any[])[0];
+        
+        // Update property availability
+        const [updateResult] = await connection.execute(
           `UPDATE properties p
            JOIN bookings b ON p.id = b.property_id
            SET p.is_available = FALSE
            WHERE b.id = ?`,
           [bookingId]
         );
+        console.log('Property availability update result:', updateResult);
+        
+        // Create tenant record
+        await connection.execute(
+          `INSERT INTO tenants (property_id, tenant_id, lease_start, lease_end, monthly_rent, status)
+           SELECT b.property_id, b.tenant_id, b.move_in_date, 
+                  DATE_ADD(b.move_in_date, INTERVAL 12 MONTH), p.rent, 'Active'
+           FROM bookings b
+           JOIN properties p ON b.property_id = p.id
+           WHERE b.id = ?`,
+          [bookingId]
+        );
+        
       } else if (status === 'Rejected') {
+        console.log(`Setting property as available for booking ${bookingId}`);
         await connection.execute(
           `UPDATE properties p
            JOIN bookings b ON p.id = b.property_id

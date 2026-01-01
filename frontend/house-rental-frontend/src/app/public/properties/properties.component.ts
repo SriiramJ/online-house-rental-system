@@ -102,10 +102,11 @@ export class PropertiesComponent implements OnInit, OnDestroy {
         }
       });
 
-    // Also listen for general booking updates
+    // Also listen for general booking updates and reload all properties
     this.bookingStateService.bookingUpdated$
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
+        console.log('Booking updated - reloading properties');
         this.loadProperties();
       });
   }
@@ -149,8 +150,8 @@ export class PropertiesComponent implements OnInit, OnDestroy {
           return {
             ...property,
             image: imageUrl,
-            type: property.property_type,
-            available: property.is_available
+            is_available: property.is_available,
+            status: property.status
           };
         });
         console.log('Processed properties:', this.properties);

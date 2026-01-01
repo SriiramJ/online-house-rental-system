@@ -120,7 +120,8 @@ export class PropertyDetailsComponent implements OnInit, OnDestroy {
       next: (response: {property: Property, message: string}) => {
         this.property = {
           ...response.property,
-          image: this.getPropertyImage(response.property)
+          image: this.getPropertyImage(response.property),
+          status: response.property.status
         };
         this.loading = false;
         this.cdr.detectChanges();

@@ -34,8 +34,8 @@
     <div class="property-images">
       <div class="main-image">
         <img [src]="getCurrentImage()" [alt]="property.title" />
-        <div class="availability-badge" [class.available]="property.is_available !== false">
-          {{ property.is_available !== false ? 'Available' : 'Not Available' }}
+        <div class="availability-badge" [class.available]="property.status === 'Available'" [class.rented]="property.status === 'Rented'">
+          {{ property.status }}
         </div>
         
         <!-- Image Navigation -->
@@ -132,8 +132,8 @@
             </div>
             <div class="feature-row">
               <span class="feature-label">Availability</span>
-              <span class="feature-value" [class.available]="property.is_available !== false">
-                {{ property.is_available !== false ? 'Available Now' : 'Not Available' }}
+              <span class="feature-value" [class.available]="property.status === 'Available'" [class.rented]="property.status === 'Rented'">
+                {{ property.status === 'Available' ? 'Available Now' : 'Currently Rented' }}
               </span>
             </div>
           </div>
@@ -165,11 +165,12 @@
             <button 
               (click)="bookProperty()" 
               class="btn btn-primary btn-full"
-              [disabled]="property.is_available === false || !canBookProperty()"
+              [disabled]="property.status === 'Rented' || !canBookProperty()"
             >
               <span *ngIf="!isLoggedIn">Login to Book</span>
               <span *ngIf="isLoggedIn && !canBookProperty()">Owners Cannot Book</span>
-              <span *ngIf="canBookProperty()">Book Now</span>
+              <span *ngIf="canBookProperty() && property.status === 'Rented'">Currently Rented</span>
+              <span *ngIf="canBookProperty() && property.status === 'Available'">Book Now</span>
             </button>
             
             <button 
@@ -183,9 +184,9 @@
 
           <div class="booking-note">
             <p class="note-text">
-              {{ property.is_available !== false
+              {{ property.status === 'Available'
                 ? 'This property is available for immediate booking.' 
-                : 'This property is currently not available.' }}
+                : 'This property is currently rented and not available.' }}
             </p>
           </div>
         </div>

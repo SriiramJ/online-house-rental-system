@@ -95,10 +95,10 @@
                 <div class="font-medium text-indigo-600">${{property.rent}}/mo</div>
               </td>
               <td class="px-6 py-4">
-                <span *ngIf="property.is_available !== false && property.is_available !== 0" class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium">
+                <span *ngIf="property.status === 'Available'" class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium">
                   Available
                 </span>
-                <span *ngIf="property.is_available === false || property.is_available === 0" class="px-3 py-1 bg-amber-100 text-amber-700 rounded-full text-sm font-medium">
+                <span *ngIf="property.status === 'Rented'" class="px-3 py-1 bg-amber-100 text-amber-700 rounded-full text-sm font-medium">
                   Occupied
                 </span>
               </td>
