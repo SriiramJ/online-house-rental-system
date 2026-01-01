@@ -302,5 +302,9 @@ tbody tr:hover {
 
 /* Responsive */
 @media (min-width: 768px) {
-  .md\:grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .md\:grid-cols-4 { grid-template-columns: repeat(4, 1fr); }
+}
+
+@media (max-width: 767px) {
+  .md\:grid-cols-4 { grid-template-columns: repeat(2, 1fr); }
 }

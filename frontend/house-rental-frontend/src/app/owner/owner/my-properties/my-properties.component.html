@@ -29,7 +29,7 @@
         </div>
 
     <!-- Stats -->
-    <div class="grid md:grid-cols-3 gap-6 mb-8">
+    <div class="grid md:grid-cols-4 gap-6 mb-8">
       <div class="bg-white rounded-lg shadow-sm p-6">
         <div class="text-gray-600 mb-2">Total Properties</div>
         <div class="text-3xl font-bold text-gray-900">{{properties.length}}</div>
@@ -37,6 +37,10 @@
       <div class="bg-white rounded-lg shadow-sm p-6">
         <div class="text-gray-600 mb-2">Available</div>
         <div class="text-3xl font-bold text-green-600">{{getAvailableCount()}}</div>
+      </div>
+      <div class="bg-white rounded-lg shadow-sm p-6">
+        <div class="text-gray-600 mb-2">Pending</div>
+        <div class="text-3xl font-bold text-gray-600">{{getPendingCount()}}</div>
       </div>
       <div class="bg-white rounded-lg shadow-sm p-6">
         <div class="text-gray-600 mb-2">Occupied</div>

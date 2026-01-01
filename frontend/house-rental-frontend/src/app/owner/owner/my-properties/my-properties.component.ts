@@ -95,11 +95,15 @@ export class MyPropertiesComponent implements OnInit, OnDestroy {
   }
 
   getAvailableCount(): number {
-    return this.properties.filter(p => p.is_available !== false).length;
+    return this.properties.filter(p => p.status === 'Available').length;
+  }
+
+  getPendingCount(): number {
+    return this.properties.filter(p => p.status === 'Pending').length;
   }
 
   getOccupiedCount(): number {
-    return this.properties.filter(p => p.is_available === false).length;
+    return this.properties.filter(p => p.status === 'Rented').length;
   }
 
   getPropertyImage(property: any): string {
