@@ -7,6 +7,7 @@ import { FooterComponent } from '../../../shared/footer/footer.component';
 import { SidebarComponent, SidebarItem } from '../../../shared/shared/sidebar/sidebar.component';
 import { BookingService } from '../../../core/services/booking.service';
 import { BookingStateService } from '../../../core/services/booking-state.service';
+import { PropertyStateService } from '../../../core/services/property-state.service';
 import { SidebarService } from '../../../core/services/sidebar.service';
 import { ToastService } from '../../../core/services/toast.service';
 import { LucideAngularModule, Check, X, Clock, User, ArrowLeft, Menu, BarChart3, Home, Calendar, Users, Mail, Phone, MapPin, MessageSquare } from 'lucide-angular';
@@ -718,6 +719,7 @@ export class BookingRequestsComponent implements OnInit, OnDestroy {
   constructor(
     private bookingService: BookingService,
     private bookingStateService: BookingStateService,
+    private propertyStateService: PropertyStateService,
     private toast: ToastService,
     public sidebarService: SidebarService,
     private router: Router,
@@ -763,7 +765,15 @@ export class BookingRequestsComponent implements OnInit, OnDestroy {
         
         const booking = this.bookingRequests.find(b => b.id === bookingId);
         if (booking) {
+          console.log('Triggering booking state update for property:', booking.property_id);
           this.bookingStateService.updateBookingStatus(booking.property_id, 'Approved');
+          this.propertyStateService.triggerPropertiesUpdate();
+          
+          // Force reload properties after a short delay
+          setTimeout(() => {
+            console.log('Force triggering property reload');
+            this.propertyStateService.triggerPropertiesUpdate();
+          }, 500);
         }
       },
       error: () => {
@@ -856,6 +866,7 @@ export class BookingRequestsComponent implements OnInit, OnDestroy {
           this.toast.success('Booking rejected');
           this.loadBookingRequests();
           this.bookingStateService.updateBookingStatus(this.selectedRequest.property_id, 'Rejected');
+          this.propertyStateService.triggerPropertiesUpdate();
           this.closeRejectModal();
         },
         error: () => {

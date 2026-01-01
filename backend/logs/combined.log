@@ -719,3 +719,9 @@
 2025-12-30 17:49:39 [INFO]: Login attempt for email: sriram1@test.com
 2025-12-30 17:49:39 [INFO]: Fetching user by email: sriram1@test.com
 2025-12-30 17:49:39 [INFO]: Login successful for userId: 8
+2026-01-01 10:13:15 [INFO]: Server running on port 3001
+2026-01-01 10:13:15 [INFO]: MySQL database connected successfully
+2026-01-01 10:17:33 [INFO]: MySQL database connected successfully
+2026-01-01 10:17:33 [INFO]: Server running on port 3001
+2026-01-01 10:31:39 [INFO]: Server running on port 3001
+2026-01-01 10:31:39 [INFO]: MySQL database connected successfully
