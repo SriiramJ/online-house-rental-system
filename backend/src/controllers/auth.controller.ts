@@ -5,12 +5,12 @@ import crypto from "crypto";
 
 export const register = async (req: Request, res: Response)=>{
     try{
-        logger.info(`Registration request received: ${JSON.stringify(req.body)}`);
+        const { name, email, password, role, phone } = req.body;
+        logger.info(`Registration request received: ${JSON.stringify({name, email, phone, role})}`);
         
         // Validate required fields
-        const { name, email, password, role } = req.body;
         if (!name || !email || !password || !role) {
-            logger.warn(`Missing required fields: name=${!!name}, email=${!!email}, password=${!!password}, role=${!!role}`);
+            logger.warn(`Missing required fields: name=${!!name}, email=${!!email}, role=${!!role}`);
             return res.status(400).json({
                 success: false,
                 message: "Missing required fields: name, email, password, and role are required"
