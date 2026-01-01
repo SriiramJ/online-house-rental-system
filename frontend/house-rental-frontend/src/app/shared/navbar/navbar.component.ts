@@ -84,6 +84,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
     return this.router.url.includes('/property-details');
   }
 
+  isOnAddPropertyPage(): boolean {
+    return this.router.url.includes('/add-property');
+  }
+
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: Event) {
     if (!this.elementRef.nativeElement.contains(event.target)) {
@@ -118,6 +122,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   logout() {
     this.showUserMenu = false;
     this.authService.logout();
+    this.cdr.detectChanges(); // Force immediate change detection
     this.router.navigate(['/']);
   }
 

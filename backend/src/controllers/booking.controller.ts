@@ -1,8 +1,10 @@
 import { Request, Response } from 'express';
 import { BookingService } from '../services/booking.service';
+import logger from '../utils/logger';
 
 export const createBooking = async (req: Request, res: Response) => {
   try {
+    logger.info('POST /bookings');
     const userId = req.user?.userId;
     
     if (!userId) {
@@ -14,6 +16,7 @@ export const createBooking = async (req: Request, res: Response) => {
     }
 
     const { property_id, move_in_date, message } = req.body;
+    logger.info(`Creating booking for property ${property_id} by tenant ${userId}`);
 
     if (!property_id || !move_in_date) {
       return res.status(400).json({
@@ -23,20 +26,8 @@ export const createBooking = async (req: Request, res: Response) => {
       });
     }
 
-    // Validate move-in date
-    const moveInDate = new Date(move_in_date);
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    
-    if (moveInDate < today) {
-      return res.status(400).json({
-        success: false,
-        message: 'Move-in date cannot be in the past',
-        code: 'INVALID_DATE'
-      });
-    }
-
     const bookingService = new BookingService();
+    
     const booking = await bookingService.createBooking({
       property_id: Number(property_id),
       tenant_id: userId,
@@ -44,36 +35,22 @@ export const createBooking = async (req: Request, res: Response) => {
       message: message || null
     });
 
+    logger.info(`Booking created successfully with ID: ${booking.id}`);
+    logger.info(`Property ${property_id} status updated to Pending`);
+    
     res.status(201).json({
       success: true,
       message: 'Booking request created successfully',
       data: booking
     });
   } catch (error: any) {
-    logger.error('Error in createBooking controller:', error);
+    logger.error(`Error in createBooking controller: ${error.message}`);
     
-    let statusCode = 500;
-    let message = 'Failed to create booking';
-    let code = 'BOOKING_ERROR';
-    
-    if (error.message.includes('Property not found')) {
-      statusCode = 404;
-      message = 'Property not found';
-      code = 'PROPERTY_NOT_FOUND';
-    } else if (error.message.includes('not available')) {
-      statusCode = 409;
-      message = 'Property is not available for booking';
-      code = 'PROPERTY_UNAVAILABLE';
-    } else if (error.message.includes('already have a booking')) {
-      statusCode = 409;
-      message = error.message;
-      code = 'DUPLICATE_BOOKING';
-    }
-    
-    res.status(statusCode).json({
+    res.status(500).json({
       success: false,
-      message,
-      code
+      message: 'Failed to create booking',
+      code: 'BOOKING_ERROR',
+      error: error.message
     });
   }
 };
@@ -146,24 +123,35 @@ export const updateBookingStatus = async (req: Request, res: Response) => {
     const bookingId = parseInt(req.params.id);
     const { status, rejection_reason } = req.body;
 
+    logger.info(`Updating booking ${bookingId} status to ${status} by user ${userId}`);
+
     if (!userId) {
-      return res.status(401).json({ error: 'Unauthorized' });
+      return res.status(401).json({ success: false, error: 'Unauthorized' });
     }
 
-    if (!['approved', 'rejected'].includes(status.toLowerCase())) {
-      return res.status(400).json({ error: 'Invalid status' });
+    if (!bookingId || isNaN(bookingId)) {
+      return res.status(400).json({ success: false, error: 'Invalid booking ID' });
+    }
+
+    if (!status || !['approved', 'rejected'].includes(status.toLowerCase())) {
+      return res.status(400).json({ success: false, error: 'Invalid status' });
     }
 
     const bookingService = new BookingService();
-    const result = await bookingService.updateBookingStatus(bookingId, status.toLowerCase(), userId, rejection_reason);
+    const result = await bookingService.updateBookingStatus(
+      bookingId, 
+      status.toLowerCase(), 
+      userId, 
+      rejection_reason || ''
+    );
     
     if (result) {
       res.json({ success: true, message: `Booking ${status.toLowerCase()} successfully` });
     } else {
-      res.status(404).json({ error: 'Booking not found or unauthorized' });
+      res.status(404).json({ success: false, error: 'Booking not found or unauthorized' });
     }
-  } catch (error) {
-    console.error('Error updating booking status:', error);
-    res.status(500).json({ error: 'Failed to update booking status' });
+  } catch (error: any) {
+    logger.error('Error updating booking status:', error);
+    res.status(500).json({ success: false, error: 'Failed to update booking status', details: error.message });
   }
 };

@@ -161,3 +161,311 @@
 2025-12-30 21:41:29 [ERROR]: Forgot password failed: Table 'house_rental_db.password_reset_tokens' doesn't exist
 2025-12-30 21:42:23 [ERROR]: Forgot password failed: Table 'house_rental_db.password_reset_tokens' doesn't exist
 2025-12-30 21:48:39 [ERROR]: Forgot password failed: Table 'house_rental_db.password_reset_tokens' doesn't exist
+2025-12-31 12:52:52 [ERROR]: Database query failed: Unknown column 'b.created_at' in 'field list'
+2025-12-31 12:52:52 [ERROR]: Error fetching tenant bookings: Unknown column 'b.created_at' in 'field list'
+2025-12-31 12:52:52 [ERROR]: Global error handler: logger is not defined logger is not defined
+2025-12-31 13:16:48 [ERROR]: Registration service error: Cannot read properties of undefined (reading '0')
+2025-12-31 13:16:48 [ERROR]: Register failed: Cannot read properties of undefined (reading '0')
+2025-12-31 13:19:21 [ERROR]: Registration service error: Cannot read properties of undefined (reading '0')
+2025-12-31 13:19:22 [ERROR]: Register failed: Cannot read properties of undefined (reading '0')
+2025-12-31 13:20:56 [ERROR]: Registration service error: Cannot read properties of undefined (reading '0')
+2025-12-31 13:20:56 [ERROR]: Register failed: Cannot read properties of undefined (reading '0')
+2025-12-31 13:24:06 [ERROR]: Registration service error: Email already registered
+2025-12-31 13:24:06 [ERROR]: Register failed: Email already registered
+2025-12-31 13:28:50 [ERROR]: Error fetching property: Property not found
+2025-12-31 13:28:50 [ERROR]: Transaction failed: Property not found
+2025-12-31 13:28:50 [ERROR]: Error creating property: Property not found
+2025-12-31 13:28:50 [ERROR]: Error in createProperty: Property not found
+2025-12-31 13:31:03 [ERROR]: Error fetching property: Property not found
+2025-12-31 13:31:03 [ERROR]: Transaction failed: Property not found
+2025-12-31 13:31:03 [ERROR]: Error creating property: Property not found
+2025-12-31 13:31:03 [ERROR]: Error in createProperty: Property not found
+2025-12-31 13:32:34 [ERROR]: Error fetching property: Property not found
+2025-12-31 13:32:34 [ERROR]: Transaction failed: Property not found
+2025-12-31 13:32:34 [ERROR]: Error creating property: Property not found
+2025-12-31 13:32:34 [ERROR]: Error in createProperty: Property not found
+2025-12-31 14:01:26 [ERROR]: Global error handler: File too large
+2025-12-31 14:01:55 [ERROR]: Error fetching property: Property not found
+2025-12-31 14:01:55 [ERROR]: Transaction failed: Property not found
+2025-12-31 14:01:55 [ERROR]: Error creating property: Property not found
+2025-12-31 14:01:55 [ERROR]: Error in createProperty: Property not found
+2025-12-31 14:03:54 [ERROR]: Error fetching property: Property not found
+2025-12-31 14:03:54 [ERROR]: Transaction failed: Property not found
+2025-12-31 14:03:54 [ERROR]: Error creating property: Property not found
+2025-12-31 14:03:54 [ERROR]: Error in createProperty: Property not found
+2025-12-31 14:15:49 [ERROR]: Registration service error: Email already registered
+2025-12-31 14:15:49 [ERROR]: Register failed: Email already registered
+2025-12-31 14:16:19 [ERROR]: Registration service error: Email already registered
+2025-12-31 14:16:19 [ERROR]: Register failed: Email already registered
+2025-12-31 14:16:19 [ERROR]: Error fetching property: Property not found
+2025-12-31 14:16:19 [ERROR]: Transaction failed: Property not found
+2025-12-31 14:16:19 [ERROR]: Error creating property: Property not found
+2025-12-31 14:16:19 [ERROR]: Error in createProperty: Property not found
+2025-12-31 14:16:35 [ERROR]: Registration service error: Email already registered
+2025-12-31 14:16:35 [ERROR]: Register failed: Email already registered
+2025-12-31 14:16:36 [ERROR]: Error fetching property: Property not found
+2025-12-31 14:16:36 [ERROR]: Transaction failed: Property not found
+2025-12-31 14:16:36 [ERROR]: Error creating property: Property not found
+2025-12-31 14:16:36 [ERROR]: Error in createProperty: Property not found
+2025-12-31 14:16:55 [ERROR]: Registration service error: Email already registered
+2025-12-31 14:16:55 [ERROR]: Register failed: Email already registered
+2025-12-31 14:16:55 [ERROR]: Error fetching property: Property not found
+2025-12-31 14:16:55 [ERROR]: Transaction failed: Property not found
+2025-12-31 14:16:55 [ERROR]: Error creating property: Property not found
+2025-12-31 14:16:55 [ERROR]: Error in createProperty: Property not found
+2025-12-31 14:17:17 [ERROR]: Registration service error: Email already registered
+2025-12-31 14:17:17 [ERROR]: Register failed: Email already registered
+2025-12-31 14:17:17 [ERROR]: Error fetching property: Property not found
+2025-12-31 14:17:17 [ERROR]: Transaction failed: Property not found
+2025-12-31 14:17:17 [ERROR]: Error creating property: Property not found
+2025-12-31 14:17:17 [ERROR]: Error in createProperty: Property not found
+2025-12-31 14:18:40 [ERROR]: Error fetching property: Property not found
+2025-12-31 14:18:40 [ERROR]: Transaction failed: Property not found
+2025-12-31 14:18:40 [ERROR]: Error creating property: Property not found
+2025-12-31 14:18:40 [ERROR]: Error in createProperty: Property not found
+2025-12-31 15:59:12 [ERROR]: Transaction failed: You already have a booking request for this property
+2025-12-31 15:59:12 [ERROR]: Error creating booking: You already have a booking request for this property
+2025-12-31 15:59:12 [ERROR]: Global error handler: logger is not defined
+2025-12-31 16:00:34 [ERROR]: Transaction failed: You already have a booking request for this property
+2025-12-31 16:00:34 [ERROR]: Error creating booking: You already have a booking request for this property
+2025-12-31 16:00:34 [ERROR]: Global error handler: logger is not defined
+2025-12-31 16:09:39 [ERROR]: Transaction failed: You already have a booking request for this property
+2025-12-31 16:09:39 [ERROR]: Error creating booking: You already have a booking request for this property
+2025-12-31 16:09:39 [ERROR]: Global error handler: logger is not defined
+2025-12-31 16:11:10 [ERROR]: Transaction failed: You already have a booking request for this property
+2025-12-31 16:11:10 [ERROR]: Error creating booking: You already have a booking request for this property
+2025-12-31 16:11:10 [ERROR]: Global error handler: logger is not defined
+2025-12-31 16:16:37 [ERROR]: Transaction error in createBooking: You already have a booking request for this property
+2025-12-31 16:16:37 [ERROR]: Transaction failed: You already have a booking request for this property
+2025-12-31 16:16:37 [ERROR]: Error creating booking: You already have a booking request for this property
+2025-12-31 16:16:37 [ERROR]: Stack trace: Error: You already have a booking request for this property
+    at <anonymous> (d:\online-house-rental-system\backend\src\services\booking.service.ts:41:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Database.transaction (d:\online-house-rental-system\backend\src\config\db.ts:79:22)
+    at async BookingService.createBooking (d:\online-house-rental-system\backend\src\services\booking.service.ts:16:14)
+    at async createBooking (d:\online-house-rental-system\backend\src\controllers\booking.controller.ts:41:21)
+2025-12-31 16:16:37 [ERROR]: Error in createBooking controller: You already have a booking request for this property
+2025-12-31 16:18:26 [ERROR]: Transaction error in createBooking: You already have a booking request for this property
+2025-12-31 16:18:26 [ERROR]: Transaction failed: You already have a booking request for this property
+2025-12-31 16:18:26 [ERROR]: Error creating booking: You already have a booking request for this property
+2025-12-31 16:18:26 [ERROR]: Stack trace: Error: You already have a booking request for this property
+    at <anonymous> (d:\online-house-rental-system\backend\src\services\booking.service.ts:41:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Database.transaction (d:\online-house-rental-system\backend\src\config\db.ts:79:22)
+    at async BookingService.createBooking (d:\online-house-rental-system\backend\src\services\booking.service.ts:16:14)
+    at async createBooking (d:\online-house-rental-system\backend\src\controllers\booking.controller.ts:41:21)
+2025-12-31 16:18:26 [ERROR]: Error in createBooking controller: You already have a booking request for this property
+2025-12-31 16:29:35 [ERROR]: Transaction error in createBooking: You already have a booking request for this property
+2025-12-31 16:29:35 [ERROR]: Transaction failed: You already have a booking request for this property
+2025-12-31 16:29:35 [ERROR]: Error creating booking: You already have a booking request for this property
+2025-12-31 16:29:35 [ERROR]: Stack trace: Error: You already have a booking request for this property
+    at <anonymous> (d:\online-house-rental-system\backend\src\services\booking.service.ts:41:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Database.transaction (d:\online-house-rental-system\backend\src\config\db.ts:79:22)
+    at async BookingService.createBooking (d:\online-house-rental-system\backend\src\services\booking.service.ts:16:14)
+    at async createBooking (d:\online-house-rental-system\backend\src\controllers\booking.controller.ts:41:21)
+2025-12-31 16:29:35 [ERROR]: Error in createBooking controller: You already have a booking request for this property
+2025-12-31 17:07:29 [ERROR]: Transaction error in createBooking: Unknown column 'is_available' in 'field list'
+2025-12-31 17:07:30 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 17:07:30 [ERROR]: Error creating booking: Unknown column 'is_available' in 'field list'
+2025-12-31 17:07:30 [ERROR]: Stack trace: Error: Unknown column 'is_available' in 'field list'
+    at PromisePoolConnection.execute (d:\online-house-rental-system\backend\node_modules\mysql2\lib\promise\connection.js:47:22)
+    at <anonymous> (d:\online-house-rental-system\backend\src\services\booking.service.ts:19:51)
+    at Database.transaction (d:\online-house-rental-system\backend\src\config\db.ts:79:28)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async BookingService.createBooking (d:\online-house-rental-system\backend\src\services\booking.service.ts:16:14)
+    at async createBooking (d:\online-house-rental-system\backend\src\controllers\booking.controller.ts:41:21)
+2025-12-31 17:07:30 [ERROR]: Error in createBooking controller: Unknown column 'is_available' in 'field list'
+2025-12-31 17:12:29 [ERROR]: Transaction error in createBooking: Unknown column 'is_available' in 'field list'
+2025-12-31 17:12:29 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 17:12:29 [ERROR]: Error creating booking: Unknown column 'is_available' in 'field list'
+2025-12-31 17:12:29 [ERROR]: Stack trace: Error: Unknown column 'is_available' in 'field list'
+    at PromisePoolConnection.execute (d:\online-house-rental-system\backend\node_modules\mysql2\lib\promise\connection.js:47:22)
+    at <anonymous> (d:\online-house-rental-system\backend\src\services\booking.service.ts:19:51)
+    at Database.transaction (d:\online-house-rental-system\backend\src\config\db.ts:79:28)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async BookingService.createBooking (d:\online-house-rental-system\backend\src\services\booking.service.ts:16:14)
+    at async createBooking (d:\online-house-rental-system\backend\src\controllers\booking.controller.ts:41:21)
+2025-12-31 17:12:29 [ERROR]: Error in createBooking controller: Unknown column 'is_available' in 'field list'
+2025-12-31 17:50:04 [ERROR]: Transaction error in createBooking: Unknown column 'is_available' in 'field list'
+2025-12-31 17:50:04 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 17:50:04 [ERROR]: Error creating booking: Unknown column 'is_available' in 'field list'
+2025-12-31 17:50:04 [ERROR]: Stack trace: Error: Unknown column 'is_available' in 'field list'
+    at PromisePoolConnection.execute (d:\online-house-rental-system\backend\node_modules\mysql2\lib\promise\connection.js:47:22)
+    at <anonymous> (d:\online-house-rental-system\backend\src\services\booking.service.ts:19:51)
+    at Database.transaction (d:\online-house-rental-system\backend\src\config\db.ts:79:28)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async BookingService.createBooking (d:\online-house-rental-system\backend\src\services\booking.service.ts:16:14)
+    at async createBooking (d:\online-house-rental-system\backend\src\controllers\booking.controller.ts:41:21)
+2025-12-31 17:50:04 [ERROR]: Error in createBooking controller: Unknown column 'is_available' in 'field list'
+2025-12-31 17:52:42 [ERROR]: Transaction error in createBooking: Unknown column 'is_available' in 'field list'
+2025-12-31 17:52:42 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 17:52:42 [ERROR]: Error creating booking: Unknown column 'is_available' in 'field list'
+2025-12-31 17:52:42 [ERROR]: Stack trace: Error: Unknown column 'is_available' in 'field list'
+    at PromisePoolConnection.execute (d:\online-house-rental-system\backend\node_modules\mysql2\lib\promise\connection.js:47:22)
+    at <anonymous> (d:\online-house-rental-system\backend\src\services\booking.service.ts:19:51)
+    at Database.transaction (d:\online-house-rental-system\backend\src\config\db.ts:79:28)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async BookingService.createBooking (d:\online-house-rental-system\backend\src\services\booking.service.ts:16:14)
+    at async createBooking (d:\online-house-rental-system\backend\src\controllers\booking.controller.ts:41:21)
+2025-12-31 17:52:42 [ERROR]: Error in createBooking controller: Unknown column 'is_available' in 'field list'
+2025-12-31 17:57:29 [ERROR]: Transaction error in createBooking: Unknown column 'is_available' in 'field list'
+2025-12-31 17:57:29 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 17:57:29 [ERROR]: Error creating booking: Unknown column 'is_available' in 'field list'
+2025-12-31 17:57:29 [ERROR]: Stack trace: Error: Unknown column 'is_available' in 'field list'
+    at PromisePoolConnection.execute (d:\online-house-rental-system\backend\node_modules\mysql2\lib\promise\connection.js:47:22)
+    at <anonymous> (d:\online-house-rental-system\backend\src\services\booking.service.ts:19:51)
+    at Database.transaction (d:\online-house-rental-system\backend\src\config\db.ts:79:28)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async BookingService.createBooking (d:\online-house-rental-system\backend\src\services\booking.service.ts:16:14)
+    at async createBooking (d:\online-house-rental-system\backend\src\controllers\booking.controller.ts:41:21)
+2025-12-31 17:57:29 [ERROR]: Error in createBooking controller: Unknown column 'is_available' in 'field list'
+2025-12-31 18:13:05 [ERROR]: Transaction error in createBooking: Unknown column 'is_available' in 'field list'
+2025-12-31 18:13:05 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 18:13:05 [ERROR]: Error creating booking: Unknown column 'is_available' in 'field list'
+2025-12-31 18:13:05 [ERROR]: Stack trace: Error: Unknown column 'is_available' in 'field list'
+    at PromisePoolConnection.execute (d:\online-house-rental-system\backend\node_modules\mysql2\lib\promise\connection.js:47:22)
+    at <anonymous> (d:\online-house-rental-system\backend\src\services\booking.service.ts:19:51)
+    at Database.transaction (d:\online-house-rental-system\backend\src\config\db.ts:79:28)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async BookingService.createBooking (d:\online-house-rental-system\backend\src\services\booking.service.ts:16:14)
+    at async createBooking (d:\online-house-rental-system\backend\src\controllers\booking.controller.ts:41:21)
+2025-12-31 18:13:05 [ERROR]: Error in createBooking controller: Unknown column 'is_available' in 'field list'
+2025-12-31 20:31:38 [ERROR]: Error creating property: Unknown column 'is_available' in 'field list'
+2025-12-31 20:31:38 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 20:31:38 [ERROR]: Error in createProperty: Unknown column 'is_available' in 'field list'
+2025-12-31 20:31:57 [ERROR]: Error creating property: Unknown column 'is_available' in 'field list'
+2025-12-31 20:31:57 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 20:31:57 [ERROR]: Error in createProperty: Unknown column 'is_available' in 'field list'
+2025-12-31 20:33:04 [ERROR]: Error creating property: Unknown column 'is_available' in 'field list'
+2025-12-31 20:33:04 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 20:33:04 [ERROR]: Error in createProperty: Unknown column 'is_available' in 'field list'
+2025-12-31 20:42:49 [ERROR]: Transaction failed: Unknown column 'p.is_available' in 'field list'
+2025-12-31 20:42:49 [ERROR]: Error updating booking status: Unknown column 'p.is_available' in 'field list'
+2025-12-31 20:43:06 [ERROR]: Transaction failed: Unknown column 'p.is_available' in 'field list'
+2025-12-31 20:43:06 [ERROR]: Error updating booking status: Unknown column 'p.is_available' in 'field list'
+2025-12-31 20:44:51 [ERROR]: Transaction failed: Unknown column 'p.is_available' in 'field list'
+2025-12-31 20:44:51 [ERROR]: Error updating booking status: Unknown column 'p.is_available' in 'field list'
+2025-12-31 20:46:35 [ERROR]: Transaction failed: Unknown column 'p.is_available' in 'field list'
+2025-12-31 20:46:35 [ERROR]: Error updating booking status: Unknown column 'p.is_available' in 'field list'
+2025-12-31 20:48:26 [ERROR]: Transaction failed: Unknown column 'p.is_available' in 'field list'
+2025-12-31 20:48:26 [ERROR]: Error updating booking status: Unknown column 'p.is_available' in 'field list'
+2025-12-31 20:50:22 [ERROR]: Transaction failed: Unknown column 'p.is_available' in 'field list'
+2025-12-31 20:50:22 [ERROR]: Error updating booking status: Unknown column 'p.is_available' in 'field list'
+2025-12-31 20:55:00 [ERROR]: Error creating property: Unknown column 'is_available' in 'field list'
+2025-12-31 20:55:00 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 20:55:00 [ERROR]: Error in createProperty: Unknown column 'is_available' in 'field list'
+2025-12-31 20:55:04 [ERROR]: Error creating property: Unknown column 'is_available' in 'field list'
+2025-12-31 20:55:04 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 20:55:04 [ERROR]: Error in createProperty: Unknown column 'is_available' in 'field list'
+2025-12-31 20:56:25 [ERROR]: Error creating property: Unknown column 'is_available' in 'field list'
+2025-12-31 20:56:25 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 20:56:25 [ERROR]: Error in createProperty: Unknown column 'is_available' in 'field list'
+2025-12-31 20:56:44 [ERROR]: Error creating property: Unknown column 'is_available' in 'field list'
+2025-12-31 20:56:44 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 20:56:44 [ERROR]: Error in createProperty: Unknown column 'is_available' in 'field list'
+2025-12-31 20:57:55 [ERROR]: Error creating property: Unknown column 'is_available' in 'field list'
+2025-12-31 20:57:55 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 20:57:55 [ERROR]: Error in createProperty: Unknown column 'is_available' in 'field list'
+2025-12-31 20:58:08 [ERROR]: Error creating property: Unknown column 'is_available' in 'field list'
+2025-12-31 20:58:08 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 20:58:08 [ERROR]: Error in createProperty: Unknown column 'is_available' in 'field list'
+2025-12-31 20:58:43 [ERROR]: Error creating property: Unknown column 'is_available' in 'field list'
+2025-12-31 20:58:43 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 20:58:43 [ERROR]: Error in createProperty: Unknown column 'is_available' in 'field list'
+2025-12-31 20:59:27 [ERROR]: Error creating property: Unknown column 'is_available' in 'field list'
+2025-12-31 20:59:27 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 20:59:27 [ERROR]: Error in createProperty: Unknown column 'is_available' in 'field list'
+2025-12-31 21:00:35 [ERROR]: Error creating property: Unknown column 'is_available' in 'field list'
+2025-12-31 21:00:35 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 21:00:35 [ERROR]: Error in createProperty: Unknown column 'is_available' in 'field list'
+2025-12-31 21:02:55 [ERROR]: Error creating property: Unknown column 'is_available' in 'field list'
+2025-12-31 21:02:55 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 21:02:55 [ERROR]: Error in createProperty: Unknown column 'is_available' in 'field list'
+2025-12-31 21:11:54 [ERROR]: Error creating property: Unknown column 'is_available' in 'field list'
+2025-12-31 21:11:54 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 21:11:54 [ERROR]: Error in createProperty: Unknown column 'is_available' in 'field list'
+2025-12-31 21:12:03 [ERROR]: Error creating property: Unknown column 'is_available' in 'field list'
+2025-12-31 21:12:03 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 21:12:03 [ERROR]: Error in createProperty: Unknown column 'is_available' in 'field list'
+2025-12-31 21:44:18 [ERROR]: Error creating property: Unknown column 'is_available' in 'field list'
+2025-12-31 21:44:18 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 21:44:18 [ERROR]: Error in createProperty: Unknown column 'is_available' in 'field list'
+2025-12-31 21:48:12 [ERROR]: Error creating property: Unknown column 'is_available' in 'field list'
+2025-12-31 21:48:12 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 21:48:12 [ERROR]: Error in createProperty: Unknown column 'is_available' in 'field list'
+2025-12-31 21:48:16 [ERROR]: Error creating property: Unknown column 'is_available' in 'field list'
+2025-12-31 21:48:16 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 21:48:16 [ERROR]: Error in createProperty: Unknown column 'is_available' in 'field list'
+2025-12-31 21:49:17 [ERROR]: Error creating property: Unknown column 'is_available' in 'field list'
+2025-12-31 21:49:17 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 21:49:17 [ERROR]: Error in createProperty: Unknown column 'is_available' in 'field list'
+2025-12-31 21:51:56 [ERROR]: Error creating property: Unknown column 'is_available' in 'field list'
+2025-12-31 21:51:56 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 21:51:56 [ERROR]: Error in createProperty: Unknown column 'is_available' in 'field list'
+2025-12-31 22:02:33 [ERROR]: Transaction failed: Unknown column 'p.is_available' in 'field list'
+2025-12-31 22:02:33 [ERROR]: Error updating booking status: Unknown column 'p.is_available' in 'field list'
+2025-12-31 22:04:01 [ERROR]: Error creating property: Unknown column 'is_available' in 'field list'
+2025-12-31 22:04:01 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 22:04:01 [ERROR]: Error in createProperty: Unknown column 'is_available' in 'field list'
+2025-12-31 22:04:06 [ERROR]: Error creating property: Unknown column 'is_available' in 'field list'
+2025-12-31 22:04:06 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 22:04:06 [ERROR]: Error in createProperty: Unknown column 'is_available' in 'field list'
+2025-12-31 22:04:14 [ERROR]: Error creating property: Unknown column 'is_available' in 'field list'
+2025-12-31 22:04:14 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 22:04:14 [ERROR]: Error in createProperty: Unknown column 'is_available' in 'field list'
+2025-12-31 22:10:13 [ERROR]: Error creating property: Unknown column 'is_available' in 'field list'
+2025-12-31 22:10:13 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 22:10:13 [ERROR]: Error in createProperty: Unknown column 'is_available' in 'field list'
+2025-12-31 22:14:46 [ERROR]: Error creating property: Unknown column 'is_available' in 'field list'
+2025-12-31 22:14:46 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 22:14:46 [ERROR]: Error in createProperty: Unknown column 'is_available' in 'field list'
+2025-12-31 22:21:33 [ERROR]: Error creating property: Unknown column 'is_available' in 'field list'
+2025-12-31 22:21:33 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 22:21:33 [ERROR]: Error in createProperty: Unknown column 'is_available' in 'field list'
+2025-12-31 22:26:10 [ERROR]: Error creating property: Unknown column 'is_available' in 'field list'
+2025-12-31 22:26:10 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 22:26:10 [ERROR]: Error in createProperty: Unknown column 'is_available' in 'field list'
+2025-12-31 22:27:21 [ERROR]: Error creating property: Unknown column 'is_available' in 'field list'
+2025-12-31 22:27:21 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 22:27:21 [ERROR]: Error in createProperty: Unknown column 'is_available' in 'field list'
+2025-12-31 22:27:26 [ERROR]: Error creating property: Unknown column 'is_available' in 'field list'
+2025-12-31 22:27:26 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 22:27:26 [ERROR]: Error in createProperty: Unknown column 'is_available' in 'field list'
+2025-12-31 22:45:00 [ERROR]: === PROPERTY SERVICE CREATE ERROR ===
+2025-12-31 22:45:00 [ERROR]: Error creating property: (intermediate value) is not iterable
+2025-12-31 22:45:00 [ERROR]: Error stack:
+2025-12-31 22:45:00 [ERROR]: Error code:
+2025-12-31 22:45:00 [ERROR]: Error errno:
+2025-12-31 22:45:00 [ERROR]: Error sqlMessage:
+2025-12-31 22:45:00 [ERROR]: Error sqlState:
+2025-12-31 22:45:00 [ERROR]: === CREATE PROPERTY REQUEST ERROR ===
+2025-12-31 22:45:00 [ERROR]: Error in createProperty controller: (intermediate value) is not iterable
+2025-12-31 22:45:00 [ERROR]: Error stack:
+2025-12-31 22:45:00 [ERROR]: Error details: (intermediate value) is not iterable
+2025-12-31 23:02:08 [ERROR]: === PROPERTY SERVICE CREATE ERROR ===
+2025-12-31 23:02:08 [ERROR]: Error creating property: (intermediate value) is not iterable
+2025-12-31 23:02:08 [ERROR]: Error stack:
+2025-12-31 23:02:08 [ERROR]: Error code:
+2025-12-31 23:02:08 [ERROR]: Error errno:
+2025-12-31 23:02:08 [ERROR]: Error sqlMessage:
+2025-12-31 23:02:08 [ERROR]: Error sqlState:
+2025-12-31 23:02:08 [ERROR]: === CREATE PROPERTY REQUEST ERROR ===
+2025-12-31 23:02:08 [ERROR]: Error in createProperty controller: (intermediate value) is not iterable
+2025-12-31 23:02:08 [ERROR]: Error stack:
+2025-12-31 23:02:08 [ERROR]: Error details: (intermediate value) is not iterable
+2025-12-31 23:02:14 [ERROR]: === PROPERTY SERVICE CREATE ERROR ===
+2025-12-31 23:02:14 [ERROR]: Error creating property: (intermediate value) is not iterable
+2025-12-31 23:02:14 [ERROR]: Error stack:
+2025-12-31 23:02:14 [ERROR]: Error code:
+2025-12-31 23:02:14 [ERROR]: Error errno:
+2025-12-31 23:02:14 [ERROR]: Error sqlMessage:
+2025-12-31 23:02:14 [ERROR]: Error sqlState:
+2025-12-31 23:02:14 [ERROR]: === CREATE PROPERTY REQUEST ERROR ===
+2025-12-31 23:02:14 [ERROR]: Error in createProperty controller: (intermediate value) is not iterable
+2025-12-31 23:02:14 [ERROR]: Error stack:
+2025-12-31 23:02:14 [ERROR]: Error details: (intermediate value) is not iterable
+2026-01-01 10:05:46 [ERROR]: Login service error: User not found
+2026-01-01 10:05:46 [ERROR]: Login failed: User not found
+2026-01-01 10:07:19 [ERROR]: Login service error: User not found
+2026-01-01 10:07:19 [ERROR]: Login failed: User not found

@@ -1,10 +1,10 @@
-import { createUser, findUserByEmail, updateUserPassword } from "../models/user.model.ts";
-import { hashPassword, comparePassword } from "../utils/password.ts";
-import { generateToken } from "../utils/jwt.ts";
-import logger from "../utils/logger.ts"
+import { createUser, findUserByEmail, updateUserPassword } from "../models/user.model.js";
+import { hashPassword, comparePassword } from "../utils/password.js";
+import { generateToken } from "../utils/jwt.js";
+import logger from "../utils/logger.js"
 import crypto from "crypto";
-import db from "../config/db.ts";
-import emailService from "./email.service.ts";
+import db from "../config/db.js";
+import emailService from "./email.service.js";
 
 interface RegisterInput {
   name: string;

@@ -74,7 +74,7 @@ export class TenantService {
         await connection.execute(
           `UPDATE properties p
            JOIN tenants t ON p.id = t.property_id
-           SET p.is_available = TRUE
+           SET p.status = 'Available'
            WHERE t.id = ? AND p.owner_id = ?`,
           [tenantId, ownerId]
         );

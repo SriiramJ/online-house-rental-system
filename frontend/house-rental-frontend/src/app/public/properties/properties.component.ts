@@ -8,6 +8,7 @@ import { PropertyStateService } from '../../core/services/property-state.service
 import { ToastService } from '../../core/services/toast.service';
 import { LoaderComponent } from '../../shared/components/loader/loader.component';
 import { EmptyStateComponent } from '../../shared/components/empty-state/empty-state.component';
+import { ErrorDisplayComponent } from '../../shared/components/error-display/error-display.component';
 import { NavbarComponent } from '../../shared/navbar/navbar.component';
 import { FooterComponent } from '../../shared/footer/footer.component';
 import { LucideAngularModule, Search, Filter, MapPin, Bed, Bath, AlertTriangle, Home, Building, Eye, DollarSign } from 'lucide-angular';
@@ -22,6 +23,7 @@ import { Subject, takeUntil } from 'rxjs';
     FormsModule, 
     LoaderComponent, 
     EmptyStateComponent,
+    ErrorDisplayComponent,
     NavbarComponent,
     FooterComponent,
     LucideAngularModule
@@ -32,9 +34,16 @@ import { Subject, takeUntil } from 'rxjs';
 export class PropertiesComponent implements OnInit, OnDestroy {
   properties: Property[] = [];
   filteredProperties: Property[] = [];
+  paginatedProperties: Property[] = [];
   loading = false;
+  retrying = false;
   error = '';
   private destroy$ = new Subject<void>();
+  
+  // Pagination
+  currentPage = 1;
+  itemsPerPage = 6;
+  totalPages = 0;
   
   // Search and filters
   searchTerm = '';
@@ -84,6 +93,7 @@ export class PropertiesComponent implements OnInit, OnDestroy {
     this.propertyStateService.propertiesUpdated$
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
+        console.log('Browse properties: Properties updated, refreshing');
         this.loadProperties();
       });
   }
@@ -93,12 +103,9 @@ export class PropertiesComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe(update => {
         if (update) {
-          const property = this.properties.find(p => p.id === update.id);
-          if (property) {
-            property.is_available = update.is_available;
-            this.applyFilters();
-            this.cdr.detectChanges();
-          }
+          console.log('Browse properties: Property update received', update);
+          // Reload properties to get fresh data from server
+          this.loadProperties();
         }
       });
   }
@@ -106,55 +113,51 @@ export class PropertiesComponent implements OnInit, OnDestroy {
   loadProperties() {
     this.loading = true;
     this.error = '';
-    this.properties = []; // Clear existing data
-    this.filteredProperties = []; // Clear filtered data
+    this.properties = [];
+    this.filteredProperties = [];
     this.cdr.detectChanges();
-    
-    // Timeout fallback
-    setTimeout(() => {
-      if (this.loading) {
-        this.loading = false;
-        this.cdr.detectChanges();
-      }
-    }, 3000);
     
     this.propertyService.getProperties().subscribe({
       next: (response) => {
         console.log('Raw properties response:', response);
+        
+        if (!response.success) {
+          this.error = response.message;
+          this.toast.error('Error', response.message);
+          this.loading = false;
+          this.cdr.detectChanges();
+          return;
+        }
+        
         this.properties = response.properties.map(property => {
-          console.log('Processing property:', property.title, 'Photos:', property.photos);
-          
-          // Get the first photo from the photos array
-          let imageUrl = 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=400'; // default
+          let imageUrl = 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=400';
           
           if (property.photos && Array.isArray(property.photos) && property.photos.length > 0) {
             imageUrl = property.photos[0];
           } else if (property.photos && typeof property.photos === 'string' && property.photos.trim()) {
-            // Handle case where photos is a comma-separated string
             const photoUrls = property.photos.split(',').map((url: string) => url.trim()).filter((url: string) => url);
             if (photoUrls.length > 0) {
               imageUrl = photoUrls[0];
             }
           }
           
-          console.log('Final image URL for', property.title, ':', imageUrl);
-          
           return {
             ...property,
             image: imageUrl,
             type: property.property_type,
-            available: property.is_available
+            available: property.status === 'Available'
           };
         });
-        console.log('Processed properties:', this.properties);
+        
         this.filteredProperties = [...this.properties];
+        this.updatePagination();
         this.loading = false;
         this.cdr.detectChanges();
       },
       error: (error) => {
         console.error('Error loading properties:', error);
-        this.error = 'Failed to load properties';
-        this.toast.error('Failed to load properties', 'Please check your connection and try again.');
+        this.error = error.message || 'Failed to load properties';
+        this.toast.error('Failed to load properties', error.message || 'Please check your connection and try again.');
         this.loading = false;
         this.cdr.detectChanges();
       }
@@ -162,6 +165,7 @@ export class PropertiesComponent implements OnInit, OnDestroy {
   }
 
   applyFilters() {
+    // Show all properties, don't filter by status
     this.filteredProperties = this.properties.filter(property => {
       const matchesSearch = !this.searchTerm ||
         property.title.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
@@ -175,6 +179,8 @@ export class PropertiesComponent implements OnInit, OnDestroy {
 
       return matchesSearch && matchesType && matchesMinRent && matchesMaxRent && matchesMinBedrooms && matchesLocation;
     });
+    this.currentPage = 1;
+    this.updatePagination();
   }
 
   toggleFilters() {
@@ -197,8 +203,32 @@ export class PropertiesComponent implements OnInit, OnDestroy {
     this.minBedrooms = '';
     this.location = '';
     this.showFilters = false;
-    this.filteredProperties = [...this.properties];
-    this.toast.info('Filters cleared', 'Showing all available properties');
+    this.filteredProperties = [...this.properties]; // Show all properties
+    this.currentPage = 1;
+    this.updatePagination();
+    this.toast.info('Filters cleared', 'Showing all properties');
+  }
+
+  updatePagination() {
+    this.totalPages = Math.ceil(this.filteredProperties.length / this.itemsPerPage);
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    this.paginatedProperties = this.filteredProperties.slice(startIndex, endIndex);
+  }
+
+  goToPage(page: number) {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+      this.updatePagination();
+    }
+  }
+
+  getPageNumbers(): number[] {
+    const pages = [];
+    for (let i = 1; i <= this.totalPages; i++) {
+      pages.push(i);
+    }
+    return pages;
   }
 
   viewProperty(propertyId: number) {
@@ -206,6 +236,10 @@ export class PropertiesComponent implements OnInit, OnDestroy {
   }
 
   retry() {
+    this.retrying = true;
     this.loadProperties();
+    setTimeout(() => {
+      this.retrying = false;
+    }, 1000);
   }
 }

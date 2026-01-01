@@ -1,6 +1,6 @@
 import mysql from "mysql2/promise";
 import dotenv from "dotenv";
-import logger from "../utils/logger.ts"
+import logger from "../utils/logger.js";
 dotenv.config();
 
 class Database {
@@ -27,9 +27,6 @@ class Database {
       waitForConnections: true,
       connectionLimit: 10,
       queueLimit: 0,
-      acquireTimeout: 60000,
-      timeout: 60000,
-      reconnect: true,
       charset: 'utf8mb4'
     });
 

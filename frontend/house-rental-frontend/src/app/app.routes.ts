@@ -47,6 +47,7 @@ export const routes: Routes = [
   // Owner-only routes
   { path: 'owner/dashboard', component: OwnerDashboardComponent, canActivate: [OwnerGuard] },
   { path: 'owner/add-property', component: AddPropertyComponent, canActivate: [OwnerGuard] },
+  { path: 'owner/add-property/:id', component: AddPropertyComponent, canActivate: [OwnerGuard] },
   { path: 'owner/properties', component: MyPropertiesComponent, canActivate: [OwnerGuard] },
   { path: 'owner/booking-requests', component: BookingRequestsComponent, canActivate: [OwnerGuard] },
   { path: 'owner/tenants', component: MyTenantsComponent, canActivate: [OwnerGuard] },

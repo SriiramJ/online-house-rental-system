@@ -1,11 +1,11 @@
 import { Router } from "express";
-import authRoutes from "./auth.routes.ts";
-import userRoutes from "./user.routes.ts";
-import propertyRoutes from "./property.routes.ts";
-import ownerRoutes from "./owner.routes.ts";
-import tenantRoutes from "./tenant.routes.ts";
-import bookingRoutes from "./booking.routes.ts";
-import testRoutes from "./test.routes.ts";
+import authRoutes from "./auth.routes.js";
+import userRoutes from "./user.routes.js";
+import propertyRoutes from "./property.routes.js";
+import ownerRoutes from "./owner.routes.js";
+import tenantRoutes from "./tenant.routes.js";
+import bookingRoutes from "./booking.routes.js";
+import testRoutes from "./test.routes.js";
 
 const router = Router();
 

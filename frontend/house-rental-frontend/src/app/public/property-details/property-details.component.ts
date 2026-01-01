@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -12,6 +12,7 @@ import { LoaderComponent } from '../../shared/components/loader/loader.component
 import { NavbarComponent } from '../../shared/navbar/navbar.component';
 import { FooterComponent } from '../../shared/footer/footer.component';
 import { LucideAngularModule, ArrowLeft, MapPin, Bed, Bath, Building, Wifi, Car, Dumbbell, Waves, CheckCircle, Calendar, X } from 'lucide-angular';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-property-details',
@@ -28,7 +29,7 @@ import { LucideAngularModule, ArrowLeft, MapPin, Bed, Bath, Building, Wifi, Car,
   templateUrl: './property-details.component.html',
   styleUrls: ['./property-details.component.scss']
 })
-export class PropertyDetailsComponent implements OnInit {
+export class PropertyDetailsComponent implements OnInit, OnDestroy {
   property: Property | null = null;
   loading = false;
   error = '';
@@ -40,6 +41,7 @@ export class PropertyDetailsComponent implements OnInit {
     message: ''
   };
   submittingBooking = false;
+  private destroy$ = new Subject<void>();
 
   // Lucide icons
   readonly ArrowLeft = ArrowLeft;
@@ -73,6 +75,35 @@ export class PropertyDetailsComponent implements OnInit {
     if (id) {
       this.loadProperty(parseInt(id));
     }
+    this.subscribeToPropertyUpdates();
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  subscribeToPropertyUpdates() {
+    this.propertyStateService.propertiesUpdated$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        console.log('Property details: Properties updated, reloading property');
+        const id = this.route.snapshot.paramMap.get('id');
+        if (id) {
+          this.loadProperty(parseInt(id));
+        }
+      });
+
+    // Also subscribe to booking updates
+    this.bookingStateService.propertyUpdates$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(update => {
+        if (update && this.property && update.id === this.property.id) {
+          console.log('Property details: Booking update received', update);
+          this.property.status = update.status;
+          this.cdr.detectChanges();
+        }
+      });
   }
 
   loadProperty(id: number) {
@@ -224,19 +255,20 @@ export class PropertyDetailsComponent implements OnInit {
       next: (response) => {
         console.log('Booking success response:', response);
         this.submittingBooking = false;
+        
+        // Update local property state immediately
+        if (this.property) {
+          this.property.status = 'Pending';
+          console.log('Property marked as pending locally');
+        }
+        
         this.closeBookingModal();
         this.toast.success('Booking request submitted successfully!');
         
-        // Update global state
+        // Trigger global updates immediately
         this.bookingStateService.createBooking(this.property!.id);
+        this.propertyStateService.triggerAllUpdates();
         
-        // Trigger properties list update
-        this.propertyStateService.triggerPropertiesUpdate();
-        
-        // Update local property state
-        if (this.property) {
-          this.property.is_available = false;
-        }
         this.cdr.detectChanges();
       },
       error: (error) => {
@@ -284,5 +316,10 @@ export class PropertyDetailsComponent implements OnInit {
     }
     const currentUser = this.authService.getCurrentUser();
     return currentUser?.id === this.property.owner_id;
+  }
+
+  isPropertyAvailable(): boolean {
+    if (!this.property) return false;
+    return this.property.status === 'Available';
   }
 }

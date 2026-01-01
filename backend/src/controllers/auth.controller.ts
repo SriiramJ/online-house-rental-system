@@ -1,15 +1,15 @@
 import type { Request, Response } from "express";
-import logger from "../utils/logger.ts";
-import { registerUserService, loginUserService, forgotPasswordService, resetPasswordService } from "../services/auth.service.ts";
+import logger from "../utils/logger.js";
+import { registerUserService, loginUserService, forgotPasswordService, resetPasswordService } from "../services/auth.service.js";
 
 // Input validation schemas
 const validateEmail = (email: string): boolean => {
-    return email && email.endsWith('@gmail.com') && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    return !!(email && email.endsWith('@gmail.com') && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email));
 };
 
 const validatePassword = (password: string): boolean => {
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/;
-    return password && passwordRegex.test(password);
+    return !!(password && passwordRegex.test(password));
 };
 
 export const register = async (req: Request, res: Response) => {

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -36,7 +36,7 @@ import { LucideAngularModule, Upload, X, Plus, ArrowLeft } from 'lucide-angular'
         </p>
       </div>
 
-      <form #propertyForm="ngForm" (ngSubmit)="onSubmit(propertyForm)" class="form-container">
+      <form #propertyForm="ngForm" (ngSubmit)="onSubmit(propertyForm)" class="form-container" *ngIf="!loadingProperty">
         <!-- Title -->
         <div class="form-group">
           <label for="title" class="form-label">
@@ -157,8 +157,7 @@ import { LucideAngularModule, Upload, X, Plus, ArrowLeft } from 'lucide-angular'
               [(ngModel)]="formData.bathrooms"
               #bathrooms="ngModel"
               required
-              min="0"
-              step="0.5"
+              min="1"
               class="form-input"
               [class.error]="bathrooms.invalid && bathrooms.touched"
               placeholder="2"
@@ -366,15 +365,23 @@ import { LucideAngularModule, Upload, X, Plus, ArrowLeft } from 'lucide-angular'
           </app-button>
         </div>
       </form>
+
+      <!-- Loading State -->
+      <div *ngIf="loadingProperty" class="text-center py-12">
+        <div class="loading-spinner mx-auto mb-4"></div>
+        <p class="text-gray-600">Loading property data...</p>
+      </div>
     </div>
 
     <app-footer></app-footer>
   `,
   styleUrls: ['./add-property.component.scss']
 })
-export class AddPropertyComponent {
+export class AddPropertyComponent implements OnInit {
   isEditMode = false;
+  propertyId: number | null = null;
   loading = false;
+  loadingProperty = false;
   newAmenity = '';
   newImageUrl = '';
 
@@ -414,26 +421,20 @@ export class AddPropertyComponent {
     private router: Router,
     private route: ActivatedRoute,
     private toast: ToastService,
-    private propertyStateService: PropertyStateService
-  ) {
+    private propertyStateService: PropertyStateService,
+    private cdr: ChangeDetectorRef
+  ) {}
+
+  ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
     this.isEditMode = !!id;
+    this.propertyId = id ? parseInt(id) : null;
     
-    if (this.isEditMode) {
-      // Load existing property data for edit mode
-      this.formData = {
-        title: 'Modern Downtown Apartment',
-        description: 'Beautiful 2-bedroom apartment in the heart of downtown with stunning city views.',
-        rent: '2500',
-        location: 'Downtown, NYC',
-        bedrooms: '2',
-        bathrooms: '2',
-        area: '1200',
-        propertyType: 'Apartment',
-        amenities: ['Parking', 'Gym', 'Pool', 'WiFi'],
-        photos: ['https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=400'],
-        available: true
-      };
+    if (this.isEditMode && this.propertyId) {
+      this.loadPropertyData(this.propertyId);
+    } else {
+      // Ensure form is visible for add mode
+      this.loadingProperty = false;
     }
   }
 
@@ -449,11 +450,13 @@ export class AddPropertyComponent {
     if (imageUrl && !this.formData.photos.includes(imageUrl)) {
       this.formData.photos.push(imageUrl);
       this.newImageUrl = '';
+      this.cdr.detectChanges();
     }
   }
 
   removePhoto(index: number) {
     this.formData.photos.splice(index, 1);
+    this.cdr.detectChanges();
   }
 
   onImageUrlKeyPress(event: KeyboardEvent) {
@@ -481,67 +484,70 @@ export class AddPropertyComponent {
   }
 
   onSubmit(form: NgForm) {
-    console.log('Form submitted', form.valid, this.formData);
+    console.log('=== FRONTEND FORM SUBMISSION START ===');
+    console.log('Form valid:', form.valid);
+    console.log('Form errors:', form.errors);
     
     if (form.invalid) {
+      console.log('Form is invalid, showing validation errors');
       this.toast.error('Please fill in all required fields');
-      // Mark all fields as touched to show validation errors
       Object.keys(form.controls).forEach(key => {
-        form.controls[key].markAsTouched();
+        const control = form.controls[key];
+        console.log(`Field ${key}:`, { value: control.value, valid: control.valid, errors: control.errors });
+        control.markAsTouched();
       });
       return;
     }
 
+    console.log('Form data before processing:', this.formData);
     this.loading = true;
-    console.log('Starting submission...');
 
-    // Prepare data for API
     const propertyData = {
-      title: this.formData.title,
-      description: this.formData.description,
+      title: this.formData.title.trim(),
+      description: this.formData.description.trim(),
       rent: parseFloat(this.formData.rent),
-      location: this.formData.location,
+      location: this.formData.location.trim(),
       bedrooms: parseInt(this.formData.bedrooms),
-      bathrooms: parseFloat(this.formData.bathrooms),
-      area: parseInt(this.formData.area),
+      bathrooms: parseInt(this.formData.bathrooms),
+      area_sqft: parseInt(this.formData.area),
       propertyType: this.formData.propertyType,
       amenities: this.formData.amenities,
-      photos: this.formData.photos.length > 0 ? this.formData.photos : ['https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=400'],
-      available: this.formData.available
+      photos: this.formData.photos.length > 0 ? this.formData.photos : ['https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=400']
     };
 
-    console.log('Sending property data:', propertyData);
-    console.log('Photos array:', propertyData.photos);
+    console.log('Processed property data for API:', propertyData);
+    console.log('Is edit mode:', this.isEditMode);
+    console.log('Property ID:', this.propertyId);
 
-    this.ownerService.addProperty(propertyData).subscribe({
+    const request = this.isEditMode && this.propertyId 
+      ? this.ownerService.updateProperty(this.propertyId, propertyData)
+      : this.ownerService.addProperty(propertyData);
+
+    console.log('Making API request...');
+    request.subscribe({
       next: (response) => {
+        console.log('=== API RESPONSE SUCCESS ===');
+        console.log('Property operation response:', response);
         this.loading = false;
-        console.log('Property added successfully:', response);
-        this.toast.success('Property added successfully! Redirecting to dashboard...');
-        
-        // Trigger updates for dashboard and properties list
-        console.log('Triggering state updates...');
-        this.propertyStateService.triggerAllUpdates();
-        
-        // Reset form
-        this.resetForm();
-        form.resetForm();
-        
-        // Navigate to dashboard to see updated stats
-        setTimeout(() => {
+        if (response.success) {
+          this.toast.success(this.isEditMode ? 'Property updated successfully!' : 'Property added successfully!');
+          this.propertyStateService.triggerAllUpdates();
+          this.resetForm();
+          form.resetForm();
           this.router.navigate(['/owner/dashboard']);
-        }, 1000);
+        } else {
+          console.log('API returned success=false:', response.message);
+          this.toast.error(response.message || `Failed to ${this.isEditMode ? 'update' : 'add'} property`);
+        }
       },
       error: (error) => {
+        console.log('=== API RESPONSE ERROR ===');
+        console.error('Property operation error:', error);
+        console.error('Error status:', error.status);
+        console.error('Error message:', error.message);
+        console.error('Error body:', error.error);
         this.loading = false;
-        console.error('Error adding property:', error);
-        console.error('Full error object:', JSON.stringify(error, null, 2));
-        let errorMessage = 'Failed to add property. Please try again.';
-        if (error?.error?.message) {
-          errorMessage = error.error.message;
-        } else if (error?.message) {
-          errorMessage = error.message;
-        }
+        const errorMessage = error?.error?.message || `Failed to ${this.isEditMode ? 'update' : 'add'} property. Please try again.`;
         this.toast.error(errorMessage);
       }
     });
@@ -571,8 +577,8 @@ export class AddPropertyComponent {
              this.formData.rent && parseFloat(this.formData.rent) > 0 &&
              this.formData.location.trim() &&
              this.formData.bedrooms && parseInt(this.formData.bedrooms) > 0 &&
-             this.formData.bathrooms && parseFloat(this.formData.bathrooms) > 0 &&
-             this.formData.area && parseFloat(this.formData.area) > 0 &&
+             this.formData.bathrooms && parseInt(this.formData.bathrooms) > 0 &&
+             this.formData.area && parseInt(this.formData.area) > 0 &&
              this.formData.propertyType.trim());
   }
 
@@ -609,12 +615,59 @@ export class AddPropertyComponent {
       next: (response) => {
         if (response.images && response.images.length > 0) {
           this.formData.photos.push(...response.images);
+          this.cdr.detectChanges();
           this.toast.success(`${response.images.length} image(s) uploaded successfully`);
         }
       },
       error: (error) => {
         console.error('Error uploading images:', error);
         this.toast.error('Failed to upload images');
+      }
+    });
+  }
+
+  loadPropertyData(propertyId: number) {
+    this.loadingProperty = true;
+    this.cdr.detectChanges();
+    
+    const timeout = setTimeout(() => {
+      if (this.loadingProperty) {
+        this.loadingProperty = false;
+        this.cdr.detectChanges();
+        this.toast.error('Loading timeout. Please try again.');
+      }
+    }, 5000);
+    
+    this.ownerService.getProperty(propertyId).subscribe({
+      next: (response) => {
+        clearTimeout(timeout);
+        if (response.success && response.property) {
+          const property = response.property;
+          this.formData = {
+            title: property.title || '',
+            description: property.description || '',
+            rent: property.rent?.toString() || '',
+            location: property.location || '',
+            bedrooms: property.bedrooms?.toString() || '',
+            bathrooms: property.bathrooms?.toString() || '',
+            area: property.area_sqft?.toString() || property.area?.toString() || '',
+            propertyType: property.property_type || '',
+            amenities: Array.isArray(property.amenities) ? property.amenities : [],
+            photos: Array.isArray(property.photos) ? property.photos : [],
+            available: property.status === 'Available'
+          };
+        } else {
+          this.toast.error('Property not found');
+        }
+        this.loadingProperty = false;
+        this.cdr.detectChanges();
+      },
+      error: (error) => {
+        clearTimeout(timeout);
+        console.error('Error loading property:', error);
+        this.toast.error('Failed to load property data');
+        this.loadingProperty = false;
+        this.cdr.detectChanges();
       }
     });
   }

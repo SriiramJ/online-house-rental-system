@@ -8,35 +8,50 @@ export const createUser = async (
   role: string,
   phone?: string
 ) => {
-  logger.info(`Creating user: ${email}`);
+  try {
+    logger.info(`Creating user: ${email}`);
 
-  const [result]: any = await db.query(
-    `INSERT INTO users (name, email, password_hash, role, phone)
-     VALUES (?, ?, ?, ?, ?)`,
-    [name, email, passwordHash, role, phone || null]
-  );
+    const result = await db.query(
+      `INSERT INTO users (name, email, password_hash, role, phone)
+       VALUES (?, ?, ?, ?, ?)`,
+      [name, email, passwordHash, role, phone || null]
+    );
 
-  return result.insertId;
+    return result.insertId;
+  } catch (error: any) {
+    logger.error(`Error creating user: ${error.message}`);
+    throw error;
+  }
 };
 
 export const findUserByEmail = async (email: string) => {
-  logger.info(`Fetching user by email: ${email}`);
+  try {
+    logger.info(`Fetching user by email: ${email}`);
 
-  const [rows]: any = await db.query(
-    `SELECT * FROM users WHERE email = ?`,
-    [email]
-  );
+    const rows = await db.query(
+      `SELECT * FROM users WHERE email = ?`,
+      [email]
+    );
 
-  return rows[0];
+    return rows && rows.length > 0 ? rows[0] : null;
+  } catch (error: any) {
+    logger.error(`Error finding user by email: ${error.message}`);
+    throw error;
+  }
 };
 
 export const updateUserPassword = async (userId: number, passwordHash: string) => {
-  logger.info(`Updating password for user ID: ${userId}`);
+  try {
+    logger.info(`Updating password for user ID: ${userId}`);
 
-  const [result]: any = await db.query(
-    `UPDATE users SET password_hash = ? WHERE id = ?`,
-    [passwordHash, userId]
-  );
+    const result = await db.query(
+      `UPDATE users SET password_hash = ? WHERE id = ?`,
+      [passwordHash, userId]
+    );
 
-  return result.affectedRows > 0;
+    return result.affectedRows > 0;
+  } catch (error: any) {
+    logger.error(`Error updating user password: ${error.message}`);
+    throw error;
+  }
 };

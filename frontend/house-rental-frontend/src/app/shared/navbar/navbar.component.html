@@ -2,7 +2,7 @@
   <div class="navbar-container">
     <div class="navbar-left">
       <!-- Sidebar Toggle Button -->
-      <button class="sidebar-toggle" (click)="toggleSidebar()" *ngIf="!isOnPropertiesPage() && !isOnLandingPage() && !isOnBookingRequestsPage() && !isOnPropertyDetailsPage()">
+      <button class="sidebar-toggle" (click)="toggleSidebar()" *ngIf="!isOnPropertiesPage() && !isOnLandingPage() && !isOnBookingRequestsPage() && !isOnPropertyDetailsPage() && !isOnAddPropertyPage()">
         <lucide-icon [img]="(sidebarService.sidebarOpen$ | async) ? X : Menu" class="toggle-icon"></lucide-icon>
       </button>
       

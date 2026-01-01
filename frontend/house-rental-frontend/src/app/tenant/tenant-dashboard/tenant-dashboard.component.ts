@@ -452,7 +452,7 @@ export class TenantDashboardComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
 
   sidebarItems: SidebarItem[] = [
-    { label: 'Dashboard', route: '/tenant/dashboard', icon: BarChart3 },
+    { label: 'Dashboard', route: '/dashboard', icon: BarChart3 },
     { label: 'Browse Properties', route: '/properties', icon: Search },
     { label: 'My Bookings', route: '/tenant/bookings', icon: Calendar }
   ];

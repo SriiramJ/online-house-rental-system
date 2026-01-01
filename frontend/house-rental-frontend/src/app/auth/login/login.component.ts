@@ -90,19 +90,4 @@ export class LoginComponent implements OnDestroy {
         }
       });
   }
-
-  // Demo login methods
-  loginAsTenant() {
-    this.loginForm.patchValue({
-      email: 'tenant@test.com',
-      password: 'Test@123'
-    });
-  }
-
-  loginAsOwner() {
-    this.loginForm.patchValue({
-      email: 'owner@test.com',
-      password: 'Test@123'
-    });
-  }
 }

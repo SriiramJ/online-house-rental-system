@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { tenantController } from '../controllers/tenant.controller';
-import { authMiddleware } from '../middlewares/auth.middleware';
+import { tenantController } from '../controllers/tenant.controller.js';
+import { authMiddleware } from '../middlewares/auth.middleware.js';
 
 const router = Router();
 

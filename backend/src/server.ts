@@ -2,9 +2,9 @@ import express from "express"
 import cors from "cors"
 import dotenv from "dotenv"
 import path from "path"
-import db from "./config/db.ts"
-import logger from "./utils/logger.ts"
-import routes from "./routes/index.ts"
+import db from "./config/db.js"
+import logger from "./utils/logger.js"
+import routes from "./routes/index.js"
 
 dotenv.config()
 
@@ -15,7 +15,7 @@ app.use(cors({
   origin: process.env.FRONTEND_URL || 'http://localhost:4200',
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  allowedHeaders: ['Content-Type', 'Authorization', 'Cache-Control', 'Pragma', 'Expires']
 }))
 
 app.use(express.json({ limit: '10mb' }))
@@ -45,7 +45,7 @@ app.use("/api", (req, res, next) => {
 
 // Global error handler
 app.use((error: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
-  logger.error(`Global error handler: ${error.message}`, error);
+  logger.error(`Global error handler: ${error.message}`, error.stack);
   res.status(500).json({
     success: false,
     message: 'Internal server error',
@@ -54,7 +54,7 @@ app.use((error: any, req: express.Request, res: express.Response, next: express.
 });
 
 // 404 handler
-app.use('*', (req, res) => {
+app.use((req, res) => {
   res.status(404).json({
     success: false,
     message: 'Route not found',

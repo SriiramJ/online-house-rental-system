@@ -1,6 +1,6 @@
 import type { Request, Response, NextFunction } from "express";
-import logger from "../utils/logger.ts"
-import { verifyToken } from "../utils/jwt.ts";
+import logger from "../utils/logger.js"
+import { verifyToken } from "../utils/jwt.js";
 
 export const authMiddleware = (
     req: Request,
@@ -8,10 +8,16 @@ export const authMiddleware = (
     next: NextFunction
 ) => {
     try {
+        logger.info('=== AUTH MIDDLEWARE START ===');
+        logger.info('Request URL:', req.url);
+        logger.info('Request method:', req.method);
+        
         const authHeader = req.headers.authorization;
+        logger.info('Authorization header:', authHeader ? 'Present' : 'Missing');
         
         if (!authHeader || !authHeader.startsWith("Bearer ")) {
             logger.warn("Authorization header missing or invalid format");
+            logger.warn('Auth header value:', authHeader);
             return res.status(401).json({
                 success: false,
                 message: "Access denied. No token provided.",
@@ -29,11 +35,17 @@ export const authMiddleware = (
             });
         }
 
+        logger.info('Token found, verifying...');
         const decoded = verifyToken(token);
+        logger.info('Token verified successfully:', { userId: decoded.userId, role: decoded.role });
+        
         (req as any).user = decoded;
+        logger.info('=== AUTH MIDDLEWARE SUCCESS ===');
         next();
     } catch (error: any) {
+        logger.error('=== AUTH MIDDLEWARE ERROR ===');
         logger.error(`JWT verification failed: ${error.message}`);
+        logger.error('Error details:', error);
         return res.status(401).json({
             success: false,
             message: "Access denied. Invalid or expired token.",

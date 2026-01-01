@@ -95,11 +95,11 @@ export class MyPropertiesComponent implements OnInit, OnDestroy {
   }
 
   getAvailableCount(): number {
-    return this.properties.filter(p => p.is_available || p.status === 'Available').length;
+    return this.properties.filter(p => p.status === 'Available').length;
   }
 
   getOccupiedCount(): number {
-    return this.properties.filter(p => !p.is_available || p.status === 'Rented').length;
+    return this.properties.filter(p => p.status === 'Rented').length;
   }
 
   getPropertyImage(property: any): string {
@@ -161,5 +161,13 @@ export class MyPropertiesComponent implements OnInit, OnDestroy {
     // Trigger updates before navigating to ensure fresh data
     this.propertyStateService.triggerAllUpdates();
     this.router.navigate(['/owner/dashboard']);
+  }
+
+  viewProperty(propertyId: number) {
+    this.router.navigate(['/property-details', propertyId]);
+  }
+
+  editProperty(propertyId: number) {
+    this.router.navigate(['/owner/add-property', propertyId]);
   }
 }

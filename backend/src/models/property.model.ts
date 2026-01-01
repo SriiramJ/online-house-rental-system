@@ -11,7 +11,7 @@ export interface Property {
   area_sqft?: number;
   amenities?: string[];
   photos?: string[];
-  is_available: boolean;
+  status: 'Available' | 'Pending' | 'Rented';
   created_at?: Date;
   owner_name?: string;
   pending_requests?: number;
@@ -31,7 +31,6 @@ export interface CreatePropertyRequest {
   amenities?: string[];
   photos?: string[];
   available?: boolean;
-  is_available?: boolean; // Database field name
 }
 
 export interface PropertyFilter {

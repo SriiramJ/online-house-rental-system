@@ -771,3 +771,1562 @@
 2025-12-30 21:50:52 [INFO]: Login attempt for email: sriram2005j@gmail.com
 2025-12-30 21:50:52 [INFO]: Fetching user by email: sriram2005j@gmail.com
 2025-12-30 21:50:52 [INFO]: Login successful for userId: 5, rememberMe: true
+2025-12-30 22:43:16 [INFO]: Login attempt for email: sriram2005j@gmail.com
+2025-12-30 22:43:16 [INFO]: Fetching user by email: sriram2005j@gmail.com
+2025-12-30 22:43:16 [INFO]: Login successful for userId: 5, rememberMe: true
+2025-12-31 12:52:42 [INFO]: Email service initialized with user: sriram2005j@gmail.com
+2025-12-31 12:52:42 [INFO]: MySQL database connected successfully
+2025-12-31 12:52:42 [INFO]: Database connection established
+2025-12-31 12:52:42 [INFO]: Server running on port 3001
+2025-12-31 12:52:42 [INFO]: Health check available at http://localhost:3001/health
+2025-12-31 12:52:42 [INFO]: MySQL database connected successfully
+2025-12-31 12:52:52 [INFO]: GET /bookings/tenant
+2025-12-31 12:52:52 [INFO]: Fetching bookings for tenant ID: 5
+2025-12-31 12:52:52 [ERROR]: Database query failed: Unknown column 'b.created_at' in 'field list'
+2025-12-31 12:52:52 [ERROR]: Error fetching tenant bookings: Unknown column 'b.created_at' in 'field list'
+2025-12-31 12:52:52 [ERROR]: Global error handler: logger is not defined logger is not defined
+2025-12-31 12:55:35 [INFO]: SIGINT received, shutting down gracefully
+2025-12-31 12:55:40 [INFO]: Email service initialized with user: sriram2005j@gmail.com
+2025-12-31 12:55:40 [INFO]: MySQL database connected successfully
+2025-12-31 12:55:40 [INFO]: Database connection established
+2025-12-31 12:55:40 [INFO]: Server running on port 3001
+2025-12-31 12:55:40 [INFO]: Health check available at http://localhost:3001/health
+2025-12-31 12:55:40 [INFO]: MySQL database connected successfully
+2025-12-31 12:58:46 [INFO]: GET /bookings/tenant
+2025-12-31 12:58:46 [INFO]: Fetching bookings for tenant ID: 5
+2025-12-31 12:58:46 [INFO]: Found 0 bookings for tenant 5
+2025-12-31 13:16:48 [INFO]: POST /auth/register
+2025-12-31 13:16:48 [INFO]: Registration request received for email: chemvarshat22@gmail.com
+2025-12-31 13:16:48 [INFO]: Register attempt for email: chemvarshat22@gmail.com
+2025-12-31 13:16:48 [INFO]: Fetching user by email: chemvarshat22@gmail.com
+2025-12-31 13:16:48 [ERROR]: Registration service error: Cannot read properties of undefined (reading '0')
+2025-12-31 13:16:48 [ERROR]: Register failed: Cannot read properties of undefined (reading '0')
+2025-12-31 13:19:21 [INFO]: POST /auth/register
+2025-12-31 13:19:21 [INFO]: Registration request received for email: chemvarshat22@gmail.com
+2025-12-31 13:19:21 [INFO]: Register attempt for email: chemvarshat22@gmail.com
+2025-12-31 13:19:21 [INFO]: Fetching user by email: chemvarshat22@gmail.com
+2025-12-31 13:19:21 [ERROR]: Registration service error: Cannot read properties of undefined (reading '0')
+2025-12-31 13:19:22 [ERROR]: Register failed: Cannot read properties of undefined (reading '0')
+2025-12-31 13:20:56 [INFO]: POST /auth/register
+2025-12-31 13:20:56 [INFO]: Registration request received for email: chemvarshat22@gmail.com
+2025-12-31 13:20:56 [INFO]: Register attempt for email: chemvarshat22@gmail.com
+2025-12-31 13:20:56 [INFO]: Fetching user by email: chemvarshat22@gmail.com
+2025-12-31 13:20:56 [ERROR]: Registration service error: Cannot read properties of undefined (reading '0')
+2025-12-31 13:20:56 [ERROR]: Register failed: Cannot read properties of undefined (reading '0')
+2025-12-31 13:21:51 [INFO]: SIGINT received, shutting down gracefully
+2025-12-31 13:21:58 [INFO]: Email service initialized with user: sriram2005j@gmail.com
+2025-12-31 13:21:58 [INFO]: MySQL database connected successfully
+2025-12-31 13:21:58 [INFO]: Database connection established
+2025-12-31 13:21:58 [INFO]: Server running on port 3001
+2025-12-31 13:21:58 [INFO]: Health check available at http://localhost:3001/health
+2025-12-31 13:21:58 [INFO]: MySQL database connected successfully
+2025-12-31 13:22:03 [INFO]: POST /auth/register
+2025-12-31 13:22:03 [INFO]: Registration request received for email: chemvarshat22@gmail.com
+2025-12-31 13:22:03 [INFO]: Register attempt for email: chemvarshat22@gmail.com
+2025-12-31 13:22:03 [INFO]: Fetching user by email: chemvarshat22@gmail.com
+2025-12-31 13:22:03 [INFO]: Query result type: object, length: 0
+2025-12-31 13:22:03 [INFO]: Query result:
+2025-12-31 13:22:03 [INFO]: Existing user check result:
+2025-12-31 13:22:03 [INFO]: Creating user: chemvarshat22@gmail.com
+2025-12-31 13:22:03 [INFO]: User registered successfully: chemvarshat22@gmail.com
+2025-12-31 13:24:06 [INFO]: POST /auth/register
+2025-12-31 13:24:06 [INFO]: Registration request received for email: chemvarshat22@gmail.com
+2025-12-31 13:24:06 [INFO]: Register attempt for email: chemvarshat22@gmail.com
+2025-12-31 13:24:06 [INFO]: Fetching user by email: chemvarshat22@gmail.com
+2025-12-31 13:24:06 [INFO]: Query result type: object, length: 1
+2025-12-31 13:24:06 [INFO]: Query result:
+2025-12-31 13:24:06 [INFO]: Existing user check result:
+2025-12-31 13:24:06 [WARN]: Email already exists: chemvarshat22@gmail.com
+2025-12-31 13:24:06 [ERROR]: Registration service error: Email already registered
+2025-12-31 13:24:06 [ERROR]: Register failed: Email already registered
+2025-12-31 13:24:17 [INFO]: POST /auth/login
+2025-12-31 13:24:17 [INFO]: Login attempt for email: chemvarshat22@gmail.com
+2025-12-31 13:24:17 [INFO]: Login attempt for email: chemvarshat22@gmail.com
+2025-12-31 13:24:17 [INFO]: Fetching user by email: chemvarshat22@gmail.com
+2025-12-31 13:24:17 [INFO]: Query result type: object, length: 1
+2025-12-31 13:24:17 [INFO]: Query result:
+2025-12-31 13:24:19 [INFO]: Login successful for userId: 12, rememberMe: true
+2025-12-31 13:24:19 [INFO]: GET /owner/dashboard
+2025-12-31 13:24:27 [INFO]: GET /owner/dashboard
+2025-12-31 13:27:17 [INFO]: GET /owner/properties
+2025-12-31 13:28:21 [INFO]: POST /properties/upload-images
+2025-12-31 13:28:21 [INFO]: Uploaded 1 property images
+2025-12-31 13:28:50 [INFO]: POST /properties
+2025-12-31 13:28:50 [INFO]: Creating property for owner 12: Modern Downtown Appartment
+2025-12-31 13:28:50 [INFO]: Property created successfully with ID: 12
+2025-12-31 13:28:50 [ERROR]: Error fetching property: Property not found
+2025-12-31 13:28:50 [ERROR]: Transaction failed: Property not found
+2025-12-31 13:28:50 [ERROR]: Error creating property: Property not found
+2025-12-31 13:28:50 [ERROR]: Error in createProperty: Property not found
+2025-12-31 13:31:03 [INFO]: POST /properties
+2025-12-31 13:31:03 [INFO]: Creating property for owner 12: Modern Downtown Appartment
+2025-12-31 13:31:03 [INFO]: Property created successfully with ID: 13
+2025-12-31 13:31:03 [ERROR]: Error fetching property: Property not found
+2025-12-31 13:31:03 [ERROR]: Transaction failed: Property not found
+2025-12-31 13:31:03 [ERROR]: Error creating property: Property not found
+2025-12-31 13:31:03 [ERROR]: Error in createProperty: Property not found
+2025-12-31 13:32:29 [INFO]: POST /properties/upload-images
+2025-12-31 13:32:30 [INFO]: Uploaded 1 property images
+2025-12-31 13:32:34 [INFO]: POST /properties
+2025-12-31 13:32:34 [INFO]: Creating property for owner 12: Modern Downtown appartment
+2025-12-31 13:32:34 [INFO]: Property created successfully with ID: 14
+2025-12-31 13:32:34 [ERROR]: Error fetching property: Property not found
+2025-12-31 13:32:34 [ERROR]: Transaction failed: Property not found
+2025-12-31 13:32:34 [ERROR]: Error creating property: Property not found
+2025-12-31 13:32:34 [ERROR]: Error in createProperty: Property not found
+2025-12-31 13:35:48 [INFO]: POST /properties/upload-images
+2025-12-31 13:35:48 [INFO]: Uploaded 1 property images
+2025-12-31 13:35:51 [INFO]: POST /owner/properties
+2025-12-31 13:36:40 [INFO]: POST /owner/properties
+2025-12-31 13:36:52 [INFO]: GET /owner/dashboard
+2025-12-31 13:36:54 [INFO]: GET /owner/properties
+2025-12-31 13:46:15 [INFO]: POST /properties/upload-images
+2025-12-31 13:46:15 [INFO]: Uploaded 1 property images
+2025-12-31 13:46:18 [INFO]: POST /owner/properties
+2025-12-31 13:49:53 [INFO]: POST /properties/upload-images
+2025-12-31 13:49:53 [INFO]: Uploaded 1 property images
+2025-12-31 13:49:57 [INFO]: POST /owner/properties
+2025-12-31 14:01:26 [INFO]: POST /properties/upload-images
+2025-12-31 14:01:26 [ERROR]: Global error handler: File too large
+2025-12-31 14:01:48 [INFO]: POST /properties/upload-images
+2025-12-31 14:01:48 [INFO]: Uploaded 1 property images
+2025-12-31 14:01:55 [INFO]: POST /properties
+2025-12-31 14:01:55 [INFO]: Creating property for owner 12: Modern downtown
+2025-12-31 14:01:55 [INFO]: Property created successfully with ID: 15
+2025-12-31 14:01:55 [ERROR]: Error fetching property: Property not found
+2025-12-31 14:01:55 [ERROR]: Transaction failed: Property not found
+2025-12-31 14:01:55 [ERROR]: Error creating property: Property not found
+2025-12-31 14:01:55 [ERROR]: Error in createProperty: Property not found
+2025-12-31 14:03:54 [INFO]: POST /properties
+2025-12-31 14:03:54 [INFO]: Creating property for owner 12: Modern downtown
+2025-12-31 14:03:54 [INFO]: Property created successfully with ID: 16
+2025-12-31 14:03:54 [ERROR]: Error fetching property: Property not found
+2025-12-31 14:03:54 [ERROR]: Transaction failed: Property not found
+2025-12-31 14:03:54 [ERROR]: Error creating property: Property not found
+2025-12-31 14:03:54 [ERROR]: Error in createProperty: Property not found
+2025-12-31 14:03:57 [INFO]: GET /owner/properties
+2025-12-31 14:04:05 [INFO]: GET /owner/dashboard
+2025-12-31 14:07:02 [INFO]: Email service initialized with user: sriram2005j@gmail.com
+2025-12-31 14:07:02 [INFO]: MySQL database connected successfully
+2025-12-31 14:07:02 [INFO]: MySQL database connected successfully
+2025-12-31 14:07:02 [INFO]: Database connection established
+2025-12-31 14:07:02 [INFO]: Server running on port 3001
+2025-12-31 14:07:02 [INFO]: Health check available at http://localhost:3001/health
+2025-12-31 14:12:31 [INFO]: POST /properties
+2025-12-31 14:12:31 [WARN]: Authorization header missing or invalid format
+2025-12-31 14:13:00 [INFO]: MySQL database connected successfully
+2025-12-31 14:13:00 [INFO]: MySQL database connected successfully
+2025-12-31 14:13:00 [INFO]: Database connection closed
+2025-12-31 14:15:22 [INFO]: POST /auth/register
+2025-12-31 14:15:34 [INFO]: POST /auth/register
+2025-12-31 14:15:34 [INFO]: Registration request received for email: testowner123@gmail.com
+2025-12-31 14:15:34 [INFO]: Register attempt for email: testowner123@gmail.com
+2025-12-31 14:15:34 [INFO]: Fetching user by email: testowner123@gmail.com
+2025-12-31 14:15:34 [INFO]: Query result type: object, length: 0
+2025-12-31 14:15:34 [INFO]: Query result:
+2025-12-31 14:15:34 [INFO]: Existing user check result:
+2025-12-31 14:15:34 [INFO]: Creating user: testowner123@gmail.com
+2025-12-31 14:15:34 [INFO]: User registered successfully: testowner123@gmail.com
+2025-12-31 14:15:49 [INFO]: POST /auth/register
+2025-12-31 14:15:49 [INFO]: Registration request received for email: testowner123@gmail.com
+2025-12-31 14:15:49 [INFO]: Register attempt for email: testowner123@gmail.com
+2025-12-31 14:15:49 [INFO]: Fetching user by email: testowner123@gmail.com
+2025-12-31 14:15:49 [INFO]: Query result type: object, length: 1
+2025-12-31 14:15:49 [INFO]: Query result:
+2025-12-31 14:15:49 [INFO]: Existing user check result:
+2025-12-31 14:15:49 [WARN]: Email already exists: testowner123@gmail.com
+2025-12-31 14:15:49 [ERROR]: Registration service error: Email already registered
+2025-12-31 14:15:49 [ERROR]: Register failed: Email already registered
+2025-12-31 14:16:19 [INFO]: POST /auth/register
+2025-12-31 14:16:19 [INFO]: Registration request received for email: testowner123@gmail.com
+2025-12-31 14:16:19 [INFO]: Register attempt for email: testowner123@gmail.com
+2025-12-31 14:16:19 [INFO]: Fetching user by email: testowner123@gmail.com
+2025-12-31 14:16:19 [INFO]: Query result type: object, length: 1
+2025-12-31 14:16:19 [INFO]: Query result:
+2025-12-31 14:16:19 [INFO]: Existing user check result:
+2025-12-31 14:16:19 [WARN]: Email already exists: testowner123@gmail.com
+2025-12-31 14:16:19 [ERROR]: Registration service error: Email already registered
+2025-12-31 14:16:19 [ERROR]: Register failed: Email already registered
+2025-12-31 14:16:19 [INFO]: POST /auth/login
+2025-12-31 14:16:19 [INFO]: Login attempt for email: testowner123@gmail.com
+2025-12-31 14:16:19 [INFO]: Login attempt for email: testowner123@gmail.com
+2025-12-31 14:16:19 [INFO]: Fetching user by email: testowner123@gmail.com
+2025-12-31 14:16:19 [INFO]: Query result type: object, length: 1
+2025-12-31 14:16:19 [INFO]: Query result:
+2025-12-31 14:16:19 [INFO]: Login successful for userId: 13, rememberMe: false
+2025-12-31 14:16:19 [INFO]: POST /properties
+2025-12-31 14:16:19 [INFO]: Creating property for owner 13: Test Property - 1767170779651
+2025-12-31 14:16:19 [INFO]: Property created successfully with ID: 17
+2025-12-31 14:16:19 [ERROR]: Error fetching property: Property not found
+2025-12-31 14:16:19 [ERROR]: Transaction failed: Property not found
+2025-12-31 14:16:19 [ERROR]: Error creating property: Property not found
+2025-12-31 14:16:19 [ERROR]: Error in createProperty: Property not found
+2025-12-31 14:16:35 [INFO]: POST /auth/register
+2025-12-31 14:16:35 [INFO]: Registration request received for email: testowner123@gmail.com
+2025-12-31 14:16:35 [INFO]: Register attempt for email: testowner123@gmail.com
+2025-12-31 14:16:35 [INFO]: Fetching user by email: testowner123@gmail.com
+2025-12-31 14:16:35 [INFO]: Query result type: object, length: 1
+2025-12-31 14:16:35 [INFO]: Query result:
+2025-12-31 14:16:35 [INFO]: Existing user check result:
+2025-12-31 14:16:35 [WARN]: Email already exists: testowner123@gmail.com
+2025-12-31 14:16:35 [ERROR]: Registration service error: Email already registered
+2025-12-31 14:16:35 [ERROR]: Register failed: Email already registered
+2025-12-31 14:16:35 [INFO]: POST /auth/login
+2025-12-31 14:16:35 [INFO]: Login attempt for email: testowner123@gmail.com
+2025-12-31 14:16:35 [INFO]: Login attempt for email: testowner123@gmail.com
+2025-12-31 14:16:35 [INFO]: Fetching user by email: testowner123@gmail.com
+2025-12-31 14:16:35 [INFO]: Query result type: object, length: 1
+2025-12-31 14:16:35 [INFO]: Query result:
+2025-12-31 14:16:36 [INFO]: Login successful for userId: 13, rememberMe: false
+2025-12-31 14:16:36 [INFO]: POST /properties
+2025-12-31 14:16:36 [INFO]: Creating property for owner 13: Test Property - 1767170796088
+2025-12-31 14:16:36 [INFO]: Property created successfully with ID: 18
+2025-12-31 14:16:36 [ERROR]: Error fetching property: Property not found
+2025-12-31 14:16:36 [ERROR]: Transaction failed: Property not found
+2025-12-31 14:16:36 [ERROR]: Error creating property: Property not found
+2025-12-31 14:16:36 [ERROR]: Error in createProperty: Property not found
+2025-12-31 14:16:55 [INFO]: POST /auth/register
+2025-12-31 14:16:55 [INFO]: Registration request received for email: testowner123@gmail.com
+2025-12-31 14:16:55 [INFO]: Register attempt for email: testowner123@gmail.com
+2025-12-31 14:16:55 [INFO]: Fetching user by email: testowner123@gmail.com
+2025-12-31 14:16:55 [INFO]: Query result type: object, length: 1
+2025-12-31 14:16:55 [INFO]: Query result:
+2025-12-31 14:16:55 [INFO]: Existing user check result:
+2025-12-31 14:16:55 [WARN]: Email already exists: testowner123@gmail.com
+2025-12-31 14:16:55 [ERROR]: Registration service error: Email already registered
+2025-12-31 14:16:55 [ERROR]: Register failed: Email already registered
+2025-12-31 14:16:55 [INFO]: POST /auth/login
+2025-12-31 14:16:55 [INFO]: Login attempt for email: testowner123@gmail.com
+2025-12-31 14:16:55 [INFO]: Login attempt for email: testowner123@gmail.com
+2025-12-31 14:16:55 [INFO]: Fetching user by email: testowner123@gmail.com
+2025-12-31 14:16:55 [INFO]: Query result type: object, length: 1
+2025-12-31 14:16:55 [INFO]: Query result:
+2025-12-31 14:16:55 [INFO]: Login successful for userId: 13, rememberMe: false
+2025-12-31 14:16:55 [INFO]: POST /properties
+2025-12-31 14:16:55 [INFO]: Creating property for owner 13: Test Property - 1767170815728
+2025-12-31 14:16:55 [INFO]: Property created successfully with ID: 19
+2025-12-31 14:16:55 [ERROR]: Error fetching property: Property not found
+2025-12-31 14:16:55 [ERROR]: Transaction failed: Property not found
+2025-12-31 14:16:55 [ERROR]: Error creating property: Property not found
+2025-12-31 14:16:55 [ERROR]: Error in createProperty: Property not found
+2025-12-31 14:17:17 [INFO]: POST /auth/register
+2025-12-31 14:17:17 [INFO]: Registration request received for email: testowner123@gmail.com
+2025-12-31 14:17:17 [INFO]: Register attempt for email: testowner123@gmail.com
+2025-12-31 14:17:17 [INFO]: Fetching user by email: testowner123@gmail.com
+2025-12-31 14:17:17 [INFO]: Query result type: object, length: 1
+2025-12-31 14:17:17 [INFO]: Query result:
+2025-12-31 14:17:17 [INFO]: Existing user check result:
+2025-12-31 14:17:17 [WARN]: Email already exists: testowner123@gmail.com
+2025-12-31 14:17:17 [ERROR]: Registration service error: Email already registered
+2025-12-31 14:17:17 [ERROR]: Register failed: Email already registered
+2025-12-31 14:17:17 [INFO]: POST /auth/login
+2025-12-31 14:17:17 [INFO]: Login attempt for email: testowner123@gmail.com
+2025-12-31 14:17:17 [INFO]: Login attempt for email: testowner123@gmail.com
+2025-12-31 14:17:17 [INFO]: Fetching user by email: testowner123@gmail.com
+2025-12-31 14:17:17 [INFO]: Query result type: object, length: 1
+2025-12-31 14:17:17 [INFO]: Query result:
+2025-12-31 14:17:17 [INFO]: Login successful for userId: 13, rememberMe: false
+2025-12-31 14:17:17 [INFO]: POST /properties
+2025-12-31 14:17:17 [INFO]: Creating property for owner 13: Test Property - 1767170837780
+2025-12-31 14:17:17 [INFO]: Property created successfully with ID: 20
+2025-12-31 14:17:17 [ERROR]: Error fetching property: Property not found
+2025-12-31 14:17:17 [ERROR]: Transaction failed: Property not found
+2025-12-31 14:17:17 [ERROR]: Error creating property: Property not found
+2025-12-31 14:17:17 [ERROR]: Error in createProperty: Property not found
+2025-12-31 14:17:29 [INFO]: Email service initialized with user: sriram2005j@gmail.com
+2025-12-31 14:17:29 [INFO]: MySQL database connected successfully
+2025-12-31 14:17:29 [INFO]: Database connection established
+2025-12-31 14:17:29 [INFO]: Server running on port 3001
+2025-12-31 14:17:29 [INFO]: Health check available at http://localhost:3001/health
+2025-12-31 14:17:29 [INFO]: MySQL database connected successfully
+2025-12-31 14:18:35 [INFO]: POST /properties/upload-images
+2025-12-31 14:18:36 [INFO]: Uploaded 1 property images
+2025-12-31 14:18:40 [INFO]: POST /properties
+2025-12-31 14:18:40 [INFO]: Creating property for owner 12: Modern downtown
+2025-12-31 14:18:40 [INFO]: Property created successfully with ID: 21
+2025-12-31 14:18:40 [ERROR]: Error fetching property: Property not found
+2025-12-31 14:18:40 [ERROR]: Transaction failed: Property not found
+2025-12-31 14:18:40 [ERROR]: Error creating property: Property not found
+2025-12-31 14:18:40 [ERROR]: Error in createProperty: Property not found
+2025-12-31 14:21:52 [INFO]: SIGINT received, shutting down gracefully
+2025-12-31 14:21:57 [INFO]: Email service initialized with user: sriram2005j@gmail.com
+2025-12-31 14:21:57 [INFO]: MySQL database connected successfully
+2025-12-31 14:21:57 [INFO]: MySQL database connected successfully
+2025-12-31 14:21:57 [INFO]: Database connection established
+2025-12-31 14:21:57 [INFO]: Server running on port 3001
+2025-12-31 14:21:57 [INFO]: Health check available at http://localhost:3001/health
+2025-12-31 14:22:01 [INFO]: POST /properties
+2025-12-31 14:22:01 [INFO]: Creating property for user 12:
+2025-12-31 14:22:02 [INFO]: Creating property for owner 12: Modern downtown
+2025-12-31 14:22:02 [INFO]: Property created successfully with ID: 22
+2025-12-31 14:22:02 [INFO]: Property created successfully by user 12
+2025-12-31 14:22:02 [INFO]: GET /owner/dashboard
+2025-12-31 14:22:02 [INFO]: Fetching dashboard data for owner: 12
+2025-12-31 14:22:06 [INFO]: GET /owner/properties
+2025-12-31 14:22:06 [INFO]: Fetching properties for owner ID: 12
+2025-12-31 14:22:06 [INFO]: Found 1 properties for owner 12
+2025-12-31 14:22:41 [INFO]: GET /owner/dashboard
+2025-12-31 14:22:41 [INFO]: Fetching dashboard data for owner: 12
+2025-12-31 14:22:43 [INFO]: GET /owner/properties
+2025-12-31 14:22:43 [INFO]: Fetching properties for owner ID: 12
+2025-12-31 14:22:43 [INFO]: Found 1 properties for owner 12
+2025-12-31 14:22:44 [INFO]: GET /bookings/owner
+2025-12-31 14:22:44 [INFO]: Getting bookings for owner ID: 12
+2025-12-31 14:22:45 [INFO]: Found 0 bookings for owner 12
+2025-12-31 14:22:46 [INFO]: GET /bookings/owner/tenants
+2025-12-31 14:22:46 [INFO]: Getting tenants for owner ID: 12
+2025-12-31 14:22:46 [INFO]: Found 0 approved tenants for owner 12
+2025-12-31 14:22:48 [INFO]: GET /owner/dashboard
+2025-12-31 14:22:48 [INFO]: Fetching dashboard data for owner: 12
+2025-12-31 14:22:53 [INFO]: GET /owner/properties
+2025-12-31 14:22:53 [INFO]: Fetching properties for owner ID: 12
+2025-12-31 14:22:53 [INFO]: Found 1 properties for owner 12
+2025-12-31 14:22:54 [INFO]: GET /owner/dashboard
+2025-12-31 14:22:54 [INFO]: Fetching dashboard data for owner: 12
+2025-12-31 14:23:18 [INFO]: GET /owner/dashboard
+2025-12-31 14:23:18 [INFO]: Fetching dashboard data for owner: 12
+2025-12-31 14:23:25 [INFO]: GET /owner/dashboard
+2025-12-31 14:23:25 [INFO]: Fetching dashboard data for owner: 12
+2025-12-31 14:29:30 [INFO]: GET /properties
+2025-12-31 14:29:45 [INFO]: GET /properties
+2025-12-31 14:29:50 [INFO]: GET /properties/22
+2025-12-31 14:29:53 [INFO]: GET /properties
+2025-12-31 14:29:55 [INFO]: GET /properties/22
+2025-12-31 14:30:02 [INFO]: GET /properties
+2025-12-31 14:30:07 [INFO]: POST /auth/login
+2025-12-31 14:30:07 [INFO]: Login attempt for email: chemvarshat22@gmail.com
+2025-12-31 14:30:07 [INFO]: Login attempt for email: chemvarshat22@gmail.com
+2025-12-31 14:30:07 [INFO]: Fetching user by email: chemvarshat22@gmail.com
+2025-12-31 14:30:07 [INFO]: Login successful for userId: 12, rememberMe: true
+2025-12-31 14:30:08 [INFO]: GET /owner/dashboard
+2025-12-31 14:30:08 [INFO]: Fetching dashboard data for owner: 12
+2025-12-31 14:30:12 [INFO]: GET /owner/properties
+2025-12-31 14:30:12 [INFO]: Fetching properties for owner ID: 12
+2025-12-31 14:30:12 [INFO]: Found 1 properties for owner 12
+2025-12-31 14:31:38 [INFO]: GET /owner/properties
+2025-12-31 14:31:38 [INFO]: Fetching properties for owner ID: 12
+2025-12-31 14:31:38 [INFO]: Found 1 properties for owner 12
+2025-12-31 14:31:42 [INFO]: GET /properties/22
+2025-12-31 14:31:49 [INFO]: GET /properties
+2025-12-31 14:31:51 [INFO]: GET /owner/dashboard
+2025-12-31 14:31:51 [INFO]: Fetching dashboard data for owner: 12
+2025-12-31 14:31:53 [INFO]: GET /owner/properties
+2025-12-31 14:31:53 [INFO]: Fetching properties for owner ID: 12
+2025-12-31 14:31:53 [INFO]: Found 1 properties for owner 12
+2025-12-31 14:33:32 [INFO]: GET /owner/properties
+2025-12-31 14:33:32 [INFO]: Fetching properties for owner ID: 12
+2025-12-31 14:33:32 [INFO]: Found 1 properties for owner 12
+2025-12-31 14:33:53 [INFO]: GET /owner/properties
+2025-12-31 14:33:53 [INFO]: Fetching properties for owner ID: 12
+2025-12-31 14:33:53 [INFO]: Found 1 properties for owner 12
+2025-12-31 14:34:14 [INFO]: GET /owner/properties
+2025-12-31 14:34:14 [INFO]: Fetching properties for owner ID: 12
+2025-12-31 14:34:14 [INFO]: Found 1 properties for owner 12
+2025-12-31 14:35:44 [INFO]: GET /owner/properties
+2025-12-31 14:35:44 [INFO]: Fetching properties for owner ID: 12
+2025-12-31 14:35:44 [INFO]: Found 1 properties for owner 12
+2025-12-31 14:35:49 [INFO]: GET /owner/properties
+2025-12-31 14:35:49 [INFO]: Fetching properties for owner ID: 12
+2025-12-31 14:35:49 [INFO]: Found 1 properties for owner 12
+2025-12-31 14:35:52 [INFO]: GET /owner/properties
+2025-12-31 14:35:52 [INFO]: Fetching properties for owner ID: 12
+2025-12-31 14:35:52 [INFO]: Found 1 properties for owner 12
+2025-12-31 14:35:59 [INFO]: GET /owner/dashboard
+2025-12-31 14:35:59 [INFO]: Fetching dashboard data for owner: 12
+2025-12-31 14:36:02 [INFO]: GET /owner/properties
+2025-12-31 14:36:02 [INFO]: Fetching properties for owner ID: 12
+2025-12-31 14:36:02 [INFO]: Found 1 properties for owner 12
+2025-12-31 14:36:09 [INFO]: GET /owner/properties
+2025-12-31 14:36:09 [INFO]: Fetching properties for owner ID: 12
+2025-12-31 14:36:09 [INFO]: Found 1 properties for owner 12
+2025-12-31 14:36:15 [INFO]: GET /owner/properties
+2025-12-31 14:36:15 [INFO]: Fetching properties for owner ID: 12
+2025-12-31 14:36:15 [INFO]: Found 1 properties for owner 12
+2025-12-31 14:37:43 [INFO]: GET /owner/properties
+2025-12-31 14:37:43 [INFO]: Fetching properties for owner ID: 12
+2025-12-31 14:37:43 [INFO]: Found 1 properties for owner 12
+2025-12-31 14:37:47 [INFO]: GET /owner/dashboard
+2025-12-31 14:37:47 [INFO]: Fetching dashboard data for owner: 12
+2025-12-31 14:39:00 [INFO]: GET /owner/dashboard
+2025-12-31 14:39:00 [INFO]: Fetching dashboard data for owner: 12
+2025-12-31 14:39:10 [INFO]: GET /owner/dashboard
+2025-12-31 14:39:10 [INFO]: Fetching dashboard data for owner: 12
+2025-12-31 14:39:18 [INFO]: GET /owner/properties
+2025-12-31 14:39:18 [INFO]: Fetching properties for owner ID: 12
+2025-12-31 14:39:18 [INFO]: Found 1 properties for owner 12
+2025-12-31 14:39:20 [INFO]: GET /properties/22
+2025-12-31 14:39:59 [INFO]: GET /properties/22
+2025-12-31 14:40:08 [INFO]: GET /properties/22
+2025-12-31 14:40:33 [INFO]: GET /owner/properties
+2025-12-31 14:40:33 [INFO]: Fetching properties for owner ID: 12
+2025-12-31 14:40:33 [INFO]: Found 1 properties for owner 12
+2025-12-31 14:41:49 [INFO]: GET /owner/dashboard
+2025-12-31 14:41:49 [INFO]: Fetching dashboard data for owner: 12
+2025-12-31 14:41:51 [INFO]: GET /owner/properties
+2025-12-31 14:41:51 [INFO]: Fetching properties for owner ID: 12
+2025-12-31 14:41:51 [INFO]: Found 1 properties for owner 12
+2025-12-31 14:41:57 [INFO]: GET /bookings/owner/tenants
+2025-12-31 14:41:57 [INFO]: Getting tenants for owner ID: 12
+2025-12-31 14:41:57 [INFO]: Found 0 approved tenants for owner 12
+2025-12-31 14:41:58 [INFO]: GET /owner/properties
+2025-12-31 14:41:58 [INFO]: Fetching properties for owner ID: 12
+2025-12-31 14:41:58 [INFO]: Found 1 properties for owner 12
+2025-12-31 14:42:00 [INFO]: GET /properties/22
+2025-12-31 14:42:05 [INFO]: GET /properties
+2025-12-31 14:42:14 [INFO]: GET /owner/dashboard
+2025-12-31 14:42:14 [INFO]: Fetching dashboard data for owner: 12
+2025-12-31 14:42:16 [INFO]: GET /owner/properties
+2025-12-31 14:42:16 [INFO]: Fetching properties for owner ID: 12
+2025-12-31 14:42:16 [INFO]: Found 1 properties for owner 12
+2025-12-31 14:57:07 [INFO]: GET /owner/properties
+2025-12-31 14:57:07 [INFO]: Fetching properties for owner ID: 12
+2025-12-31 14:57:07 [INFO]: Found 1 properties for owner 12
+2025-12-31 15:00:14 [INFO]: GET /owner/properties
+2025-12-31 15:00:14 [INFO]: Fetching properties for owner ID: 12
+2025-12-31 15:00:14 [INFO]: Found 1 properties for owner 12
+2025-12-31 15:42:39 [INFO]: GET /owner/properties
+2025-12-31 15:42:39 [INFO]: Fetching properties for owner ID: 12
+2025-12-31 15:42:39 [INFO]: Found 1 properties for owner 12
+2025-12-31 15:44:35 [INFO]: DELETE /owner/properties/22
+2025-12-31 15:44:35 [INFO]: GET /owner/properties
+2025-12-31 15:44:35 [INFO]: Fetching properties for owner ID: 12
+2025-12-31 15:44:35 [INFO]: Found 0 properties for owner 12
+2025-12-31 15:44:35 [INFO]: GET /owner/properties
+2025-12-31 15:44:35 [INFO]: Fetching properties for owner ID: 12
+2025-12-31 15:44:35 [INFO]: Found 0 properties for owner 12
+2025-12-31 15:45:28 [INFO]: POST /properties/upload-images
+2025-12-31 15:45:28 [INFO]: Uploaded 1 property images
+2025-12-31 15:45:32 [INFO]: POST /properties
+2025-12-31 15:45:32 [INFO]: Creating property for user 12:
+2025-12-31 15:45:32 [INFO]: Creating property for owner 12: ECR Resort
+2025-12-31 15:45:32 [INFO]: Property created successfully with ID: 23
+2025-12-31 15:45:32 [INFO]: Property created successfully by user 12
+2025-12-31 15:45:32 [INFO]: GET /owner/dashboard
+2025-12-31 15:45:32 [INFO]: Fetching dashboard data for owner: 12
+2025-12-31 15:45:38 [INFO]: GET /owner/properties
+2025-12-31 15:45:38 [INFO]: Fetching properties for owner ID: 12
+2025-12-31 15:45:38 [INFO]: Found 1 properties for owner 12
+2025-12-31 15:45:40 [INFO]: GET /properties/23
+2025-12-31 15:45:46 [INFO]: GET /owner/dashboard
+2025-12-31 15:45:46 [INFO]: Fetching dashboard data for owner: 12
+2025-12-31 15:45:49 [INFO]: GET /owner/properties
+2025-12-31 15:45:49 [INFO]: Fetching properties for owner ID: 12
+2025-12-31 15:45:49 [INFO]: Found 1 properties for owner 12
+2025-12-31 15:45:52 [INFO]: GET /properties/23
+2025-12-31 15:47:54 [INFO]: GET /properties/23
+2025-12-31 15:47:59 [INFO]: GET /owner/dashboard
+2025-12-31 15:47:59 [INFO]: Fetching dashboard data for owner: 12
+2025-12-31 15:48:02 [INFO]: GET /owner/properties
+2025-12-31 15:48:02 [INFO]: Fetching properties for owner ID: 12
+2025-12-31 15:48:02 [INFO]: Found 1 properties for owner 12
+2025-12-31 15:48:04 [INFO]: GET /owner/dashboard
+2025-12-31 15:48:04 [INFO]: Fetching dashboard data for owner: 12
+2025-12-31 15:48:06 [INFO]: GET /owner/dashboard
+2025-12-31 15:48:06 [INFO]: Fetching dashboard data for owner: 12
+2025-12-31 15:48:08 [INFO]: GET /owner/properties
+2025-12-31 15:48:08 [INFO]: Fetching properties for owner ID: 12
+2025-12-31 15:48:08 [INFO]: Found 1 properties for owner 12
+2025-12-31 15:48:39 [INFO]: GET /properties/23
+2025-12-31 15:48:57 [INFO]: GET /owner/dashboard
+2025-12-31 15:48:57 [INFO]: Fetching dashboard data for owner: 12
+2025-12-31 15:48:59 [INFO]: GET /owner/properties
+2025-12-31 15:48:59 [INFO]: Fetching properties for owner ID: 12
+2025-12-31 15:48:59 [INFO]: Found 1 properties for owner 12
+2025-12-31 15:49:01 [INFO]: GET /properties/23
+2025-12-31 15:49:46 [INFO]: GET /properties/23
+2025-12-31 15:50:03 [INFO]: GET /properties/23
+2025-12-31 15:50:08 [INFO]: GET /owner/dashboard
+2025-12-31 15:50:08 [INFO]: Fetching dashboard data for owner: 12
+2025-12-31 15:50:12 [INFO]: GET /owner/properties
+2025-12-31 15:50:12 [INFO]: Fetching properties for owner ID: 12
+2025-12-31 15:50:12 [INFO]: Found 1 properties for owner 12
+2025-12-31 15:50:14 [INFO]: GET /properties/23
+2025-12-31 15:50:18 [INFO]: GET /properties
+2025-12-31 15:50:20 [INFO]: GET /owner/dashboard
+2025-12-31 15:50:20 [INFO]: Fetching dashboard data for owner: 12
+2025-12-31 15:50:22 [INFO]: GET /owner/properties
+2025-12-31 15:50:22 [INFO]: Fetching properties for owner ID: 12
+2025-12-31 15:50:22 [INFO]: Found 1 properties for owner 12
+2025-12-31 15:50:25 [INFO]: GET /properties/23
+2025-12-31 15:51:17 [INFO]: GET /owner/dashboard
+2025-12-31 15:51:17 [INFO]: Fetching dashboard data for owner: 12
+2025-12-31 15:51:21 [INFO]: GET /owner/properties
+2025-12-31 15:51:21 [INFO]: Fetching properties for owner ID: 12
+2025-12-31 15:51:21 [INFO]: Found 1 properties for owner 12
+2025-12-31 15:51:23 [INFO]: GET /properties/23
+2025-12-31 15:52:07 [INFO]: GET /properties/23
+2025-12-31 15:52:17 [INFO]: GET /properties/23
+2025-12-31 15:52:23 [INFO]: GET /owner/dashboard
+2025-12-31 15:52:23 [INFO]: Fetching dashboard data for owner: 12
+2025-12-31 15:52:25 [INFO]: GET /owner/properties
+2025-12-31 15:52:25 [INFO]: Fetching properties for owner ID: 12
+2025-12-31 15:52:25 [INFO]: Found 1 properties for owner 12
+2025-12-31 15:52:26 [INFO]: GET /properties/23
+2025-12-31 15:52:28 [INFO]: GET /owner/dashboard
+2025-12-31 15:52:28 [INFO]: Fetching dashboard data for owner: 12
+2025-12-31 15:53:38 [INFO]: GET /owner/dashboard
+2025-12-31 15:53:38 [INFO]: Fetching dashboard data for owner: 12
+2025-12-31 15:53:42 [INFO]: GET /owner/dashboard
+2025-12-31 15:53:42 [INFO]: Fetching dashboard data for owner: 12
+2025-12-31 15:53:45 [INFO]: GET /owner/dashboard
+2025-12-31 15:53:45 [INFO]: Fetching dashboard data for owner: 12
+2025-12-31 15:53:54 [INFO]: POST /properties/upload-images
+2025-12-31 15:53:54 [INFO]: Uploaded 1 property images
+2025-12-31 15:54:01 [INFO]: GET /properties
+2025-12-31 15:54:27 [INFO]: POST /auth/login
+2025-12-31 15:54:27 [INFO]: Login attempt for email: sriram2005j@gmail.com
+2025-12-31 15:54:27 [INFO]: Login attempt for email: sriram2005j@gmail.com
+2025-12-31 15:54:27 [INFO]: Fetching user by email: sriram2005j@gmail.com
+2025-12-31 15:54:27 [INFO]: Login successful for userId: 5, rememberMe: true
+2025-12-31 15:54:27 [INFO]: GET /bookings/tenant
+2025-12-31 15:54:27 [INFO]: Fetching bookings for tenant ID: 5
+2025-12-31 15:54:27 [INFO]: Found 0 bookings for tenant 5
+2025-12-31 15:54:30 [INFO]: GET /properties
+2025-12-31 15:55:22 [INFO]: GET /properties
+2025-12-31 15:55:28 [INFO]: GET /bookings/tenant
+2025-12-31 15:55:28 [INFO]: Fetching bookings for tenant ID: 5
+2025-12-31 15:55:28 [INFO]: Found 0 bookings for tenant 5
+2025-12-31 15:55:30 [INFO]: GET /bookings/tenant
+2025-12-31 15:55:30 [INFO]: Fetching bookings for tenant ID: 5
+2025-12-31 15:55:30 [INFO]: Found 0 bookings for tenant 5
+2025-12-31 15:55:41 [INFO]: GET /properties
+2025-12-31 15:55:43 [INFO]: GET /properties/23
+2025-12-31 15:56:10 [INFO]: POST /bookings
+2025-12-31 15:56:10 [INFO]: Creating booking for property 23 by tenant 5
+2025-12-31 15:56:11 [INFO]: Booking created successfully with ID: 5
+2025-12-31 15:56:15 [INFO]: GET /properties
+2025-12-31 15:56:20 [INFO]: GET /properties/23
+2025-12-31 15:58:45 [INFO]: GET /properties/23
+2025-12-31 15:58:50 [INFO]: GET /properties/23
+2025-12-31 15:58:58 [INFO]: GET /properties/23
+2025-12-31 15:59:11 [INFO]: POST /bookings
+2025-12-31 15:59:12 [INFO]: Creating booking for property 23 by tenant 5
+2025-12-31 15:59:12 [ERROR]: Transaction failed: You already have a booking request for this property
+2025-12-31 15:59:12 [ERROR]: Error creating booking: You already have a booking request for this property
+2025-12-31 15:59:12 [ERROR]: Global error handler: logger is not defined
+2025-12-31 16:00:34 [INFO]: POST /bookings
+2025-12-31 16:00:34 [INFO]: Creating booking for property 23 by tenant 5
+2025-12-31 16:00:34 [ERROR]: Transaction failed: You already have a booking request for this property
+2025-12-31 16:00:34 [ERROR]: Error creating booking: You already have a booking request for this property
+2025-12-31 16:00:34 [ERROR]: Global error handler: logger is not defined
+2025-12-31 16:09:39 [INFO]: POST /bookings
+2025-12-31 16:09:39 [INFO]: Creating booking for property 23 by tenant 5
+2025-12-31 16:09:39 [ERROR]: Transaction failed: You already have a booking request for this property
+2025-12-31 16:09:39 [ERROR]: Error creating booking: You already have a booking request for this property
+2025-12-31 16:09:39 [ERROR]: Global error handler: logger is not defined
+2025-12-31 16:10:57 [INFO]: GET /properties/23
+2025-12-31 16:11:10 [INFO]: POST /bookings
+2025-12-31 16:11:10 [INFO]: Creating booking for property 23 by tenant 5
+2025-12-31 16:11:10 [ERROR]: Transaction failed: You already have a booking request for this property
+2025-12-31 16:11:10 [ERROR]: Error creating booking: You already have a booking request for this property
+2025-12-31 16:11:10 [ERROR]: Global error handler: logger is not defined
+2025-12-31 16:12:22 [INFO]: SIGINT received, shutting down gracefully
+2025-12-31 16:13:46 [INFO]: Email service initialized with user: sriram2005j@gmail.com
+2025-12-31 16:13:46 [INFO]: MySQL database connected successfully
+2025-12-31 16:13:46 [INFO]: MySQL database connected successfully
+2025-12-31 16:13:46 [INFO]: Database connection established
+2025-12-31 16:13:46 [INFO]: Server running on port 3001
+2025-12-31 16:13:46 [INFO]: Health check available at http://localhost:3001/health
+2025-12-31 16:13:55 [INFO]: Email service initialized with user: sriram2005j@gmail.com
+2025-12-31 16:13:56 [INFO]: MySQL database connected successfully
+2025-12-31 16:13:56 [INFO]: MySQL database connected successfully
+2025-12-31 16:13:56 [INFO]: Database connection established
+2025-12-31 16:13:56 [INFO]: Server running on port 3001
+2025-12-31 16:13:56 [INFO]: Health check available at http://localhost:3001/health
+2025-12-31 16:14:03 [INFO]: GET /properties/23
+2025-12-31 16:16:37 [INFO]: POST /bookings
+2025-12-31 16:16:37 [INFO]: Creating booking for property 23 by tenant 5
+2025-12-31 16:16:37 [ERROR]: Transaction error in createBooking: You already have a booking request for this property
+2025-12-31 16:16:37 [ERROR]: Transaction failed: You already have a booking request for this property
+2025-12-31 16:16:37 [ERROR]: Error creating booking: You already have a booking request for this property
+2025-12-31 16:16:37 [ERROR]: Stack trace: Error: You already have a booking request for this property
+    at <anonymous> (d:\online-house-rental-system\backend\src\services\booking.service.ts:41:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Database.transaction (d:\online-house-rental-system\backend\src\config\db.ts:79:22)
+    at async BookingService.createBooking (d:\online-house-rental-system\backend\src\services\booking.service.ts:16:14)
+    at async createBooking (d:\online-house-rental-system\backend\src\controllers\booking.controller.ts:41:21)
+2025-12-31 16:16:37 [ERROR]: Error in createBooking controller: You already have a booking request for this property
+2025-12-31 16:18:00 [INFO]: GET /properties/23
+2025-12-31 16:18:02 [INFO]: GET /properties
+2025-12-31 16:18:05 [INFO]: GET /properties/23
+2025-12-31 16:18:26 [INFO]: POST /bookings
+2025-12-31 16:18:26 [INFO]: Creating booking for property 23 by tenant 5
+2025-12-31 16:18:26 [ERROR]: Transaction error in createBooking: You already have a booking request for this property
+2025-12-31 16:18:26 [ERROR]: Transaction failed: You already have a booking request for this property
+2025-12-31 16:18:26 [ERROR]: Error creating booking: You already have a booking request for this property
+2025-12-31 16:18:26 [ERROR]: Stack trace: Error: You already have a booking request for this property
+    at <anonymous> (d:\online-house-rental-system\backend\src\services\booking.service.ts:41:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Database.transaction (d:\online-house-rental-system\backend\src\config\db.ts:79:22)
+    at async BookingService.createBooking (d:\online-house-rental-system\backend\src\services\booking.service.ts:16:14)
+    at async createBooking (d:\online-house-rental-system\backend\src\controllers\booking.controller.ts:41:21)
+2025-12-31 16:18:26 [ERROR]: Error in createBooking controller: You already have a booking request for this property
+2025-12-31 16:24:10 [INFO]: GET /bookings/tenant
+2025-12-31 16:24:10 [INFO]: Fetching bookings for tenant ID: 5
+2025-12-31 16:24:10 [INFO]: Found 1 bookings for tenant 5
+2025-12-31 16:26:57 [INFO]: GET /bookings/tenant
+2025-12-31 16:26:57 [INFO]: Fetching bookings for tenant ID: 5
+2025-12-31 16:26:57 [INFO]: Found 1 bookings for tenant 5
+2025-12-31 16:29:13 [INFO]: GET /properties
+2025-12-31 16:29:14 [INFO]: GET /properties/23
+2025-12-31 16:29:35 [INFO]: POST /bookings
+2025-12-31 16:29:35 [INFO]: Creating booking for property 23 by tenant 5
+2025-12-31 16:29:35 [ERROR]: Transaction error in createBooking: You already have a booking request for this property
+2025-12-31 16:29:35 [ERROR]: Transaction failed: You already have a booking request for this property
+2025-12-31 16:29:35 [ERROR]: Error creating booking: You already have a booking request for this property
+2025-12-31 16:29:35 [ERROR]: Stack trace: Error: You already have a booking request for this property
+    at <anonymous> (d:\online-house-rental-system\backend\src\services\booking.service.ts:41:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Database.transaction (d:\online-house-rental-system\backend\src\config\db.ts:79:22)
+    at async BookingService.createBooking (d:\online-house-rental-system\backend\src\services\booking.service.ts:16:14)
+    at async createBooking (d:\online-house-rental-system\backend\src\controllers\booking.controller.ts:41:21)
+2025-12-31 16:29:35 [ERROR]: Error in createBooking controller: You already have a booking request for this property
+2025-12-31 16:32:31 [INFO]: GET /properties
+2025-12-31 16:32:37 [INFO]: POST /auth/login
+2025-12-31 16:32:37 [INFO]: Login attempt for email: sriram2005j@gmail.com
+2025-12-31 16:32:37 [INFO]: Login attempt for email: sriram2005j@gmail.com
+2025-12-31 16:32:37 [INFO]: Fetching user by email: sriram2005j@gmail.com
+2025-12-31 16:32:37 [INFO]: Login successful for userId: 5, rememberMe: true
+2025-12-31 16:32:38 [INFO]: GET /bookings/tenant
+2025-12-31 16:32:38 [INFO]: Fetching bookings for tenant ID: 5
+2025-12-31 16:32:38 [INFO]: Found 1 bookings for tenant 5
+2025-12-31 16:32:49 [INFO]: GET /bookings/tenant
+2025-12-31 16:32:49 [INFO]: Fetching bookings for tenant ID: 5
+2025-12-31 16:32:49 [INFO]: Found 1 bookings for tenant 5
+2025-12-31 16:33:05 [INFO]: GET /properties
+2025-12-31 16:36:04 [INFO]: GET /properties
+2025-12-31 16:36:09 [INFO]: GET /properties
+2025-12-31 16:36:15 [INFO]: GET /properties
+2025-12-31 16:36:19 [INFO]: GET /properties
+2025-12-31 16:36:26 [INFO]: GET /properties
+2025-12-31 16:36:41 [INFO]: GET /properties
+2025-12-31 16:36:57 [INFO]: GET /properties
+2025-12-31 16:37:04 [INFO]: POST /auth/login
+2025-12-31 16:37:04 [INFO]: Login attempt for email: chemvarshat22@gmail.com
+2025-12-31 16:37:04 [INFO]: Login attempt for email: chemvarshat22@gmail.com
+2025-12-31 16:37:04 [INFO]: Fetching user by email: chemvarshat22@gmail.com
+2025-12-31 16:37:04 [INFO]: Login successful for userId: 12, rememberMe: false
+2025-12-31 16:37:04 [INFO]: GET /owner/dashboard
+2025-12-31 16:37:04 [INFO]: Fetching dashboard data for owner: 12
+2025-12-31 16:37:08 [INFO]: GET /bookings/owner/tenants
+2025-12-31 16:37:08 [INFO]: Getting tenants for owner ID: 12
+2025-12-31 16:37:08 [INFO]: Found 0 approved tenants for owner 12
+2025-12-31 16:37:10 [INFO]: GET /bookings/owner
+2025-12-31 16:37:10 [INFO]: Getting bookings for owner ID: 12
+2025-12-31 16:37:10 [INFO]: Found 1 bookings for owner 12
+2025-12-31 16:37:25 [INFO]: GET /properties
+2025-12-31 16:39:18 [INFO]: GET /properties
+2025-12-31 16:39:33 [INFO]: GET /properties
+2025-12-31 16:39:35 [INFO]: GET /properties/23
+2025-12-31 16:39:38 [INFO]: GET /properties
+2025-12-31 16:39:40 [INFO]: GET /properties
+2025-12-31 16:39:45 [INFO]: GET /properties
+2025-12-31 16:40:23 [INFO]: GET /properties
+2025-12-31 16:40:34 [INFO]: GET /properties
+2025-12-31 16:40:47 [INFO]: GET /properties
+2025-12-31 16:40:55 [INFO]: GET /properties
+2025-12-31 16:41:00 [INFO]: GET /properties
+2025-12-31 16:41:04 [INFO]: GET /properties
+2025-12-31 16:41:16 [INFO]: GET /properties
+2025-12-31 16:41:20 [INFO]: GET /properties
+2025-12-31 16:41:23 [INFO]: GET /properties
+2025-12-31 16:43:48 [INFO]: GET /properties
+2025-12-31 16:44:33 [INFO]: GET /properties
+2025-12-31 16:44:37 [INFO]: GET /properties
+2025-12-31 16:45:03 [INFO]: GET /properties
+2025-12-31 16:45:08 [INFO]: GET /owner/dashboard
+2025-12-31 16:45:08 [INFO]: Fetching dashboard data for owner: 12
+2025-12-31 16:45:11 [INFO]: GET /bookings/owner/tenants
+2025-12-31 16:45:11 [INFO]: Getting tenants for owner ID: 12
+2025-12-31 16:45:11 [INFO]: Found 0 approved tenants for owner 12
+2025-12-31 16:45:12 [INFO]: GET /bookings/owner
+2025-12-31 16:45:12 [INFO]: Getting bookings for owner ID: 12
+2025-12-31 16:45:12 [INFO]: Found 1 bookings for owner 12
+2025-12-31 16:45:15 [INFO]: PUT /bookings/5/status
+2025-12-31 16:45:15 [INFO]: Booking 5 status updated to approved
+2025-12-31 16:45:15 [INFO]: GET /bookings/owner
+2025-12-31 16:45:15 [INFO]: Getting bookings for owner ID: 12
+2025-12-31 16:45:15 [INFO]: Found 1 bookings for owner 12
+2025-12-31 16:45:19 [INFO]: GET /owner/dashboard
+2025-12-31 16:45:19 [INFO]: Fetching dashboard data for owner: 12
+2025-12-31 16:45:23 [INFO]: GET /bookings/owner/tenants
+2025-12-31 16:45:23 [INFO]: Getting tenants for owner ID: 12
+2025-12-31 16:45:23 [INFO]: Found 1 approved tenants for owner 12
+2025-12-31 16:45:37 [INFO]: GET /bookings/owner
+2025-12-31 16:45:37 [INFO]: Getting bookings for owner ID: 12
+2025-12-31 16:45:37 [INFO]: Found 1 bookings for owner 12
+2025-12-31 16:45:39 [INFO]: GET /owner/properties
+2025-12-31 16:45:39 [INFO]: Fetching properties for owner ID: 12
+2025-12-31 16:45:39 [INFO]: Found 1 properties for owner 12
+2025-12-31 16:52:27 [INFO]: POST /properties/upload-images
+2025-12-31 16:52:27 [INFO]: Uploaded 1 property images
+2025-12-31 16:52:30 [INFO]: POST /properties
+2025-12-31 16:52:30 [INFO]: Creating property for user 12:
+2025-12-31 16:52:30 [INFO]: Creating property for owner 12: Super Deluxe
+2025-12-31 16:52:30 [INFO]: Property created successfully with ID: 24
+2025-12-31 16:52:30 [INFO]: Property created successfully by user 12
+2025-12-31 16:52:30 [INFO]: GET /owner/dashboard
+2025-12-31 16:52:30 [INFO]: Fetching dashboard data for owner: 12
+2025-12-31 16:52:38 [INFO]: GET /properties
+2025-12-31 16:52:46 [INFO]: POST /auth/login
+2025-12-31 16:52:46 [INFO]: Login attempt for email: sriram2005j@gmail.com
+2025-12-31 16:52:46 [INFO]: Login attempt for email: sriram2005j@gmail.com
+2025-12-31 16:52:46 [INFO]: Fetching user by email: sriram2005j@gmail.com
+2025-12-31 16:52:46 [INFO]: Login successful for userId: 5, rememberMe: false
+2025-12-31 16:52:46 [INFO]: GET /bookings/tenant
+2025-12-31 16:52:46 [INFO]: Fetching bookings for tenant ID: 5
+2025-12-31 16:52:46 [INFO]: Found 1 bookings for tenant 5
+2025-12-31 16:52:46 [INFO]: GET /bookings/tenant
+2025-12-31 16:52:46 [INFO]: Fetching bookings for tenant ID: 5
+2025-12-31 16:52:46 [INFO]: Found 1 bookings for tenant 5
+2025-12-31 16:52:48 [INFO]: GET /properties
+2025-12-31 16:52:52 [INFO]: GET /properties/24
+2025-12-31 16:53:22 [INFO]: POST /bookings
+2025-12-31 16:53:22 [INFO]: Creating booking for property 24 by tenant 5
+2025-12-31 16:53:22 [INFO]: Booking created successfully with ID: 6
+2025-12-31 16:53:22 [INFO]: GET /properties/24
+2025-12-31 16:53:22 [INFO]: GET /properties/24
+2025-12-31 16:53:25 [INFO]: GET /properties
+2025-12-31 16:55:03 [INFO]: GET /properties
+2025-12-31 16:59:19 [INFO]: GET /properties
+2025-12-31 16:59:27 [INFO]: GET /properties
+2025-12-31 16:59:34 [INFO]: GET /properties
+2025-12-31 16:59:40 [INFO]: GET /properties
+2025-12-31 16:59:45 [INFO]: GET /properties
+2025-12-31 17:00:12 [INFO]: GET /properties
+2025-12-31 17:01:45 [INFO]: POST /auth/login
+2025-12-31 17:01:45 [INFO]: Login attempt for email: chemvarshat22@gmail.com
+2025-12-31 17:01:45 [INFO]: Login attempt for email: chemvarshat22@gmail.com
+2025-12-31 17:01:45 [INFO]: Fetching user by email: chemvarshat22@gmail.com
+2025-12-31 17:01:51 [INFO]: Login successful for userId: 12, rememberMe: false
+2025-12-31 17:01:51 [INFO]: GET /owner/dashboard
+2025-12-31 17:01:51 [INFO]: Fetching dashboard data for owner: 12
+2025-12-31 17:02:52 [INFO]: POST /properties/upload-images
+2025-12-31 17:02:53 [INFO]: Uploaded 1 property images
+2025-12-31 17:02:54 [INFO]: POST /properties
+2025-12-31 17:02:54 [INFO]: Creating property for user 12:
+2025-12-31 17:02:55 [INFO]: Creating property for owner 12: Super villa
+2025-12-31 17:02:55 [INFO]: Property created successfully with ID: 25
+2025-12-31 17:02:55 [INFO]: Property created successfully by user 12
+2025-12-31 17:02:55 [INFO]: GET /owner/dashboard
+2025-12-31 17:02:55 [INFO]: Fetching dashboard data for owner: 12
+2025-12-31 17:02:59 [INFO]: GET /owner/properties
+2025-12-31 17:02:59 [INFO]: Fetching properties for owner ID: 12
+2025-12-31 17:02:59 [INFO]: Found 3 properties for owner 12
+2025-12-31 17:03:04 [INFO]: GET /properties
+2025-12-31 17:05:29 [INFO]: GET /properties
+2025-12-31 17:05:42 [INFO]: POST /auth/login
+2025-12-31 17:05:42 [INFO]: Login attempt for email: sriram2005j@gmail.com
+2025-12-31 17:05:42 [INFO]: Login attempt for email: sriram2005j@gmail.com
+2025-12-31 17:05:42 [INFO]: Fetching user by email: sriram2005j@gmail.com
+2025-12-31 17:05:42 [INFO]: Login successful for userId: 5, rememberMe: false
+2025-12-31 17:05:42 [INFO]: GET /bookings/tenant
+2025-12-31 17:05:42 [INFO]: Fetching bookings for tenant ID: 5
+2025-12-31 17:05:42 [INFO]: Found 2 bookings for tenant 5
+2025-12-31 17:05:45 [INFO]: GET /properties
+2025-12-31 17:06:44 [INFO]: GET /properties
+2025-12-31 17:06:49 [INFO]: GET /properties
+2025-12-31 17:06:55 [INFO]: GET /properties
+2025-12-31 17:07:02 [INFO]: GET /properties
+2025-12-31 17:07:16 [INFO]: GET /properties/25
+2025-12-31 17:07:29 [INFO]: POST /bookings
+2025-12-31 17:07:29 [INFO]: Creating booking for property 25 by tenant 5
+2025-12-31 17:07:29 [ERROR]: Transaction error in createBooking: Unknown column 'is_available' in 'field list'
+2025-12-31 17:07:30 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 17:07:30 [ERROR]: Error creating booking: Unknown column 'is_available' in 'field list'
+2025-12-31 17:07:30 [ERROR]: Stack trace: Error: Unknown column 'is_available' in 'field list'
+    at PromisePoolConnection.execute (d:\online-house-rental-system\backend\node_modules\mysql2\lib\promise\connection.js:47:22)
+    at <anonymous> (d:\online-house-rental-system\backend\src\services\booking.service.ts:19:51)
+    at Database.transaction (d:\online-house-rental-system\backend\src\config\db.ts:79:28)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async BookingService.createBooking (d:\online-house-rental-system\backend\src\services\booking.service.ts:16:14)
+    at async createBooking (d:\online-house-rental-system\backend\src\controllers\booking.controller.ts:41:21)
+2025-12-31 17:07:30 [ERROR]: Error in createBooking controller: Unknown column 'is_available' in 'field list'
+2025-12-31 17:11:40 [INFO]: GET /bookings/tenant
+2025-12-31 17:11:40 [INFO]: Fetching bookings for tenant ID: 5
+2025-12-31 17:11:40 [INFO]: Found 2 bookings for tenant 5
+2025-12-31 17:11:47 [INFO]: GET /bookings/tenant
+2025-12-31 17:11:47 [INFO]: Fetching bookings for tenant ID: 5
+2025-12-31 17:11:47 [INFO]: Found 2 bookings for tenant 5
+2025-12-31 17:11:57 [INFO]: GET /properties
+2025-12-31 17:12:05 [INFO]: GET /properties/25
+2025-12-31 17:12:29 [INFO]: POST /bookings
+2025-12-31 17:12:29 [INFO]: Creating booking for property 25 by tenant 5
+2025-12-31 17:12:29 [ERROR]: Transaction error in createBooking: Unknown column 'is_available' in 'field list'
+2025-12-31 17:12:29 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 17:12:29 [ERROR]: Error creating booking: Unknown column 'is_available' in 'field list'
+2025-12-31 17:12:29 [ERROR]: Stack trace: Error: Unknown column 'is_available' in 'field list'
+    at PromisePoolConnection.execute (d:\online-house-rental-system\backend\node_modules\mysql2\lib\promise\connection.js:47:22)
+    at <anonymous> (d:\online-house-rental-system\backend\src\services\booking.service.ts:19:51)
+    at Database.transaction (d:\online-house-rental-system\backend\src\config\db.ts:79:28)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async BookingService.createBooking (d:\online-house-rental-system\backend\src\services\booking.service.ts:16:14)
+    at async createBooking (d:\online-house-rental-system\backend\src\controllers\booking.controller.ts:41:21)
+2025-12-31 17:12:29 [ERROR]: Error in createBooking controller: Unknown column 'is_available' in 'field list'
+2025-12-31 17:18:50 [INFO]: GET /properties
+2025-12-31 17:25:32 [INFO]: GET /properties
+2025-12-31 17:25:36 [INFO]: GET /properties
+2025-12-31 17:43:43 [INFO]: GET /properties
+2025-12-31 17:44:07 [INFO]: Email service initialized with user: sriram2005j@gmail.com
+2025-12-31 17:44:07 [INFO]: MySQL database connected successfully
+2025-12-31 17:44:07 [INFO]: MySQL database connected successfully
+2025-12-31 17:44:07 [INFO]: Database connection established
+2025-12-31 17:44:07 [INFO]: Server running on port 3001
+2025-12-31 17:44:07 [INFO]: Health check available at http://localhost:3001/health
+2025-12-31 17:45:05 [INFO]: GET /properties
+2025-12-31 17:45:15 [INFO]: GET /properties
+2025-12-31 17:45:22 [INFO]: POST /auth/login
+2025-12-31 17:45:22 [INFO]: Login attempt for email: sriram2005j@gmail.com
+2025-12-31 17:45:22 [INFO]: Login attempt for email: sriram2005j@gmail.com
+2025-12-31 17:45:22 [INFO]: Fetching user by email: sriram2005j@gmail.com
+2025-12-31 17:45:23 [INFO]: Login successful for userId: 5, rememberMe: false
+2025-12-31 17:45:23 [INFO]: GET /bookings/tenant
+2025-12-31 17:45:23 [INFO]: Fetching bookings for tenant ID: 5
+2025-12-31 17:45:23 [INFO]: Found 2 bookings for tenant 5
+2025-12-31 17:45:25 [INFO]: GET /properties
+2025-12-31 17:46:33 [INFO]: GET /properties
+2025-12-31 17:47:14 [INFO]: GET /properties/25
+2025-12-31 17:48:22 [INFO]: GET /properties/25
+2025-12-31 17:50:04 [INFO]: POST /bookings
+2025-12-31 17:50:04 [INFO]: Creating booking for property 25 by tenant 5
+2025-12-31 17:50:04 [ERROR]: Transaction error in createBooking: Unknown column 'is_available' in 'field list'
+2025-12-31 17:50:04 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 17:50:04 [ERROR]: Error creating booking: Unknown column 'is_available' in 'field list'
+2025-12-31 17:50:04 [ERROR]: Stack trace: Error: Unknown column 'is_available' in 'field list'
+    at PromisePoolConnection.execute (d:\online-house-rental-system\backend\node_modules\mysql2\lib\promise\connection.js:47:22)
+    at <anonymous> (d:\online-house-rental-system\backend\src\services\booking.service.ts:19:51)
+    at Database.transaction (d:\online-house-rental-system\backend\src\config\db.ts:79:28)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async BookingService.createBooking (d:\online-house-rental-system\backend\src\services\booking.service.ts:16:14)
+    at async createBooking (d:\online-house-rental-system\backend\src\controllers\booking.controller.ts:41:21)
+2025-12-31 17:50:04 [ERROR]: Error in createBooking controller: Unknown column 'is_available' in 'field list'
+2025-12-31 17:52:42 [INFO]: POST /bookings
+2025-12-31 17:52:42 [INFO]: Creating booking for property 25 by tenant 5
+2025-12-31 17:52:42 [ERROR]: Transaction error in createBooking: Unknown column 'is_available' in 'field list'
+2025-12-31 17:52:42 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 17:52:42 [ERROR]: Error creating booking: Unknown column 'is_available' in 'field list'
+2025-12-31 17:52:42 [ERROR]: Stack trace: Error: Unknown column 'is_available' in 'field list'
+    at PromisePoolConnection.execute (d:\online-house-rental-system\backend\node_modules\mysql2\lib\promise\connection.js:47:22)
+    at <anonymous> (d:\online-house-rental-system\backend\src\services\booking.service.ts:19:51)
+    at Database.transaction (d:\online-house-rental-system\backend\src\config\db.ts:79:28)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async BookingService.createBooking (d:\online-house-rental-system\backend\src\services\booking.service.ts:16:14)
+    at async createBooking (d:\online-house-rental-system\backend\src\controllers\booking.controller.ts:41:21)
+2025-12-31 17:52:42 [ERROR]: Error in createBooking controller: Unknown column 'is_available' in 'field list'
+2025-12-31 17:57:29 [INFO]: POST /bookings
+2025-12-31 17:57:29 [INFO]: Creating booking for property 25 by tenant 5
+2025-12-31 17:57:29 [ERROR]: Transaction error in createBooking: Unknown column 'is_available' in 'field list'
+2025-12-31 17:57:29 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 17:57:29 [ERROR]: Error creating booking: Unknown column 'is_available' in 'field list'
+2025-12-31 17:57:29 [ERROR]: Stack trace: Error: Unknown column 'is_available' in 'field list'
+    at PromisePoolConnection.execute (d:\online-house-rental-system\backend\node_modules\mysql2\lib\promise\connection.js:47:22)
+    at <anonymous> (d:\online-house-rental-system\backend\src\services\booking.service.ts:19:51)
+    at Database.transaction (d:\online-house-rental-system\backend\src\config\db.ts:79:28)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async BookingService.createBooking (d:\online-house-rental-system\backend\src\services\booking.service.ts:16:14)
+    at async createBooking (d:\online-house-rental-system\backend\src\controllers\booking.controller.ts:41:21)
+2025-12-31 17:57:29 [ERROR]: Error in createBooking controller: Unknown column 'is_available' in 'field list'
+2025-12-31 18:00:43 [INFO]: Email service initialized with user: sriram2005j@gmail.com
+2025-12-31 18:00:44 [INFO]: MySQL database connected successfully
+2025-12-31 18:00:44 [INFO]: MySQL database connected successfully
+2025-12-31 18:00:44 [INFO]: Database connection established
+2025-12-31 18:00:44 [INFO]: Server running on port 3001
+2025-12-31 18:00:44 [INFO]: Health check available at http://localhost:3001/health
+2025-12-31 18:11:20 [INFO]: Email service initialized with user: sriram2005j@gmail.com
+2025-12-31 18:11:20 [INFO]: MySQL database connected successfully
+2025-12-31 18:11:20 [INFO]: MySQL database connected successfully
+2025-12-31 18:11:20 [INFO]: Database connection established
+2025-12-31 18:11:20 [INFO]: Server running on port 3001
+2025-12-31 18:11:20 [INFO]: Health check available at http://localhost:3001/health
+2025-12-31 18:12:51 [INFO]: GET /properties/25
+2025-12-31 18:13:05 [INFO]: POST /bookings
+2025-12-31 18:13:05 [INFO]: Creating booking for property 25 by tenant 5
+2025-12-31 18:13:05 [ERROR]: Transaction error in createBooking: Unknown column 'is_available' in 'field list'
+2025-12-31 18:13:05 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 18:13:05 [ERROR]: Error creating booking: Unknown column 'is_available' in 'field list'
+2025-12-31 18:13:05 [ERROR]: Stack trace: Error: Unknown column 'is_available' in 'field list'
+    at PromisePoolConnection.execute (d:\online-house-rental-system\backend\node_modules\mysql2\lib\promise\connection.js:47:22)
+    at <anonymous> (d:\online-house-rental-system\backend\src\services\booking.service.ts:19:51)
+    at Database.transaction (d:\online-house-rental-system\backend\src\config\db.ts:79:28)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async BookingService.createBooking (d:\online-house-rental-system\backend\src\services\booking.service.ts:16:14)
+    at async createBooking (d:\online-house-rental-system\backend\src\controllers\booking.controller.ts:41:21)
+2025-12-31 18:13:05 [ERROR]: Error in createBooking controller: Unknown column 'is_available' in 'field list'
+2025-12-31 18:15:38 [INFO]: Email service initialized with user: sriram2005j@gmail.com
+2025-12-31 18:15:38 [INFO]: MySQL database connected successfully
+2025-12-31 18:15:38 [INFO]: Database connection established
+2025-12-31 18:15:38 [INFO]: Server running on port 3001
+2025-12-31 18:15:38 [INFO]: Health check available at http://localhost:3001/health
+2025-12-31 18:15:38 [INFO]: MySQL database connected successfully
+2025-12-31 18:18:10 [INFO]: Email service initialized with user: sriram2005j@gmail.com
+2025-12-31 18:18:10 [INFO]: MySQL database connected successfully
+2025-12-31 18:18:10 [INFO]: MySQL database connected successfully
+2025-12-31 18:18:10 [INFO]: Database connection established
+2025-12-31 18:18:10 [INFO]: Server running on port 3001
+2025-12-31 18:18:10 [INFO]: Health check available at http://localhost:3001/health
+2025-12-31 18:19:40 [INFO]: GET /properties/25
+2025-12-31 18:20:07 [INFO]: POST /bookings
+2025-12-31 18:20:07 [INFO]: Creating booking for property 25 by tenant 5
+2025-12-31 18:20:07 [INFO]: Booking created successfully with ID: 7
+2025-12-31 18:20:07 [INFO]: GET /properties/25
+2025-12-31 18:20:07 [INFO]: GET /properties/25
+2025-12-31 18:20:20 [INFO]: GET /bookings/tenant
+2025-12-31 18:20:20 [INFO]: Fetching bookings for tenant ID: 5
+2025-12-31 18:20:20 [INFO]: Found 3 bookings for tenant 5
+2025-12-31 18:20:20 [INFO]: GET /bookings/tenant
+2025-12-31 18:20:20 [INFO]: Fetching bookings for tenant ID: 5
+2025-12-31 18:20:20 [INFO]: Found 3 bookings for tenant 5
+2025-12-31 18:20:23 [INFO]: GET /bookings/tenant
+2025-12-31 18:20:23 [INFO]: Fetching bookings for tenant ID: 5
+2025-12-31 18:20:23 [INFO]: Found 3 bookings for tenant 5
+2025-12-31 18:20:23 [INFO]: GET /bookings/tenant
+2025-12-31 18:20:23 [INFO]: Fetching bookings for tenant ID: 5
+2025-12-31 18:20:23 [INFO]: Found 3 bookings for tenant 5
+2025-12-31 18:28:34 [INFO]: Email service initialized with user: sriram2005j@gmail.com
+2025-12-31 18:28:34 [INFO]: MySQL database connected successfully
+2025-12-31 18:28:34 [INFO]: MySQL database connected successfully
+2025-12-31 18:28:34 [INFO]: Database connection established
+2025-12-31 18:28:34 [INFO]: Server running on port 3001
+2025-12-31 18:28:34 [INFO]: Health check available at http://localhost:3001/health
+2025-12-31 18:29:01 [INFO]: GET /bookings/tenant
+2025-12-31 18:29:01 [INFO]: Fetching bookings for tenant ID: 5
+2025-12-31 18:29:01 [INFO]: Found 3 bookings for tenant 5
+2025-12-31 18:29:18 [INFO]: GET /properties
+2025-12-31 18:29:34 [INFO]: GET /properties/26
+2025-12-31 18:29:42 [INFO]: GET /properties
+2025-12-31 18:29:46 [INFO]: GET /properties
+2025-12-31 18:29:52 [INFO]: GET /properties
+2025-12-31 18:29:54 [INFO]: GET /properties/26
+2025-12-31 18:30:07 [INFO]: GET /properties
+2025-12-31 18:32:17 [INFO]: GET /properties
+2025-12-31 19:06:43 [INFO]: GET /properties
+2025-12-31 19:06:56 [INFO]: GET /bookings/tenant
+2025-12-31 19:06:56 [INFO]: Fetching bookings for tenant ID: 5
+2025-12-31 19:06:56 [INFO]: Found 3 bookings for tenant 5
+2025-12-31 19:06:59 [INFO]: GET /bookings/tenant
+2025-12-31 19:06:59 [INFO]: Fetching bookings for tenant ID: 5
+2025-12-31 19:06:59 [INFO]: Found 3 bookings for tenant 5
+2025-12-31 19:07:13 [INFO]: GET /properties
+2025-12-31 19:07:18 [INFO]: POST /auth/login
+2025-12-31 19:07:18 [INFO]: Login attempt for email: sriram2005j@gmail.com
+2025-12-31 19:07:18 [INFO]: Login attempt for email: sriram2005j@gmail.com
+2025-12-31 19:07:18 [INFO]: Fetching user by email: sriram2005j@gmail.com
+2025-12-31 19:07:18 [INFO]: Login successful for userId: 5, rememberMe: false
+2025-12-31 19:07:18 [INFO]: GET /bookings/tenant
+2025-12-31 19:07:18 [INFO]: Fetching bookings for tenant ID: 5
+2025-12-31 19:07:18 [INFO]: Found 3 bookings for tenant 5
+2025-12-31 19:07:23 [INFO]: GET /properties
+2025-12-31 20:03:59 [INFO]: GET /properties
+2025-12-31 20:04:07 [INFO]: GET /bookings/tenant
+2025-12-31 20:04:07 [INFO]: Fetching bookings for tenant ID: 5
+2025-12-31 20:04:07 [INFO]: Found 3 bookings for tenant 5
+2025-12-31 20:04:08 [INFO]: GET /bookings/tenant
+2025-12-31 20:04:08 [INFO]: Fetching bookings for tenant ID: 5
+2025-12-31 20:04:08 [INFO]: Found 3 bookings for tenant 5
+2025-12-31 20:06:56 [INFO]: GET /bookings/tenant
+2025-12-31 20:06:56 [INFO]: Fetching bookings for tenant ID: 5
+2025-12-31 20:06:56 [INFO]: Found 3 bookings for tenant 5
+2025-12-31 20:07:02 [INFO]: GET /bookings/tenant
+2025-12-31 20:07:02 [INFO]: Fetching bookings for tenant ID: 5
+2025-12-31 20:07:02 [INFO]: Found 3 bookings for tenant 5
+2025-12-31 20:07:31 [INFO]: GET /bookings/tenant
+2025-12-31 20:07:31 [INFO]: Fetching bookings for tenant ID: 5
+2025-12-31 20:07:31 [INFO]: Found 3 bookings for tenant 5
+2025-12-31 20:07:45 [INFO]: GET /bookings/tenant
+2025-12-31 20:07:45 [INFO]: Fetching bookings for tenant ID: 5
+2025-12-31 20:07:45 [INFO]: Found 3 bookings for tenant 5
+2025-12-31 20:07:59 [INFO]: GET /bookings/tenant
+2025-12-31 20:07:59 [INFO]: Fetching bookings for tenant ID: 5
+2025-12-31 20:07:59 [INFO]: Found 3 bookings for tenant 5
+2025-12-31 20:08:02 [INFO]: GET /properties
+2025-12-31 20:09:04 [INFO]: GET /properties
+2025-12-31 20:09:11 [INFO]: GET /properties
+2025-12-31 20:09:21 [INFO]: GET /properties
+2025-12-31 20:09:26 [INFO]: GET /properties
+2025-12-31 20:14:02 [INFO]: GET /properties
+2025-12-31 20:23:17 [INFO]: GET /properties
+2025-12-31 20:23:31 [INFO]: GET /properties
+2025-12-31 20:23:39 [INFO]: GET /properties
+2025-12-31 20:23:44 [INFO]: GET /properties
+2025-12-31 20:25:01 [INFO]: GET /properties/25
+2025-12-31 20:25:11 [INFO]: GET /properties
+2025-12-31 20:25:20 [INFO]: GET /properties/8
+2025-12-31 20:28:55 [INFO]: GET /properties
+2025-12-31 20:29:01 [INFO]: POST /auth/login
+2025-12-31 20:29:01 [INFO]: Login attempt for email: chemvarshat22@gmail.com
+2025-12-31 20:29:01 [INFO]: Login attempt for email: chemvarshat22@gmail.com
+2025-12-31 20:29:01 [INFO]: Fetching user by email: chemvarshat22@gmail.com
+2025-12-31 20:29:01 [INFO]: Login successful for userId: 12, rememberMe: false
+2025-12-31 20:29:01 [INFO]: GET /owner/dashboard
+2025-12-31 20:29:01 [INFO]: Fetching dashboard data for owner: 12
+2025-12-31 20:31:36 [INFO]: POST /properties/upload-images
+2025-12-31 20:31:36 [INFO]: Uploaded 1 property images
+2025-12-31 20:31:38 [INFO]: POST /properties
+2025-12-31 20:31:38 [INFO]: Creating property for user 12:
+2025-12-31 20:31:38 [INFO]: Creating property for owner 12: Individual villa
+2025-12-31 20:31:38 [ERROR]: Error creating property: Unknown column 'is_available' in 'field list'
+2025-12-31 20:31:38 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 20:31:38 [ERROR]: Error in createProperty: Unknown column 'is_available' in 'field list'
+2025-12-31 20:31:57 [INFO]: POST /properties
+2025-12-31 20:31:57 [INFO]: Creating property for user 12:
+2025-12-31 20:31:57 [INFO]: Creating property for owner 12: Individual villa
+2025-12-31 20:31:57 [ERROR]: Error creating property: Unknown column 'is_available' in 'field list'
+2025-12-31 20:31:57 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 20:31:57 [ERROR]: Error in createProperty: Unknown column 'is_available' in 'field list'
+2025-12-31 20:33:02 [INFO]: POST /properties/upload-images
+2025-12-31 20:33:02 [INFO]: Uploaded 1 property images
+2025-12-31 20:33:04 [INFO]: POST /properties
+2025-12-31 20:33:04 [INFO]: Creating property for user 12:
+2025-12-31 20:33:04 [INFO]: Creating property for owner 12: Individual house
+2025-12-31 20:33:04 [ERROR]: Error creating property: Unknown column 'is_available' in 'field list'
+2025-12-31 20:33:04 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 20:33:04 [ERROR]: Error in createProperty: Unknown column 'is_available' in 'field list'
+2025-12-31 20:33:40 [INFO]: GET /properties
+2025-12-31 20:33:44 [INFO]: GET /properties
+2025-12-31 20:33:47 [INFO]: GET /properties/26
+2025-12-31 20:34:29 [INFO]: GET /properties
+2025-12-31 20:35:50 [INFO]: GET /properties
+2025-12-31 20:36:46 [INFO]: GET /properties
+2025-12-31 20:36:49 [INFO]: GET /properties/10
+2025-12-31 20:37:43 [INFO]: GET /properties/10
+2025-12-31 20:37:53 [INFO]: GET /properties
+2025-12-31 20:38:02 [INFO]: POST /auth/login
+2025-12-31 20:38:02 [INFO]: Login attempt for email: sriram2005j@gmail.com
+2025-12-31 20:38:02 [INFO]: Login attempt for email: sriram2005j@gmail.com
+2025-12-31 20:38:02 [INFO]: Fetching user by email: sriram2005j@gmail.com
+2025-12-31 20:38:03 [INFO]: Login successful for userId: 5, rememberMe: true
+2025-12-31 20:38:03 [INFO]: GET /bookings/tenant
+2025-12-31 20:38:03 [INFO]: Fetching bookings for tenant ID: 5
+2025-12-31 20:38:03 [INFO]: Found 3 bookings for tenant 5
+2025-12-31 20:38:05 [INFO]: GET /properties
+2025-12-31 20:38:10 [INFO]: GET /properties/26
+2025-12-31 20:38:17 [INFO]: GET /properties
+2025-12-31 20:38:21 [INFO]: GET /properties
+2025-12-31 20:39:03 [INFO]: GET /properties
+2025-12-31 20:39:26 [INFO]: GET /properties
+2025-12-31 20:39:37 [INFO]: GET /properties
+2025-12-31 20:41:22 [INFO]: GET /properties
+2025-12-31 20:42:25 [INFO]: POST /auth/login
+2025-12-31 20:42:25 [INFO]: Login attempt for email: chemvarshat22@gmail.com
+2025-12-31 20:42:25 [INFO]: Login attempt for email: chemvarshat22@gmail.com
+2025-12-31 20:42:25 [INFO]: Fetching user by email: chemvarshat22@gmail.com
+2025-12-31 20:42:25 [INFO]: Login successful for userId: 12, rememberMe: false
+2025-12-31 20:42:25 [INFO]: GET /owner/dashboard
+2025-12-31 20:42:25 [INFO]: Fetching dashboard data for owner: 12
+2025-12-31 20:42:39 [INFO]: GET /bookings/owner
+2025-12-31 20:42:39 [INFO]: Getting bookings for owner ID: 12
+2025-12-31 20:42:39 [INFO]: Found 3 bookings for owner 12
+2025-12-31 20:42:49 [INFO]: PUT /bookings/7/status
+2025-12-31 20:42:49 [ERROR]: Transaction failed: Unknown column 'p.is_available' in 'field list'
+2025-12-31 20:42:49 [ERROR]: Error updating booking status: Unknown column 'p.is_available' in 'field list'
+2025-12-31 20:43:06 [INFO]: PUT /bookings/7/status
+2025-12-31 20:43:06 [ERROR]: Transaction failed: Unknown column 'p.is_available' in 'field list'
+2025-12-31 20:43:06 [ERROR]: Error updating booking status: Unknown column 'p.is_available' in 'field list'
+2025-12-31 20:44:51 [INFO]: PUT /bookings/7/status
+2025-12-31 20:44:51 [ERROR]: Transaction failed: Unknown column 'p.is_available' in 'field list'
+2025-12-31 20:44:51 [ERROR]: Error updating booking status: Unknown column 'p.is_available' in 'field list'
+2025-12-31 20:46:35 [INFO]: PUT /bookings/7/status
+2025-12-31 20:46:35 [ERROR]: Transaction failed: Unknown column 'p.is_available' in 'field list'
+2025-12-31 20:46:35 [ERROR]: Error updating booking status: Unknown column 'p.is_available' in 'field list'
+2025-12-31 20:48:26 [INFO]: PUT /bookings/7/status
+2025-12-31 20:48:26 [ERROR]: Transaction failed: Unknown column 'p.is_available' in 'field list'
+2025-12-31 20:48:26 [ERROR]: Error updating booking status: Unknown column 'p.is_available' in 'field list'
+2025-12-31 20:50:13 [INFO]: GET /bookings/owner
+2025-12-31 20:50:13 [INFO]: Getting bookings for owner ID: 12
+2025-12-31 20:50:13 [INFO]: Found 3 bookings for owner 12
+2025-12-31 20:50:22 [INFO]: PUT /bookings/7/status
+2025-12-31 20:50:22 [ERROR]: Transaction failed: Unknown column 'p.is_available' in 'field list'
+2025-12-31 20:50:22 [ERROR]: Error updating booking status: Unknown column 'p.is_available' in 'field list'
+2025-12-31 20:52:22 [INFO]: GET /owner/dashboard
+2025-12-31 20:52:22 [INFO]: Fetching dashboard data for owner: 12
+2025-12-31 20:54:58 [INFO]: POST /properties/upload-images
+2025-12-31 20:54:58 [INFO]: Uploaded 1 property images
+2025-12-31 20:55:00 [INFO]: POST /properties
+2025-12-31 20:55:00 [INFO]: Creating property for user 12:
+2025-12-31 20:55:00 [INFO]: Creating property for owner 12: best villa
+2025-12-31 20:55:00 [ERROR]: Error creating property: Unknown column 'is_available' in 'field list'
+2025-12-31 20:55:00 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 20:55:00 [ERROR]: Error in createProperty: Unknown column 'is_available' in 'field list'
+2025-12-31 20:55:04 [INFO]: POST /properties
+2025-12-31 20:55:04 [INFO]: Creating property for user 12:
+2025-12-31 20:55:04 [INFO]: Creating property for owner 12: best villa
+2025-12-31 20:55:04 [ERROR]: Error creating property: Unknown column 'is_available' in 'field list'
+2025-12-31 20:55:04 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 20:55:04 [ERROR]: Error in createProperty: Unknown column 'is_available' in 'field list'
+2025-12-31 20:56:25 [INFO]: POST /properties
+2025-12-31 20:56:25 [INFO]: Creating property for user 12:
+2025-12-31 20:56:25 [INFO]: Creating property for owner 12: best villa
+2025-12-31 20:56:25 [ERROR]: Error creating property: Unknown column 'is_available' in 'field list'
+2025-12-31 20:56:25 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 20:56:25 [ERROR]: Error in createProperty: Unknown column 'is_available' in 'field list'
+2025-12-31 20:56:44 [INFO]: POST /properties
+2025-12-31 20:56:44 [INFO]: Creating property for user 12:
+2025-12-31 20:56:44 [INFO]: Creating property for owner 12: best villa
+2025-12-31 20:56:44 [ERROR]: Error creating property: Unknown column 'is_available' in 'field list'
+2025-12-31 20:56:44 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 20:56:44 [ERROR]: Error in createProperty: Unknown column 'is_available' in 'field list'
+2025-12-31 20:57:55 [INFO]: POST /properties
+2025-12-31 20:57:55 [INFO]: Creating property for user 12:
+2025-12-31 20:57:55 [INFO]: Creating property for owner 12: best villa
+2025-12-31 20:57:55 [ERROR]: Error creating property: Unknown column 'is_available' in 'field list'
+2025-12-31 20:57:55 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 20:57:55 [ERROR]: Error in createProperty: Unknown column 'is_available' in 'field list'
+2025-12-31 20:58:08 [INFO]: POST /properties
+2025-12-31 20:58:08 [INFO]: Creating property for user 12:
+2025-12-31 20:58:08 [INFO]: Creating property for owner 12: best villa
+2025-12-31 20:58:08 [ERROR]: Error creating property: Unknown column 'is_available' in 'field list'
+2025-12-31 20:58:08 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 20:58:08 [ERROR]: Error in createProperty: Unknown column 'is_available' in 'field list'
+2025-12-31 20:58:43 [INFO]: POST /properties
+2025-12-31 20:58:43 [INFO]: Creating property for user 12:
+2025-12-31 20:58:43 [INFO]: Creating property for owner 12: best villa
+2025-12-31 20:58:43 [ERROR]: Error creating property: Unknown column 'is_available' in 'field list'
+2025-12-31 20:58:43 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 20:58:43 [ERROR]: Error in createProperty: Unknown column 'is_available' in 'field list'
+2025-12-31 20:59:27 [INFO]: POST /properties
+2025-12-31 20:59:27 [INFO]: Creating property for user 12:
+2025-12-31 20:59:27 [INFO]: Creating property for owner 12: best villa
+2025-12-31 20:59:27 [ERROR]: Error creating property: Unknown column 'is_available' in 'field list'
+2025-12-31 20:59:27 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 20:59:27 [ERROR]: Error in createProperty: Unknown column 'is_available' in 'field list'
+2025-12-31 21:00:32 [INFO]: POST /properties/upload-images
+2025-12-31 21:00:32 [INFO]: Uploaded 1 property images
+2025-12-31 21:00:35 [INFO]: POST /properties
+2025-12-31 21:00:35 [INFO]: Creating property for user 12:
+2025-12-31 21:00:35 [INFO]: Creating property for owner 12: Super duper
+2025-12-31 21:00:35 [ERROR]: Error creating property: Unknown column 'is_available' in 'field list'
+2025-12-31 21:00:35 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 21:00:35 [ERROR]: Error in createProperty: Unknown column 'is_available' in 'field list'
+2025-12-31 21:02:47 [INFO]: POST /properties/upload-images
+2025-12-31 21:02:47 [INFO]: Uploaded 1 property images
+2025-12-31 21:02:55 [INFO]: POST /properties
+2025-12-31 21:02:55 [INFO]: Creating property for user 12:
+2025-12-31 21:02:55 [INFO]: Creating property for owner 12: Super duper
+2025-12-31 21:02:55 [ERROR]: Error creating property: Unknown column 'is_available' in 'field list'
+2025-12-31 21:02:55 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 21:02:55 [ERROR]: Error in createProperty: Unknown column 'is_available' in 'field list'
+2025-12-31 21:11:54 [INFO]: POST /properties
+2025-12-31 21:11:54 [INFO]: Creating property for user 12:
+2025-12-31 21:11:54 [INFO]: Creating property for owner 12: Super duper
+2025-12-31 21:11:54 [ERROR]: Error creating property: Unknown column 'is_available' in 'field list'
+2025-12-31 21:11:54 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 21:11:54 [ERROR]: Error in createProperty: Unknown column 'is_available' in 'field list'
+2025-12-31 21:12:03 [INFO]: POST /properties
+2025-12-31 21:12:03 [INFO]: Creating property for user 12:
+2025-12-31 21:12:03 [INFO]: Creating property for owner 12: Super duper
+2025-12-31 21:12:03 [ERROR]: Error creating property: Unknown column 'is_available' in 'field list'
+2025-12-31 21:12:03 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 21:12:03 [ERROR]: Error in createProperty: Unknown column 'is_available' in 'field list'
+2025-12-31 21:44:14 [INFO]: POST /properties/upload-images
+2025-12-31 21:44:14 [INFO]: Uploaded 1 property images
+2025-12-31 21:44:18 [INFO]: POST /properties
+2025-12-31 21:44:18 [INFO]: Creating property for user 12:
+2025-12-31 21:44:18 [INFO]: Creating property for owner 12: Vast house
+2025-12-31 21:44:18 [ERROR]: Error creating property: Unknown column 'is_available' in 'field list'
+2025-12-31 21:44:18 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 21:44:18 [ERROR]: Error in createProperty: Unknown column 'is_available' in 'field list'
+2025-12-31 21:48:12 [INFO]: POST /properties
+2025-12-31 21:48:12 [INFO]: Creating property for user 12:
+2025-12-31 21:48:12 [INFO]: Creating property for owner 12: Vast house
+2025-12-31 21:48:12 [ERROR]: Error creating property: Unknown column 'is_available' in 'field list'
+2025-12-31 21:48:12 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 21:48:12 [ERROR]: Error in createProperty: Unknown column 'is_available' in 'field list'
+2025-12-31 21:48:16 [INFO]: POST /properties
+2025-12-31 21:48:16 [INFO]: Creating property for user 12:
+2025-12-31 21:48:16 [INFO]: Creating property for owner 12: Vast house
+2025-12-31 21:48:16 [ERROR]: Error creating property: Unknown column 'is_available' in 'field list'
+2025-12-31 21:48:16 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 21:48:16 [ERROR]: Error in createProperty: Unknown column 'is_available' in 'field list'
+2025-12-31 21:48:28 [INFO]: SIGINT received, shutting down gracefully
+2025-12-31 21:48:38 [INFO]: Email service initialized with user: sriram2005j@gmail.com
+2025-12-31 21:48:38 [INFO]: MySQL database connected successfully
+2025-12-31 21:48:38 [INFO]: MySQL database connected successfully
+2025-12-31 21:48:38 [INFO]: Database connection established
+2025-12-31 21:48:38 [INFO]: Server running on port 3001
+2025-12-31 21:48:38 [INFO]: Health check available at http://localhost:3001/health
+2025-12-31 21:49:13 [INFO]: POST /properties/upload-images
+2025-12-31 21:49:13 [INFO]: Uploaded 1 property images
+2025-12-31 21:49:17 [INFO]: POST /properties
+2025-12-31 21:49:17 [INFO]: Creating property for user 12:
+2025-12-31 21:49:17 [INFO]: Creating property for owner 12: Good villa
+2025-12-31 21:49:17 [ERROR]: Error creating property: Unknown column 'is_available' in 'field list'
+2025-12-31 21:49:17 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 21:49:17 [ERROR]: Error in createProperty: Unknown column 'is_available' in 'field list'
+2025-12-31 21:51:51 [INFO]: POST /properties/upload-images
+2025-12-31 21:51:51 [INFO]: Uploaded 1 property images
+2025-12-31 21:51:56 [INFO]: POST /properties
+2025-12-31 21:51:56 [INFO]: Creating property for user 12:
+2025-12-31 21:51:56 [INFO]: Creating property for owner 12: Good villa
+2025-12-31 21:51:56 [ERROR]: Error creating property: Unknown column 'is_available' in 'field list'
+2025-12-31 21:51:56 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 21:51:56 [ERROR]: Error in createProperty: Unknown column 'is_available' in 'field list'
+2025-12-31 22:02:10 [INFO]: GET /properties
+2025-12-31 22:02:13 [INFO]: GET /owner/dashboard
+2025-12-31 22:02:13 [INFO]: Fetching dashboard data for owner: 12
+2025-12-31 22:02:18 [INFO]: GET /bookings/owner
+2025-12-31 22:02:18 [INFO]: Getting bookings for owner ID: 12
+2025-12-31 22:02:18 [INFO]: Found 3 bookings for owner 12
+2025-12-31 22:02:21 [INFO]: PUT /bookings/7/status
+2025-12-31 22:02:21 [INFO]: Booking 7 status updated to approved
+2025-12-31 22:02:21 [INFO]: GET /bookings/owner
+2025-12-31 22:02:21 [INFO]: Getting bookings for owner ID: 12
+2025-12-31 22:02:21 [INFO]: Found 3 bookings for owner 12
+2025-12-31 22:02:33 [INFO]: PUT /bookings/6/status
+2025-12-31 22:02:33 [ERROR]: Transaction failed: Unknown column 'p.is_available' in 'field list'
+2025-12-31 22:02:33 [ERROR]: Error updating booking status: Unknown column 'p.is_available' in 'field list'
+2025-12-31 22:02:40 [INFO]: GET /owner/dashboard
+2025-12-31 22:02:40 [INFO]: Fetching dashboard data for owner: 12
+2025-12-31 22:03:59 [INFO]: POST /properties/upload-images
+2025-12-31 22:03:59 [INFO]: Uploaded 1 property images
+2025-12-31 22:04:01 [INFO]: POST /properties
+2025-12-31 22:04:01 [INFO]: Creating property for user 12:
+2025-12-31 22:04:01 [INFO]: Creating property for owner 12: Good villla
+2025-12-31 22:04:01 [ERROR]: Error creating property: Unknown column 'is_available' in 'field list'
+2025-12-31 22:04:01 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 22:04:01 [ERROR]: Error in createProperty: Unknown column 'is_available' in 'field list'
+2025-12-31 22:04:06 [INFO]: POST /properties
+2025-12-31 22:04:06 [INFO]: Creating property for user 12:
+2025-12-31 22:04:06 [INFO]: Creating property for owner 12: Good villla
+2025-12-31 22:04:06 [ERROR]: Error creating property: Unknown column 'is_available' in 'field list'
+2025-12-31 22:04:06 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 22:04:06 [ERROR]: Error in createProperty: Unknown column 'is_available' in 'field list'
+2025-12-31 22:04:14 [INFO]: POST /properties
+2025-12-31 22:04:14 [INFO]: Creating property for user 12:
+2025-12-31 22:04:14 [INFO]: Creating property for owner 12: Good villla
+2025-12-31 22:04:14 [ERROR]: Error creating property: Unknown column 'is_available' in 'field list'
+2025-12-31 22:04:14 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 22:04:14 [ERROR]: Error in createProperty: Unknown column 'is_available' in 'field list'
+2025-12-31 22:10:10 [INFO]: POST /properties/upload-images
+2025-12-31 22:10:10 [INFO]: Uploaded 1 property images
+2025-12-31 22:10:13 [INFO]: POST /properties
+2025-12-31 22:10:13 [INFO]: Creating property for user 12:
+2025-12-31 22:10:13 [INFO]: Creating property for owner 12: Super villa 2
+2025-12-31 22:10:13 [ERROR]: Error creating property: Unknown column 'is_available' in 'field list'
+2025-12-31 22:10:13 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 22:10:13 [ERROR]: Error in createProperty: Unknown column 'is_available' in 'field list'
+2025-12-31 22:14:39 [INFO]: POST /properties/upload-images
+2025-12-31 22:14:39 [INFO]: Uploaded 1 property images
+2025-12-31 22:14:46 [INFO]: POST /properties
+2025-12-31 22:14:46 [INFO]: Creating property for user 12:
+2025-12-31 22:14:46 [INFO]: Creating property for owner 12: Best Villa
+2025-12-31 22:14:46 [ERROR]: Error creating property: Unknown column 'is_available' in 'field list'
+2025-12-31 22:14:46 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 22:14:46 [ERROR]: Error in createProperty: Unknown column 'is_available' in 'field list'
+2025-12-31 22:21:31 [INFO]: POST /properties/upload-images
+2025-12-31 22:21:31 [INFO]: Uploaded 1 property images
+2025-12-31 22:21:33 [INFO]: POST /properties
+2025-12-31 22:21:33 [INFO]: Creating property for user 12:
+2025-12-31 22:21:33 [INFO]: Creating property for owner 12: Villa good
+2025-12-31 22:21:33 [ERROR]: Error creating property: Unknown column 'is_available' in 'field list'
+2025-12-31 22:21:33 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 22:21:33 [ERROR]: Error in createProperty: Unknown column 'is_available' in 'field list'
+2025-12-31 22:25:18 [INFO]: SIGINT received, shutting down gracefully
+2025-12-31 22:25:23 [INFO]: Email service initialized with user: sriram2005j@gmail.com
+2025-12-31 22:25:23 [INFO]: MySQL database connected successfully
+2025-12-31 22:25:23 [INFO]: MySQL database connected successfully
+2025-12-31 22:25:23 [INFO]: Database connection established
+2025-12-31 22:25:23 [INFO]: Server running on port 3001
+2025-12-31 22:25:23 [INFO]: Health check available at http://localhost:3001/health
+2025-12-31 22:26:07 [INFO]: POST /properties/upload-images
+2025-12-31 22:26:07 [INFO]: Uploaded 1 property images
+2025-12-31 22:26:10 [INFO]: POST /properties
+2025-12-31 22:26:10 [INFO]: Creating property for user 12:
+2025-12-31 22:26:10 [INFO]: Creating property for owner 12: Super villa
+2025-12-31 22:26:10 [ERROR]: Error creating property: Unknown column 'is_available' in 'field list'
+2025-12-31 22:26:10 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 22:26:10 [ERROR]: Error in createProperty: Unknown column 'is_available' in 'field list'
+2025-12-31 22:27:21 [INFO]: POST /properties
+2025-12-31 22:27:21 [INFO]: Creating property for user 12:
+2025-12-31 22:27:21 [INFO]: Creating property for owner 12: Super villa
+2025-12-31 22:27:21 [ERROR]: Error creating property: Unknown column 'is_available' in 'field list'
+2025-12-31 22:27:21 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 22:27:21 [ERROR]: Error in createProperty: Unknown column 'is_available' in 'field list'
+2025-12-31 22:27:26 [INFO]: POST /properties
+2025-12-31 22:27:26 [INFO]: Creating property for user 12:
+2025-12-31 22:27:26 [INFO]: Creating property for owner 12: Super villa
+2025-12-31 22:27:26 [ERROR]: Error creating property: Unknown column 'is_available' in 'field list'
+2025-12-31 22:27:26 [ERROR]: Transaction failed: Unknown column 'is_available' in 'field list'
+2025-12-31 22:27:26 [ERROR]: Error in createProperty: Unknown column 'is_available' in 'field list'
+2025-12-31 22:37:38 [INFO]: Email service initialized with user: sriram2005j@gmail.com
+2025-12-31 22:37:38 [INFO]: MySQL database connected successfully
+2025-12-31 22:37:38 [INFO]: Database connection established
+2025-12-31 22:37:38 [INFO]: Server running on port 3001
+2025-12-31 22:37:38 [INFO]: Health check available at http://localhost:3001/health
+2025-12-31 22:37:38 [INFO]: MySQL database connected successfully
+2025-12-31 22:38:22 [INFO]: GET /properties
+2025-12-31 22:40:12 [INFO]: Email service initialized with user: sriram2005j@gmail.com
+2025-12-31 22:40:13 [INFO]: MySQL database connected successfully
+2025-12-31 22:40:13 [INFO]: MySQL database connected successfully
+2025-12-31 22:40:13 [INFO]: Database connection established
+2025-12-31 22:40:13 [INFO]: Server running on port 3001
+2025-12-31 22:40:13 [INFO]: Health check available at http://localhost:3001/health
+2025-12-31 22:41:12 [INFO]: POST /auth/login
+2025-12-31 22:41:12 [INFO]: Login attempt for email: chemvarshat22@gmail.com
+2025-12-31 22:41:12 [INFO]: Login attempt for email: chemvarshat22@gmail.com
+2025-12-31 22:41:12 [INFO]: Fetching user by email: chemvarshat22@gmail.com
+2025-12-31 22:41:12 [INFO]: Login successful for userId: 12, rememberMe: true
+2025-12-31 22:41:12 [INFO]: GET /owner/dashboard
+2025-12-31 22:41:12 [INFO]: === AUTH MIDDLEWARE START ===
+2025-12-31 22:41:12 [INFO]: Request URL:
+2025-12-31 22:41:12 [INFO]: Request method:
+2025-12-31 22:41:12 [INFO]: Authorization header:
+2025-12-31 22:41:12 [INFO]: Token found, verifying...
+2025-12-31 22:41:12 [INFO]: Token verified successfully:
+2025-12-31 22:41:12 [INFO]: === AUTH MIDDLEWARE SUCCESS ===
+2025-12-31 22:41:12 [INFO]: === ROLE MIDDLEWARE START ===
+2025-12-31 22:41:12 [INFO]: Required roles:
+2025-12-31 22:41:12 [INFO]: User from request:
+2025-12-31 22:41:12 [INFO]: Role check passed for user 12 with role OWNER
+2025-12-31 22:41:12 [INFO]: === ROLE MIDDLEWARE SUCCESS ===
+2025-12-31 22:41:12 [INFO]: Fetching dashboard data for owner: 12
+2025-12-31 22:41:22 [INFO]: GET /bookings/owner
+2025-12-31 22:41:22 [INFO]: === AUTH MIDDLEWARE START ===
+2025-12-31 22:41:22 [INFO]: Request URL:
+2025-12-31 22:41:22 [INFO]: Request method:
+2025-12-31 22:41:22 [INFO]: Authorization header:
+2025-12-31 22:41:22 [INFO]: Token found, verifying...
+2025-12-31 22:41:22 [INFO]: Token verified successfully:
+2025-12-31 22:41:22 [INFO]: === AUTH MIDDLEWARE SUCCESS ===
+2025-12-31 22:41:22 [INFO]: Getting bookings for owner ID: 12
+2025-12-31 22:41:22 [INFO]: Found 3 bookings for owner 12
+2025-12-31 22:41:33 [INFO]: PUT /bookings/6/status
+2025-12-31 22:41:33 [INFO]: === AUTH MIDDLEWARE START ===
+2025-12-31 22:41:33 [INFO]: Request URL:
+2025-12-31 22:41:33 [INFO]: Request method:
+2025-12-31 22:41:33 [INFO]: Authorization header:
+2025-12-31 22:41:33 [INFO]: Token found, verifying...
+2025-12-31 22:41:33 [INFO]: Token verified successfully:
+2025-12-31 22:41:33 [INFO]: === AUTH MIDDLEWARE SUCCESS ===
+2025-12-31 22:41:33 [INFO]: Updating booking 6 status to Rejected by user 12
+2025-12-31 22:41:33 [INFO]: Updating booking 6 to status rejected by owner 12
+2025-12-31 22:41:33 [INFO]: Property 24 made available after booking rejection
+2025-12-31 22:41:33 [INFO]: Booking 6 status updated to rejected successfully
+2025-12-31 22:41:33 [INFO]: GET /bookings/owner
+2025-12-31 22:41:33 [INFO]: === AUTH MIDDLEWARE START ===
+2025-12-31 22:41:33 [INFO]: Request URL:
+2025-12-31 22:41:33 [INFO]: Request method:
+2025-12-31 22:41:33 [INFO]: Authorization header:
+2025-12-31 22:41:33 [INFO]: Token found, verifying...
+2025-12-31 22:41:33 [INFO]: Token verified successfully:
+2025-12-31 22:41:33 [INFO]: === AUTH MIDDLEWARE SUCCESS ===
+2025-12-31 22:41:33 [INFO]: Getting bookings for owner ID: 12
+2025-12-31 22:41:33 [INFO]: Found 3 bookings for owner 12
+2025-12-31 22:41:42 [INFO]: GET /properties
+2025-12-31 22:41:42 [INFO]: GET /properties
+2025-12-31 22:41:45 [INFO]: GET /properties
+2025-12-31 22:41:45 [INFO]: GET /properties
+2025-12-31 22:41:56 [INFO]: GET /properties/27
+2025-12-31 22:42:00 [INFO]: GET /properties
+2025-12-31 22:42:00 [INFO]: GET /properties
+2025-12-31 22:42:13 [INFO]: GET /properties/23
+2025-12-31 22:42:22 [INFO]: GET /owner/dashboard
+2025-12-31 22:42:22 [INFO]: === AUTH MIDDLEWARE START ===
+2025-12-31 22:42:22 [INFO]: Request URL:
+2025-12-31 22:42:22 [INFO]: Request method:
+2025-12-31 22:42:22 [INFO]: Authorization header:
+2025-12-31 22:42:22 [INFO]: Token found, verifying...
+2025-12-31 22:42:22 [INFO]: Token verified successfully:
+2025-12-31 22:42:22 [INFO]: === AUTH MIDDLEWARE SUCCESS ===
+2025-12-31 22:42:22 [INFO]: === ROLE MIDDLEWARE START ===
+2025-12-31 22:42:22 [INFO]: Required roles:
+2025-12-31 22:42:22 [INFO]: User from request:
+2025-12-31 22:42:22 [INFO]: Role check passed for user 12 with role OWNER
+2025-12-31 22:42:22 [INFO]: === ROLE MIDDLEWARE SUCCESS ===
+2025-12-31 22:42:22 [INFO]: Fetching dashboard data for owner: 12
+2025-12-31 22:42:33 [INFO]: GET /bookings/owner/tenants
+2025-12-31 22:42:33 [INFO]: === AUTH MIDDLEWARE START ===
+2025-12-31 22:42:33 [INFO]: Request URL:
+2025-12-31 22:42:33 [INFO]: Request method:
+2025-12-31 22:42:33 [INFO]: Authorization header:
+2025-12-31 22:42:33 [INFO]: Token found, verifying...
+2025-12-31 22:42:33 [INFO]: Token verified successfully:
+2025-12-31 22:42:33 [INFO]: === AUTH MIDDLEWARE SUCCESS ===
+2025-12-31 22:42:33 [INFO]: Getting tenants for owner ID: 12
+2025-12-31 22:42:33 [INFO]: Found 2 approved tenants for owner 12
+2025-12-31 22:42:41 [INFO]: GET /properties
+2025-12-31 22:42:41 [INFO]: GET /properties
+2025-12-31 22:42:45 [INFO]: GET /properties
+2025-12-31 22:42:45 [INFO]: GET /properties
+2025-12-31 22:42:54 [INFO]: GET /owner/dashboard
+2025-12-31 22:42:54 [INFO]: === AUTH MIDDLEWARE START ===
+2025-12-31 22:42:54 [INFO]: Request URL:
+2025-12-31 22:42:54 [INFO]: Request method:
+2025-12-31 22:42:54 [INFO]: Authorization header:
+2025-12-31 22:42:54 [INFO]: Token found, verifying...
+2025-12-31 22:42:54 [INFO]: Token verified successfully:
+2025-12-31 22:42:54 [INFO]: === AUTH MIDDLEWARE SUCCESS ===
+2025-12-31 22:42:54 [INFO]: === ROLE MIDDLEWARE START ===
+2025-12-31 22:42:54 [INFO]: Required roles:
+2025-12-31 22:42:54 [INFO]: User from request:
+2025-12-31 22:42:54 [INFO]: Role check passed for user 12 with role OWNER
+2025-12-31 22:42:54 [INFO]: === ROLE MIDDLEWARE SUCCESS ===
+2025-12-31 22:42:54 [INFO]: Fetching dashboard data for owner: 12
+2025-12-31 22:44:56 [INFO]: POST /properties/upload-images
+2025-12-31 22:44:56 [INFO]: === AUTH MIDDLEWARE START ===
+2025-12-31 22:44:56 [INFO]: Request URL:
+2025-12-31 22:44:56 [INFO]: Request method:
+2025-12-31 22:44:56 [INFO]: Authorization header:
+2025-12-31 22:44:56 [INFO]: Token found, verifying...
+2025-12-31 22:44:56 [INFO]: Token verified successfully:
+2025-12-31 22:44:56 [INFO]: === AUTH MIDDLEWARE SUCCESS ===
+2025-12-31 22:44:56 [INFO]: === ROLE MIDDLEWARE START ===
+2025-12-31 22:44:56 [INFO]: Required roles:
+2025-12-31 22:44:56 [INFO]: User from request:
+2025-12-31 22:44:56 [INFO]: Role check passed for user 12 with role OWNER
+2025-12-31 22:44:56 [INFO]: === ROLE MIDDLEWARE SUCCESS ===
+2025-12-31 22:44:56 [INFO]: Uploaded 1 property images
+2025-12-31 22:45:00 [INFO]: POST /properties
+2025-12-31 22:45:00 [INFO]: === AUTH MIDDLEWARE START ===
+2025-12-31 22:45:00 [INFO]: Request URL:
+2025-12-31 22:45:00 [INFO]: Request method:
+2025-12-31 22:45:00 [INFO]: Authorization header:
+2025-12-31 22:45:00 [INFO]: Token found, verifying...
+2025-12-31 22:45:00 [INFO]: Token verified successfully:
+2025-12-31 22:45:00 [INFO]: === AUTH MIDDLEWARE SUCCESS ===
+2025-12-31 22:45:00 [INFO]: === ROLE MIDDLEWARE START ===
+2025-12-31 22:45:00 [INFO]: Required roles:
+2025-12-31 22:45:00 [INFO]: User from request:
+2025-12-31 22:45:00 [INFO]: Role check passed for user 12 with role OWNER
+2025-12-31 22:45:00 [INFO]: === ROLE MIDDLEWARE SUCCESS ===
+2025-12-31 22:45:00 [INFO]: === CREATE PROPERTY REQUEST START ===
+2025-12-31 22:45:00 [INFO]: Request headers:
+2025-12-31 22:45:00 [INFO]: User from token:
+2025-12-31 22:45:00 [INFO]: Raw request body:
+2025-12-31 22:45:00 [INFO]: Calling propertyService.createProperty with userId: 12
+2025-12-31 22:45:00 [INFO]: === PROPERTY SERVICE CREATE START ===
+2025-12-31 22:45:00 [INFO]: Owner ID: 12
+2025-12-31 22:45:00 [INFO]: Property data received:
+2025-12-31 22:45:00 [INFO]: Starting property data validation...
+2025-12-31 22:45:00 [INFO]: Property data validation passed
+2025-12-31 22:45:00 [INFO]: Creating property for owner 12: Modern Downtown Apartment
+2025-12-31 22:45:00 [INFO]: Processed values:
+2025-12-31 22:45:00 [INFO]: SQL Query:
+2025-12-31 22:45:00 [INFO]: SQL Values:
+2025-12-31 22:45:00 [INFO]: Executing database insert...
+2025-12-31 22:45:00 [ERROR]: === PROPERTY SERVICE CREATE ERROR ===
+2025-12-31 22:45:00 [ERROR]: Error creating property: (intermediate value) is not iterable
+2025-12-31 22:45:00 [ERROR]: Error stack:
+2025-12-31 22:45:00 [ERROR]: Error code:
+2025-12-31 22:45:00 [ERROR]: Error errno:
+2025-12-31 22:45:00 [ERROR]: Error sqlMessage:
+2025-12-31 22:45:00 [ERROR]: Error sqlState:
+2025-12-31 22:45:00 [ERROR]: === CREATE PROPERTY REQUEST ERROR ===
+2025-12-31 22:45:00 [ERROR]: Error in createProperty controller: (intermediate value) is not iterable
+2025-12-31 22:45:00 [ERROR]: Error stack:
+2025-12-31 22:45:00 [ERROR]: Error details: (intermediate value) is not iterable
+2025-12-31 23:02:08 [INFO]: POST /properties
+2025-12-31 23:02:08 [INFO]: === AUTH MIDDLEWARE START ===
+2025-12-31 23:02:08 [INFO]: Request URL:
+2025-12-31 23:02:08 [INFO]: Request method:
+2025-12-31 23:02:08 [INFO]: Authorization header:
+2025-12-31 23:02:08 [INFO]: Token found, verifying...
+2025-12-31 23:02:08 [INFO]: Token verified successfully:
+2025-12-31 23:02:08 [INFO]: === AUTH MIDDLEWARE SUCCESS ===
+2025-12-31 23:02:08 [INFO]: === ROLE MIDDLEWARE START ===
+2025-12-31 23:02:08 [INFO]: Required roles:
+2025-12-31 23:02:08 [INFO]: User from request:
+2025-12-31 23:02:08 [INFO]: Role check passed for user 12 with role OWNER
+2025-12-31 23:02:08 [INFO]: === ROLE MIDDLEWARE SUCCESS ===
+2025-12-31 23:02:08 [INFO]: === CREATE PROPERTY REQUEST START ===
+2025-12-31 23:02:08 [INFO]: Request headers:
+2025-12-31 23:02:08 [INFO]: User from token:
+2025-12-31 23:02:08 [INFO]: Raw request body:
+2025-12-31 23:02:08 [INFO]: Calling propertyService.createProperty with userId: 12
+2025-12-31 23:02:08 [INFO]: === PROPERTY SERVICE CREATE START ===
+2025-12-31 23:02:08 [INFO]: Owner ID: 12
+2025-12-31 23:02:08 [INFO]: Property data received:
+2025-12-31 23:02:08 [INFO]: Starting property data validation...
+2025-12-31 23:02:08 [INFO]: Property data validation passed
+2025-12-31 23:02:08 [INFO]: Creating property for owner 12: Modern Downtown Apartment
+2025-12-31 23:02:08 [INFO]: Processed values:
+2025-12-31 23:02:08 [INFO]: SQL Query:
+2025-12-31 23:02:08 [INFO]: SQL Values:
+2025-12-31 23:02:08 [INFO]: Executing database insert...
+2025-12-31 23:02:08 [ERROR]: === PROPERTY SERVICE CREATE ERROR ===
+2025-12-31 23:02:08 [ERROR]: Error creating property: (intermediate value) is not iterable
+2025-12-31 23:02:08 [ERROR]: Error stack:
+2025-12-31 23:02:08 [ERROR]: Error code:
+2025-12-31 23:02:08 [ERROR]: Error errno:
+2025-12-31 23:02:08 [ERROR]: Error sqlMessage:
+2025-12-31 23:02:08 [ERROR]: Error sqlState:
+2025-12-31 23:02:08 [ERROR]: === CREATE PROPERTY REQUEST ERROR ===
+2025-12-31 23:02:08 [ERROR]: Error in createProperty controller: (intermediate value) is not iterable
+2025-12-31 23:02:08 [ERROR]: Error stack:
+2025-12-31 23:02:08 [ERROR]: Error details: (intermediate value) is not iterable
+2025-12-31 23:02:14 [INFO]: POST /properties
+2025-12-31 23:02:14 [INFO]: === AUTH MIDDLEWARE START ===
+2025-12-31 23:02:14 [INFO]: Request URL:
+2025-12-31 23:02:14 [INFO]: Request method:
+2025-12-31 23:02:14 [INFO]: Authorization header:
+2025-12-31 23:02:14 [INFO]: Token found, verifying...
+2025-12-31 23:02:14 [INFO]: Token verified successfully:
+2025-12-31 23:02:14 [INFO]: === AUTH MIDDLEWARE SUCCESS ===
+2025-12-31 23:02:14 [INFO]: === ROLE MIDDLEWARE START ===
+2025-12-31 23:02:14 [INFO]: Required roles:
+2025-12-31 23:02:14 [INFO]: User from request:
+2025-12-31 23:02:14 [INFO]: Role check passed for user 12 with role OWNER
+2025-12-31 23:02:14 [INFO]: === ROLE MIDDLEWARE SUCCESS ===
+2025-12-31 23:02:14 [INFO]: === CREATE PROPERTY REQUEST START ===
+2025-12-31 23:02:14 [INFO]: Request headers:
+2025-12-31 23:02:14 [INFO]: User from token:
+2025-12-31 23:02:14 [INFO]: Raw request body:
+2025-12-31 23:02:14 [INFO]: Calling propertyService.createProperty with userId: 12
+2025-12-31 23:02:14 [INFO]: === PROPERTY SERVICE CREATE START ===
+2025-12-31 23:02:14 [INFO]: Owner ID: 12
+2025-12-31 23:02:14 [INFO]: Property data received:
+2025-12-31 23:02:14 [INFO]: Starting property data validation...
+2025-12-31 23:02:14 [INFO]: Property data validation passed
+2025-12-31 23:02:14 [INFO]: Creating property for owner 12: Modern Downtown Apartment
+2025-12-31 23:02:14 [INFO]: Processed values:
+2025-12-31 23:02:14 [INFO]: SQL Query:
+2025-12-31 23:02:14 [INFO]: SQL Values:
+2025-12-31 23:02:14 [INFO]: Executing database insert...
+2025-12-31 23:02:14 [ERROR]: === PROPERTY SERVICE CREATE ERROR ===
+2025-12-31 23:02:14 [ERROR]: Error creating property: (intermediate value) is not iterable
+2025-12-31 23:02:14 [ERROR]: Error stack:
+2025-12-31 23:02:14 [ERROR]: Error code:
+2025-12-31 23:02:14 [ERROR]: Error errno:
+2025-12-31 23:02:14 [ERROR]: Error sqlMessage:
+2025-12-31 23:02:14 [ERROR]: Error sqlState:
+2025-12-31 23:02:14 [ERROR]: === CREATE PROPERTY REQUEST ERROR ===
+2025-12-31 23:02:14 [ERROR]: Error in createProperty controller: (intermediate value) is not iterable
+2025-12-31 23:02:14 [ERROR]: Error stack:
+2025-12-31 23:02:14 [ERROR]: Error details: (intermediate value) is not iterable
+2026-01-01 09:50:51 [INFO]: Email service initialized with user: sriram2005j@gmail.com
+2026-01-01 09:50:51 [INFO]: MySQL database connected successfully
+2026-01-01 09:50:51 [INFO]: MySQL database connected successfully
+2026-01-01 09:50:51 [INFO]: Database connection established
+2026-01-01 09:50:51 [INFO]: Server running on port 3001
+2026-01-01 09:50:51 [INFO]: Health check available at http://localhost:3001/health
+2026-01-01 09:51:23 [INFO]: GET /properties
+2026-01-01 10:03:19 [INFO]: Email service initialized with user: sriram2005j@gmail.com
+2026-01-01 10:03:19 [INFO]: MySQL database connected successfully
+2026-01-01 10:03:19 [INFO]: MySQL database connected successfully
+2026-01-01 10:03:19 [INFO]: Database connection established
+2026-01-01 10:03:19 [INFO]: Server running on port 3001
+2026-01-01 10:03:19 [INFO]: Health check available at http://localhost:3001/health
+2026-01-01 10:04:29 [INFO]: GET /properties
+2026-01-01 10:04:32 [INFO]: GET /properties
+2026-01-01 10:04:55 [INFO]: SIGINT received, shutting down gracefully
+2026-01-01 10:05:16 [INFO]: GET /properties
+2026-01-01 10:05:20 [INFO]: GET /properties
+2026-01-01 10:05:39 [INFO]: Email service initialized with user: sriram2005j@gmail.com
+2026-01-01 10:05:39 [INFO]: MySQL database connected successfully
+2026-01-01 10:05:39 [INFO]: Database connection established
+2026-01-01 10:05:39 [INFO]: Server running on port 3001
+2026-01-01 10:05:39 [INFO]: Health check available at http://localhost:3001/health
+2026-01-01 10:05:39 [INFO]: MySQL database connected successfully
+2026-01-01 10:05:46 [INFO]: POST /auth/login
+2026-01-01 10:05:46 [INFO]: Login attempt for email: chemvarshat22@gmail.com
+2026-01-01 10:05:46 [INFO]: Login attempt for email: chemvarshat22@gmail.com
+2026-01-01 10:05:46 [INFO]: Fetching user by email: chemvarshat22@gmail.com
+2026-01-01 10:05:46 [WARN]: User not found: chemvarshat22@gmail.com
+2026-01-01 10:05:46 [ERROR]: Login service error: User not found
+2026-01-01 10:05:46 [ERROR]: Login failed: User not found
+2026-01-01 10:07:19 [INFO]: POST /auth/login
+2026-01-01 10:07:19 [INFO]: Login attempt for email: chemvarshat22@gmail.com
+2026-01-01 10:07:19 [INFO]: Login attempt for email: chemvarshat22@gmail.com
+2026-01-01 10:07:19 [INFO]: Fetching user by email: chemvarshat22@gmail.com
+2026-01-01 10:07:19 [WARN]: User not found: chemvarshat22@gmail.com
+2026-01-01 10:07:19 [ERROR]: Login service error: User not found
+2026-01-01 10:07:19 [ERROR]: Login failed: User not found

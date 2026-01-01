@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 
@@ -20,18 +20,20 @@ export class OwnerService {
 
   getDashboardData(): Observable<any> {
     return this.http.get(`${this.apiUrl}/dashboard`).pipe(
+      tap(response => console.log('Dashboard response:', response)),
       catchError(error => {
         console.error('Dashboard API error:', error);
-        throw error;
+        return throwError(() => error);
       })
     );
   }
 
   getOwnerProperties(): Observable<any> {
     return this.http.get(`${this.apiUrl}/properties`).pipe(
+      tap(response => console.log('Owner properties response:', response)),
       catchError(error => {
-        console.error('Properties API error:', error);
-        throw error;
+        console.error('Owner properties API error:', error);
+        return throwError(() => error);
       })
     );
   }
@@ -49,7 +51,46 @@ export class OwnerService {
   }
 
   addProperty(propertyData: any): Observable<any> {
-    return this.http.post(`${environment.apiUrl}/properties`, propertyData, { headers: this.getJsonHeaders() });
+    console.log('=== OWNER SERVICE ADD PROPERTY ===');
+    console.log('API URL:', `${environment.apiUrl}/properties`);
+    console.log('Property data being sent:', JSON.stringify(propertyData, null, 2));
+    console.log('Headers:', this.getJsonHeaders());
+    
+    return this.http.post(`${environment.apiUrl}/properties`, propertyData, { headers: this.getJsonHeaders() }).pipe(
+      tap(response => {
+        console.log('=== ADD PROPERTY HTTP SUCCESS ===');
+        console.log('Add property response:', response);
+      }),
+      catchError(error => {
+        console.log('=== ADD PROPERTY HTTP ERROR ===');
+        console.error('Add property error:', error);
+        console.error('Error status:', error.status);
+        console.error('Error statusText:', error.statusText);
+        console.error('Error body:', error.error);
+        console.error('Error headers:', error.headers);
+        return throwError(() => error);
+      })
+    );
+  }
+
+  getProperty(propertyId: number): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/properties/${propertyId}`, { headers: this.getJsonHeaders() }).pipe(
+      tap(response => console.log('Get property response:', response)),
+      catchError(error => {
+        console.error('Get property error:', error);
+        return throwError(() => error);
+      })
+    );
+  }
+
+  updateProperty(propertyId: number, propertyData: any): Observable<any> {
+    return this.http.put(`${environment.apiUrl}/properties/${propertyId}`, propertyData, { headers: this.getJsonHeaders() }).pipe(
+      tap(response => console.log('Update property response:', response)),
+      catchError(error => {
+        console.error('Update property error:', error);
+        return throwError(() => error);
+      })
+    );
   }
 
   deleteProperty(propertyId: number): Observable<any> {

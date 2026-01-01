@@ -106,10 +106,8 @@ export class RegisterComponent implements OnDestroy {
       .subscribe({
         next: (response) => {
           this.loading = false;
-          if (response.success) {
-            this.toast.success('Registration Successful', 'Welcome to RentEase! Please log in to continue.');
-            this.router.navigate(['/auth/login']);
-          }
+          this.toast.success('Registration Successful', 'Welcome to RentEase! Please log in to continue.');
+          this.router.navigate(['/auth/login']);
         },
         error: (error) => {
           this.loading = false;

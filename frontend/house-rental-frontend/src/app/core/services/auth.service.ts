@@ -109,7 +109,11 @@ export class AuthService {
     localStorage.removeItem(this.tokenKey);
     localStorage.removeItem(this.userKey);
     this.currentUserSubject.next(null);
-    this.toast.info('Logged out successfully', `Goodbye ${user?.name || 'User'}, see you soon!`);
+    
+    // Show toast immediately
+    setTimeout(() => {
+      this.toast.info('Logged out successfully', `Goodbye ${user?.name || 'User'}, see you soon!`);
+    }, 0);
   }
 
   getToken(): string | null {

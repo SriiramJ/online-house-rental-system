@@ -6,7 +6,8 @@ import { NavbarComponent } from '../../shared/navbar/navbar.component';
 import { FooterComponent } from '../../shared/footer/footer.component';
 import { PropertyService, Property } from '../../core/services/property.service';
 import { BookingStateService } from '../../core/services/booking-state.service';
-import { AuthStateService } from '../../core/services/auth-state.service';
+import { PropertyStateService } from '../../core/services/property-state.service';
+import { AuthService } from '../../core/services/auth.service';
 import { LucideAngularModule, Search, Home, Users } from 'lucide-angular';
 import { Subject, takeUntil } from 'rxjs';
 
@@ -33,14 +34,16 @@ export class LandingComponent implements OnInit, OnDestroy {
     private router: Router,
     private propertyService: PropertyService,
     private bookingStateService: BookingStateService,
-    private authState: AuthStateService,
+    private propertyStateService: PropertyStateService,
+    private authService: AuthService,
     private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
-    this.isLoggedIn = !!this.authState.getToken();
+    this.isLoggedIn = this.authService.isAuthenticated();
     this.loadFeaturedProperties();
     this.subscribeToBookingUpdates();
+    this.subscribeToPropertyUpdates();
   }
 
   ngOnDestroy() {
@@ -48,16 +51,23 @@ export class LandingComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
+  subscribeToPropertyUpdates() {
+    this.propertyStateService.propertiesUpdated$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        console.log('Landing page: Properties updated, refreshing');
+        this.loadFeaturedProperties();
+      });
+  }
+
   subscribeToBookingUpdates() {
     this.bookingStateService.propertyUpdates$
       .pipe(takeUntil(this.destroy$))
       .subscribe(update => {
         if (update) {
-          const property = this.featuredProperties.find(p => p.id === update.id);
-          if (property) {
-            property.is_available = update.is_available;
-            this.cdr.detectChanges();
-          }
+          console.log('Landing: Property update received', update);
+          // Reload properties to get fresh data from server
+          this.loadFeaturedProperties();
         }
       });
   }
@@ -79,6 +89,7 @@ export class LandingComponent implements OnInit, OnDestroy {
     this.propertyService.getProperties().subscribe({
       next: (response) => {
         if (response && response.properties && response.properties.length > 0) {
+          // Show all properties but mark availability status
           this.featuredProperties = response.properties.slice(0, 3).map(property => ({
             ...property,
             image: property.photos && property.photos.length > 0 

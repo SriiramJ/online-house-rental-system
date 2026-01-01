@@ -103,6 +103,7 @@
     <!-- Results Count -->
     <div class="results-info">
       <span class="results-count">{{ filteredProperties.length }} properties found</span>
+      <span *ngIf="totalPages > 1" class="page-info">Page {{ currentPage }} of {{ totalPages }}</span>
     </div>
 
     <!-- Loading State -->
@@ -112,27 +113,25 @@
     ></app-loader>
 
     <!-- Error State -->
-    <div *ngIf="error && !loading" class="error-state">
-      <div class="error-content">
-        <lucide-icon [img]="AlertTriangle" class="error-icon"></lucide-icon>
-        <h3>Something went wrong</h3>
-        <p>{{ error }}</p>
-        <button (click)="retry()" class="btn btn-primary">Try Again</button>
-      </div>
-    </div>
+    <app-error-display
+      *ngIf="error && !loading"
+      [message]="error"
+      [retrying]="retrying"
+      (retry)="retry()"
+    ></app-error-display>
 
     <!-- Properties Grid -->
-    <div *ngIf="!loading && !error && filteredProperties.length > 0" class="properties-grid">
+    <div *ngIf="!loading && !error && paginatedProperties.length > 0" class="properties-grid">
       <div
-        *ngFor="let property of filteredProperties"
+        *ngFor="let property of paginatedProperties"
         class="property-card"
-        [class.unavailable]="!property.is_available"
+        [class.unavailable]="property.status !== 'Available'"
         (click)="viewProperty(property.id)"
       >
         <div class="property-image">
           <img [src]="property.image" [alt]="property.title" />
-          <div class="availability-badge" [class.available]="property.is_available">
-            {{ property.is_available ? 'Available' : 'Unavailable' }}
+          <div class="availability-badge" [class.available]="property.status === 'Available'">
+            {{ property.status === 'Available' ? 'Available' : 'Unavailable' }}
           </div>
         </div>
 
@@ -186,6 +185,36 @@
           </div>
         </div>
       </div>
+    </div>
+
+    <!-- Pagination -->
+    <div *ngIf="!loading && !error && totalPages > 1" class="pagination">
+      <button 
+        (click)="goToPage(currentPage - 1)" 
+        [disabled]="currentPage === 1"
+        class="pagination-btn prev-btn"
+      >
+        Previous
+      </button>
+      
+      <div class="page-numbers">
+        <button 
+          *ngFor="let page of getPageNumbers()" 
+          (click)="goToPage(page)"
+          [class.active]="page === currentPage"
+          class="page-btn"
+        >
+          {{ page }}
+        </button>
+      </div>
+      
+      <button 
+        (click)="goToPage(currentPage + 1)" 
+        [disabled]="currentPage === totalPages"
+        class="pagination-btn next-btn"
+      >
+        Next
+      </button>
     </div>
 
     <!-- Empty State -->
