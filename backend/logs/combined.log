@@ -797,3 +797,6 @@
 2026-01-01 15:27:00 [INFO]: Attempting to send email to: Sriram2005j@gmail.com
 2026-01-01 15:27:03 [INFO]: Password reset email sent successfully to: Sriram2005j@gmail.com
 2026-01-01 15:27:03 [INFO]: Password reset email sent to: Sriram2005j@gmail.com
+2026-01-01 15:27:41 [INFO]: Password reset attempt with token: 1f837160...
+2026-01-01 15:27:41 [INFO]: Updating password for userId: 33
+2026-01-01 15:27:41 [INFO]: Password reset successful for userId: 33
