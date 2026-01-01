@@ -17,9 +17,7 @@ const db = mysql.createPool({
   port: dbPort,
   waitForConnections: true,
   connectionLimit: 10,
-  queueLimit: 0,
-  acquireTimeout: 60000,
-  timeout: 60000
+  queueLimit: 0
 });
 
 // Test connection with better error handling

@@ -166,13 +166,21 @@ CREATE TABLE IF NOT EXISTS activity_logs (
 );
 
 -- =====================================================
--- SAMPLE DATA (OPTIONAL)
+-- PASSWORD RESET TOKENS TABLE
 -- =====================================================
--- Insert sample users for testing
-INSERT IGNORE INTO users (id, name, email, password_hash, role, phone) VALUES
-(1, 'Admin User', 'admin@test.com', '$2b$10$hashedpassword', 'ADMIN', '9000000001'),
-(2, 'Tenant User', 'tenant@test.com', '$2b$10$hashedpassword', 'TENANT', '9000000002'),
-(3, 'Owner User', 'owner@test.com', '$2b$10$hashedpassword', 'OWNER', '9000000003');
+CREATE TABLE IF NOT EXISTS password_reset_tokens (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NOT NULL,
+  token VARCHAR(255) NOT NULL UNIQUE,
+  expires_at TIMESTAMP NOT NULL,
+  used BOOLEAN DEFAULT FALSE,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+  CONSTRAINT fk_reset_token_user
+    FOREIGN KEY (user_id)
+    REFERENCES users(id)
+    ON DELETE CASCADE
+);
 
 -- Show completion message
 SELECT 'Database schema created successfully!' as status;

@@ -7,9 +7,7 @@
   "scripts": {
     "dev": "tsx src/server.ts",
     "build": "tsc",
-    "start": "node dist/server.js",
-    "setup-db": "tsx src/setup-db.ts",
-    "test-auth": "tsx src/test-auth.ts"
+    "start": "node dist/server.js"
   },
   "keywords": [],
   "author": "",
@@ -21,6 +19,7 @@
     "@types/jsonwebtoken": "^9.0.10",
     "@types/multer": "^2.0.0",
     "@types/node": "^25.0.2",
+    "@types/nodemailer": "^6.4.19",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3"
   },
@@ -33,6 +32,7 @@
     "multer": "^2.0.2",
     "mysql2": "^3.15.3",
     "node-fetch": "^3.3.2",
+    "nodemailer": "^6.9.15",
     "winston": "^3.19.0"
   }
 }
