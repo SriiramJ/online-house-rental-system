@@ -731,3 +731,31 @@
 2026-01-01 14:32:52 [INFO]: Server running on port 3001
 2026-01-01 14:33:32 [INFO]: MySQL database connected successfully
 2026-01-01 14:33:32 [INFO]: Server running on port 3001
+2026-01-01 14:44:59 [INFO]: MySQL database connected successfully
+2026-01-01 14:44:59 [INFO]: Server running on port 3001
+2026-01-01 15:04:49 [INFO]: Forgot password request for email: Sriram2005j@gmail.com
+2026-01-01 15:04:49 [INFO]: Fetching user by email: Sriram2005j@gmail.com
+2026-01-01 15:04:49 [WARN]: User not found for forgot password: Sriram2005j@gmail.com
+2026-01-01 15:05:20 [INFO]: Login attempt for email: jothika@gmail.com
+2026-01-01 15:05:20 [INFO]: Fetching user by email: jothika@gmail.com
+2026-01-01 15:05:21 [INFO]: Login successful for userId: 31
+2026-01-01 15:06:43 [INFO]: Uploaded 1 property images
+2026-01-01 15:06:46 [INFO]: Property created successfully by user 31
+2026-01-01 15:07:16 [INFO]: Login attempt for email: Jaikumar123@gmail.com
+2026-01-01 15:07:16 [INFO]: Fetching user by email: Jaikumar123@gmail.com
+2026-01-01 15:07:17 [INFO]: Login successful for userId: 32
+2026-01-01 15:08:20 [INFO]: Login attempt for email: jothika@gmail.com
+2026-01-01 15:08:20 [INFO]: Fetching user by email: jothika@gmail.com
+2026-01-01 15:08:20 [INFO]: Login successful for userId: 31
+2026-01-01 15:09:18 [INFO]: Login attempt for email: Jaikumar123@gmail.com
+2026-01-01 15:09:18 [INFO]: Fetching user by email: Jaikumar123@gmail.com
+2026-01-01 15:09:18 [INFO]: Login successful for userId: 32
+2026-01-01 15:10:10 [INFO]: Registration request received: {"name":"sriram","email":"Sriram2005j@gmail.com","phone":"9025581587","password":"Sriram2005#","role":"OWNER"}
+2026-01-01 15:10:10 [INFO]: Register attempt for email: Sriram2005j@gmail.com
+2026-01-01 15:10:10 [INFO]: Fetching user by email: Sriram2005j@gmail.com
+2026-01-01 15:10:10 [INFO]: Creating user: Sriram2005j@gmail.com
+2026-01-01 15:10:10 [INFO]: User registered successfully: Sriram2005j@gmail.com
+2026-01-01 15:10:19 [INFO]: Forgot password request for email: Sriram2005j@gmail.com
+2026-01-01 15:10:19 [INFO]: Fetching user by email: Sriram2005j@gmail.com
+2026-01-01 15:10:20 [ERROR]: Failed to send password reset email: Missing credentials for "PLAIN"
+2026-01-01 15:10:20 [ERROR]: Forgot password failed: Failed to send reset email
