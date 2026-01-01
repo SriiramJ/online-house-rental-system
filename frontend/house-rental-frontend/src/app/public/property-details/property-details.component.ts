@@ -36,6 +36,8 @@ export class PropertyDetailsComponent implements OnInit, OnDestroy {
   isLoggedIn = false;
   currentImageIndex = 0;
   showBookingModal = false;
+  userBookings: any[] = [];
+  hasSubmittedBooking = false;
   bookingForm = {
     moveInDate: '',
     message: ''
@@ -75,6 +77,9 @@ export class PropertyDetailsComponent implements OnInit, OnDestroy {
     if (id) {
       this.loadProperty(parseInt(id));
     }
+    if (this.isLoggedIn && this.authService.isTenant()) {
+      this.loadUserBookings();
+    }
     this.subscribeToBookingUpdates();
   }
 
@@ -98,6 +103,9 @@ export class PropertyDetailsComponent implements OnInit, OnDestroy {
       .subscribe(() => {
         if (this.property) {
           this.loadProperty(this.property.id);
+        }
+        if (this.authService.isTenant()) {
+          this.loadUserBookings();
         }
       });
   }
@@ -253,6 +261,7 @@ export class PropertyDetailsComponent implements OnInit, OnDestroy {
         console.log('Booking success response:', response);
         this.submittingBooking = false;
         this.closeBookingModal();
+        this.hasSubmittedBooking = true;
         this.toast.success('Booking request submitted successfully!');
         
         // Update global state
@@ -261,10 +270,6 @@ export class PropertyDetailsComponent implements OnInit, OnDestroy {
         // Trigger properties list update
         this.propertyStateService.triggerPropertiesUpdate();
         
-        // Update local property state
-        if (this.property) {
-          this.property.is_available = false;
-        }
         this.cdr.detectChanges();
       },
       error: (error) => {
@@ -312,5 +317,29 @@ export class PropertyDetailsComponent implements OnInit, OnDestroy {
     }
     const currentUser = this.authService.getCurrentUser();
     return currentUser?.id === this.property.owner_id;
+  }
+
+  loadUserBookings() {
+    this.bookingService.getTenantBookings().subscribe({
+      next: (response) => {
+        this.userBookings = response.bookings || [];
+        console.log('User bookings loaded:', this.userBookings);
+        this.cdr.detectChanges();
+      },
+      error: (error) => {
+        console.error('Error loading user bookings:', error);
+      }
+    });
+  }
+
+  hasUserPendingBooking(): boolean {
+    if (!this.property || !this.userBookings.length) {
+      return false;
+    }
+    const hasPending = this.userBookings.some(booking => 
+      booking.property_id === this.property!.id && booking.status === 'Pending'
+    );
+    console.log('Has pending booking for property', this.property.id, ':', hasPending);
+    return hasPending;
   }
 }

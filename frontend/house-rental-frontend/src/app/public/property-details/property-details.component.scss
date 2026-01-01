@@ -109,7 +109,12 @@
     color: white;
   }
 
-  &:not(.available):not(.rented) {
+  &.pending {
+    background: #f59e0b;
+    color: white;
+  }
+
+  &:not(.available):not(.rented):not(.pending) {
     background: #6b7280;
     color: white;
   }

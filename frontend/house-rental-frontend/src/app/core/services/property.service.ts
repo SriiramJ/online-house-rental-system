@@ -15,7 +15,7 @@ export interface Property {
   photos?: string[] | string;
   property_type: string;
   is_available: boolean;
-  status: 'Available' | 'Rented';
+  status: 'Available' | 'Rented' | 'Pending';
   amenities: string[];
   description?: string;
   owner_id?: number;

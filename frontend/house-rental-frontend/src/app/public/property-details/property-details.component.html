@@ -34,7 +34,7 @@
     <div class="property-images">
       <div class="main-image">
         <img [src]="getCurrentImage()" [alt]="property.title" />
-        <div class="availability-badge" [class.available]="property.status === 'Available'" [class.rented]="property.status === 'Rented'">
+        <div class="availability-badge" [class.available]="property.status === 'Available'" [class.rented]="property.status === 'Rented'" [class.pending]="property.status === 'Pending'">
           {{ property.status }}
         </div>
         
@@ -165,11 +165,12 @@
             <button 
               (click)="bookProperty()" 
               class="btn btn-primary btn-full"
-              [disabled]="property.status === 'Rented' || !canBookProperty()"
+              [disabled]="property.status === 'Rented' || property.status === 'Pending' || !canBookProperty()"
             >
               <span *ngIf="!isLoggedIn">Login to Book</span>
               <span *ngIf="isLoggedIn && !canBookProperty()">Owners Cannot Book</span>
               <span *ngIf="canBookProperty() && property.status === 'Rented'">Currently Rented</span>
+              <span *ngIf="canBookProperty() && property.status === 'Pending'">Booking Pending</span>
               <span *ngIf="canBookProperty() && property.status === 'Available'">Book Now</span>
             </button>
             
@@ -186,7 +187,7 @@
             <p class="note-text">
               {{ property.status === 'Available'
                 ? 'This property is available for immediate booking.' 
-                : 'This property is currently rented and not available.' }}
+                : 'This property is currently pending or rented and not available.' }}
             </p>
           </div>
         </div>

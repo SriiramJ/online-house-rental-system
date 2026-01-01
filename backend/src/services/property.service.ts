@@ -153,10 +153,16 @@ export class PropertyService {
   private formatProperty(row: any): Property {
     // Determine availability based on approved bookings or database value
     let isAvailable = true;
+    let status = 'Available';
+    
     if (row.approved_bookings > 0) {
       isAvailable = false;
+      status = 'Rented';
+    } else if (row.pending_requests > 0) {
+      status = 'Pending';
     } else if (row.is_available !== null && row.is_available !== undefined) {
       isAvailable = Boolean(row.is_available);
+      status = isAvailable ? 'Available' : 'Rented';
     }
     
     return {
@@ -173,7 +179,7 @@ export class PropertyService {
       amenities: row.amenities ? row.amenities.split(', ').filter(Boolean) : [],
       photos: row.photos ? row.photos.split(', ').filter(Boolean) : ['https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=400'],
       is_available: isAvailable,
-      status: isAvailable ? 'Available' : 'Rented',
+      status: status as 'Available' | 'Rented' | 'Pending',
       created_at: row.created_at,
       owner_name: row.owner_name,
       pending_requests: row.pending_requests || 0
