@@ -101,6 +101,13 @@ export class PropertiesComponent implements OnInit, OnDestroy {
           }
         }
       });
+
+    // Also listen for general booking updates
+    this.bookingStateService.bookingUpdated$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.loadProperties();
+      });
   }
 
   loadProperties() {

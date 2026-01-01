@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -12,6 +12,7 @@ import { LoaderComponent } from '../../shared/components/loader/loader.component
 import { NavbarComponent } from '../../shared/navbar/navbar.component';
 import { FooterComponent } from '../../shared/footer/footer.component';
 import { LucideAngularModule, ArrowLeft, MapPin, Bed, Bath, Building, Wifi, Car, Dumbbell, Waves, CheckCircle, Calendar, X } from 'lucide-angular';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-property-details',
@@ -28,7 +29,7 @@ import { LucideAngularModule, ArrowLeft, MapPin, Bed, Bath, Building, Wifi, Car,
   templateUrl: './property-details.component.html',
   styleUrls: ['./property-details.component.scss']
 })
-export class PropertyDetailsComponent implements OnInit {
+export class PropertyDetailsComponent implements OnInit, OnDestroy {
   property: Property | null = null;
   loading = false;
   error = '';
@@ -40,6 +41,7 @@ export class PropertyDetailsComponent implements OnInit {
     message: ''
   };
   submittingBooking = false;
+  private destroy$ = new Subject<void>();
 
   // Lucide icons
   readonly ArrowLeft = ArrowLeft;
@@ -73,6 +75,31 @@ export class PropertyDetailsComponent implements OnInit {
     if (id) {
       this.loadProperty(parseInt(id));
     }
+    this.subscribeToBookingUpdates();
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  subscribeToBookingUpdates() {
+    this.bookingStateService.propertyUpdates$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(update => {
+        if (update && this.property && update.id === this.property.id) {
+          this.property.is_available = update.is_available;
+          this.cdr.detectChanges();
+        }
+      });
+
+    this.bookingStateService.bookingUpdated$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        if (this.property) {
+          this.loadProperty(this.property.id);
+        }
+      });
   }
 
   loadProperty(id: number) {

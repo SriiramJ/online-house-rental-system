@@ -48,12 +48,7 @@ export class BookingService {
       
       console.log('Booking insert result:', result);
 
-      // Update property availability to false
-      console.log('Updating property availability...');
-      await connection.execute(
-        'UPDATE properties SET is_available = FALSE WHERE id = ?',
-        [bookingData.property_id]
-      );
+      // Do NOT update property availability here - only when approved
 
       await connection.commit();
       console.log('Transaction committed successfully');
@@ -203,8 +198,16 @@ export class BookingService {
         return false;
       }
 
-      // If rejected, make property available again
-      if (status === 'Rejected') {
+      // If approved, make property unavailable; if rejected, make property available again
+      if (status === 'Approved') {
+        await connection.execute(
+          `UPDATE properties p
+           JOIN bookings b ON p.id = b.property_id
+           SET p.is_available = FALSE
+           WHERE b.id = ?`,
+          [bookingId]
+        );
+      } else if (status === 'Rejected') {
         await connection.execute(
           `UPDATE properties p
            JOIN bookings b ON p.id = b.property_id

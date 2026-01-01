@@ -95,11 +95,11 @@ export class MyPropertiesComponent implements OnInit, OnDestroy {
   }
 
   getAvailableCount(): number {
-    return this.properties.filter(p => p.is_available || p.status === 'Available').length;
+    return this.properties.filter(p => p.is_available !== false).length;
   }
 
   getOccupiedCount(): number {
-    return this.properties.filter(p => !p.is_available || p.status === 'Rented').length;
+    return this.properties.filter(p => p.is_available === false).length;
   }
 
   getPropertyImage(property: any): string {

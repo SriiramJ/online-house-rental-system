@@ -102,7 +102,8 @@ export class PropertyService {
     try {
       const [rows] = await connection.execute(
         `SELECT p.*, u.name as owner_name,
-         (SELECT COUNT(*) FROM bookings b WHERE b.property_id = p.id AND b.status = 'Pending') as pending_requests
+         (SELECT COUNT(*) FROM bookings b WHERE b.property_id = p.id AND b.status = 'Pending') as pending_requests,
+         (SELECT COUNT(*) FROM bookings b WHERE b.property_id = p.id AND b.status = 'Approved') as approved_bookings
          FROM properties p 
          JOIN users u ON p.owner_id = u.id 
          WHERE p.owner_id = ?
@@ -111,7 +112,14 @@ export class PropertyService {
       );
 
       const properties = rows as any[];
-      return properties.map(this.formatProperty);
+      return properties.map(row => {
+        const property = this.formatProperty(row);
+        // Override is_available based on approved bookings
+        if (row.approved_bookings > 0) {
+          property.is_available = false;
+        }
+        return property;
+      });
     } catch (error: any) {
       logger.error(`Error fetching owner properties: ${error.message}`);
       return [];
