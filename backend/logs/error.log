@@ -159,3 +159,18 @@
 2026-01-01 15:16:59 [ERROR]: Forgot password failed: Failed to send reset email
 2026-01-01 15:19:30 [ERROR]: Failed to send password reset email: Missing credentials for "PLAIN"
 2026-01-01 15:19:30 [ERROR]: Forgot password failed: Failed to send reset email
+2026-01-08 13:11:41 [ERROR]: Database error, returning mock login: Invalid password
+2026-01-08 13:11:41 [ERROR]: JWT verification failed: jwt malformed
+2026-01-08 13:11:43 [ERROR]: JWT verification failed: jwt malformed
+2026-01-08 13:14:12 [ERROR]: Database error, returning mock login: Invalid password
+2026-01-08 13:14:12 [ERROR]: JWT verification failed: jwt malformed
+2026-01-08 13:14:14 [ERROR]: JWT verification failed: jwt malformed
+2026-01-08 13:16:01 [ERROR]: Database error, returning mock login: Invalid password
+2026-01-08 13:16:02 [ERROR]: JWT verification failed: jwt malformed
+2026-01-08 13:16:03 [ERROR]: JWT verification failed: jwt malformed
+2026-01-08 13:26:35 [ERROR]: JWT verification failed: jwt malformed
+2026-01-08 13:26:39 [ERROR]: JWT verification failed: jwt malformed
+2026-01-08 13:27:12 [ERROR]: Login service error for Sriram2005j@gmail.com: Invalid password
+2026-01-08 13:27:12 [ERROR]: Login failed: Invalid password
+2026-01-08 13:30:33 [ERROR]: Login service error for Sriram2005j@gmail.com: Invalid password
+2026-01-08 13:30:33 [ERROR]: Login failed: Invalid password

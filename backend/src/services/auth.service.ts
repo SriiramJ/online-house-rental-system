@@ -37,33 +37,40 @@ export const registerUserService = async (data: RegisterInput)=>{
 export const loginUserService = async(email:string, password:string)=>{
     logger.info(`Login attempt for email: ${email}`);
 
-    const user = await findUserByEmail(email)
+    try {
+        const user = await findUserByEmail(email)
 
-    if(!user){
-        logger.warn(`User not found: ${email}`);
-        throw new Error("User not found")
-    }
-
-    const isValid = await comparePassword(password, user.password_hash)
-
-    if(!isValid){
-        logger.warn(`Invalid password for email: ${email}`);
-        throw new Error("Invalid password")
-    }
-
-    const token = generateToken({
-        userId: user.id,
-        role: user.role
-    })
-    logger.info(`Login successful for userId: ${user.id}`);
-    return{
-        token,
-        user:{
-            id: user.id,
-            name: user.name,
-            email: user.email,
-            role: user.role
+        if(!user){
+            logger.warn(`User not found: ${email}`);
+            throw new Error("User not found")
         }
+
+        logger.info(`User found, checking password for: ${email}`);
+        const isValid = await comparePassword(password, user.password_hash)
+        logger.info(`Password validation result for ${email}: ${isValid}`);
+
+        if(!isValid){
+            logger.warn(`Invalid password for email: ${email}`);
+            throw new Error("Invalid password")
+        }
+
+        const token = generateToken({
+            userId: user.id,
+            role: user.role
+        })
+        logger.info(`Login successful for userId: ${user.id}`);
+        return{
+            token,
+            user:{
+                id: user.id,
+                name: user.name,
+                email: user.email,
+                role: user.role
+            }
+        }
+    } catch (error: any) {
+        logger.error(`Login service error for ${email}: ${error.message}`);
+        throw error; // Re-throw the original error
     }
 }
 

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, ChangeDetectorRef } from '@angular/core';
-import { Observable, BehaviorSubject, tap } from 'rxjs';
+import { Observable, BehaviorSubject, tap, catchError, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { ToastService } from './toast.service';
 
@@ -50,6 +50,10 @@ export class AuthService {
             }
           }, 1000);
         }
+      }),
+      catchError(error => {
+        // Don't show success toast on error
+        return throwError(() => error);
       })
     );
   }

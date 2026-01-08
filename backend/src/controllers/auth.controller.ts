@@ -102,21 +102,8 @@ export const login = async (req: Request,res: Response)=>{
                 data: result
             })
         } catch (dbError: any) {
-            // If database fails, return a mock success for testing
-            logger.error(`Database error, returning mock login: ${dbError.message}`);
-            res.status(200).json({
-                success: true,
-                message: "Login successful (mock mode - database unavailable)",
-                data: {
-                    token: "mock-jwt-token",
-                    user: {
-                        id: 1,
-                        name: "Mock User",
-                        email: email,
-                        role: "TENANT"
-                    }
-                }
-            })
+            // Let all errors bubble up to the main catch block
+            throw dbError;
         }
         
     } catch (error:any) {
