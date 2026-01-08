@@ -3,11 +3,15 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { AdminService, SystemStats } from '../../core/services/admin.service';
 import { ToastService } from '../../core/services/toast.service';
+import { BaseChartDirective } from 'ng2-charts';
+import { Chart, ChartConfiguration, ChartData, ChartType, registerables } from 'chart.js';
+
+Chart.register(...registerables);
 
 @Component({
   selector: 'app-admin-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, BaseChartDirective],
   templateUrl: './admin-dashboard.component.html',
   styleUrls: ['./admin-dashboard.component.scss']
 })
@@ -15,6 +19,47 @@ export class AdminDashboardComponent implements OnInit {
   stats: SystemStats | null = null;
   loading = true;
   error = '';
+
+  // Chart configurations
+  userChartData: ChartData<'doughnut'> = {
+    labels: ['Tenants', 'Owners', 'Admins'],
+    datasets: [{
+      data: [0, 0, 0],
+      backgroundColor: ['#10b981', '#3b82f6', '#f59e0b']
+    }]
+  };
+  
+  bookingChartData: ChartData<'bar'> = {
+    labels: ['Pending', 'Approved', 'Rejected'],
+    datasets: [{
+      label: 'Bookings',
+      data: [0, 0, 0],
+      backgroundColor: ['#f59e0b', '#10b981', '#ef4444']
+    }]
+  };
+  
+  userChartOptions: ChartConfiguration<'doughnut'>['options'] = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'bottom'
+      }
+    }
+  };
+  
+  bookingChartOptions: ChartConfiguration<'bar'>['options'] = {
+    responsive: true,
+    plugins: {
+      legend: {
+        display: false
+      }
+    },
+    scales: {
+      y: {
+        beginAtZero: true
+      }
+    }
+  };
 
   constructor(
     private adminService: AdminService,
@@ -62,6 +107,7 @@ export class AdminDashboardComponent implements OnInit {
         console.log('Stats response received:', response);
         if (response.success) {
           this.stats = response.data;
+          this.updateCharts();
           console.log('Stats set:', this.stats);
         }
         this.loading = false;
@@ -98,5 +144,36 @@ export class AdminDashboardComponent implements OnInit {
 
   getBookingCount(status: string): number {
     return this.stats?.bookings.by_status.find(b => b.status === status)?.count || 0;
+  }
+
+  updateCharts() {
+    if (!this.stats) return;
+    
+    // Update user chart
+    this.userChartData = {
+      labels: ['Tenants', 'Owners', 'Admins'],
+      datasets: [{
+        data: [
+          this.getUserCount('TENANT'),
+          this.getUserCount('OWNER'),
+          this.getUserCount('ADMIN')
+        ],
+        backgroundColor: ['#10b981', '#3b82f6', '#f59e0b']
+      }]
+    };
+    
+    // Update booking chart
+    this.bookingChartData = {
+      labels: ['Pending', 'Approved', 'Rejected'],
+      datasets: [{
+        label: 'Bookings',
+        data: [
+          this.getBookingCount('Pending'),
+          this.getBookingCount('Approved'),
+          this.getBookingCount('Rejected')
+        ],
+        backgroundColor: ['#f59e0b', '#10b981', '#ef4444']
+      }]
+    };
   }
 }

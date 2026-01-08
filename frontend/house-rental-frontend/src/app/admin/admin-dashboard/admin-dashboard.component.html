@@ -45,6 +45,34 @@
       </div>
     </div>
 
+    <!-- Charts Section -->
+    <div class="charts-section">
+      <h2>Analytics</h2>
+      <div class="charts-grid">
+        <div class="chart-card">
+          <h3>User Distribution</h3>
+          <div class="chart-container">
+            <canvas baseChart
+              [data]="userChartData"
+              [options]="userChartOptions"
+              type="doughnut">
+            </canvas>
+          </div>
+        </div>
+        
+        <div class="chart-card">
+          <h3>Booking Status</h3>
+          <div class="chart-container">
+            <canvas baseChart
+              [data]="bookingChartData"
+              [options]="bookingChartOptions"
+              type="bar">
+            </canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Booking Statistics -->
     <div class="stats-section">
       <h2>Bookings</h2>
