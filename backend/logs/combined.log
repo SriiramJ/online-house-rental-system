@@ -836,3 +836,15 @@
 2026-01-08 13:27:12 [WARN]: Invalid password for email: Sriram2005j@gmail.com
 2026-01-08 13:27:12 [ERROR]: Login service error for Sriram2005j@gmail.com: Invalid password
 2026-01-08 13:27:12 [ERROR]: Login failed: Invalid password
+2026-01-08 13:30:33 [INFO]: Login attempt for email: Sriram2005j@gmail.com
+2026-01-08 13:30:33 [INFO]: Fetching user by email: Sriram2005j@gmail.com
+2026-01-08 13:30:33 [INFO]: User found, checking password for: Sriram2005j@gmail.com
+2026-01-08 13:30:33 [INFO]: Password validation result for Sriram2005j@gmail.com: false
+2026-01-08 13:30:33 [WARN]: Invalid password for email: Sriram2005j@gmail.com
+2026-01-08 13:30:33 [ERROR]: Login service error for Sriram2005j@gmail.com: Invalid password
+2026-01-08 13:30:33 [ERROR]: Login failed: Invalid password
+2026-01-08 13:30:44 [INFO]: Login attempt for email: Sriram2005j@gmail.com
+2026-01-08 13:30:44 [INFO]: Fetching user by email: Sriram2005j@gmail.com
+2026-01-08 13:30:44 [INFO]: User found, checking password for: Sriram2005j@gmail.com
+2026-01-08 13:30:45 [INFO]: Password validation result for Sriram2005j@gmail.com: true
+2026-01-08 13:30:45 [INFO]: Login successful for userId: 33

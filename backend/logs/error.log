@@ -172,3 +172,5 @@
 2026-01-08 13:26:39 [ERROR]: JWT verification failed: jwt malformed
 2026-01-08 13:27:12 [ERROR]: Login service error for Sriram2005j@gmail.com: Invalid password
 2026-01-08 13:27:12 [ERROR]: Login failed: Invalid password
+2026-01-08 13:30:33 [ERROR]: Login service error for Sriram2005j@gmail.com: Invalid password
+2026-01-08 13:30:33 [ERROR]: Login failed: Invalid password
