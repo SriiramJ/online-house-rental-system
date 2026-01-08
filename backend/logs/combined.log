@@ -800,3 +800,39 @@
 2026-01-01 15:27:41 [INFO]: Password reset attempt with token: 1f837160...
 2026-01-01 15:27:41 [INFO]: Updating password for userId: 33
 2026-01-01 15:27:41 [INFO]: Password reset successful for userId: 33
+2026-01-08 13:10:17 [INFO]: Server running on port 3001
+2026-01-08 13:10:17 [INFO]: MySQL database connected successfully
+2026-01-08 13:11:41 [INFO]: Login attempt for email: Sriram2005j@gmail.com
+2026-01-08 13:11:41 [INFO]: Fetching user by email: Sriram2005j@gmail.com
+2026-01-08 13:11:41 [WARN]: Invalid password for email: Sriram2005j@gmail.com
+2026-01-08 13:11:41 [ERROR]: Database error, returning mock login: Invalid password
+2026-01-08 13:11:41 [ERROR]: JWT verification failed: jwt malformed
+2026-01-08 13:11:43 [ERROR]: JWT verification failed: jwt malformed
+2026-01-08 13:14:12 [INFO]: Login attempt for email: Sriram2005j@gmail.com
+2026-01-08 13:14:12 [INFO]: Fetching user by email: Sriram2005j@gmail.com
+2026-01-08 13:14:12 [WARN]: Invalid password for email: Sriram2005j@gmail.com
+2026-01-08 13:14:12 [ERROR]: Database error, returning mock login: Invalid password
+2026-01-08 13:14:12 [ERROR]: JWT verification failed: jwt malformed
+2026-01-08 13:14:14 [ERROR]: JWT verification failed: jwt malformed
+2026-01-08 13:16:01 [INFO]: Login attempt for email: Sriram2005j@gmail.com
+2026-01-08 13:16:01 [INFO]: Fetching user by email: Sriram2005j@gmail.com
+2026-01-08 13:16:01 [WARN]: Invalid password for email: Sriram2005j@gmail.com
+2026-01-08 13:16:01 [ERROR]: Database error, returning mock login: Invalid password
+2026-01-08 13:16:02 [ERROR]: JWT verification failed: jwt malformed
+2026-01-08 13:16:03 [ERROR]: JWT verification failed: jwt malformed
+2026-01-08 13:26:32 [INFO]: Server running on port 3001
+2026-01-08 13:26:32 [INFO]: MySQL database connected successfully
+2026-01-08 13:26:35 [ERROR]: JWT verification failed: jwt malformed
+2026-01-08 13:26:39 [ERROR]: JWT verification failed: jwt malformed
+2026-01-08 13:26:51 [INFO]: Login attempt for email: Sriram2005j@gmail.com
+2026-01-08 13:26:51 [INFO]: Fetching user by email: Sriram2005j@gmail.com
+2026-01-08 13:26:51 [INFO]: User found, checking password for: Sriram2005j@gmail.com
+2026-01-08 13:26:52 [INFO]: Password validation result for Sriram2005j@gmail.com: true
+2026-01-08 13:26:52 [INFO]: Login successful for userId: 33
+2026-01-08 13:27:11 [INFO]: Login attempt for email: Sriram2005j@gmail.com
+2026-01-08 13:27:11 [INFO]: Fetching user by email: Sriram2005j@gmail.com
+2026-01-08 13:27:12 [INFO]: User found, checking password for: Sriram2005j@gmail.com
+2026-01-08 13:27:12 [INFO]: Password validation result for Sriram2005j@gmail.com: false
+2026-01-08 13:27:12 [WARN]: Invalid password for email: Sriram2005j@gmail.com
+2026-01-08 13:27:12 [ERROR]: Login service error for Sriram2005j@gmail.com: Invalid password
+2026-01-08 13:27:12 [ERROR]: Login failed: Invalid password
