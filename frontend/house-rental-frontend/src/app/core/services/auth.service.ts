@@ -8,7 +8,7 @@ interface User {
   id: number;
   name: string;
   email: string;
-  role: 'TENANT' | 'OWNER';
+  role: 'TENANT' | 'OWNER' | 'ADMIN';
 }
 
 interface AuthResponse {
@@ -43,7 +43,9 @@ export class AuthService {
           
           // Redirect based on role
           setTimeout(() => {
-            if (response.data!.user.role === 'OWNER') {
+            if (response.data!.user.role === 'ADMIN') {
+              window.location.href = '/admin/dashboard';
+            } else if (response.data!.user.role === 'OWNER') {
               window.location.href = '/owner/dashboard';
             } else {
               window.location.href = '/dashboard';
@@ -63,7 +65,7 @@ export class AuthService {
     email: string;
     phone?: string;
     password: string;
-    role: 'TENANT' | 'OWNER';
+    role: 'TENANT' | 'OWNER' | 'ADMIN';
   }): Observable<any> {
     console.log('Sending registration data:', userData);
     return this.http.post<any>(`${this.api}/register`, userData).pipe(
@@ -105,6 +107,11 @@ export class AuthService {
   isOwner(): boolean {
     const user = this.getCurrentUser();
     return user?.role === 'OWNER';
+  }
+
+  isAdmin(): boolean {
+    const user = this.getCurrentUser();
+    return user?.role === 'ADMIN';
   }
 
   isTenant(): boolean {

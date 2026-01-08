@@ -5,6 +5,7 @@ import propertyRoutes from "./property.routes.ts";
 import ownerRoutes from "./owner.routes.ts";
 import tenantRoutes from "./tenant.routes.ts";
 import bookingRoutes from "./booking.routes.ts";
+import adminRoutes from "./admin.routes.js";
 import testRoutes from "./test.routes.ts";
 
 const router = Router();
@@ -15,6 +16,7 @@ router.use("/properties", propertyRoutes);
 router.use("/owner", ownerRoutes);
 router.use("/tenant", tenantRoutes);
 router.use("/bookings", bookingRoutes);
+router.use("/admin", adminRoutes);
 router.use("/test", testRoutes);
 
 export default router;

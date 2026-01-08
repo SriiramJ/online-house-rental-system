@@ -1,0 +1,67 @@
+<div class="admin-properties">
+  <div class="page-header">
+    <div class="header-content">
+      <a routerLink="/admin/dashboard" class="back-link">← Back to Dashboard</a>
+      <h1>All Properties</h1>
+      <p>Manage system properties</p>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="loading-container">
+    <div class="spinner"></div>
+    <p>Loading properties...</p>
+  </div>
+
+  <div *ngIf="error && !loading" class="error-container">
+    <p>{{ error }}</p>
+    <button (click)="loadProperties()" class="retry-btn">Retry</button>
+  </div>
+
+  <div *ngIf="!loading && !error" class="properties-content">
+    <div class="properties-summary">
+      <p>Total Properties: <strong>{{ properties.length }}</strong></p>
+    </div>
+
+    <div *ngIf="properties.length === 0" class="empty-state">
+      <p>No properties found</p>
+    </div>
+
+    <div *ngIf="properties.length > 0" class="properties-table-container">
+      <table class="properties-table">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Location</th>
+            <th>Rent</th>
+            <th>Type</th>
+            <th>Owner</th>
+            <th>Status</th>
+            <th>Requests</th>
+            <th>Created</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let property of properties">
+            <td>{{ property.title }}</td>
+            <td>{{ property.location }}</td>
+            <td>₹{{ property.rent | number }}</td>
+            <td>{{ property.property_type }}</td>
+            <td>
+              <div class="owner-info">
+                <div>{{ property.owner_name }}</div>
+                <div class="owner-email">{{ property.owner_email }}</div>
+              </div>
+            </td>
+            <td>
+              <span class="status-badge" [ngClass]="getStatusBadgeClass(property)">
+                {{ getStatusText(property) }}
+              </span>
+            </td>
+            <td>{{ property.pending_requests }}</td>
+            <td>{{ property.created_at | date:'short' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

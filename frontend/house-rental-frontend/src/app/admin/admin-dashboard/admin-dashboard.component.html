@@ -1,0 +1,93 @@
+<div class="admin-dashboard">
+  <div class="dashboard-header">
+    <h1>Admin Dashboard</h1>
+    <p>System Overview and Statistics</p>
+  </div>
+
+  <div *ngIf="loading" class="loading-container">
+    <div class="spinner"></div>
+    <p>Loading system statistics...</p>
+  </div>
+
+  <div *ngIf="error && !loading" class="error-container">
+    <p>{{ error }}</p>
+    <button (click)="loadSystemStats()" class="retry-btn">Retry</button>
+  </div>
+
+  <div *ngIf="stats && !loading" class="stats-grid">
+    <!-- User Statistics -->
+    <div class="stats-section">
+      <h2>Users</h2>
+      <div class="stats-cards">
+        <div class="stat-card">
+          <div class="stat-number">{{ getUserCount('TENANT') }}</div>
+          <div class="stat-label">Tenants</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">{{ getUserCount('OWNER') }}</div>
+          <div class="stat-label">Owners</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">{{ getUserCount('ADMIN') }}</div>
+          <div class="stat-label">Admins</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Property Statistics -->
+    <div class="stats-section">
+      <h2>Properties</h2>
+      <div class="stats-cards">
+        <div class="stat-card large">
+          <div class="stat-number">{{ stats.properties }}</div>
+          <div class="stat-label">Total Properties</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Booking Statistics -->
+    <div class="stats-section">
+      <h2>Bookings</h2>
+      <div class="stats-cards">
+        <div class="stat-card">
+          <div class="stat-number">{{ stats.bookings.total }}</div>
+          <div class="stat-label">Total Bookings</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">{{ getBookingCount('Pending') }}</div>
+          <div class="stat-label">Pending</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">{{ getBookingCount('Approved') }}</div>
+          <div class="stat-label">Approved</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">{{ getBookingCount('Rejected') }}</div>
+          <div class="stat-label">Rejected</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation Cards -->
+  <div *ngIf="!loading" class="navigation-section">
+    <h2>Manage System</h2>
+    <div class="nav-cards">
+      <a routerLink="/admin/users" class="nav-card">
+        <div class="nav-icon">👥</div>
+        <div class="nav-title">Manage Users</div>
+        <div class="nav-description">View all users in the system</div>
+      </a>
+      <a routerLink="/admin/properties" class="nav-card">
+        <div class="nav-icon">🏠</div>
+        <div class="nav-title">Manage Properties</div>
+        <div class="nav-description">View all properties</div>
+      </a>
+      <a routerLink="/admin/bookings" class="nav-card">
+        <div class="nav-icon">📋</div>
+        <div class="nav-title">Manage Bookings</div>
+        <div class="nav-description">View all booking requests</div>
+      </a>
+    </div>
+  </div>
+</div>

@@ -98,6 +98,9 @@ export class RegisterComponent {
       error: (error) => {
         this.loading = false;
         console.error('Registration error:', error);
+        console.error('Error details:', error.error);
+        console.error('Error status:', error.status);
+        console.error('Error message:', error.message);
         
         let errorMessage = 'An error occurred during registration';
         if (error.error?.message) {

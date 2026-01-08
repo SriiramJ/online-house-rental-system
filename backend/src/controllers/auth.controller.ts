@@ -27,10 +27,10 @@ export const register = async (req: Request, res: Response)=>{
         }
         
         // Validate role
-        if (!['TENANT', 'OWNER'].includes(role)) {
+        if (!['TENANT', 'OWNER', 'ADMIN'].includes(role)) {
             return res.status(400).json({
                 success: false,
-                message: "Role must be either TENANT or OWNER"
+                message: "Role must be TENANT, OWNER, or ADMIN"
             });
         }
         

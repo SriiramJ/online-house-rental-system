@@ -9,6 +9,10 @@ import { MyTenantsComponent } from './owner/owner/my-tenants/my-tenants.componen
 import { MyBookingsComponent } from './tenant/my-bookings/my-bookings.component';
 import { TenantDashboardComponent } from './tenant/tenant-dashboard/tenant-dashboard.component';
 import { TenantBookingsComponent } from './tenant/tenant-bookings/tenant-bookings.component';
+import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
+import { AdminUsersComponent } from './admin/admin-users/admin-users.component';
+import { AdminPropertiesComponent } from './admin/admin-properties/admin-properties.component';
+import { AdminBookingsComponent } from './admin/admin-bookings/admin-bookings.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
@@ -21,6 +25,7 @@ import { ContactComponent } from './public/contact/contact.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LayoutComponent } from './shared/layout/layout.component';
 import { AuthGuard, OwnerGuard, TenantGuard } from './core/guards/auth.guard';
+import { AdminGuard } from './core/guards/admin.guard';
 import { NoAuthGuard } from './core/guards/no-auth.guard';
 
 export const routes: Routes = [
@@ -50,6 +55,12 @@ export const routes: Routes = [
   { path: 'owner/properties', component: MyPropertiesComponent, canActivate: [OwnerGuard] },
   { path: 'owner/booking-requests', component: BookingRequestsComponent, canActivate: [OwnerGuard] },
   { path: 'owner/tenants', component: MyTenantsComponent, canActivate: [OwnerGuard] },
+  
+  // Admin-only routes
+  { path: 'admin/dashboard', component: AdminDashboardComponent, canActivate: [AdminGuard] },
+  { path: 'admin/users', component: AdminUsersComponent, canActivate: [AdminGuard] },
+  { path: 'admin/properties', component: AdminPropertiesComponent, canActivate: [AdminGuard] },
+  { path: 'admin/bookings', component: AdminBookingsComponent, canActivate: [AdminGuard] },
   
   // Nested routes with layout
   {

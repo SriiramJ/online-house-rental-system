@@ -848,3 +848,104 @@
 2026-01-08 13:30:44 [INFO]: User found, checking password for: Sriram2005j@gmail.com
 2026-01-08 13:30:45 [INFO]: Password validation result for Sriram2005j@gmail.com: true
 2026-01-08 13:30:45 [INFO]: Login successful for userId: 33
+2026-01-08 13:52:03 [INFO]: Registration request received: {"name":"Varsha R","email":"chemvarshat22@gmail.com","phone":"9790766986","role":"ADMIN"}
+2026-01-08 13:54:12 [INFO]: Registration request received: {"name":"Varsha R","email":"chemvarshat22@gmail.com","phone":"9790766986","role":"ADMIN"}
+2026-01-08 13:56:35 [INFO]: Registration request received: {"name":"System Admin","email":"admin@rentease.com","phone":"+1234567890","role":"ADMIN"}
+2026-01-08 13:57:31 [INFO]: Login attempt for email: admin@rentease.com
+2026-01-08 13:57:31 [INFO]: Fetching user by email: admin@rentease.com
+2026-01-08 13:57:31 [INFO]: User found, checking password for: admin@rentease.com
+2026-01-08 13:57:31 [INFO]: Password validation result for admin@rentease.com: false
+2026-01-08 13:57:31 [WARN]: Invalid password for email: admin@rentease.com
+2026-01-08 13:57:31 [ERROR]: Login service error for admin@rentease.com: Invalid password
+2026-01-08 13:57:31 [ERROR]: Login failed: Invalid password
+2026-01-08 13:59:51 [INFO]: Login attempt for email: admin@rentease.com
+2026-01-08 13:59:51 [INFO]: Fetching user by email: admin@rentease.com
+2026-01-08 13:59:51 [INFO]: User found, checking password for: admin@rentease.com
+2026-01-08 13:59:51 [INFO]: Password validation result for admin@rentease.com: false
+2026-01-08 13:59:51 [WARN]: Invalid password for email: admin@rentease.com
+2026-01-08 13:59:51 [ERROR]: Login service error for admin@rentease.com: Invalid password
+2026-01-08 13:59:51 [ERROR]: Login failed: Invalid password
+2026-01-08 14:00:54 [INFO]: Login attempt for email: admin@rentease.com
+2026-01-08 14:00:54 [INFO]: Fetching user by email: admin@rentease.com
+2026-01-08 14:00:54 [INFO]: User found, checking password for: admin@rentease.com
+2026-01-08 14:00:55 [INFO]: Password validation result for admin@rentease.com: false
+2026-01-08 14:00:55 [WARN]: Invalid password for email: admin@rentease.com
+2026-01-08 14:00:55 [ERROR]: Login service error for admin@rentease.com: Invalid password
+2026-01-08 14:00:55 [ERROR]: Login failed: Invalid password
+2026-01-08 14:03:11 [INFO]: Login attempt for email: admin@rentease.com
+2026-01-08 14:03:11 [INFO]: Fetching user by email: admin@rentease.com
+2026-01-08 14:03:11 [INFO]: User found, checking password for: admin@rentease.com
+2026-01-08 14:03:11 [INFO]: Password validation result for admin@rentease.com: true
+2026-01-08 14:03:11 [INFO]: Login successful for userId: 35
+2026-01-08 14:06:37 [INFO]: Login attempt for email: admin@rentease.com
+2026-01-08 14:06:37 [INFO]: Fetching user by email: admin@rentease.com
+2026-01-08 14:06:37 [INFO]: User found, checking password for: admin@rentease.com
+2026-01-08 14:06:38 [INFO]: Password validation result for admin@rentease.com: true
+2026-01-08 14:06:38 [INFO]: Login successful for userId: 35
+2026-01-08 14:14:29 [INFO]: MySQL database connected successfully
+2026-01-08 14:14:29 [INFO]: Server running on port 3001
+2026-01-08 14:14:51 [INFO]: Admin stats endpoint called
+2026-01-08 14:14:51 [INFO]: Stats retrieved successfully:
+2026-01-08 14:17:25 [INFO]: Admin stats endpoint called
+2026-01-08 14:17:25 [INFO]: Stats retrieved successfully:
+2026-01-08 14:17:27 [INFO]: Admin stats endpoint called
+2026-01-08 14:17:27 [INFO]: Stats retrieved successfully:
+2026-01-08 14:19:47 [INFO]: Admin stats endpoint called
+2026-01-08 14:19:47 [INFO]: Stats retrieved successfully:
+2026-01-08 14:19:56 [INFO]: Admin stats endpoint called
+2026-01-08 14:19:56 [INFO]: Stats retrieved successfully:
+2026-01-08 14:20:29 [INFO]: Admin stats endpoint called
+2026-01-08 14:20:29 [INFO]: Stats retrieved successfully:
+2026-01-08 14:21:12 [INFO]: Admin stats endpoint called
+2026-01-08 14:21:12 [INFO]: Stats retrieved successfully:
+2026-01-08 14:21:26 [INFO]: Admin stats endpoint called
+2026-01-08 14:21:26 [INFO]: Stats retrieved successfully:
+2026-01-08 14:23:03 [INFO]: Admin stats endpoint called
+2026-01-08 14:23:03 [INFO]: Stats retrieved successfully:
+2026-01-08 14:23:06 [INFO]: Admin stats endpoint called
+2026-01-08 14:23:06 [INFO]: Stats retrieved successfully:
+2026-01-08 14:23:11 [INFO]: Admin stats endpoint called
+2026-01-08 14:23:11 [INFO]: Stats retrieved successfully:
+2026-01-08 14:33:11 [INFO]: Admin stats endpoint called
+2026-01-08 14:33:11 [INFO]: Stats retrieved successfully:
+2026-01-08 14:34:29 [INFO]: Admin stats endpoint called
+2026-01-08 14:34:29 [INFO]: Stats retrieved successfully:
+2026-01-08 14:34:35 [INFO]: Admin stats endpoint called
+2026-01-08 14:34:35 [INFO]: Stats retrieved successfully:
+2026-01-08 14:34:47 [INFO]: Admin stats endpoint called
+2026-01-08 14:34:47 [INFO]: Stats retrieved successfully:
+2026-01-08 14:34:54 [INFO]: Admin stats endpoint called
+2026-01-08 14:34:54 [INFO]: Stats retrieved successfully:
+2026-01-08 14:35:04 [INFO]: Admin stats endpoint called
+2026-01-08 14:35:04 [INFO]: Stats retrieved successfully:
+2026-01-08 14:36:04 [INFO]: Login attempt for email: Sriram2005j@gmail.com
+2026-01-08 14:36:04 [INFO]: Fetching user by email: Sriram2005j@gmail.com
+2026-01-08 14:36:04 [INFO]: User found, checking password for: Sriram2005j@gmail.com
+2026-01-08 14:36:04 [INFO]: Password validation result for Sriram2005j@gmail.com: true
+2026-01-08 14:36:04 [INFO]: Login successful for userId: 33
+2026-01-08 14:37:44 [INFO]: Uploaded 1 property images
+2026-01-08 14:37:46 [INFO]: Property created successfully by user 33
+2026-01-08 14:38:33 [INFO]: Login attempt for email: jothika@gmail.com
+2026-01-08 14:38:33 [INFO]: Fetching user by email: jothika@gmail.com
+2026-01-08 14:38:33 [INFO]: User found, checking password for: jothika@gmail.com
+2026-01-08 14:38:33 [INFO]: Password validation result for jothika@gmail.com: true
+2026-01-08 14:38:33 [INFO]: Login successful for userId: 31
+2026-01-08 14:38:59 [INFO]: Login attempt for email: anu123@gmail.com
+2026-01-08 14:38:59 [INFO]: Fetching user by email: anu123@gmail.com
+2026-01-08 14:38:59 [INFO]: User found, checking password for: anu123@gmail.com
+2026-01-08 14:38:59 [INFO]: Password validation result for anu123@gmail.com: true
+2026-01-08 14:38:59 [INFO]: Login successful for userId: 30
+2026-01-08 14:39:42 [INFO]: Login attempt for email: Sriram2005j@gmail.com
+2026-01-08 14:39:42 [INFO]: Fetching user by email: Sriram2005j@gmail.com
+2026-01-08 14:39:42 [INFO]: User found, checking password for: Sriram2005j@gmail.com
+2026-01-08 14:39:42 [INFO]: Password validation result for Sriram2005j@gmail.com: true
+2026-01-08 14:39:42 [INFO]: Login successful for userId: 33
+2026-01-08 14:40:52 [INFO]: Login attempt for email: admin@rentease.com
+2026-01-08 14:40:52 [INFO]: Fetching user by email: admin@rentease.com
+2026-01-08 14:40:52 [INFO]: User found, checking password for: admin@rentease.com
+2026-01-08 14:40:52 [INFO]: Password validation result for admin@rentease.com: true
+2026-01-08 14:40:52 [INFO]: Login successful for userId: 35
+2026-01-08 14:40:53 [INFO]: Admin stats endpoint called
+2026-01-08 14:40:53 [INFO]: Stats retrieved successfully:
+2026-01-08 14:40:59 [INFO]: Admin stats endpoint called
+2026-01-08 14:40:59 [INFO]: Stats retrieved successfully:

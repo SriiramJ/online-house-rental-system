@@ -35,6 +35,11 @@ app.use("/api", (req, res, next) => {
   next();
 }, routes)
 
+// Test route to verify server is running
+app.get('/api/test', (req, res) => {
+  res.json({ success: true, message: 'Server is running', timestamp: new Date() });
+});
+
 // Error handling middleware
 app.use(errorHandler)
 

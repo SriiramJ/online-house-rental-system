@@ -1,0 +1,77 @@
+<div class="admin-bookings">
+  <div class="page-header">
+    <div class="header-content">
+      <a routerLink="/admin/dashboard" class="back-link">← Back to Dashboard</a>
+      <h1>All Bookings</h1>
+      <p>Manage system bookings</p>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="loading-container">
+    <div class="spinner"></div>
+    <p>Loading bookings...</p>
+  </div>
+
+  <div *ngIf="error && !loading" class="error-container">
+    <p>{{ error }}</p>
+    <button (click)="loadBookings()" class="retry-btn">Retry</button>
+  </div>
+
+  <div *ngIf="!loading && !error" class="bookings-content">
+    <div class="bookings-summary">
+      <p>Total Bookings: <strong>{{ bookings.length }}</strong></p>
+    </div>
+
+    <div *ngIf="bookings.length === 0" class="empty-state">
+      <p>No bookings found</p>
+    </div>
+
+    <div *ngIf="bookings.length > 0" class="bookings-table-container">
+      <table class="bookings-table">
+        <thead>
+          <tr>
+            <th>Property</th>
+            <th>Tenant</th>
+            <th>Owner</th>
+            <th>Rent</th>
+            <th>Status</th>
+            <th>Move-in Date</th>
+            <th>Duration</th>
+            <th>Created</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let booking of bookings">
+            <td>
+              <div class="property-info">
+                <div>{{ booking.property_title }}</div>
+                <div class="property-location">{{ booking.property_location }}</div>
+              </div>
+            </td>
+            <td>
+              <div class="user-info">
+                <div>{{ booking.tenant_name }}</div>
+                <div class="user-email">{{ booking.tenant_email }}</div>
+              </div>
+            </td>
+            <td>
+              <div class="user-info">
+                <div>{{ booking.owner_name }}</div>
+                <div class="user-email">{{ booking.owner_email }}</div>
+              </div>
+            </td>
+            <td>₹{{ booking.property_rent | number }}</td>
+            <td>
+              <span class="status-badge" [ngClass]="getStatusBadgeClass(booking.status)">
+                {{ booking.status }}
+              </span>
+            </td>
+            <td>{{ booking.move_in_date | date:'short' }}</td>
+            <td>{{ booking.lease_duration }}</td>
+            <td>{{ booking.created_at | date:'short' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
